@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>目标达成行动指南 | NIVEX BD 业务流程平台</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .page-header {
+      padding: 60px 0 40px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .page-header .subtitle {
+      font-size: 1.2rem;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .page-header .desc {
+      color: var(--gray-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .content-section {
+      padding: 60px 0;
+    }
+
+    .content-section:nth-child(even) {
+      background: rgba(127, 255, 0, 0.02);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title .icon {
+      font-size: 2rem;
+    }
+
+    /* 核心公式 */
+    .formula-box {
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.15) 0%, rgba(127, 255, 0, 0.05) 100%);
+      border: 2px solid var(--green);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .formula-main {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+
+    .formula-main span {
+      color: var(--green);
+    }
+
+    .formula-desc {
+      color: var(--gray-light);
+      font-size: 1.1rem;
+    }
+
+    /* 目标卡片 */
+    .goal-tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .goal-tab {
+      flex: 1;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 2px solid transparent;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--transition-normal);
+    }
+
+    .goal-tab:hover,
+    .goal-tab.active {
+      border-color: var(--green);
+      background: rgba(127, 255, 0, 0.1);
+    }
+
+    .goal-tab .amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .goal-tab .label {
+      color: var(--gray-light);
+      margin-top: 5px;
+    }
+
+    .goal-content {
+      display: none;
+    }
+
+    .goal-content.active {
+      display: block;
+    }
+
+    /* 拆解表格 */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    .breakdown-table th,
+    .breakdown-table td {
+      padding: 15px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .breakdown-table th {
+      background: var(--bg-card);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .breakdown-table td {
+      color: var(--gray-light);
+    }
+
+    .breakdown-table tr:hover td {
+      background: rgba(127, 255, 0, 0.05);
+    }
+
+    .highlight-row td {
+      background: rgba(127, 255, 0, 0.1) !important;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* 最简路径 */
+    .simple-path {
+      background: var(--bg-card);
+      border-left: 4px solid var(--green);
+      padding: 25px;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      margin-bottom: 30px;
+    }
+
+    .simple-path h4 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .simple-path p {
+      color: var(--gray-light);
+      font-size: 1.1rem;
+    }
+
+    /* 周执行计划 */
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .week-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .week-card::before {
+      content: attr(data-week);
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(127, 255, 0, 0.1);
+    }
+
+    .week-card h4 {
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .week-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .week-card li {
+      color: var(--gray-light);
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .week-card li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+    }
+
+    .week-card .target {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* 漏斗图 */
+    .funnel-container {
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .funnel-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .funnel-bar {
+      height: 50px;
+      background: linear-gradient(90deg, var(--green) 0%, rgba(127, 255, 0, 0.3) 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      transition: all var(--transition-normal);
+    }
+
+    .funnel-step:nth-child(1) .funnel-bar { width: 100%; }
+    .funnel-step:nth-child(2) .funnel-bar { width: 80%; background: linear-gradient(90deg, rgba(127, 255, 0, 0.8) 0%, rgba(127, 255, 0, 0.2) 100%); }
+    .funnel-step:nth-child(3) .funnel-bar { width: 60%; background: linear-gradient(90deg, rgba(127, 255, 0, 0.6) 0%, rgba(127, 255, 0, 0.15) 100%); }
+    .funnel-step:nth-child(4) .funnel-bar { width: 40%; background: linear-gradient(90deg, rgba(127, 255, 0, 0.5) 0%, rgba(127, 255, 0, 0.1) 100%); }
+
+    .funnel-bar span {
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .funnel-rate {
+      margin-left: 15px;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* 获客渠道 */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .channel-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      transition: all var(--transition-normal);
+      border: 1px solid transparent;
+    }
+
+    .channel-card:hover {
+      border-color: var(--green);
+      transform: translateY(-5px);
+    }
+
+    .channel-card .icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .channel-card h4 {
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .channel-card .subtitle {
+      color: var(--green);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .channel-card p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+
+    /* 推广形式表格 */
+    .promo-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+
+    .promo-table th,
+    .promo-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .promo-table th {
+      background: var(--bg-card);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .promo-table td {
+      color: var(--gray-light);
+    }
+
+    .promo-table .form-name {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .promo-table .advantage {
+      color: var(--green);
+    }
+
+    /* 闭环图 */
+    .loop-container {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    .loop-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .loop-step {
+      background: rgba(127, 255, 0, 0.1);
+      border: 1px solid var(--green);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .loop-arrow {
+      color: var(--green);
+      font-size: 1.5rem;
+    }
+
+    .loop-tips {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .loop-tip {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loop-tip h5 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .loop-tip p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+
+    /* 核心原则 */
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .principle-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      border-top: 3px solid var(--green);
+    }
+
+    .principle-card h4 {
+      color: var(--white);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .principle-card h4 .num {
+      background: var(--green);
+      color: var(--bg-dark);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .principle-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .principle-card li {
+      color: var(--gray-light);
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .principle-card li.do {
+      color: var(--green);
+    }
+
+    .principle-card li.dont {
+      color: #ff6b6b;
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    /* 每日清单 */
+    .daily-checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .checklist-box {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+    }
+
+    .checklist-box h4 {
+      color: var(--green);
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .checklist-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist-box li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      color: var(--gray-light);
+    }
+
+    .checklist-box li::before {
+      content: '☐';
+      color: var(--green);
+      font-size: 1.1rem;
+    }
+
+    /* 执行建议 */
+    .execution-tips {
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.1) 0%, rgba(127, 255, 0, 0.02) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+
+    .execution-tips h3 {
+      color: var(--white);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .tip-item {
+      text-align: center;
+    }
+
+    .tip-item .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .tip-item h5 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .tip-item p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 992px) {
+      .week-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .channel-grid,
+      .principle-grid,
+      .loop-tips,
+      .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .goal-tabs {
+        flex-direction: column;
+      }
+      .week-grid,
+      .channel-grid,
+      .principle-grid,
+      .daily-checklist,
+      .loop-tips,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+      .loop-flow {
+        flex-direction: column;
+      }
+      .loop-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <!-- 页面标题 -->
+    <header class="page-header">
+      <div class="container">
+        <h1>
+          <span class="cn-only">目标达成行动指南</span>
+          <span class="vn-only">Hướng dẫn đạt mục tiêu</span>
+        </h1>
+        <p class="subtitle">
+          <span class="cn-only">第一性原理拆解 + 市场扩展方案</span>
+          <span class="vn-only">Phân tích nguyên lý gốc + Kế hoạch mở rộng thị trường</span>
+        </p>
+        <p class="desc">
+          <span class="cn-only">从目标拆解到执行落地，从获客渠道到转化闭环，一套完整的BD月度达成方法论</span>
+          <span class="vn-only">Từ phân tích mục tiêu đến thực hiện, từ kênh thu hút đến chuyển đổi - phương pháp đạt chỉ tiêu tháng hoàn chỉnh</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- 核心公式 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">🎯</span>
+          <span class="cn-only">第一性原理：回归本质</span>
+          <span class="vn-only">Nguyên lý gốc: Về bản chất</span>
+        </h2>
+
+        <div class="formula-box">
+          <div class="formula-main">
+            <span class="cn-only">业绩</span>
+            <span class="vn-only">Doanh số</span>
+            = <span>触达人数</span> × <span>转化率</span> × <span>客单价</span>
+          </div>
+          <p class="formula-desc">
+            <span class="cn-only">倒推逻辑：目标金额 → 需要多少客户？→ 每个客户投多少？→ 需要触达多少人？</span>
+            <span class="vn-only">Logic ngược: Mục tiêu → Cần bao nhiêu KH? → Mỗi KH đầu tư bao nhiêu? → Cần tiếp cận bao nhiêu người?</span>
+          </p>
+        </div>
+
+        <!-- 目标选项卡 -->
+        <div class="goal-tabs">
+          <div class="goal-tab active" onclick="showGoal('goal1')">
+            <div class="amount">$10K</div>
+            <div class="label">
+              <span class="cn-only">入门目标 / 月</span>
+              <span class="vn-only">Mục tiêu khởi đầu / tháng</span>
+            </div>
+          </div>
+          <div class="goal-tab" onclick="showGoal('goal2')">
+            <div class="amount">$100K</div>
+            <div class="label">
+              <span class="cn-only">进阶目标 / 月</span>
+              <span class="vn-only">Mục tiêu nâng cao / tháng</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1万美金目标 -->
+        <div id="goal1" class="goal-content active">
+          <h3 style="color: var(--white); margin-bottom: 20px;">
+            <span class="cn-only">目标一：1 万美金 / 月</span>
+            <span class="vn-only">Mục tiêu 1: $10,000 / tháng</span>
+          </h3>
+
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>
+                  <span class="cn-only">客单价</span>
+                  <span class="vn-only">Giá trị / KH</span>
+                </th>
+                <th>
+                  <span class="cn-only">需要客户数</span>
+                  <span class="vn-only">Số KH cần</span>
+                </th>
+                <th>
+                  <span class="cn-only">日均成交</span>
+                  <span class="vn-only">Chốt / ngày</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$1,000</td>
+                <td>10 人</td>
+                <td>0.33 人/天</td>
+              </tr>
+              <tr>
+                <td>$2,000</td>
+                <td>5 人</td>
+                <td>0.17 人/天</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>$5,000</td>
+                <td>2 人</td>
+                <td>2 人/月</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="simple-path">
+            <h4>
+              <span class="cn-only">✨ 最简路径</span>
+              <span class="vn-only">✨ Con đường đơn giản nhất</span>
+            </h4>
+            <p>
+              <span class="cn-only">找 2 个愿意投 $5,000 的客户，或 5 个投 $2,000 的客户</span>
+              <span class="vn-only">Tìm 2 KH sẵn sàng đầu tư $5,000, hoặc 5 KH đầu tư $2,000</span>
+            </p>
+          </div>
+
+          <h4 style="color: var(--white); margin-bottom: 20px;">
+            <span class="cn-only">📅 四周执行计划</span>
+            <span class="vn-only">📅 Kế hoạch 4 tuần</span>
+          </h4>
+
+          <div class="week-grid">
+            <div class="week-card" data-week="1">
+              <h4>
+                <span class="cn-only">第一周：盘点存量</span>
+                <span class="vn-only">Tuần 1: Kiểm kê</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">列出所有认识的人</span>
+                  <span class="vn-only">Liệt kê tất cả người quen</span>
+                </li>
+                <li>
+                  <span class="cn-only">筛选出 20 个有投资能力的</span>
+                  <span class="vn-only">Lọc ra 20 người có khả năng đầu tư</span>
+                </li>
+                <li>
+                  <span class="cn-only">一对一私聊，了解现状和需求</span>
+                  <span class="vn-only">Trò chuyện 1-1, tìm hiểu nhu cầu</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="week-card" data-week="2">
+              <h4>
+                <span class="cn-only">第二周：精准邀约</span>
+                <span class="vn-only">Tuần 2: Mời chính xác</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">从 20 人中筛出 10 个有意向的</span>
+                  <span class="vn-only">Lọc 10 người quan tâm từ 20 người</span>
+                </li>
+                <li>
+                  <span class="cn-only">安排线上 1v1</span>
+                  <span class="vn-only">Sắp xếp gọi 1v1 online</span>
+                </li>
+                <li>
+                  <span class="cn-only">或小型咖啡交流</span>
+                  <span class="vn-only">Hoặc gặp cà phê nhỏ</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="week-card" data-week="3">
+              <h4>
+                <span class="cn-only">第三周：推动成交</span>
+                <span class="vn-only">Tuần 3: Thúc đẩy chốt</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">针对意向客户</span>
+                  <span class="vn-only">Tập trung KH tiềm năng</span>
+                </li>
+                <li>
+                  <span class="cn-only">解决顾虑，促成决策</span>
+                  <span class="vn-only">Giải quyết lo ngại, chốt quyết định</span>
+                </li>
+              </ul>
+              <div class="target">
+                <span class="cn-only">🎯 目标：成交 3-5 人</span>
+                <span class="vn-only">🎯 Mục tiêu: Chốt 3-5 người</span>
+              </div>
+            </div>
+
+            <div class="week-card" data-week="4">
+              <h4>
+                <span class="cn-only">第四周：收尾 + 转介绍</span>
+                <span class="vn-only">Tuần 4: Kết thúc + Giới thiệu</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">跟进未成交客户</span>
+                  <span class="vn-only">Theo dõi KH chưa chốt</span>
+                </li>
+                <li>
+                  <span class="cn-only">已成交客户要求转介绍 1-2 人</span>
+                  <span class="vn-only">Xin KH đã chốt giới thiệu 1-2 người</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10万美金目标 -->
+        <div id="goal2" class="goal-content">
+          <h3 style="color: var(--white); margin-bottom: 20px;">
+            <span class="cn-only">目标二：10 万美金 / 月</span>
+            <span class="vn-only">Mục tiêu 2: $100,000 / tháng</span>
+          </h3>
+
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>
+                  <span class="cn-only">客单价</span>
+                  <span class="vn-only">Giá trị / KH</span>
+                </th>
+                <th>
+                  <span class="cn-only">需要客户数</span>
+                  <span class="vn-only">Số KH cần</span>
+                </th>
+                <th>
+                  <span class="cn-only">日均成交</span>
+                  <span class="vn-only">Chốt / ngày</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$5,000</td>
+                <td>20 人</td>
+                <td>0.67 人/天</td>
+              </tr>
+              <tr>
+                <td>$10,000</td>
+                <td>10 人</td>
+                <td>0.33 人/天</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>$20,000</td>
+                <td>5 人</td>
+                <td>5 人/月</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="simple-path">
+            <h4>
+              <span class="cn-only">⚠️ 关键认知</span>
+              <span class="vn-only">⚠️ Nhận thức quan trọng</span>
+            </h4>
+            <p>
+              <span class="cn-only">单靠一对一不够，必须批量触达！需要系统化漏斗，不能只靠人力</span>
+              <span class="vn-only">Chỉ 1-1 không đủ, phải tiếp cận hàng loạt! Cần hệ thống hóa phễu, không thể chỉ dựa vào nhân lực</span>
+            </p>
+          </div>
+
+          <h4 style="color: var(--white); margin-bottom: 20px;">
+            <span class="cn-only">📊 漏斗设计</span>
+            <span class="vn-only">📊 Thiết kế phễu</span>
+          </h4>
+
+          <div class="funnel-container">
+            <div class="funnel-step">
+              <div class="funnel-bar">
+                <span>
+                  <span class="cn-only">触达 200 人</span>
+                  <span class="vn-only">Tiếp cận 200 người</span>
+                </span>
+              </div>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar">
+                <span>
+                  <span class="cn-only">意向 40 人</span>
+                  <span class="vn-only">Quan tâm 40 người</span>
+                </span>
+              </div>
+              <span class="funnel-rate">20%</span>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar">
+                <span>
+                  <span class="cn-only">深度沟通 20 人</span>
+                  <span class="vn-only">Trao đổi sâu 20 người</span>
+                </span>
+              </div>
+              <span class="funnel-rate">50%</span>
+            </div>
+            <div class="funnel-step">
+              <div class="funnel-bar">
+                <span>
+                  <span class="cn-only">成交 10 人</span>
+                  <span class="vn-only">Chốt 10 người</span>
+                </span>
+              </div>
+              <span class="funnel-rate">50%</span>
+            </div>
+          </div>
+
+          <h4 style="color: var(--white); margin-bottom: 20px;">
+            <span class="cn-only">📅 四周执行计划</span>
+            <span class="vn-only">📅 Kế hoạch 4 tuần</span>
+          </h4>
+
+          <div class="week-grid">
+            <div class="week-card" data-week="1">
+              <h4>
+                <span class="cn-only">第一周：公域引流 + 存量激活</span>
+                <span class="vn-only">Tuần 1: Thu hút + Kích hoạt</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">公域平台内容发布</span>
+                  <span class="vn-only">Đăng nội dung trên nền tảng</span>
+                </li>
+                <li>
+                  <span class="cn-only">存量好友批量私聊</span>
+                  <span class="vn-only">Nhắn tin hàng loạt bạn bè</span>
+                </li>
+              </ul>
+              <div class="target">
+                <span class="cn-only">🎯 触达 80 人，筛出 15 个意向</span>
+                <span class="vn-only">🎯 Tiếp cận 80, lọc 15 quan tâm</span>
+              </div>
+            </div>
+
+            <div class="week-card" data-week="2">
+              <h4>
+                <span class="cn-only">第二周：线上 Zoom 会议</span>
+                <span class="vn-only">Tuần 2: Họp Zoom online</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">举办 1 场线上会议</span>
+                  <span class="vn-only">Tổ chức 1 buổi họp online</span>
+                </li>
+                <li>
+                  <span class="cn-only">到场 30 人</span>
+                  <span class="vn-only">Tham dự 30 người</span>
+                </li>
+              </ul>
+              <div class="target">
+                <span class="cn-only">🎯 转化 5 人深度沟通</span>
+                <span class="vn-only">🎯 Chuyển đổi 5 người trao đổi sâu</span>
+              </div>
+            </div>
+
+            <div class="week-card" data-week="3">
+              <h4>
+                <span class="cn-only">第三周：线下沙龙/咖啡会</span>
+                <span class="vn-only">Tuần 3: Sự kiện offline</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">举办 1-2 场线下活动</span>
+                  <span class="vn-only">Tổ chức 1-2 sự kiện offline</span>
+                </li>
+                <li>
+                  <span class="cn-only">到场 20 人</span>
+                  <span class="vn-only">Tham dự 20 người</span>
+                </li>
+              </ul>
+              <div class="target">
+                <span class="cn-only">🎯 成交 3-5 人</span>
+                <span class="vn-only">🎯 Chốt 3-5 người</span>
+              </div>
+            </div>
+
+            <div class="week-card" data-week="4">
+              <h4>
+                <span class="cn-only">第四周：收网 + 转介绍</span>
+                <span class="vn-only">Tuần 4: Thu hoạch + Giới thiệu</span>
+              </h4>
+              <ul>
+                <li>
+                  <span class="cn-only">推动所有意向客户成交</span>
+                  <span class="vn-only">Thúc đẩy tất cả KH tiềm năng chốt</span>
+                </li>
+                <li>
+                  <span class="cn-only">每个客户带 1 人</span>
+                  <span class="vn-only">Mỗi KH giới thiệu 1 người</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三大获客渠道 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">📣</span>
+          <span class="cn-only">三大获客渠道</span>
+          <span class="vn-only">3 kênh thu hút khách hàng</span>
+        </h2>
+
+        <div class="channel-grid">
+          <div class="channel-card">
+            <div class="icon">👥</div>
+            <h4>
+              <span class="cn-only">社交好友</span>
+              <span class="vn-only">Bạn bè MXH</span>
+            </h4>
+            <p class="subtitle">
+              <span class="cn-only">存量激活</span>
+              <span class="vn-only">Kích hoạt người quen</span>
+            </p>
+            <p>
+              <span class="cn-only">Zalo/微信直接触达已有人脉<br>核心动作：一对一私聊，筛选意向，邀约深度沟通</span>
+              <span class="vn-only">Zalo/WeChat tiếp cận trực tiếp<br>Hành động: Nhắn 1-1, lọc quan tâm, mời trao đổi sâu</span>
+            </p>
+          </div>
+
+          <div class="channel-card">
+            <div class="icon">📱</div>
+            <h4>
+              <span class="cn-only">平台推广</span>
+              <span class="vn-only">Quảng bá nền tảng</span>
+            </h4>
+            <p class="subtitle">
+              <span class="cn-only">公域引流</span>
+              <span class="vn-only">Thu hút từ public</span>
+            </p>
+            <p>
+              <span class="cn-only"><strong>Facebook</strong>：内容种草 + 社群运营<br><strong>TikTok</strong>：短视频获取泛流量<br><strong>Telegram</strong>：精准社群沉淀 + 转化</span>
+              <span class="vn-only"><strong>Facebook</strong>: Nội dung + Cộng đồng<br><strong>TikTok</strong>: Video ngắn thu hút<br><strong>Telegram</strong>: Cộng đồng chính xác + Chuyển đổi</span>
+            </p>
+          </div>
+
+          <div class="channel-card">
+            <div class="icon">🤝</div>
+            <h4>
+              <span class="cn-only">线下活动</span>
+              <span class="vn-only">Sự kiện offline</span>
+            </h4>
+            <p class="subtitle">
+              <span class="cn-only">信任加速</span>
+              <span class="vn-only">Tăng tốc niềm tin</span>
+            </p>
+            <p>
+              <span class="cn-only">行业沙龙结识高净值人脉<br>面对面建立信任<br>转化率最高！</span>
+              <span class="vn-only">Sự kiện ngành gặp gỡ người có giá trị cao<br>Gặp mặt trực tiếp xây dựng tin tưởng<br>Tỷ lệ chuyển đổi cao nhất!</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三种推广形式 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">📋</span>
+          <span class="cn-only">三种高效推广形式</span>
+          <span class="vn-only">3 hình thức quảng bá hiệu quả</span>
+        </h2>
+
+        <table class="promo-table">
+          <thead>
+            <tr>
+              <th>
+                <span class="cn-only">形式</span>
+                <span class="vn-only">Hình thức</span>
+              </th>
+              <th>
+                <span class="cn-only">优势</span>
+                <span class="vn-only">Ưu điểm</span>
+              </th>
+              <th>
+                <span class="cn-only">适用场景</span>
+                <span class="vn-only">Tình huống phù hợp</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="form-name">
+                <span class="cn-only">线下沙龙</span>
+                <span class="vn-only">Sự kiện offline</span>
+              </td>
+              <td class="advantage">
+                <span class="cn-only">信任感强、转化率高</span>
+                <span class="vn-only">Độ tin cậy cao, tỷ lệ chuyển đổi cao</span>
+              </td>
+              <td>
+                <span class="cn-only">重点城市、大客户攻坚</span>
+                <span class="vn-only">Thành phố trọng điểm, KH lớn</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="form-name">
+                <span class="cn-only">线上 Zoom 会议</span>
+                <span class="vn-only">Họp Zoom online</span>
+              </td>
+              <td class="advantage">
+                <span class="cn-only">成本低、覆盖广</span>
+                <span class="vn-only">Chi phí thấp, phạm vi rộng</span>
+              </td>
+              <td>
+                <span class="cn-only">日常触达、跨地域客户</span>
+                <span class="vn-only">Tiếp cận hàng ngày, KH xa</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="form-name">
+                <span class="cn-only">小型咖啡厅交流会</span>
+                <span class="vn-only">Gặp gỡ quán cà phê</span>
+              </td>
+              <td class="advantage">
+                <span class="cn-only">灵活机动、氛围轻松</span>
+                <span class="vn-only">Linh hoạt, không khí thoải mái</span>
+              </td>
+              <td>
+                <span class="cn-only">各地巡回、精准小圈层</span>
+                <span class="vn-only">Lưu động các nơi, nhóm nhỏ chính xác</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 动态扩展闭环 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">🔄</span>
+          <span class="cn-only">动态扩展闭环</span>
+          <span class="vn-only">Vòng lặp mở rộng động</span>
+        </h2>
+
+        <div class="loop-container">
+          <div class="loop-flow">
+            <div class="loop-step">
+              <span class="cn-only">公域引流</span>
+              <span class="vn-only">Thu hút public</span>
+            </div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step">
+              <span class="cn-only">私域沉淀</span>
+              <span class="vn-only">Lắng đọng private</span>
+            </div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step">
+              <span class="cn-only">线上触达</span>
+              <span class="vn-only">Tiếp cận online</span>
+            </div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step">
+              <span class="cn-only">线下转化</span>
+              <span class="vn-only">Chuyển đổi offline</span>
+            </div>
+            <span class="loop-arrow">→</span>
+            <div class="loop-step">
+              <span class="cn-only">转介绍裂变</span>
+              <span class="vn-only">Lan truyền giới thiệu</span>
+            </div>
+            <span class="loop-arrow">↻</span>
+          </div>
+
+          <div class="loop-tips">
+            <div class="loop-tip">
+              <h5>
+                <span class="cn-only">线上做量</span>
+                <span class="vn-only">Online làm lượng</span>
+              </h5>
+              <p>
+                <span class="cn-only">持续输出内容<br>扩大漏斗入口</span>
+                <span class="vn-only">Liên tục tạo nội dung<br>Mở rộng đầu phễu</span>
+              </p>
+            </div>
+            <div class="loop-tip">
+              <h5>
+                <span class="cn-only">线下做质</span>
+                <span class="vn-only">Offline làm chất</span>
+              </h5>
+              <p>
+                <span class="cn-only">面对面建立<br>深度信任</span>
+                <span class="vn-only">Gặp mặt trực tiếp<br>Xây dựng niềm tin sâu</span>
+              </p>
+            </div>
+            <div class="loop-tip">
+              <h5>
+                <span class="cn-only">转介绍做复利</span>
+                <span class="vn-only">Giới thiệu làm lãi kép</span>
+              </h5>
+              <p>
+                <span class="cn-only">服务好每一个客户<br>让客户带客户</span>
+                <span class="vn-only">Phục vụ tốt mỗi KH<br>Để KH mang KH</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心执行原则 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">⚡</span>
+          <span class="cn-only">核心执行原则（第一性原理应用）</span>
+          <span class="vn-only">Nguyên tắc thực hiện cốt lõi</span>
+        </h2>
+
+        <div class="principle-grid">
+          <div class="principle-card">
+            <h4>
+              <span class="num">1</span>
+              <span class="cn-only">砍掉无效动作</span>
+              <span class="vn-only">Loại bỏ hành động vô ích</span>
+            </h4>
+            <ul>
+              <li class="dont">
+                <span class="cn-only">群发广告</span>
+                <span class="vn-only">Spam quảng cáo</span>
+              </li>
+              <li class="do">
+                <span class="cn-only">→ 精准私聊</span>
+                <span class="vn-only">→ Nhắn chính xác</span>
+              </li>
+              <li class="dont">
+                <span class="cn-only">泛泛介绍</span>
+                <span class="vn-only">Giới thiệu chung chung</span>
+              </li>
+              <li class="do">
+                <span class="cn-only">→ 针对痛点沟通</span>
+                <span class="vn-only">→ Nói về pain point</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="principle-card">
+            <h4>
+              <span class="num">2</span>
+              <span class="cn-only">10 倍思维反推</span>
+              <span class="vn-only">Tư duy 10x ngược</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="cn-only">1 万目标：只需 2-5 个精准客户</span>
+                <span class="vn-only">$10K: Chỉ cần 2-5 KH chính xác</span>
+              </li>
+              <li>
+                <span class="cn-only">10 万目标：需要系统化漏斗</span>
+                <span class="vn-only">$100K: Cần hệ thống hóa phễu</span>
+              </li>
+              <li>
+                <span class="cn-only">不能只靠人力</span>
+                <span class="vn-only">Không thể chỉ dựa nhân lực</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="principle-card">
+            <h4>
+              <span class="num">3</span>
+              <span class="cn-only">快速迭代</span>
+              <span class="vn-only">Lặp lại nhanh</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="cn-only">第一周测试话术，看哪句有效</span>
+                <span class="vn-only">Tuần 1 test kịch bản, xem câu nào hiệu quả</span>
+              </li>
+              <li>
+                <span class="cn-only">第二周优化，只用有效的</span>
+                <span class="vn-only">Tuần 2 tối ưu, chỉ dùng cái hiệu quả</span>
+              </li>
+              <li>
+                <span class="cn-only">每周复盘，砍掉没用的动作</span>
+                <span class="vn-only">Mỗi tuần review, bỏ hành động vô ích</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 每日最小行动清单 -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="icon">✅</span>
+          <span class="cn-only">每日最小行动清单</span>
+          <span class="vn-only">Checklist hành động tối thiểu hàng ngày</span>
+        </h2>
+
+        <div class="daily-checklist">
+          <div class="checklist-box">
+            <h4>
+              <span class="cn-only">1 万目标（个人执行）</span>
+              <span class="vn-only">$10K (Cá nhân thực hiện)</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="cn-only">每天私聊 3-5 个存量好友</span>
+                <span class="vn-only">Mỗi ngày nhắn 3-5 người quen</span>
+              </li>
+              <li>
+                <span class="cn-only">每天至少 1 个深度电话/视频</span>
+                <span class="vn-only">Mỗi ngày ít nhất 1 cuộc gọi/video sâu</span>
+              </li>
+              <li>
+                <span class="cn-only">每周 1 次小型咖啡交流</span>
+                <span class="vn-only">Mỗi tuần 1 buổi gặp cà phê nhỏ</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="checklist-box">
+            <h4>
+              <span class="cn-only">10 万目标（团队执行）</span>
+              <span class="vn-only">$100K (Đội nhóm thực hiện)</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="cn-only">每天全员触达 20+ 新人</span>
+                <span class="vn-only">Mỗi ngày cả đội tiếp cận 20+ người mới</span>
+              </li>
+              <li>
+                <span class="cn-only">每周 3 场线上会议</span>
+                <span class="vn-only">Mỗi tuần 3 buổi họp online</span>
+              </li>
+              <li>
+                <span class="cn-only">每周 3 场线下活动</span>
+                <span class="vn-only">Mỗi tuần 3 sự kiện offline</span>
+              </li>
+              <li>
+                <span class="cn-only">每周复盘转化率，优化动作</span>
+                <span class="vn-only">Mỗi tuần review tỷ lệ, tối ưu hành động</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 执行建议 -->
+    <section class="content-section">
+      <div class="container">
+        <div class="execution-tips">
+          <h3>
+            <span class="cn-only">📌 执行建议</span>
+            <span class="vn-only">📌 Gợi ý thực hiện</span>
+          </h3>
+
+          <div class="tips-grid">
+            <div class="tip-item">
+              <div class="icon">📅</div>
+              <h5>
+                <span class="cn-only">固定节奏</span>
+                <span class="vn-only">Nhịp độ cố định</span>
+              </h5>
+              <p>
+                <span class="cn-only">每周至少 1 场线上会议<br>每月 2 场线下活动</span>
+                <span class="vn-only">Mỗi tuần ít nhất 1 buổi online<br>Mỗi tháng 2 sự kiện offline</span>
+              </p>
+            </div>
+
+            <div class="tip-item">
+              <div class="icon">🗺️</div>
+              <h5>
+                <span class="cn-only">城市巡回</span>
+                <span class="vn-only">Lưu động thành phố</span>
+              </h5>
+              <p>
+                <span class="cn-only">按业绩潜力排优先级<br>集中资源打透重点城市</span>
+                <span class="vn-only">Sắp xếp theo tiềm năng doanh số<br>Tập trung nguồn lực vào TP trọng điểm</span>
+              </p>
+            </div>
+
+            <div class="tip-item">
+              <div class="icon">📋</div>
+              <h5>
+                <span class="cn-only">标准化流程</span>
+                <span class="vn-only">Quy trình chuẩn hóa</span>
+              </h5>
+              <p>
+                <span class="cn-only">沙龙 SOP、邀约话术、跟进动作<br>全部模板化，让每个 BD 直接复制执行</span>
+                <span class="vn-only">SOP sự kiện, kịch bản mời, hành động theo dõi<br>Tất cả mẫu hóa để BD sao chép thực hiện</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // 目标选项卡切换
+    function showGoal(goalId) {
+      // 移除所有激活状态
+      document.querySelectorAll('.goal-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.goal-content').forEach(content => content.classList.remove('active'));
+
+      // 激活选中的
+      document.getElementById(goalId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

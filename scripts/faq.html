@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户常见问题 FAQ | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .faq-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 30px 0;
+      position: sticky;
+      top: 70px;
+      background: var(--bg);
+      padding: 15px 0;
+      z-index: 10;
+    }
+    .faq-tab {
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 25px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    .faq-tab:hover, .faq-tab.active {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+    .faq-section {
+      margin-bottom: 50px;
+      scroll-margin-top: 150px;
+    }
+    .section-header {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15), rgba(127,255,0,0.05));
+      padding: 25px 30px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .section-icon {
+      font-size: 2.5rem;
+    }
+    .section-header h2 {
+      color: var(--green);
+      font-size: 1.4rem;
+      margin-bottom: 5px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .faq-item:hover {
+      border-color: rgba(127,255,0,0.3);
+    }
+    .faq-question {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+    .faq-question h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 0;
+    }
+    .faq-question .toggle {
+      color: var(--green);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .faq-item.active .toggle {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 1000px;
+    }
+    .faq-answer-content {
+      padding: 0 25px 25px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+    }
+    .faq-answer-content p {
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    .faq-answer-content p:last-child {
+      margin-bottom: 0;
+    }
+    .highlight-text {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .key-box {
+      background: rgba(127,255,0,0.1);
+      border-left: 4px solid var(--green);
+      padding: 15px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 15px 0;
+    }
+    .key-box strong {
+      color: var(--green);
+    }
+    .faq-answer-content ul {
+      padding-left: 20px;
+      line-height: 2;
+    }
+    .number-tag {
+      background: var(--green);
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-right: 10px;
+    }
+    @media (max-width: 768px) {
+      .faq-nav {
+        gap: 8px;
+      }
+      .faq-tab {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+      .faq-question h3 {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">客户常见问题 FAQ</span>
+          <span class="vn-only">Câu hỏi thường gặp</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">15 个高频问题，帮你专业回答客户疑虑</span>
+          <span class="vn-only">15 câu hỏi thường gặp, giúp bạn trả lời chuyên nghiệp</span>
+        </p>
+      </div>
+
+      <!-- 导航 -->
+      <div class="faq-nav">
+        <a href="#verification" class="faq-tab active"><span class="cn-only">真实性验证</span><span class="vn-only">Xác minh</span></a>
+        <a href="#strategy" class="faq-tab"><span class="cn-only">策略调整</span><span class="vn-only">Chiến lược</span></a>
+        <a href="#risk" class="faq-tab"><span class="cn-only">风控机制</span><span class="vn-only">Kiểm soát rủi ro</span></a>
+        <a href="#data" class="faq-tab"><span class="cn-only">数据来源</span><span class="vn-only">Nguồn dữ liệu</span></a>
+        <a href="#operation" class="faq-tab"><span class="cn-only">操作问题</span><span class="vn-only">Vận hành</span></a>
+        <a href="#security" class="faq-tab"><span class="cn-only">安全机制</span><span class="vn-only">Bảo mật</span></a>
+      </div>
+
+      <!-- 真实性验证 -->
+      <section class="faq-section" id="verification">
+        <div class="section-header">
+          <div class="section-icon">🔍</div>
+          <div>
+            <h2><span class="cn-only">真实性验证</span><span class="vn-only">Xác minh tính xác thực</span></h2>
+            <p><span class="cn-only">AI 交易是否真实？如何验证？</span><span class="vn-only">Giao dịch AI có thật không? Làm sao xác minh?</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q1</span><span class="cn-only">如何确认 AI 交易机器人正在进行真实交易而非仅显示模拟数据？</span><span class="vn-only">Làm sao xác nhận AI đang giao dịch thực, không phải dữ liệu mô phỏng?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">Nivex 的 AI 交易系统并非展示模拟数据，而是<span class="highlight-text">真实执行在对接的交易所账户上</span>。</p>
+              <p class="vn-only">Hệ thống AI của Nivex không hiển thị dữ liệu mô phỏng, mà <span class="highlight-text">thực thi thực trên tài khoản sàn giao dịch</span>.</p>
+              <ul>
+                <li class="cn-only">您的钱一直在您自己的交易所账户中</li>
+                <li class="vn-only">Tiền của bạn luôn ở trong tài khoản sàn của bạn</li>
+                <li class="cn-only">AI 只是通过授权接口执行买卖动作，平台无法伪造</li>
+                <li class="vn-only">AI chỉ thực hiện mua bán qua giao diện được ủy quyền</li>
+                <li class="cn-only">您随时都能在交易所账户验证订单、盈亏记录，与系统完全一致</li>
+                <li class="vn-only">Bạn có thể xác minh đơn hàng, lịch sử lãi lỗ trên sàn bất cứ lúc nào</li>
+              </ul>
+              <div class="key-box">
+                <strong class="cn-only">结论：</strong><strong class="vn-only">Kết luận:</strong>
+                <span class="cn-only">Nivex 没有造假的空间，AI 交易是 100% 实盘、可验证的。</span>
+                <span class="vn-only">Nivex không có không gian làm giả, giao dịch AI 100% thực, có thể xác minh.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q2</span><span class="cn-only">AI 交易数据是否记录在区块链上供用户验证？</span><span class="vn-only">Dữ liệu giao dịch AI có được ghi trên blockchain không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">目前所有的交易所都是属于中心化的，不存在上链这么一说，包括所有的大交易所都不存在会提供审计追踪供用户去验证。</p>
+              <p class="vn-only">Hiện tại tất cả các sàn đều là sàn tập trung, không có khái niệm ghi lên chain.</p>
+              <p class="cn-only">您可以放心：</p>
+              <ul>
+                <li class="cn-only">Nivex 的每一笔交易记录都来自交易所的真实订单接口</li>
+                <li class="vn-only">Mỗi giao dịch đều đến từ giao diện đơn hàng thực của sàn</li>
+                <li class="cn-only">AI 只是调用您授权的交易所跟单来执行操作</li>
+                <li class="vn-only">AI chỉ gọi theo dõi sàn được ủy quyền để thực hiện</li>
+                <li class="cn-only">每笔交易都有编号、时间和价格，可以随时在交易所账户上实时查到</li>
+                <li class="vn-only">Mỗi giao dịch có mã số, thời gian và giá, có thể kiểm tra thời gian thực</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 策略调整 -->
+      <section class="faq-section" id="strategy">
+        <div class="section-header">
+          <div class="section-icon">🎯</div>
+          <div>
+            <h2><span class="cn-only">策略调整</span><span class="vn-only">Điều chỉnh chiến lược</span></h2>
+            <p><span class="cn-only">AI 如何根据市场变化调整策略？</span><span class="vn-only">AI điều chỉnh chiến lược theo thị trường như thế nào?</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q3</span><span class="cn-only">机器人是否会根据市场不同阶段（横盘、上涨、下跌）调整交易策略？</span><span class="vn-only">Robot có điều chỉnh chiến lược theo các giai đoạn thị trường khác nhau không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only"><span class="highlight-text">是的</span>，Nivex 的 AI 会根据大模型算法，来实时监控市场不同阶段的变化。</p>
+              <p class="vn-only"><span class="highlight-text">Có</span>, AI của Nivex giám sát thời gian thực các giai đoạn thị trường khác nhau.</p>
+              <p class="cn-only">不管是横盘、上涨、下跌，大模型AI算法会自动化调整自身的交易策略与风控管理。</p>
+              <p class="vn-only">Dù là sideway, tăng hay giảm, AI tự động điều chỉnh chiến lược và quản lý rủi ro.</p>
+              <div class="key-box">
+                <span class="cn-only">所有策略切换均由 AI 模型自动完成，不受人工干预，确保交易安全、稳定、长久、透明。</span>
+                <span class="vn-only">Tất cả chuyển đổi chiến lược đều tự động, không có can thiệp thủ công.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q4</span><span class="cn-only">AITrade 是否像其他平台一样允许用户自定义风险等级？</span><span class="vn-only">AITrade có cho phép người dùng tùy chỉnh mức rủi ro không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">很多平台让用户自己选风险等级，但其实很多人并不了解市场波动有多快。</p>
+              <p class="vn-only">Nhiều nền tảng cho người dùng tự chọn mức rủi ro, nhưng nhiều người không hiểu thị trường biến động nhanh như thế nào.</p>
+              <p class="cn-only">Nivex 的 AI 更聪明一些——它会<span class="highlight-text">根据行情自动切换风险强度</span>：</p>
+              <ul>
+                <li class="cn-only">市场稳定时，稍微积极一点</li>
+                <li class="vn-only">Khi thị trường ổn định, hơi tích cực hơn</li>
+                <li class="cn-only">市场波动大时，马上收紧仓位、降风险</li>
+                <li class="vn-only">Khi thị trường biến động mạnh, siết chặt vị thế, giảm rủi ro</li>
+                <li class="cn-only">出现突发行情时，还会自动开启防御模式</li>
+                <li class="vn-only">Khi có tình huống đột xuất, tự động bật chế độ phòng thủ</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only"><strong>用户不需要选风险等级，AI 已经在后台自动评估并动态调整。</strong></span>
+                <span class="vn-only"><strong>Người dùng không cần chọn mức rủi ro, AI đã tự động đánh giá và điều chỉnh.</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q5</span><span class="cn-only">AI 做出交易决策时，哪个因素权重最高——市场趋势、交易量还是波动率指数？</span><span class="vn-only">Khi AI ra quyết định, yếu tố nào có trọng số cao nhất?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">其实 Nivex 的 AI 不是只看一个指标，而是把「趋势、波动、成交量」都考虑在内。简单来说：</p>
+              <p class="vn-only">Thực ra AI của Nivex không chỉ xem một chỉ số, mà kết hợp xu hướng, biến động, khối lượng:</p>
+              <ul>
+                <li class="cn-only"><span class="highlight-text">趋势是方向盘</span> — 决定走哪边</li>
+                <li class="vn-only"><span class="highlight-text">Xu hướng là vô lăng</span> — quyết định hướng đi</li>
+                <li class="cn-only"><span class="highlight-text">波动率是刹车</span> — 决定开多快、风险多大</li>
+                <li class="vn-only"><span class="highlight-text">Biến động là phanh</span> — quyết định tốc độ, rủi ro</li>
+                <li class="cn-only"><span class="highlight-text">交易量是油门</span> — 决定是否真的有动能去启动行情</li>
+                <li class="vn-only"><span class="highlight-text">Khối lượng là ga</span> — quyết định có động lực thực sự không</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">三者一起用，但其中<strong>最核心的是趋势判断</strong>，AI 会先确定方向，再用波动率控制仓位，最后通过成交量确认信号。</span>
+                <span class="vn-only">Ba yếu tố dùng cùng nhau, nhưng <strong>xu hướng là cốt lõi nhất</strong>.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 风控机制 -->
+      <section class="faq-section" id="risk">
+        <div class="section-header">
+          <div class="section-icon">🛡️</div>
+          <div>
+            <h2><span class="cn-only">风控机制</span><span class="vn-only">Cơ chế kiểm soát rủi ro</span></h2>
+            <p><span class="cn-only">AI 如何保护资金安全？</span><span class="vn-only">AI bảo vệ tiền như thế nào?</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q6</span><span class="cn-only">若市场出现剧烈波动，AI 是否设有止损机制以保护资金安全？</span><span class="vn-only">Khi thị trường biến động mạnh, AI có cơ chế cắt lỗ không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">这个机制正是 Nivex AI 的<span class="highlight-text">核心优势之一</span>。AI 不仅仅是帮您赚钱，更重要的是在行情剧烈波动时保护本金：</p>
+              <ul>
+                <li class="cn-only">当市场波动过大时，系统会立刻<span class="highlight-text">启动自动止损</span>，防止亏损扩大</li>
+                <li class="vn-only">Khi thị trường biến động mạnh, hệ thống <span class="highlight-text">kích hoạt cắt lỗ tự động</span></li>
+                <li class="cn-only">若波动持续，AI 会<span class="highlight-text">自动降低仓位或暂停交易</span>，等待市场恢复稳定</li>
+                <li class="vn-only">Nếu biến động tiếp tục, AI <span class="highlight-text">giảm vị thế hoặc tạm dừng giao dịch</span></li>
+                <li class="cn-only">在极端行情（黑天鹅事件）中，还会启动<span class="highlight-text">安全模式</span>，优先保护资金安全</li>
+                <li class="vn-only">Trong tình huống cực đoan, bật <span class="highlight-text">chế độ an toàn</span></li>
+              </ul>
+              <div class="key-box">
+                <strong class="cn-only">简单说，AI 不仅懂"进攻"，也懂"防守"。</strong>
+                <strong class="vn-only">Nói đơn giản, AI không chỉ biết "tấn công", còn biết "phòng thủ".</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q7</span><span class="cn-only">BOT 是否集成动态仓位管理策略，还是对每笔交易仍采用固定比例？</span><span class="vn-only">BOT có quản lý vị thế động hay dùng tỷ lệ cố định?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">AI 不是死板地每次用同样的仓位去下单。它会根据<span class="highlight-text">行情变化自动调整仓位大小</span>：</p>
+              <ul>
+                <li class="cn-only">市场波动大、风险高时 → <strong>自动减仓</strong></li>
+                <li class="vn-only">Thị trường biến động mạnh → <strong>Tự động giảm vị thế</strong></li>
+                <li class="cn-only">市场稳定、趋势明确时 → <strong>适度加仓</strong></li>
+                <li class="vn-only">Thị trường ổn định → <strong>Tăng vị thế vừa phải</strong></li>
+                <li class="cn-only">如果整体风险太集中 → <strong>自动控制总持仓比例</strong></li>
+                <li class="vn-only">Nếu rủi ro tập trung → <strong>Kiểm soát tổng vị thế</strong></li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">就像一个经验丰富的操盘手，知道什么时候踩油门、什么时候轻刹车。</span>
+                <span class="vn-only">Giống như trader kinh nghiệm, biết khi nào đạp ga, khi nào phanh.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q8</span><span class="cn-only">在市场剧烈下跌阶段（熊市），AI 是否设有"自动防御"机制？</span><span class="vn-only">Trong giai đoạn giảm mạnh, AI có cơ chế "phòng thủ tự động" không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">这个问题太关键了，很多人最怕的就是市场暴跌时机器人"死扛不跑"。</p>
+              <p class="cn-only">AI 不会这样。当系统监测到市场持续下跌，它会立刻进入<span class="highlight-text">防御模式</span>：</p>
+              <ul>
+                <li class="cn-only">自动减仓、控制风险</li>
+                <li class="vn-only">Tự động giảm vị thế, kiểm soát rủi ro</li>
+                <li class="cn-only">机构AI交易属于双向开单，如果市场极度不稳定，AI不会出手交易</li>
+                <li class="vn-only">AI giao dịch hai chiều, nếu thị trường cực kỳ bất ổn, AI không giao dịch</li>
+                <li class="cn-only">等行情稳定符合条件后再启动</li>
+                <li class="vn-only">Đợi thị trường ổn định rồi mới khởi động lại</li>
+              </ul>
+              <div class="key-box">
+                <strong class="cn-only">它的逻辑不是"永远交易"，而是"先活下来再赚钱"。这就是机构 AI 的最大不同。</strong>
+                <strong class="vn-only">Logic của nó không phải "giao dịch mãi mãi", mà là "sống sót trước, kiếm tiền sau".</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 数据来源 -->
+      <section class="faq-section" id="data">
+        <div class="section-header">
+          <div class="section-icon">📊</div>
+          <div>
+            <h2><span class="cn-only">数据来源</span><span class="vn-only">Nguồn dữ liệu</span></h2>
+            <p><span class="cn-only">AI 依据什么数据做出决策？</span><span class="vn-only">AI dựa vào dữ liệu nào để ra quyết định?</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q9</span><span class="cn-only">机器人是否使用链上数据，还是仅依赖技术分析？</span><span class="vn-only">Robot có sử dụng dữ liệu on-chain hay chỉ phân tích kỹ thuật?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">Nivex 的机构AI 不是那种只靠"技术指标"的老式机器人。它是<span class="highlight-text">多维度综合判断</span>的：</p>
+              <ul>
+                <li class="cn-only">监控资金流以及<span class="highlight-text">链上数据</span></li>
+                <li class="vn-only">Giám sát dòng tiền và <span class="highlight-text">dữ liệu on-chain</span></li>
+                <li class="cn-only">市场情绪行为分析</li>
+                <li class="vn-only">Phân tích hành vi tâm lý thị trường</li>
+                <li class="cn-only">机构或大户动作、流动性分析</li>
+                <li class="vn-only">Phân tích hành động của tổ chức, cá voi, thanh khoản</li>
+              </ul>
+              <p class="cn-only">比如：当链上监测到有大资金在转移，AI 会提早调整策略；当发现机构或大户动作、流动性异常时，它会立刻反应。</p>
+              <div class="key-box">
+                <span class="cn-only"><strong>这就是为什么它的判断更及时、更稳。</strong></span>
+                <span class="vn-only"><strong>Đây là lý do tại sao phán đoán của nó nhanh hơn, ổn định hơn.</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q10</span><span class="cn-only">AI 是否具备识别市场操纵信号的能力？</span><span class="vn-only">AI có khả năng nhận diện tín hiệu thao túng thị trường không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">很多人都担心 AI 会被"假行情"骗进去。Nivex 的机构 AI 其实早已有<span class="highlight-text">自主判断意识</span>，它会通过多个信号来识别"市场作假"的情况：</p>
+              <ul>
+                <li class="cn-only">成交量突然暴涨但没有真实资金支撑</li>
+                <li class="vn-only">Khối lượng đột ngột tăng nhưng không có tiền thực</li>
+                <li class="cn-only">买卖深度不正常，可能有人在"刷量"</li>
+                <li class="vn-only">Độ sâu mua bán bất thường, có thể có người "wash trading"</li>
+                <li class="cn-only">链上资金流对不上价格走势</li>
+                <li class="vn-only">Dòng tiền on-chain không khớp với xu hướng giá</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">一旦发现这些异常，AI 会立即<strong>暂停交易或减仓观望</strong>，直到市场恢复正常。它靠大数据判断真伪，保护用户资金安全。</span>
+                <span class="vn-only">Khi phát hiện bất thường, AI <strong>tạm dừng giao dịch hoặc giảm vị thế</strong> cho đến khi thị trường bình thường.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q11</span><span class="cn-only">AI 机器人在正式部署前是否采用回测和正向测试方法？</span><span class="vn-only">AI có sử dụng backtest và forward test trước khi triển khai chính thức không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">Nivex 的 AI 机器人在上线之前，会经过<span class="highlight-text">两层严格的测试</span>：</p>
+              <ul>
+                <li class="cn-only"><strong>第一层：历史回测</strong> — 用过去几年的行情去跑模型，看它在不同周期下的表现</li>
+                <li class="vn-only"><strong>Lớp 1: Backtest lịch sử</strong> — Chạy mô hình với dữ liệu vài năm qua</li>
+                <li class="cn-only"><strong>第二层：正向测试</strong> — 在模拟实盘环境中运行几个月到1个月以上，确保它能适应现在的市场波动</li>
+                <li class="vn-only"><strong>Lớp 2: Forward test</strong> — Chạy trong môi trường mô phỏng 1+ tháng</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">正式上线后，AI系统会<strong>每月自动重新评估一次算法参数</strong>，并根据市场情况自动调优。这样可以保证 AI 始终跟得上最新行情。</span>
+                <span class="vn-only">Sau khi lên sàn, hệ thống AI <strong>tự động đánh giá lại tham số thuật toán hàng tháng</strong>.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 操作问题 -->
+      <section class="faq-section" id="operation">
+        <div class="section-header">
+          <div class="section-icon">⚙️</div>
+          <div>
+            <h2><span class="cn-only">操作问题</span><span class="vn-only">Vấn đề vận hành</span></h2>
+            <p><span class="cn-only">用户使用中的常见问题</span><span class="vn-only">Câu hỏi thường gặp khi sử dụng</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q12</span><span class="cn-only">参与跟单交易时，能否查看专家的详细交易历史？</span><span class="vn-only">Khi tham gia copy trading, có thể xem lịch sử giao dịch chi tiết của chuyên gia không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">在 Nivex 的 AI 跟单系统中，出于策略安全与机构隐私的考虑，目前用户无法直接查看AI专家的全部历史交易细节（例如每一笔进出场点位）。</p>
+              <p class="cn-only">但您可以实时看到：</p>
+              <ul>
+                <li class="cn-only">当前 AI 策略的<span class="highlight-text">持仓方向与收益曲线</span></li>
+                <li class="vn-only">Hướng vị thế và đường cong lợi nhuận hiện tại</li>
+                <li class="cn-only">每笔交易的<span class="highlight-text">开仓、平仓时间与盈亏明细</span></li>
+                <li class="vn-only">Thời gian mở/đóng lệnh và chi tiết lãi lỗ mỗi giao dịch</li>
+                <li class="cn-only">历史周期内的<span class="highlight-text">总体收益率与风险回撤情况</span></li>
+                <li class="vn-only">Tỷ lệ lợi nhuận tổng thể và tình hình drawdown</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">这样既能让用户清楚了解策略表现，又能保护专业机构的核心策略模型不被复制。</span>
+                <span class="vn-only">Như vậy người dùng hiểu rõ hiệu suất chiến lược, đồng thời bảo vệ mô hình cốt lõi.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q13</span><span class="cn-only">能否中途停止或暂停跟单交易？是否会产生费用？</span><span class="vn-only">Có thể dừng hoặc tạm dừng copy trading giữa chừng không? Có phí không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">在订单中有提示介绍，用户是<span class="highlight-text">可以随时停止或暂停跟单交易的</span>，平台不会强制锁仓或限定时间。</p>
+              <p class="cn-only">关于费用：</p>
+              <ul>
+                <li class="cn-only">订单在运行过程中，<strong>强制手动停止</strong>会导致产生一定的损失费用，比如：手续费或市场价格点差等费用</li>
+                <li class="vn-only">Dừng thủ công giữa chừng có thể phát sinh phí như phí giao dịch hoặc spread</li>
+                <li class="cn-only">只能在<strong>订单结束后</strong>，收到提醒通知，用户再去停止就不会产生任何损失</li>
+                <li class="vn-only">Nếu dừng <strong>sau khi đơn hàng kết thúc</strong>, không có phí tổn thất</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q14</span><span class="cn-only">AI 根据哪些标准选择交易员？交易员是否有评级或信誉评分体系？</span><span class="vn-only">AI chọn trader theo tiêu chuẩn nào? Có hệ thống đánh giá không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">Nivex 的 AI 系统并不是随机选择交易员，而是通过一套<span class="highlight-text">大数据算法评估体系</span>进行筛选交易的：</p>
+              <ul>
+                <li class="cn-only">AI会抓取行情的<span class="highlight-text">历史盈利、回撤、稳定性、风险管理</span>等多项指标数据来评估</li>
+                <li class="vn-only">AI thu thập dữ liệu về lợi nhuận lịch sử, drawdown, độ ổn định, quản lý rủi ro</li>
+                <li class="cn-only">那些符合AI风控管理<span class="highlight-text">长期稳定、风险低</span>的，AI 才会执行交易</li>
+                <li class="vn-only">Chỉ những gì đáp ứng tiêu chuẩn ổn định dài hạn, rủi ro thấp mới được thực thi</li>
+              </ul>
+              <div class="key-box">
+                <span class="cn-only">所以您跟随的，不是某个人的情绪交易，而是经过层层筛选、被AI实时监管的<strong>大数据算法交易体系</strong>。</span>
+                <span class="vn-only">Vì vậy bạn theo dõi không phải giao dịch cảm xúc của ai đó, mà là <strong>hệ thống giao dịch thuật toán</strong> được giám sát thời gian thực.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 安全机制 -->
+      <section class="faq-section" id="security">
+        <div class="section-header">
+          <div class="section-icon">🔐</div>
+          <div>
+            <h2><span class="cn-only">安全机制</span><span class="vn-only">Cơ chế bảo mật</span></h2>
+            <p><span class="cn-only">资金安全与权限控制</span><span class="vn-only">An toàn tiền và kiểm soát quyền</span></p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3><span class="number-tag">Q15</span><span class="cn-only">BOT 的权限分级到何种程度——用户能否控制私钥？</span><span class="vn-only">Quyền BOT được phân cấp như thế nào? Người dùng có kiểm soát private key không?</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p class="cn-only">所有中心化交易所，用户是没有私钥的，用户的资金是在自己的独立账户中。</p>
+              <p class="cn-only">Nivex 的 AI只是授权来交易跟单，它<span class="highlight-text">只允许系统帮您"买和卖"</span>：</p>
+              <ul>
+                <li class="cn-only"><strong style="color: #ff6464;">不能</strong>提币</li>
+                <li class="vn-only"><strong style="color: #ff6464;">Không thể</strong> rút coin</li>
+                <li class="cn-only"><strong style="color: #ff6464;">不能</strong>转账</li>
+                <li class="vn-only"><strong style="color: #ff6464;">Không thể</strong> chuyển tiền</li>
+                <li class="cn-only"><strong style="color: #ff6464;">不能</strong>动资金</li>
+                <li class="vn-only"><strong style="color: #ff6464;">Không thể</strong> động vào tiền</li>
+              </ul>
+              <p class="cn-only">AI 发出的所有指令都会经过安全服务器中转，这只是一个信号通道，用来执行策略，不会触碰资金本身。</p>
+              <div class="key-box">
+                <strong class="cn-only">您的资产依然留在交易所账户里，控制权始终在您手上。</strong>
+                <strong class="vn-only">Tài sản của bạn vẫn ở trong tài khoản sàn, quyền kiểm soát luôn trong tay bạn.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="key-point animate-in" style="margin-bottom: 50px;">
+        <div class="cn">掌握这 15 个问题的答案，让你的回答更加专业、自信</div>
+        <div class="vn">Nắm vững 15 câu trả lời này, để phản hồi chuyên nghiệp và tự tin hơn</div>
+      </div>
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // FAQ 展开/收起
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // 关闭其他打开的项
+        document.querySelectorAll('.faq-item.active').forEach(activeItem => {
+          if (activeItem !== item) {
+            activeItem.classList.remove('active');
+          }
+        });
+
+        // 切换当前项
+        item.classList.toggle('active');
+      });
+    });
+
+    // 导航高亮
+    document.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.faq-section');
+      const tabs = document.querySelectorAll('.faq-tab');
+      let currentSection = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 200;
+        if (window.scrollY >= sectionTop) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('href') === '#' + currentSection) {
+          tab.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

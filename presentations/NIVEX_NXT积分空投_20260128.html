@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX 两周年 - NXT 积分空投计划</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #151515;
+      --bg-code: #111111;
+      --green: #7fff00;
+      --green-dark: #5cbf00;
+      --green-glow: rgba(127, 255, 0, 0.3);
+      --green-subtle: rgba(127, 255, 0, 0.08);
+      --white: #ffffff;
+      --gray-light: #cccccc;
+      --gray: #888888;
+      --gray-dark: #555555;
+      --red-soft: #ff6b6b;
+      --red-bg: rgba(255, 107, 107, 0.1);
+      --blue-accent: #4a9eff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', 'Noto Sans', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 60px 80px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    /* 标题样式 */
+    .title-cn {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .title-vn {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--green);
+      margin-bottom: 40px;
+      line-height: 1.3;
+    }
+
+    /* 封面页 */
+    .slide-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .slide-cover .title-cn {
+      font-size: 4.5rem;
+    }
+
+    .slide-cover .title-vn {
+      margin-bottom: 20px;
+    }
+
+    .subtitle-cn {
+      font-size: 1.5rem;
+      color: var(--gray-light);
+      margin-bottom: 8px;
+    }
+
+    .subtitle-vn {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      font-family: Arial Black, sans-serif;
+      color: var(--green);
+      letter-spacing: 3px;
+      margin-top: 40px;
+    }
+
+    .year {
+      position: absolute;
+      bottom: 30px;
+      right: 40px;
+      font-size: 1rem;
+      color: var(--gray-dark);
+    }
+
+    /* 装饰圆球 */
+    .circle-decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--green-dark);
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .circle-1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      left: -100px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .circle-2 {
+      width: 300px;
+      height: 300px;
+      bottom: -50px;
+      right: -50px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* 卡片 */
+    .card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .card-highlight {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+    }
+
+    /* 网格 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    /* Feature Box */
+    .feature-box {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-box .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .feature-box .cn {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .feature-box .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Feature List */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 20px 25px;
+      border-left: 4px solid var(--green);
+    }
+
+    .feature-item .cn {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .feature-item .vn {
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    /* Flow */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flow-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .flow-number {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .flow-content {
+      flex: 1;
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 18px 25px;
+    }
+
+    .flow-content .cn {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .flow-content .vn {
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: var(--green);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    /* Key Point */
+    .key-point {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: 12px;
+      padding: 25px 35px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .key-point .cn {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .key-point .vn {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    /* Formula Bar */
+    .formula-bar {
+      background: var(--bg-card);
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      padding: 25px 40px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .formula-bar .formula {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .formula-bar .vn {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    /* 表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .data-table th {
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 700;
+      padding: 15px 20px;
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    .data-table th:first-child {
+      border-radius: 10px 0 0 0;
+    }
+
+    .data-table th:last-child {
+      border-radius: 0 10px 0 0;
+    }
+
+    .data-table td {
+      background: var(--bg-card);
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 1rem;
+    }
+
+    .data-table tr:last-child td:first-child {
+      border-radius: 0 0 0 10px;
+    }
+
+    .data-table tr:last-child td:last-child {
+      border-radius: 0 0 10px 0;
+    }
+
+    .data-table .highlight {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Diagram */
+    .diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .diagram-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      padding: 25px 50px;
+      text-align: center;
+    }
+
+    .diagram-box h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 5px;
+    }
+
+    .diagram-box p {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    .diagram-arrow {
+      font-size: 2rem;
+      color: var(--green);
+    }
+
+    .diagram-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .diagram-item {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 20px 30px;
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .diagram-item .cn {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .diagram-item .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Timeline */
+    .timeline-horizontal {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      padding: 0 20px;
+      margin-top: 40px;
+    }
+
+    .timeline-horizontal::before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 50px;
+      right: 50px;
+      height: 3px;
+      background: var(--gray-dark);
+    }
+
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-dot {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 3px solid var(--gray-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gray);
+      margin-bottom: 15px;
+    }
+
+    .timeline-node.active .timeline-dot {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    .timeline-label .cn {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .timeline-label .vn {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* Comparison Cards */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .comparison-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .comparison-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .comparison-card.old h3 {
+      color: var(--gray);
+    }
+
+    .comparison-card.new {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+    }
+
+    .comparison-card.new h3 {
+      color: var(--green);
+    }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .comparison-list li:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-list .cn {
+      font-size: 1.05rem;
+      color: var(--white);
+    }
+
+    .comparison-list .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .arrow-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--green);
+    }
+
+    /* Final Slide */
+    .slide-final {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .next-step {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      padding: 30px 60px;
+      margin-top: 40px;
+      display: inline-block;
+    }
+
+    .next-step .cn {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .next-step .vn {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--green);
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      background: transparent;
+      color: var(--green);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      font-size: 1rem;
+      color: var(--gray);
+      z-index: 100;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-in {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .animate-left {
+      opacity: 0;
+      animation: fadeInLeft 0.6s ease forwards;
+    }
+
+    .animate-right {
+      opacity: 0;
+      animation: fadeInRight 0.6s ease forwards;
+    }
+
+    .animate-scale {
+      opacity: 0;
+      animation: scaleIn 0.6s ease forwards;
+    }
+
+    .animate-in-delay-1 { animation-delay: 0.1s; }
+    .animate-in-delay-2 { animation-delay: 0.2s; }
+    .animate-in-delay-3 { animation-delay: 0.3s; }
+    .animate-in-delay-4 { animation-delay: 0.4s; }
+    .animate-in-delay-5 { animation-delay: 0.5s; }
+    .animate-in-delay-6 { animation-delay: 0.6s; }
+    .animate-in-delay-7 { animation-delay: 0.7s; }
+    .animate-in-delay-8 { animation-delay: 0.8s; }
+    .animate-in-delay-9 { animation-delay: 0.9s; }
+    .animate-in-delay-10 { animation-delay: 1.0s; }
+
+    /* Highlight Number */
+    .highlight-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .highlight-label {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-top: 5px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .stat-card .label {
+      font-size: 1rem;
+      color: var(--gray-light);
+      margin-bottom: 5px;
+    }
+
+    .stat-card .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .slide {
+        padding: 40px 50px;
+      }
+      .title-cn {
+        font-size: 2.8rem;
+      }
+      .title-vn {
+        font-size: 1.5rem;
+      }
+      .grid-5 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="slides-container">
+
+    <!-- Slide 1: 封面 -->
+    <div class="slide slide-cover active" data-slide="1">
+      <div class="circle-decoration circle-1"></div>
+      <div class="circle-decoration circle-2"></div>
+      <div class="content-area">
+        <h1 class="title-cn animate-in">NIVEX 两周年</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Kỷ niệm 2 năm NIVEX</p>
+        <p class="subtitle-cn animate-in animate-in-delay-2">NXT 积分空投计划</p>
+        <p class="subtitle-vn animate-in animate-in-delay-3">Chương trình Airdrop điểm NXT</p>
+        <p class="subtitle-cn animate-in animate-in-delay-4" style="margin-top: 30px; color: var(--green);">真实交易 · 真实贡献 · 真实奖励</p>
+        <p class="subtitle-vn animate-in animate-in-delay-5">Giao dịch thực · Đóng góp thực · Phần thưởng thực</p>
+        <div class="logo animate-in animate-in-delay-6">NIVEX</div>
+      </div>
+      <div class="year">2026</div>
+    </div>
+
+    <!-- Slide 2: 活动背景 -->
+    <div class="slide" data-slide="2">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">为什么做这次活动？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Tại sao tổ chức sự kiện này?</p>
+
+        <div class="feature-list" style="margin-top: 20px; max-width: 900px;">
+          <div class="feature-item animate-in animate-in-delay-2">
+            <div>
+              <div class="cn">🎂 庆祝 NIVEX 稳健运营两周年</div>
+              <div class="vn">Kỷ niệm 2 năm NIVEX hoạt động ổn định</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-3">
+            <div>
+              <div class="cn">🙏 感谢用户对平台生态的真实贡献</div>
+              <div class="vn">Cảm ơn người dùng đã đóng góp thực sự cho hệ sinh thái</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4">
+            <div>
+              <div class="cn">🚀 为 Q3 平台币 NXB 正式上线预热</div>
+              <div class="vn">Khởi động cho token NXB ra mắt chính thức Q3</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-5">
+          <p class="cn">这不是普通空投，这是平台币的「早期确权」</p>
+          <p class="vn">Đây không phải airdrop thông thường, đây là "xác nhận quyền sở hữu sớm" token nền tảng</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: 核心规则 -->
+    <div class="slide" data-slide="3">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">一句话读懂规则</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Một câu hiểu quy tắc</p>
+
+        <div class="formula-bar animate-in animate-in-delay-2" style="margin-top: 40px;">
+          <div class="formula">跟单金额 × 0.3% = 每日 NXT</div>
+          <div class="vn">Số tiền copy trade × 0.3% = NXT mỗi ngày</div>
+        </div>
+
+        <div class="stats-grid animate-in animate-in-delay-3">
+          <div class="stat-card">
+            <div class="number">2.1 - 3.1</div>
+            <div class="label">活动时间</div>
+            <div class="vn">Thời gian sự kiện</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">每日</div>
+            <div class="label">自动到账</div>
+            <div class="vn">Tự động cộng mỗi ngày</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">28 天</div>
+            <div class="label">活动周期</div>
+            <div class="vn">Chu kỳ sự kiện</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-4">
+          <p class="cn">📋 查看路径：账户资产 → NXT → 明细「活动空投」</p>
+          <p class="vn">Đường dẫn: Tài sản → NXT → Chi tiết「Airdrop sự kiện」</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: NXT 与 NXB 关系 -->
+    <div class="slide" data-slide="4">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">NXT 与 NXB 是什么关系？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Mối quan hệ giữa NXT và NXB?</p>
+
+        <div class="diagram" style="margin-top: 50px;">
+          <div class="diagram-row">
+            <div class="diagram-box animate-in animate-in-delay-2" style="min-width: 200px;">
+              <h3>NXT</h3>
+              <p>积分形式 / Điểm tích lũy</p>
+            </div>
+            <div class="diagram-arrow animate-in animate-scale animate-in-delay-3" style="display: flex; align-items: center; padding: 0 30px;">
+              → Q3 映射 →
+            </div>
+            <div class="diagram-box animate-in animate-in-delay-4" style="min-width: 200px;">
+              <h3>NXB</h3>
+              <p>平台币 / Token nền tảng</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3 animate-in animate-in-delay-5" style="margin-top: 50px;">
+          <div class="card" style="text-align: center;">
+            <p style="font-size: 2rem; margin-bottom: 10px;">📊</p>
+            <p class="cn" style="font-weight: 700; margin-bottom: 5px;">NXT = 积分</p>
+            <p class="vn" style="color: var(--gray);">活动期间每日到账</p>
+          </div>
+          <div class="card" style="text-align: center;">
+            <p style="font-size: 2rem; margin-bottom: 10px;">💎</p>
+            <p class="cn" style="font-weight: 700; margin-bottom: 5px;">NXB = 平台币</p>
+            <p class="vn" style="color: var(--gray);">Q3 正式上线</p>
+          </div>
+          <div class="card card-highlight" style="text-align: center;">
+            <p style="font-size: 2rem; margin-bottom: 10px;">🔗</p>
+            <p class="cn" style="font-weight: 700; color: var(--green); margin-bottom: 5px;">现在拿 NXT</p>
+            <p class="vn" style="color: var(--gray);">= 提前锁定 NXB 份额</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: 收益速算表 -->
+    <div class="slide" data-slide="5">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">你能拿多少 NXT？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Bạn có thể nhận bao nhiêu NXT?</p>
+
+        <table class="data-table animate-in animate-in-delay-2">
+          <thead>
+            <tr>
+              <th>跟单金额 / Copy Trade</th>
+              <th>每日 NXT</th>
+              <th>7天累计</th>
+              <th>28天累计</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10,000 U</td>
+              <td>30</td>
+              <td>210</td>
+              <td class="highlight">840</td>
+            </tr>
+            <tr>
+              <td>50,000 U</td>
+              <td>150</td>
+              <td>1,050</td>
+              <td class="highlight">4,200</td>
+            </tr>
+            <tr>
+              <td>100,000 U</td>
+              <td>300</td>
+              <td>2,100</td>
+              <td class="highlight">8,400</td>
+            </tr>
+            <tr>
+              <td>500,000 U</td>
+              <td>1,500</td>
+              <td>10,500</td>
+              <td class="highlight">42,000</td>
+            </tr>
+            <tr>
+              <td>1,000,000 U</td>
+              <td>3,000</td>
+              <td>21,000</td>
+              <td class="highlight">84,000</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="formula-bar animate-in animate-in-delay-3" style="margin-top: 30px;">
+          <div class="formula" style="font-size: 1.3rem;">公式：跟单金额 × 0.3% × 天数 = NXT 总量</div>
+          <div class="vn">Công thức: Số tiền copy × 0.3% × số ngày = Tổng NXT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: NXB 未来价值 -->
+    <div class="slide" data-slide="6">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">NXB 上线后，NXT 值多少？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Sau khi NXB lên sàn, NXT trị giá bao nhiêu?</p>
+
+        <table class="data-table animate-in animate-in-delay-2">
+          <thead>
+            <tr>
+              <th>28天 NXT</th>
+              <th>NXB = 0.5U</th>
+              <th>NXB = 1U</th>
+              <th>NXB = 5U</th>
+              <th>NXB = 10U</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>840</td>
+              <td>420 U</td>
+              <td>840 U</td>
+              <td class="highlight">4,200 U</td>
+              <td class="highlight">8,400 U</td>
+            </tr>
+            <tr>
+              <td>4,200</td>
+              <td>2,100 U</td>
+              <td>4,200 U</td>
+              <td class="highlight">21,000 U</td>
+              <td class="highlight">42,000 U</td>
+            </tr>
+            <tr>
+              <td>8,400</td>
+              <td>4,200 U</td>
+              <td>8,400 U</td>
+              <td class="highlight">42,000 U</td>
+              <td class="highlight">84,000 U</td>
+            </tr>
+            <tr>
+              <td>42,000</td>
+              <td>21,000 U</td>
+              <td>42,000 U</td>
+              <td class="highlight">210,000 U</td>
+              <td class="highlight">420,000 U</td>
+            </tr>
+            <tr>
+              <td>84,000</td>
+              <td>42,000 U</td>
+              <td>84,000 U</td>
+              <td class="highlight">420,000 U</td>
+              <td class="highlight">840,000 U</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="key-point animate-in animate-in-delay-3">
+          <p class="cn">NXT 是零成本获取，涨了是赚，不涨也没亏</p>
+          <p class="vn">NXT nhận miễn phí, tăng thì lời, không tăng cũng không lỗ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: NXB 经济模型 -->
+    <div class="slide" data-slide="7">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">NXB 平台币经济模型</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Mô hình kinh tế token NXB</p>
+
+        <div class="grid-2" style="margin-top: 30px;">
+          <div class="feature-list">
+            <div class="feature-item animate-in animate-in-delay-2">
+              <div>
+                <div class="cn">💎 代币名称：NXB</div>
+                <div class="vn">Tên token: NXB</div>
+              </div>
+            </div>
+            <div class="feature-item animate-in animate-in-delay-3">
+              <div>
+                <div class="cn">📊 发行总量：10 亿枚</div>
+                <div class="vn">Tổng cung: 1 tỷ token</div>
+              </div>
+            </div>
+            <div class="feature-item animate-in animate-in-delay-4">
+              <div>
+                <div class="cn">🔥 销毁目标：最终仅剩 2 亿枚</div>
+                <div class="vn">Mục tiêu đốt: chỉ còn 200 triệu</div>
+              </div>
+            </div>
+            <div class="feature-item animate-in animate-in-delay-5">
+              <div>
+                <div class="cn">💰 销毁来源：平台利润持续回购销毁</div>
+                <div class="vn">Nguồn đốt: Mua lại bằng lợi nhuận nền tảng</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-highlight animate-in animate-in-delay-6" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <div style="font-size: 4rem; font-weight: 900; color: var(--white);">10 亿</div>
+            <div class="diagram-arrow" style="margin: 20px 0;">↓</div>
+            <div style="font-size: 4rem; font-weight: 900; color: var(--green);">2 亿</div>
+            <div style="margin-top: 20px; font-size: 1.5rem; color: var(--green); font-weight: 700;">80% 通缩</div>
+            <div style="color: var(--gray); margin-top: 5px;">Giảm phát 80%</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-7">
+          <p class="cn">越早持有，越稀缺，越有价值</p>
+          <p class="vn">Nắm giữ càng sớm, càng hiếm, càng có giá trị</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: 历史对标 -->
+    <div class="slide" data-slide="8">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">平台币的造富效应</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Hiệu ứng tạo giàu của token nền tảng</p>
+
+        <table class="data-table animate-in animate-in-delay-2">
+          <thead>
+            <tr>
+              <th>交易所 / Sàn</th>
+              <th>平台币 / Token</th>
+              <th>历史涨幅 / Tăng trưởng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>币安 Binance</td>
+              <td>BNB</td>
+              <td class="highlight">0.1U → 690U（6900倍）</td>
+            </tr>
+            <tr>
+              <td>OKX</td>
+              <td>OKB</td>
+              <td class="highlight">1U → 50U+（50倍+）</td>
+            </tr>
+            <tr>
+              <td>FTX</td>
+              <td>FTT</td>
+              <td class="highlight">1U → 85U（85倍）</td>
+            </tr>
+            <tr>
+              <td>Uniswap</td>
+              <td>UNI</td>
+              <td class="highlight">空投 3U → 45U（15倍）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="key-point animate-in animate-in-delay-3">
+          <p class="cn">早期参与者 = 早期股东</p>
+          <p class="vn">Người tham gia sớm = Cổ đông sớm</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: 三大亮点 -->
+    <div class="slide" data-slide="9">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">为什么要参与？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Tại sao nên tham gia?</p>
+
+        <div class="grid-3" style="margin-top: 40px;">
+          <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 40px 30px;">
+            <div style="font-size: 3rem; margin-bottom: 20px;">📲</div>
+            <h3 style="color: var(--green); font-size: 1.3rem; margin-bottom: 15px;">每日到账，真实可见</h3>
+            <p class="cn" style="margin-bottom: 8px;">不是画饼，每天打开账户就能看到 NXT 在涨</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Không hứa suông, mỗi ngày mở tài khoản thấy NXT tăng</p>
+          </div>
+          <div class="card card-highlight animate-in animate-in-delay-3" style="text-align: center; padding: 40px 30px;">
+            <div style="font-size: 3rem; margin-bottom: 20px;">💰</div>
+            <h3 style="color: var(--green); font-size: 1.3rem; margin-bottom: 15px;">零成本获取，双份收益</h3>
+            <p class="cn" style="margin-bottom: 8px;">本金照常赚跟单收益，NXT 积分额外赠送</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Vốn vẫn sinh lời copy trade, NXT là phần thưởng thêm</p>
+          </div>
+          <div class="card card-highlight animate-in animate-in-delay-4" style="text-align: center; padding: 40px 30px;">
+            <div style="font-size: 3rem; margin-bottom: 20px;">🔥</div>
+            <h3 style="color: var(--green); font-size: 1.3rem; margin-bottom: 15px;">80% 通缩，早拿早赚</h3>
+            <p class="cn" style="margin-bottom: 8px;">NXB 总量 10 亿销毁到 2 亿，越早越稀缺</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">NXB từ 1 tỷ đốt còn 200 triệu, càng sớm càng hiếm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: 活动时间线 -->
+    <div class="slide" data-slide="10">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">活动时间线</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Lịch trình sự kiện</p>
+
+        <div class="timeline-horizontal animate-in animate-in-delay-2">
+          <div class="timeline-node">
+            <div class="timeline-dot">1.31</div>
+            <div class="timeline-label">
+              <div class="cn">规则公布</div>
+              <div class="vn">Công bố quy tắc</div>
+            </div>
+          </div>
+          <div class="timeline-node active">
+            <div class="timeline-dot">2.1</div>
+            <div class="timeline-label">
+              <div class="cn">活动开始</div>
+              <div class="vn">Bắt đầu sự kiện</div>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">2.14</div>
+            <div class="timeline-label">
+              <div class="cn">活动过半</div>
+              <div class="vn">Qua nửa chặng</div>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">3.1</div>
+            <div class="timeline-label">
+              <div class="cn">活动截止</div>
+              <div class="vn">Kết thúc</div>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">Q3</div>
+            <div class="timeline-label">
+              <div class="cn">NXB 上线</div>
+              <div class="vn">NXB ra mắt</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 animate-in animate-in-delay-3" style="margin-top: 50px;">
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 10px;">📸</div>
+            <p class="cn" style="font-weight: 700; margin-bottom: 5px;">3.1 活动截止 → NXT 快照</p>
+            <p class="vn" style="color: var(--gray);">Kết thúc sự kiện → Chụp nhanh NXT</p>
+          </div>
+          <div class="card card-highlight" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+            <p class="cn" style="font-weight: 700; color: var(--green); margin-bottom: 5px;">Q3 NXB 上线 → NXT 映射 NXB</p>
+            <p class="vn" style="color: var(--gray);">NXB ra mắt → NXT đổi thành NXB</p>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-4">
+          <p class="cn">⏰ 仅 28 天窗口，错过不补录</p>
+          <p class="vn">Chỉ 28 ngày, bỏ lỡ không bù được</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: 如何参与 -->
+    <div class="slide" data-slide="11">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">如何参与？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Làm thế nào để tham gia?</p>
+
+        <div class="flow" style="margin-top: 40px;">
+          <div class="flow-item animate-in animate-in-delay-2">
+            <div class="flow-number">1</div>
+            <div class="flow-content">
+              <div class="cn">登录 NIVEX 账户</div>
+              <div class="vn">Đăng nhập tài khoản NIVEX</div>
+            </div>
+          </div>
+          <div class="flow-arrow animate-in animate-in-delay-3">↓</div>
+          <div class="flow-item animate-in animate-in-delay-4">
+            <div class="flow-number">2</div>
+            <div class="flow-content">
+              <div class="cn">选择跟单策略，入金跟单</div>
+              <div class="vn">Chọn chiến lược copy trade, nạp tiền</div>
+            </div>
+          </div>
+          <div class="flow-arrow animate-in animate-in-delay-5">↓</div>
+          <div class="flow-item animate-in animate-in-delay-6">
+            <div class="flow-number">3</div>
+            <div class="flow-content">
+              <div class="cn">每日自动获得 NXT 积分</div>
+              <div class="vn">Mỗi ngày tự động nhận điểm NXT</div>
+            </div>
+          </div>
+          <div class="flow-arrow animate-in animate-in-delay-7">↓</div>
+          <div class="flow-item animate-in animate-in-delay-8">
+            <div class="flow-number">4</div>
+            <div class="flow-content">
+              <div class="cn">账户资产 → NXT → 查看明细</div>
+              <div class="vn">Tài sản → NXT → Xem chi tiết</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-9">
+          <p class="cn">就这么简单，跟单即挖矿</p>
+          <p class="vn">Đơn giản vậy thôi, copy trade là đào coin</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: 常见问题 -->
+    <div class="slide" data-slide="12">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">常见问题 FAQ</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Câu hỏi thường gặp</p>
+
+        <div class="grid-2" style="margin-top: 30px; gap: 20px;">
+          <div class="card animate-in animate-in-delay-2">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: NXT 积分怎么算？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: 跟单金额 × 0.3% = 每日 NXT</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Copy trade × 0.3% = NXT mỗi ngày</p>
+          </div>
+          <div class="card animate-in animate-in-delay-3">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: 什么时候到账？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: 每日自动发放，账户实时可查</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Tự động cộng mỗi ngày, xem được ngay</p>
+          </div>
+          <div class="card animate-in animate-in-delay-4">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: NXT 和 NXB 什么关系？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: NXT 是积分，Q3 映射为 NXB 平台币</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">NXT là điểm, Q3 đổi thành token NXB</p>
+          </div>
+          <div class="card animate-in animate-in-delay-5">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: 错过了能补吗？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: 不能，数据不可回溯</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Không, dữ liệu không hồi tố</p>
+          </div>
+          <div class="card animate-in animate-in-delay-6">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: 跟单收益和 NXT 冲突吗？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: 不冲突，本金赚收益，NXT 额外送</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Không, vốn sinh lời, NXT là thưởng thêm</p>
+          </div>
+          <div class="card animate-in animate-in-delay-7">
+            <h4 style="color: var(--green); margin-bottom: 10px;">Q: 中途加仓怎么算？</h4>
+            <p class="cn" style="margin-bottom: 5px;">A: 按新的总金额计算，从加仓当日开始</p>
+            <p class="vn" style="color: var(--gray); font-size: 0.9rem;">Tính theo số tiền mới từ ngày tăng</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 13: 风险提示 -->
+    <div class="slide" data-slide="13">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">风险提示</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Cảnh báo rủi ro</p>
+
+        <div class="feature-list" style="margin-top: 30px; max-width: 900px;">
+          <div class="feature-item animate-in animate-in-delay-2" style="border-left-color: var(--gray);">
+            <div>
+              <div class="cn">⚠️ NXB 尚未正式发布，价格存在不确定性</div>
+              <div class="vn">NXB chưa ra mắt chính thức, giá có thể thay đổi</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-3" style="border-left-color: var(--gray);">
+            <div>
+              <div class="cn">⚠️ NXT 积分数量取决于跟单金额和参与天数</div>
+              <div class="vn">Số lượng NXT phụ thuộc vào số tiền copy và số ngày tham gia</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4" style="border-left-color: var(--gray);">
+            <div>
+              <div class="cn">⚠️ 严禁刷量、对敲等异常交易行为</div>
+              <div class="vn">Nghiêm cấm wash trading và các hành vi giao dịch bất thường</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-5" style="border-left-color: var(--gray);">
+            <div>
+              <div class="cn">⚠️ 如发现异常，平台有权取消空投资格</div>
+              <div class="vn">Nếu phát hiện bất thường, nền tảng có quyền hủy tư cách airdrop</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-6" style="border-left-color: var(--gray);">
+            <div>
+              <div class="cn">⚠️ 本活动最终解释权归 NIVEX 官方所有</div>
+              <div class="vn">Quyền giải thích cuối cùng thuộc về NIVEX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 14: 总结 -->
+    <div class="slide" data-slide="14">
+      <div class="content-area" style="justify-content: center; align-items: center; text-align: center;">
+        <h1 class="title-cn animate-in" style="font-size: 3rem;">一句话总结</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Tóm tắt một câu</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="max-width: 700px; margin: 40px auto; padding: 50px;">
+          <p style="font-size: 2rem; font-weight: 900; color: var(--white); margin-bottom: 15px;">跟单赚收益，NXT 白拿</p>
+          <p style="font-size: 1.3rem; color: var(--gray); margin-bottom: 25px;">Copy trade sinh lời, NXT miễn phí</p>
+          <p style="font-size: 1.8rem; font-weight: 700; color: var(--green);">Q3 映射 NXB，早拿早赚</p>
+          <p style="font-size: 1.1rem; color: var(--gray);">Q3 đổi NXB, sớm lấy sớm lời</p>
+        </div>
+
+        <div class="stats-grid animate-in animate-in-delay-3" style="max-width: 600px; margin: 0 auto;">
+          <div class="stat-card">
+            <div class="number" style="font-size: 2rem;">📅</div>
+            <div class="label">2.1 - 3.1</div>
+          </div>
+          <div class="stat-card">
+            <div class="number" style="font-size: 2rem;">⏰</div>
+            <div class="label">仅 28 天</div>
+          </div>
+          <div class="stat-card">
+            <div class="number" style="font-size: 2rem;">��</div>
+            <div class="label">错过不补录</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: 结束页 -->
+    <div class="slide slide-final" data-slide="15">
+      <div class="circle-decoration circle-2"></div>
+      <div class="content-area" style="justify-content: center; align-items: center; text-align: center;">
+        <h1 class="title-cn animate-in" style="font-size: 3.5rem;">NIVEX 两周年</h1>
+        <p class="title-vn animate-in animate-in-delay-1" style="font-size: 2rem;">Kỷ niệm 2 năm NIVEX</p>
+        <p class="subtitle-cn animate-in animate-in-delay-2" style="margin-top: 20px; font-size: 1.5rem; color: var(--gray-light);">感谢每一位真实贡献者</p>
+        <p class="subtitle-vn animate-in animate-in-delay-3" style="color: var(--gray);">Cảm ơn mọi người đã đóng góp thực sự</p>
+
+        <div class="next-step animate-in animate-scale animate-in-delay-4">
+          <div class="cn">立即参与，锁定你的 NXT 份额</div>
+          <div class="vn">Tham gia ngay, khóa phần NXT của bạn</div>
+        </div>
+
+        <div class="logo animate-in animate-in-delay-5" style="margin-top: 60px;">NIVEX</div>
+      </div>
+      <div class="year">2026</div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn">←</button>
+    <button class="nav-btn" id="nextBtn">→</button>
+  </div>
+
+  <div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progress = document.getElementById('progress');
+    const currentSlideEl = document.getElementById('currentSlide');
+    const totalSlidesEl = document.getElementById('totalSlides');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    totalSlidesEl.textContent = totalSlides;
+
+    function updateSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        slide.querySelectorAll('.animate-in, .animate-left, .animate-right, .animate-scale').forEach(el => {
+          el.style.opacity = '0';
+          el.style.animation = 'none';
+        });
+      });
+
+      slides[index].classList.add('active');
+
+      // 重新触发动画
+      setTimeout(() => {
+        slides[index].querySelectorAll('.animate-in').forEach(el => {
+          el.style.animation = '';
+        });
+        slides[index].querySelectorAll('.animate-left').forEach(el => {
+          el.style.animation = '';
+        });
+        slides[index].querySelectorAll('.animate-right').forEach(el => {
+          el.style.animation = '';
+        });
+        slides[index].querySelectorAll('.animate-scale').forEach(el => {
+          el.style.animation = '';
+        });
+      }, 50);
+
+      currentSlideEl.textContent = index + 1;
+      progress.style.width = ((index + 1) / totalSlides * 100) + '%';
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide(currentSlide);
+    }
+
+    // 键盘导航
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // 按钮导航
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // 触摸滑动
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    });
+
+    // 点击翻页
+    document.querySelector('.slides-container').addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-btn')) {
+        nextSlide();
+      }
+    });
+
+    // 初始化
+    updateSlide(0);
+  </script>
+</body>
+</html>

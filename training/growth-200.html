@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户成长体系 200 条 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .module-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 30px 0;
+      position: sticky;
+      top: 70px;
+      background: var(--bg);
+      padding: 15px 0;
+      z-index: 10;
+    }
+    .module-tab {
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 25px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .module-tab:hover, .module-tab.active {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+    .module-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 150px;
+    }
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+      padding: 25px;
+      background: linear-gradient(135deg, rgba(127,255,0,0.1), rgba(127,255,0,0.05));
+      border-radius: 12px;
+    }
+    .module-number {
+      width: 60px;
+      height: 60px;
+      background: var(--green);
+      color: #000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cognition-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--green);
+      transition: all 0.3s ease;
+    }
+    .cognition-card:hover {
+      transform: translateX(5px);
+    }
+    .cognition-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: rgba(127,255,0,0.2);
+      color: var(--green);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+    .cognition-title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .cognition-script {
+      background: rgba(127,255,0,0.05);
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-style: italic;
+      border-left: 3px solid var(--green);
+    }
+    .cognition-insight {
+      font-size: 0.9rem;
+      color: var(--gray);
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 15px;
+    }
+    .usage-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(127,255,0,0.1);
+      border-radius: 15px;
+      font-size: 0.75rem;
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .show-more-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: var(--bg-card);
+      border: 1px dashed rgba(127,255,0,0.3);
+      border-radius: 8px;
+      color: var(--green);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    .show-more-btn:hover {
+      background: rgba(127,255,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="active"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn"><span class="cn-only">客户成长体系 200 条</span><span class="vn-only">Hệ thống phát triển KH 200 điều</span></h1>
+        <p class="title-vn"><span class="cn-only">BD/合作方培训 | 社群推送 | 客户陪伴认知灌输</span><span class="vn-only">Đào tạo BD | Đăng nhóm | Hướng dẫn nhận thức KH</span></p>
+      </div>
+
+      <!-- 用途说明 -->
+      <div class="card card-highlight animate-in" style="margin-top: 30px; padding: 25px;">
+        <div class="grid-3" style="gap: 20px; text-align: center;">
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 10px;">📚</div>
+            <div class="cn" style="font-weight: 600;">BD/合作方培训</div>
+            <div class="vn" style="font-weight: 600;">Đào tạo BD/Đối tác</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 10px;">📱</div>
+            <div class="cn" style="font-weight: 600;">社群每日推送</div>
+            <div class="vn" style="font-weight: 600;">Đăng nhóm hàng ngày</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 10px;">🧠</div>
+            <div class="cn" style="font-weight: 600;">客户认知陪伴</div>
+            <div class="vn" style="font-weight: 600;">Đồng hành nhận thức KH</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块导航 -->
+      <div class="module-tabs">
+        <a href="#module1" class="module-tab"><span class="cn-only">1.成长思维</span><span class="vn-only">1.Tư duy</span></a>
+        <a href="#module2" class="module-tab"><span class="cn-only">2.学习力</span><span class="vn-only">2.Học tập</span></a>
+        <a href="#module3" class="module-tab"><span class="cn-only">3.概率思维</span><span class="vn-only">3.Xác suất</span></a>
+        <a href="#module4" class="module-tab"><span class="cn-only">4.系统思维</span><span class="vn-only">4.Hệ thống</span></a>
+        <a href="#module5" class="module-tab"><span class="cn-only">5.长期主义</span><span class="vn-only">5.Dài hạn</span></a>
+        <a href="#module6" class="module-tab"><span class="cn-only">6.风险管理</span><span class="vn-only">6.Rủi ro</span></a>
+        <a href="#module7" class="module-tab"><span class="cn-only">7.信任陪伴</span><span class="vn-only">7.Tin tưởng</span></a>
+        <a href="#module8" class="module-tab"><span class="cn-only">8.市场共建</span><span class="vn-only">8.Cộng đồng</span></a>
+      </div>
+
+      <!-- 模块一：底层成长思维 -->
+      <div class="module-section" id="module1">
+        <div class="module-header animate-in">
+          <div class="module-number">1</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">底层成长思维 Growth Mindset</span><span class="vn-only">Tư duy tăng trưởng cơ bản</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【1-25条】解决问题：客户一波回撤就崩、短期情绪化、急于求成</span><span class="vn-only">【1-25】Giải quyết: KH hoảng loạn khi giảm, cảm xúc ngắn hạn, nóng vội</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：连续几周没看到增长</span><span class="vn-only">Tình huống: Nhiều tuần không tăng</span></span>
+          <div class="cognition-title"><span class="cognition-number">1</span><span class="cn-only">成长不是线性的，而是台阶式的</span><span class="vn-only">Tăng trưởng không tuyến tính, mà theo bậc thang</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"真正的成长从来不是每天涨一点，而是积累到某个节点突然上一个台阶。现在的平稳期，就是在为下一次跃升蓄力。"</span>
+            <span class="vn-only">"Tăng trưởng thực sự không phải mỗi ngày tăng một chút, mà tích lũy đến một điểm rồi đột ngột lên một bậc. Giai đoạn ổn định hiện tại đang tích năng lượng cho lần nhảy vọt tiếp theo."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 市场收益和个人成长一样，都是非线性的。很多人在「平台期」放弃，恰恰错过了即将到来的突破。</span>
+            <span class="vn-only">💡 Lợi nhuận thị trường và sự phát triển cá nhân đều phi tuyến tính. Nhiều người bỏ cuộc ở "giai đoạn phẳng", chính xác là bỏ lỡ bước đột phá sắp đến.</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：遇到第一次回撤</span><span class="vn-only">Tình huống: Gặp lần giảm đầu tiên</span></span>
+          <div class="cognition-title"><span class="cognition-number">2</span><span class="cn-only">回撤不是失败，是系统运行的一部分</span><span class="vn-only">Giảm giá không phải thất bại, mà là một phần vận hành hệ thống</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"回撤不是系统出问题了，而是系统正常运行的一部分。就像呼吸有吸有呼，市场有涨有跌。关键是回撤在可控范围内。"</span>
+            <span class="vn-only">"Giảm không phải hệ thống có vấn đề, mà là một phần vận hành bình thường. Giống như hơi thở có hít vào thở ra, thị trường có tăng có giảm. Quan trọng là giảm trong phạm vi kiểm soát được."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 任何交易系统都不可能只涨不跌。回撤是市场的呼吸节奏，真正的问题不是有没有回撤，而是回撤是否在预期范围内、是否有恢复能力。</span>
+            <span class="vn-only">💡 Không có hệ thống giao dịch nào chỉ tăng không giảm. Giảm là nhịp thở của thị trường, vấn đề thực sự không phải có giảm hay không, mà là có trong phạm vi dự kiến và có khả năng phục hồi không.</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：客户问"接下来会涨还是跌"</span><span class="vn-only">Tình huống: KH hỏi "sẽ tăng hay giảm"</span></span>
+          <div class="cognition-title"><span class="cognition-number">3</span><span class="cn-only">稳定来自纪律，而非预测</span><span class="vn-only">Ổn định đến từ kỷ luật, không phải dự đoán</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"没有人能准确预测市场，但我们可以用纪律来应对不确定性。稳定的收益不是猜对了方向，而是无论涨跌都有应对方案。"</span>
+            <span class="vn-only">"Không ai có thể dự đoán chính xác thị trường, nhưng chúng ta có thể dùng kỷ luật để đối phó với sự không chắc chắn. Lợi nhuận ổn định không phải đoán đúng hướng, mà là dù tăng hay giảm đều có phương án đối phó."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 散户亏钱的核心原因是追求预测，专业机构赚钱的核心是执行纪律。放弃预测执念，才能真正进入稳定盈利的状态。</span>
+            <span class="vn-only">💡 Lý do cốt lõi nhà đầu tư nhỏ lẻ thua lỗ là theo đuổi dự đoán, tổ chức chuyên nghiệp kiếm tiền nhờ thực hiện kỷ luật. Bỏ ám ảnh dự đoán mới có thể đạt trạng thái lợi nhuận ổn định.</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：觉得每天收益太少</span><span class="vn-only">Tình huống: Thấy lợi nhuận hàng ngày quá ít</span></span>
+          <div class="cognition-title"><span class="cognition-number">4</span><span class="cn-only">长期结果由重复正确动作产生</span><span class="vn-only">Kết quả dài hạn đến từ lặp lại hành động đúng</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"每天 0.5% 看起来不多，但重复 200 天就是翻倍。真正的财富不是一次暴击，而是正确动作的重复累积。"</span>
+            <span class="vn-only">"Mỗi ngày 0.5% có vẻ không nhiều, nhưng lặp lại 200 ngày là gấp đôi. Tài sản thực sự không phải một lần đánh lớn, mà là tích lũy lặp lại hành động đúng."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 复利的本质是「重复」。很多人追求单次大收益，却忽略了稳定小收益的长期威力。</span>
+            <span class="vn-only">💡 Bản chất của lãi kép là "lặp lại". Nhiều người theo đuổi lợi nhuận lớn một lần, nhưng bỏ qua sức mạnh dài hạn của lợi nhuận nhỏ ổn định.</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：市场剧烈波动</span><span class="vn-only">Tình huống: Thị trường biến động mạnh</span></span>
+          <div class="cognition-title"><span class="cognition-number">5</span><span class="cn-only">不确定性是市场的常态，不是异常</span><span class="vn-only">Không chắc chắn là bình thường của thị trường, không phải bất thường</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"市场本来就是不确定的，这才是常态。如果市场完全可预测，就不会有收益空间了。我们要做的是在不确定中找到确定性的应对方式。"</span>
+            <span class="vn-only">"Thị trường vốn dĩ không chắc chắn, đó mới là bình thường. Nếu thị trường hoàn toàn có thể dự đoán, sẽ không có không gian lợi nhuận. Điều chúng ta cần làm là tìm cách đối phó chắc chắn trong sự không chắc chắn."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 不确定性是市场存在的前提，也是收益的来源。接受不确定性，才能在波动中保持冷静。</span>
+            <span class="vn-only">💡 Không chắc chắn là tiền đề tồn tại của thị trường, cũng là nguồn lợi nhuận. Chấp nhận không chắc chắn mới có thể giữ bình tĩnh trong biến động.</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：一有波动就想赎回</span><span class="vn-only">Tình huống: Có biến động là muốn rút</span></span>
+          <div class="cognition-title"><span class="cognition-number">6</span><span class="cn-only">能承受波动，才配拥有复利</span><span class="vn-only">Chịu được biến động mới xứng đáng có lãi kép</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"复利是市场给长期主义者的奖励，但它有一个门槛——你要能承受过程中的波动。拿不住的人，注定只能赚到碎片。"</span>
+            <span class="vn-only">"Lãi kép là phần thưởng thị trường dành cho người theo chủ nghĩa dài hạn, nhưng có một ngưỡng — bạn phải chịu được biến động trong quá trình. Người không giữ được, chắc chắn chỉ kiếm được mảnh vụn."</span>
+          </div>
+          <div class="cognition-insight">
+            <span class="cn-only">💡 复利的前提是「持有」，而持有的前提是「承受波动」。很多人不是没选对，而是拿不住。</span>
+            <span class="vn-only">💡 Tiền đề của lãi kép là "nắm giữ", tiền đề của nắm giữ là "chịu được biến động". Nhiều người không phải chọn sai, mà là không giữ được.</span>
+          </div>
+        </div>
+
+        <!-- 更多按钮提示 -->
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p style="margin-bottom: 15px;"><span class="cn-only">模块一共 25 条认知，以上展示核心 6 条</span><span class="vn-only">Module có 25 điều nhận thức, trên đây là 6 điều cốt lõi</span></p>
+          <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">完整内容请查看社群每日推送或联系 AK 老师获取</span><span class="vn-only">Nội dung đầy đủ xem trong nhóm hàng ngày hoặc liên hệ AK</span></p>
+        </div>
+      </div>
+
+      <!-- 模块二：学习力模型 -->
+      <div class="module-section" id="module2">
+        <div class="module-header animate-in">
+          <div class="module-number">2</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">学习力模型 Learning Power</span><span class="vn-only">Mô hình năng lực học tập</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【26-50条】解决问题：客户"听不进去、学不明白、记不住"</span><span class="vn-only">【26-50】Giải quyết: KH "không nghe, không hiểu, không nhớ"</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：说"道理我都懂"但行动没变</span><span class="vn-only">Tình huống: Nói "tôi hiểu" nhưng không hành động</span></span>
+          <div class="cognition-title"><span class="cognition-number">26</span><span class="cn-only">学习的目的不是知道，是改变行为</span><span class="vn-only">Mục đích học tập không phải biết, mà là thay đổi hành vi</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"懂了不等于会了。真正的学习是行为改变——你的决策方式、情绪反应、操作习惯有没有变？没变就还没真正学会。"</span>
+            <span class="vn-only">"Hiểu không có nghĩa là biết làm. Học tập thực sự là thay đổi hành vi — cách quyết định, phản ứng cảm xúc, thói quen thao tác có thay đổi không? Không thay đổi là chưa thực sự học được."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：觉得内容重复、听烦了</span><span class="vn-only">Tình huống: Thấy nội dung lặp lại, chán nghe</span></span>
+          <div class="cognition-title"><span class="cognition-number">28</span><span class="cn-only">重复是认知固化的唯一方式</span><span class="vn-only">Lặp lại là cách duy nhất củng cố nhận thức</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"你觉得重复，说明开始记住了。重复不是浪费时间，而是把知识从短期记忆变成长期习惯。高手都是重复出来的。"</span>
+            <span class="vn-only">"Bạn thấy lặp lại, chứng tỏ bắt đầu nhớ rồi. Lặp lại không phải lãng phí thời gian, mà là chuyển kiến thức từ trí nhớ ngắn hạn thành thói quen dài hạn. Cao thủ đều được tạo ra từ sự lặp lại."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：只关心收益数字</span><span class="vn-only">Tình huống: Chỉ quan tâm con số lợi nhuận</span></span>
+          <div class="cognition-title"><span class="cognition-number">30</span><span class="cn-only">不问"赚多少"，先问"为什么"</span><span class="vn-only">Đừng hỏi "kiếm bao nhiêu", hãy hỏi "tại sao" trước</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"只问赚多少，心态永远不稳。先问为什么能赚、什么情况会亏、风险怎么控制，理解了逻辑，你才能拿得住。"</span>
+            <span class="vn-only">"Chỉ hỏi kiếm bao nhiêu, tâm lý sẽ không bao giờ ổn định. Hãy hỏi tại sao có thể kiếm được, tình huống nào sẽ lỗ, rủi ro kiểm soát thế nào, hiểu được logic mới giữ được."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块二共 25 条认知 (26-50)</span><span class="vn-only">Module 2 có 25 điều (26-50)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块三：市场认知与概率思维 -->
+      <div class="module-section" id="module3">
+        <div class="module-header animate-in">
+          <div class="module-number">3</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">市场认知与概率思维</span><span class="vn-only">Nhận thức thị trường & Tư duy xác suất</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【51-75条】解决问题：赌徒心态、All in、情绪交易</span><span class="vn-only">【51-75】Giải quyết: Tâm lý cờ bạc, All in, giao dịch cảm xúc</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：把投资当成赌博</span><span class="vn-only">Tình huống: Coi đầu tư như cờ bạc</span></span>
+          <div class="cognition-title"><span class="cognition-number">51</span><span class="cn-only">市场是概率游戏</span><span class="vn-only">Thị trường là trò chơi xác suất</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"市场不是赌场，是概率游戏。赌博是碰运气，投资是让概率站在你这边。理解概率，你就从赌徒变成了投资者。"</span>
+            <span class="vn-only">"Thị trường không phải sòng bạc, mà là trò chơi xác suất. Đánh bạc là may rủi, đầu tư là để xác suất đứng về phía bạn. Hiểu xác suất, bạn từ con bạc trở thành nhà đầu tư."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：想 All in</span><span class="vn-only">Tình huống: Muốn All in</span></span>
+          <div class="cognition-title"><span class="cognition-number">63</span><span class="cn-only">资金管理就是风险管理</span><span class="vn-only">Quản lý vốn chính là quản lý rủi ro</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"All in 不是勇敢，是赌博。资金管理的核心是「永远不要把鸡蛋放一个篮子里」。分散投资，控制仓位，才能活得久。"</span>
+            <span class="vn-only">"All in không phải dũng cảm, mà là đánh bạc. Cốt lõi quản lý vốn là 'không bao giờ bỏ tất cả trứng vào một giỏ'. Phân tán đầu tư, kiểm soát vị thế, mới sống được lâu."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块三共 25 条认知 (51-75)</span><span class="vn-only">Module 3 có 25 điều (51-75)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块四：系统思维 -->
+      <div class="module-section" id="module4">
+        <div class="module-header animate-in">
+          <div class="module-number">4</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">系统思维 System Thinking</span><span class="vn-only">Tư duy hệ thống</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【76-100条】解决问题：客户只看结果，不看机制</span><span class="vn-only">【76-100】Giải quyết: KH chỉ nhìn kết quả, không nhìn cơ chế</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：只关注结果不关心过程</span><span class="vn-only">Tình huống: Chỉ quan tâm kết quả</span></span>
+          <div class="cognition-title"><span class="cognition-number">76</span><span class="cn-only">好结果来自好系统</span><span class="vn-only">Kết quả tốt đến từ hệ thống tốt</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"一次好结果可能是运气，持续好结果一定是系统。你现在看到的收益，背后是一套经过验证的系统在运行。"</span>
+            <span class="vn-only">"Một lần kết quả tốt có thể là may mắn, kết quả tốt liên tục chắc chắn là hệ thống. Lợi nhuận bạn thấy hiện tại, phía sau là một hệ thống đã được kiểm chứng đang vận hành."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：觉得"感觉这次不一样"</span><span class="vn-only">Tình huống: Nghĩ "lần này khác"</span></span>
+          <div class="cognition-title"><span class="cognition-number">90</span><span class="cn-only">相信系统，胜过相信感觉</span><span class="vn-only">Tin hệ thống hơn tin cảm giác</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"每次说'这次不一样'的时候，往往都一样。感觉会骗你，系统不会。相信系统，胜过相信你的感觉。"</span>
+            <span class="vn-only">"Mỗi lần nói 'lần này khác', thường đều giống nhau. Cảm giác sẽ lừa bạn, hệ thống thì không. Tin hệ thống hơn tin cảm giác của bạn."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块四共 25 条认知 (76-100)</span><span class="vn-only">Module 4 có 25 điều (76-100)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块五：长期主义与复利认知 -->
+      <div class="module-section" id="module5">
+        <div class="module-header animate-in">
+          <div class="module-number">5</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">长期主义与复利认知</span><span class="vn-only">Chủ nghĩa dài hạn & Nhận thức lãi kép</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【101-125条】解决问题：急、躁、频繁切换产品</span><span class="vn-only">【101-125】Giải quyết: Nóng vội, bồn chồn, thay đổi sản phẩm liên tục</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：不理解为什么要长期持有</span><span class="vn-only">Tình huống: Không hiểu tại sao phải giữ dài hạn</span></span>
+          <div class="cognition-title"><span class="cognition-number">101</span><span class="cn-only">复利来自时间</span><span class="vn-only">Lãi kép đến từ thời gian</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"复利的力量不在于利率多高，而在于时间多长。同样 10% 的年化，1 年是 10%，10 年是 160%。时间才是复利的核心变量。"</span>
+            <span class="vn-only">"Sức mạnh của lãi kép không nằm ở lãi suất cao bao nhiêu, mà ở thời gian dài bao lâu. Cùng 10% năm, 1 năm là 10%, 10 năm là 160%. Thời gian mới là biến số cốt lõi của lãi kép."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：想换产品/策略</span><span class="vn-only">Tình huống: Muốn đổi sản phẩm/chiến lược</span></span>
+          <div class="cognition-title"><span class="cognition-number">105</span><span class="cn-only">复利讨厌频繁切换</span><span class="vn-only">Lãi kép ghét thay đổi thường xuyên</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"复利需要时间累积，每次切换都是从零开始。频繁切换就是在不断重置复利进程。找到一个可靠的系统，坚持做下去。"</span>
+            <span class="vn-only">"Lãi kép cần thời gian tích lũy, mỗi lần thay đổi là bắt đầu từ số không. Thay đổi thường xuyên là liên tục reset tiến trình lãi kép. Tìm một hệ thống đáng tin cậy, kiên trì làm theo."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块五共 25 条认知 (101-125)</span><span class="vn-only">Module 5 có 25 điều (101-125)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块六：风险与风控认知 -->
+      <div class="module-section" id="module6">
+        <div class="module-header animate-in">
+          <div class="module-number">6</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">风险与风控认知</span><span class="vn-only">Nhận thức rủi ro & Kiểm soát rủi ro</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【126-150条】解决问题：爆仓、盲目加仓、恐慌赎回</span><span class="vn-only">【126-150】Giải quyết: Cháy tài khoản, nạp thêm mù quáng, rút vốn hoảng loạn</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：只关心赚多少</span><span class="vn-only">Tình huống: Chỉ quan tâm kiếm bao nhiêu</span></span>
+          <div class="cognition-title"><span class="cognition-number">126</span><span class="cn-only">风控是第一收益</span><span class="vn-only">Kiểm soát rủi ro là lợi nhuận đầu tiên</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"问我能赚多少之前，先问风险怎么控制。风控做好了，收益是自然的结果。风控没做好，收益再高也迟早还回去。"</span>
+            <span class="vn-only">"Trước khi hỏi kiếm được bao nhiêu, hãy hỏi kiểm soát rủi ro thế nào. Kiểm soát rủi ro tốt, lợi nhuận là kết quả tự nhiên. Kiểm soát rủi ro không tốt, lợi nhuận cao mấy cũng sớm muộn trả lại."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：追求高收益</span><span class="vn-only">Tình huống: Theo đuổi lợi nhuận cao</span></span>
+          <div class="cognition-title"><span class="cognition-number">127</span><span class="cn-only">不亏钱比赚钱重要</span><span class="vn-only">Không lỗ tiền quan trọng hơn kiếm tiền</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"巴菲特说投资第一条规则是不要亏钱，第二条规则是记住第一条。保住本金，比赚更多更重要。"</span>
+            <span class="vn-only">"Buffett nói quy tắc đầu tư số 1 là không lỗ tiền, quy tắc số 2 là nhớ quy tắc số 1. Giữ vốn gốc quan trọng hơn kiếm thêm."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块六共 25 条认知 (126-150)</span><span class="vn-only">Module 6 có 25 điều (126-150)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块七：信任建立与认知陪伴 -->
+      <div class="module-section" id="module7">
+        <div class="module-header animate-in">
+          <div class="module-number">7</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">信任建立与认知陪伴</span><span class="vn-only">Xây dựng tin tưởng & Đồng hành nhận thức</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【151-175条】解决问题：客户信任危机、频繁质疑</span><span class="vn-only">【151-175】Giải quyết: Khủng hoảng tin tưởng, nghi ngờ thường xuyên</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：观察团队表现</span><span class="vn-only">Tình huống: Quan sát biểu hiện đội ngũ</span></span>
+          <div class="cognition-title"><span class="cognition-number">151</span><span class="cn-only">信任来自一致性</span><span class="vn-only">Tin tưởng đến từ sự nhất quán</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"信任不是靠说出来的，是靠一致性做出来的。我们说什么就做什么，每次都一样。时间久了，信任就建立起来了。"</span>
+            <span class="vn-only">"Tin tưởng không phải bằng lời nói, mà bằng sự nhất quán trong hành động. Chúng tôi nói gì làm đó, mỗi lần đều như vậy. Thời gian lâu dần, tin tưởng được xây dựng."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：需要支持</span><span class="vn-only">Tình huống: Cần hỗ trợ</span></span>
+          <div class="cognition-title"><span class="cognition-number">155</span><span class="cn-only">陪伴比承诺重要</span><span class="vn-only">Đồng hành quan trọng hơn hứa hẹn</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"我们不会给你过度承诺，但我们会一直陪着你。有问题随时沟通，遇到困难一起想办法。陪伴比承诺更有价值。"</span>
+            <span class="vn-only">"Chúng tôi sẽ không hứa hẹn quá mức, nhưng sẽ luôn đồng hành cùng bạn. Có vấn đề liên hệ bất cứ lúc nào, gặp khó khăn cùng tìm cách. Đồng hành có giá trị hơn hứa hẹn."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块七共 25 条认知 (151-175)</span><span class="vn-only">Module 7 có 25 điều (151-175)</span></p>
+        </div>
+      </div>
+
+      <!-- 模块八：市场共建思维 -->
+      <div class="module-section" id="module8">
+        <div class="module-header animate-in">
+          <div class="module-number">8</div>
+          <div>
+            <h2 style="margin-bottom: 5px;"><span class="cn-only">Nivex 市场共建思维</span><span class="vn-only">Tư duy cùng xây dựng thị trường Nivex</span></h2>
+            <p style="color: var(--gray);"><span class="cn-only">【176-200条】解决问题：把"客户"升级为"长期伙伴"</span><span class="vn-only">【176-200】Giải quyết: Nâng cấp "khách hàng" thành "đối tác dài hạn"</span></p>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：定义客户关系</span><span class="vn-only">Tình huống: Định nghĩa quan hệ KH</span></span>
+          <div class="cognition-title"><span class="cognition-number">176</span><span class="cn-only">客户不是韭菜</span><span class="vn-only">Khách hàng không phải "cỏ để cắt"</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"我们从来不把客户当韭菜。你赚钱我们才赚钱，你亏钱我们也没好处。我们的利益是一致的。"</span>
+            <span class="vn-only">"Chúng tôi không bao giờ coi khách hàng như cỏ để cắt. Bạn kiếm được tiền chúng tôi mới kiếm được, bạn lỗ chúng tôi cũng không có lợi. Lợi ích của chúng ta là nhất quán."</span>
+          </div>
+        </div>
+
+        <div class="cognition-card animate-in">
+          <span class="usage-tag"><span class="cn-only">场景：总结与展望</span><span class="vn-only">Tình huống: Tổng kết & Triển vọng</span></span>
+          <div class="cognition-title"><span class="cognition-number">200</span><span class="cn-only">这是一条长期路</span><span class="vn-only">Đây là con đường dài hạn</span></div>
+          <div class="cognition-script">
+            <span class="cn-only">"我们选择的是一条长期的路。不是最快的路，但是最稳的路。感谢你选择和我们一起走，这条路会越走越宽。"</span>
+            <span class="vn-only">"Chúng tôi chọn con đường dài hạn. Không phải đường nhanh nhất, nhưng là đường ổn định nhất. Cảm ơn bạn chọn đi cùng chúng tôi, con đường này sẽ ngày càng rộng mở."</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 25px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), transparent);">
+          <p><span class="cn-only">模块八共 25 条认知 (176-200)</span><span class="vn-only">Module 8 có 25 điều (176-200)</span></p>
+        </div>
+      </div>
+
+      <!-- 总结 -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="cn">200 条认知体系，覆盖客户全生命周期 · 每日一条，陪伴成长</div>
+        <div class="vn">Hệ thống 200 điều nhận thức, bao phủ toàn bộ vòng đời KH · Mỗi ngày một điều, đồng hành phát triển</div>
+      </div>
+
+      <!-- 返回 -->
+      <div style="margin-bottom: 50px; text-align: center;">
+        <a href="index.html" style="color: var(--gray); text-decoration: none;">
+          <span class="cn-only">← 返回培训体系</span>
+          <span class="vn-only">← Quay lại Hệ thống đào tạo</span>
+        </a>
+      </div>
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

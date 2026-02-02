@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX BD 业务流程平台</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    /* 首页特定样式 */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: var(--green-dark);
+      opacity: 0.1;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 300px;
+      height: 300px;
+      background: var(--green-dark);
+      opacity: 0.08;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.6rem;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--gray-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 模块卡片 */
+    .modules-section {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px 20px;
+      text-align: center;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      border: 1px solid transparent;
+    }
+
+    .module-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--green);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .module-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .module-card h3 {
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .module-card .vn {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .module-card p {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      line-height: 1.5;
+    }
+
+    /* 快速入口 */
+    .quick-section {
+      padding: 60px 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(127, 255, 0, 0.02) 100%);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .quick-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: all var(--transition-normal);
+      text-decoration: none;
+      border-left: 4px solid var(--green);
+    }
+
+    .quick-card:hover {
+      transform: translateX(5px);
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.1) 0%, rgba(127, 255, 0, 0.05) 100%);
+    }
+
+    .quick-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .quick-card h4 {
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .quick-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* 页脚 */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 1.5rem;
+      color: var(--green);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1200px) {
+      .module-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero-title { font-size: 2.5rem; }
+      .hero-subtitle { font-size: 1.3rem; }
+      .module-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 60px 0 40px; }
+      .hero-title { font-size: 2rem; }
+      .module-grid { grid-template-columns: 1fr; }
+      .quick-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">NIVEX</a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="page-wrapper">
+    <!-- Hero 区域 -->
+    <section class="hero">
+      <div class="container hero-content">
+        <h1 class="hero-title animate-in">
+          <span class="cn-only">BD 业务流程平台</span>
+          <span class="vn-only">Nền tảng quy trình BD</span>
+        </h1>
+        <p class="hero-subtitle animate-in delay-1">
+          <span class="cn-only">Nivex 全球市场 · 一站式工作支持</span>
+          <span class="vn-only">Nivex Toàn cầu · Hỗ trợ công việc toàn diện</span>
+        </p>
+        <p class="hero-desc animate-in delay-2">
+          <span class="cn-only">从培训到成交，从话术到维护，所有流程一键获取</span>
+          <span class="vn-only">Từ đào tạo đến chốt đơn, từ kịch bản đến chăm sóc, tất cả quy trình trong tầm tay</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 五大模块 -->
+    <section class="modules-section">
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2>
+            <span class="cn-only">核心模块</span>
+            <span class="vn-only">Module chính</span>
+          </h2>
+          <p class="vn" style="margin-top: 5px;">
+            <span class="cn-only">点击进入各模块</span>
+            <span class="vn-only">Nhấp để vào từng module</span>
+          </p>
+        </div>
+
+        <div class="module-grid">
+          <a href="training/index.html" class="module-card animate-in delay-1">
+            <span class="module-icon">📚</span>
+            <h3>
+              <span class="cn-only">培训体系</span>
+              <span class="vn-only">Hệ thống đào tạo</span>
+            </h3>
+            <p class="vn">Đào tạo</p>
+            <p>
+              <span class="cn-only">新人入门、产品知识、沟通技巧</span>
+              <span class="vn-only">Nhập môn, kiến thức sản phẩm, kỹ năng giao tiếp</span>
+            </p>
+          </a>
+
+          <a href="scripts/index.html" class="module-card animate-in delay-2">
+            <span class="module-icon">💬</span>
+            <h3>
+              <span class="cn-only">话术中心</span>
+              <span class="vn-only">Trung tâm kịch bản</span>
+            </h3>
+            <p class="vn">Kịch bản</p>
+            <p>
+              <span class="cn-only">痛点挖掘、成交话术、异议处理</span>
+              <span class="vn-only">Khai thác nhu cầu, chốt đơn, xử lý phản đối</span>
+            </p>
+          </a>
+
+          <a href="customer/index.html" class="module-card animate-in delay-3">
+            <span class="module-icon">🤝</span>
+            <h3>
+              <span class="cn-only">客户维护</span>
+              <span class="vn-only">Chăm sóc khách hàng</span>
+            </h3>
+            <p class="vn">Khách hàng</p>
+            <p>
+              <span class="cn-only">6步SOP、客户分类、跟进节奏</span>
+              <span class="vn-only">SOP 6 bước, phân loại KH, nhịp theo dõi</span>
+            </p>
+          </a>
+
+          <a href="daily/index.html" class="module-card animate-in delay-4">
+            <span class="module-icon">📋</span>
+            <h3>
+              <span class="cn-only">日常工作</span>
+              <span class="vn-only">Công việc hàng ngày</span>
+            </h3>
+            <p class="vn">Hàng ngày</p>
+            <p>
+              <span class="cn-only">每日清单、周报模板、BD追踪</span>
+              <span class="vn-only">Checklist, mẫu báo cáo tuần, theo dõi BD</span>
+            </p>
+          </a>
+
+          <a href="resources/index.html" class="module-card animate-in delay-5">
+            <span class="module-icon">📦</span>
+            <h3>
+              <span class="cn-only">资源支持</span>
+              <span class="vn-only">Tài nguyên hỗ trợ</span>
+            </h3>
+            <p class="vn">Tài nguyên</p>
+            <p>
+              <span class="cn-only">演示文件、表格模板、术语表</span>
+              <span class="vn-only">File trình bày, mẫu bảng, thuật ngữ</span>
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 快速入口 -->
+    <section class="quick-section">
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2>
+            <span class="cn-only">快速入口</span>
+            <span class="vn-only">Truy cập nhanh</span>
+          </h2>
+          <p class="vn" style="margin-top: 5px;">
+            <span class="cn-only">最常用的内容</span>
+            <span class="vn-only">Nội dung thường dùng nhất</span>
+          </p>
+        </div>
+
+        <div class="quick-grid">
+          <a href="customer/lifecycle-sop.html" class="quick-card animate-in delay-1">
+            <span class="quick-icon">🎯</span>
+            <div>
+              <h4>
+                <span class="cn-only">6步客户SOP</span>
+                <span class="vn-only">SOP 6 bước</span>
+              </h4>
+              <p>
+                <span class="cn-only">新客户全生命周期服务流程</span>
+                <span class="vn-only">Quy trình dịch vụ vòng đời khách hàng</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="training/ai-trading-logic.html" class="quick-card animate-in delay-2">
+            <span class="quick-icon">🤖</span>
+            <div>
+              <h4>
+                <span class="cn-only">AI交易逻辑解析</span>
+                <span class="vn-only">Giải thích AI giao dịch</span>
+              </h4>
+              <p>
+                <span class="cn-only">机构级AI运作原理与三大策略</span>
+                <span class="vn-only">Nguyên lý AI tổ chức & 3 chiến lược</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="scripts/faq.html" class="quick-card animate-in delay-3">
+            <span class="quick-icon">❓</span>
+            <div>
+              <h4>
+                <span class="cn-only">客户常见问题FAQ</span>
+                <span class="vn-only">Câu hỏi thường gặp</span>
+              </h4>
+              <p>
+                <span class="cn-only">15个高频问题专业回答模板</span>
+                <span class="vn-only">15 câu hỏi thường gặp & trả lời</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="daily/goal-action-guide.html" class="quick-card animate-in delay-4">
+            <span class="quick-icon">🎯</span>
+            <div>
+              <h4>
+                <span class="cn-only">目标达成行动指南</span>
+                <span class="vn-only">Hướng dẫn đạt mục tiêu</span>
+              </h4>
+              <p>
+                <span class="cn-only">第一性原理 + 市场扩展方案</span>
+                <span class="vn-only">Nguyên lý gốc + Mở rộng thị trường</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="training/partner-vision.html" class="quick-card animate-in delay-5">
+            <span class="quick-icon">🚀</span>
+            <div>
+              <h4>
+                <span class="cn-only">合作方愿景路线图</span>
+                <span class="vn-only">Lộ trình đối tác</span>
+              </h4>
+              <p>
+                <span class="cn-only">长期建设认知 + 五年发展规划</span>
+                <span class="vn-only">Nhận thức xây dựng + Kế hoạch 5 năm</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="resources/whitepaper.html" class="quick-card animate-in delay-6">
+            <span class="quick-icon">📖</span>
+            <div>
+              <h4>
+                <span class="cn-only">用户成长白皮书</span>
+                <span class="vn-only">Sách trắng Tăng trưởng</span>
+              </h4>
+              <p>
+                <span class="cn-only">8章完整认知体系</span>
+                <span class="vn-only">8 chương nhận thức hoàn chỉnh</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="scripts/negotiation-sop.html" class="quick-card animate-in delay-7">
+            <span class="quick-icon">🤝</span>
+            <div>
+              <h4>
+                <span class="cn-only">五步谈判法 SOP</span>
+                <span class="vn-only">SOP Đàm phán 5 bước</span>
+              </h4>
+              <p>
+                <span class="cn-only">完整价值谈判流程与话术</span>
+                <span class="vn-only">Quy trình đàm phán giá trị</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="training/growth-200.html" class="quick-card animate-in delay-8">
+            <span class="quick-icon">📚</span>
+            <div>
+              <h4>
+                <span class="cn-only">客户成长认知200条</span>
+                <span class="vn-only">200 điều nhận thức KH</span>
+              </h4>
+              <p>
+                <span class="cn-only">8大模块话术与场景认知</span>
+                <span class="vn-only">8 module kịch bản và nhận thức</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="resources/media-library.html" class="quick-card animate-in delay-9">
+            <span class="quick-icon">🎨</span>
+            <div>
+              <h4>
+                <span class="cn-only">素材资料库</span>
+                <span class="vn-only">Thư viện tài liệu</span>
+              </h4>
+              <p>
+                <span class="cn-only">PPT、图片、海报、视频素材</span>
+                <span class="vn-only">PPT, hình ảnh, poster, video</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-logo">NIVEX</div>
+        <p>
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+        <p style="margin-top: 10px; color: var(--gray-dark);">2026</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/language.js"></script>
+  <script src="assets/js/navigation.js"></script>
+</body>
+</html>

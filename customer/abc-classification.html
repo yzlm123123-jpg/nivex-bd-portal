@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A/B/C 客户分类 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .class-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 35px;
+      text-align: center;
+      border-top: 5px solid var(--gray-dark);
+      transition: all var(--transition-normal);
+    }
+    .class-card:hover {
+      transform: translateY(-5px);
+    }
+    .class-card.class-a {
+      border-top-color: var(--green);
+      background: linear-gradient(180deg, rgba(127,255,0,0.1) 0%, var(--bg-card) 30%);
+    }
+    .class-card.class-b {
+      border-top-color: var(--blue-accent);
+      background: linear-gradient(180deg, rgba(74,158,255,0.1) 0%, var(--bg-card) 30%);
+    }
+    .class-card.class-c {
+      border-top-color: var(--gray);
+    }
+    .class-badge {
+      display: inline-block;
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+    .class-a .class-badge { color: var(--green); }
+    .class-b .class-badge { color: var(--blue-accent); }
+    .class-c .class-badge { color: var(--gray); }
+    .class-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+    .class-traits {
+      text-align: left;
+      margin: 20px 0;
+      padding: 15px 20px;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius-sm);
+    }
+    .class-traits li {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .class-traits li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+    }
+    .strategy-box {
+      background: var(--green-subtle);
+      border-radius: var(--radius-sm);
+      padding: 15px 20px;
+      margin-top: 15px;
+    }
+    .strategy-box .label {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">A/B/C 客户分类标准</span>
+          <span class="vn-only">Tiêu chuẩn phân loại khách hàng A/B/C</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">精准定位客户优先级，合理分配精力</span>
+          <span class="vn-only">Xác định chính xác ưu tiên khách hàng, phân bổ công sức hợp lý</span>
+        </p>
+      </div>
+
+      <!-- 核心原则 -->
+      <div class="key-point animate-in delay-1" style="margin-bottom: 50px;">
+        <div class="cn">搞清楚客户是谁、要什么、能承受什么，才能给出对的服务</div>
+        <div class="vn">Hiểu rõ khách hàng là ai, cần gì, chịu được gì, mới đưa ra dịch vụ đúng</div>
+      </div>
+
+      <!-- 三类客户 -->
+      <div class="grid-3 animate-in delay-2">
+        <!-- A 类 -->
+        <div class="class-card class-a">
+          <div class="class-badge">A</div>
+          <h3>
+            <span class="cn-only">重点客户</span>
+            <span class="vn-only">Khách hàng trọng điểm</span>
+          </h3>
+          <div class="vn" style="color: var(--green); margin-bottom: 15px;">
+            <span class="cn-only">高优先级 · 快速跟进</span>
+            <span class="vn-only">Ưu tiên cao · Theo dõi nhanh</span>
+          </div>
+
+          <ul class="class-traits" style="list-style: none;">
+            <li><span class="cn-only">需求明确</span><span class="vn-only">Nhu cầu rõ ràng</span></li>
+            <li><span class="cn-only">有资金实力</span><span class="vn-only">Có năng lực tài chính</span></li>
+            <li><span class="cn-only">风险认知合理</span><span class="vn-only">Nhận thức rủi ro hợp lý</span></li>
+            <li><span class="cn-only">决策周期短</span><span class="vn-only">Chu kỳ quyết định ngắn</span></li>
+          </ul>
+
+          <div class="strategy-box">
+            <div class="label"><span class="cn-only">策略</span><span class="vn-only">Chiến lược</span></div>
+            <div class="cn" style="font-weight: 600;">重点跟进，争取快速成交</div>
+            <div class="vn">Theo dõi trọng điểm, cố gắng chốt nhanh</div>
+          </div>
+        </div>
+
+        <!-- B 类 -->
+        <div class="class-card class-b">
+          <div class="class-badge">B</div>
+          <h3>
+            <span class="cn-only">培育客户</span>
+            <span class="vn-only">Khách hàng cần nuôi dưỡng</span>
+          </h3>
+          <div class="vn" style="color: var(--blue-accent); margin-bottom: 15px;">
+            <span class="cn-only">中优先级 · 持续沟通</span>
+            <span class="vn-only">Ưu tiên trung · Giao tiếp liên tục</span>
+          </div>
+
+          <ul class="class-traits" style="list-style: none;">
+            <li><span class="cn-only">有兴趣但观望</span><span class="vn-only">Quan tâm nhưng chờ đợi</span></li>
+            <li><span class="cn-only">需要更多教育</span><span class="vn-only">Cần được giáo dục thêm</span></li>
+            <li><span class="cn-only">信任还未建立</span><span class="vn-only">Niềm tin chưa được xây dựng</span></li>
+            <li><span class="cn-only">决策周期较长</span><span class="vn-only">Chu kỳ quyết định dài</span></li>
+          </ul>
+
+          <div class="strategy-box" style="background: rgba(74,158,255,0.1);">
+            <div class="label" style="color: var(--blue-accent);"><span class="cn-only">策略</span><span class="vn-only">Chiến lược</span></div>
+            <div class="cn" style="font-weight: 600;">持续沟通，建立信任</div>
+            <div class="vn">Giao tiếp liên tục, xây dựng niềm tin</div>
+          </div>
+        </div>
+
+        <!-- C 类 -->
+        <div class="class-card class-c">
+          <div class="class-badge">C</div>
+          <h3>
+            <span class="cn-only">观望客户</span>
+            <span class="vn-only">Khách hàng quan sát</span>
+          </h3>
+          <div class="vn" style="color: var(--gray); margin-bottom: 15px;">
+            <span class="cn-only">低优先级 · 保持联系</span>
+            <span class="vn-only">Ưu tiên thấp · Giữ liên lạc</span>
+          </div>
+
+          <ul class="class-traits" style="list-style: none;">
+            <li><span class="cn-only">预期不切实际</span><span class="vn-only">Kỳ vọng không thực tế</span></li>
+            <li><span class="cn-only">纯了解/好奇</span><span class="vn-only">Chỉ tìm hiểu/tò mò</span></li>
+            <li><span class="cn-only">资金或意愿不足</span><span class="vn-only">Vốn hoặc ý định không đủ</span></li>
+            <li><span class="cn-only">暂时不是目标</span><span class="vn-only">Tạm thời không phải mục tiêu</span></li>
+          </ul>
+
+          <div class="strategy-box" style="background: rgba(255,255,255,0.03);">
+            <div class="label" style="color: var(--gray);"><span class="cn-only">策略</span><span class="vn-only">Chiến lược</span></div>
+            <div class="cn" style="font-weight: 600;">保持联系，暂不投入精力</div>
+            <div class="vn">Giữ liên lạc, tạm không đầu tư công sức</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 如何判断 -->
+      <section class="content-section" style="margin-top: 60px;">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">如何快速判断客户类型？</span>
+          <span class="vn-only">Làm sao nhanh chóng xác định loại khách hàng?</span>
+        </h2>
+
+        <div class="card" style="margin-bottom: 30px;">
+          <h3 style="color: var(--green); margin-bottom: 20px;">
+            <span class="cn-only">投资需求三问</span>
+            <span class="vn-only">3 câu hỏi về nhu cầu đầu tư</span>
+          </h3>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div>
+                <div class="cn" style="font-weight: 700;">① 产品偏好</div>
+                <div class="vn" style="margin-bottom: 8px;">Sở thích sản phẩm</div>
+                <div class="cn" style="color: var(--gray-light);">"你平时主要投什么？现货、合约、还是理财类产品？"</div>
+                <div class="vn">"Bạn thường đầu tư gì? Spot, hợp đồng hay sản phẩm tài chính?"</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div>
+                <div class="cn" style="font-weight: 700;">② 投资周期</div>
+                <div class="vn" style="margin-bottom: 8px;">Chu kỳ đầu tư</div>
+                <div class="cn" style="color: var(--gray-light);">"你习惯短线操作，还是中长期持有？"</div>
+                <div class="vn">"Bạn quen giao dịch ngắn hạn hay nắm giữ trung dài hạn?"</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div>
+                <div class="cn" style="font-weight: 700;">③ 风险承受</div>
+                <div class="vn" style="margin-bottom: 8px;">Chịu đựng rủi ro</div>
+                <div class="cn" style="color: var(--gray-light);">"如果出现回撤，你能接受多大幅度？10%？20%？"</div>
+                <div class="vn">"Nếu thua lỗ, bạn chấp nhận mức bao nhiêu? 10%? 20%?"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 判断表 -->
+        <table class="info-table">
+          <tr>
+            <th style="width: 25%;"><span class="cn-only">判断维度</span><span class="vn-only">Chiều đánh giá</span></th>
+            <th style="color: var(--green);"><span class="cn-only">A 类特征</span><span class="vn-only">Đặc điểm loại A</span></th>
+            <th style="color: var(--blue-accent);"><span class="cn-only">B 类特征</span><span class="vn-only">Đặc điểm loại B</span></th>
+            <th style="color: var(--gray);"><span class="cn-only">C 类特征</span><span class="vn-only">Đặc điểm loại C</span></th>
+          </tr>
+          <tr>
+            <td><span class="cn-only">需求明确度</span><span class="vn-only">Độ rõ ràng nhu cầu</span></td>
+            <td><span class="cn-only">非常明确</span><span class="vn-only">Rất rõ ràng</span></td>
+            <td><span class="cn-only">有兴趣但模糊</span><span class="vn-only">Quan tâm nhưng mơ hồ</span></td>
+            <td><span class="cn-only">不明确/幻想</span><span class="vn-only">Không rõ/ảo tưởng</span></td>
+          </tr>
+          <tr>
+            <td><span class="cn-only">资金准备</span><span class="vn-only">Chuẩn bị vốn</span></td>
+            <td><span class="cn-only">资金到位</span><span class="vn-only">Vốn sẵn sàng</span></td>
+            <td><span class="cn-only">有但需考虑</span><span class="vn-only">Có nhưng cần cân nhắc</span></td>
+            <td><span class="cn-only">暂无/不足</span><span class="vn-only">Chưa có/không đủ</span></td>
+          </tr>
+          <tr>
+            <td><span class="cn-only">风险认知</span><span class="vn-only">Nhận thức rủi ro</span></td>
+            <td><span class="cn-only">理性合理</span><span class="vn-only">Lý trí hợp lý</span></td>
+            <td><span class="cn-only">需要教育</span><span class="vn-only">Cần được giáo dục</span></td>
+            <td><span class="cn-only">期望过高</span><span class="vn-only">Kỳ vọng quá cao</span></td>
+          </tr>
+          <tr>
+            <td><span class="cn-only">决策速度</span><span class="vn-only">Tốc độ quyết định</span></td>
+            <td><span class="cn-only">快（1-2周内）</span><span class="vn-only">Nhanh (1-2 tuần)</span></td>
+            <td><span class="cn-only">中（1-3个月）</span><span class="vn-only">Trung bình (1-3 tháng)</span></td>
+            <td><span class="cn-only">慢/无限期</span><span class="vn-only">Chậm/vô thời hạn</span></td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 精力分配 -->
+      <div class="key-point" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="cn" style="font-size: 1.1rem;">精力分配原则：A 类 60% · B 类 30% · C 类 10%</div>
+        <div class="vn">Nguyên tắc phân bổ công sức: Loại A 60% · Loại B 30% · Loại C 10%</div>
+        <div style="margin-top: 15px; font-size: 0.95rem;">
+          <div class="cn" style="color: var(--gray-light);">把最多精力放在最有可能成交的客户身上</div>
+          <div class="vn">Dành nhiều công sức nhất cho khách hàng có khả năng chốt cao nhất</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

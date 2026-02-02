@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户成长白皮书 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 30px 0;
+      position: sticky;
+      top: 70px;
+      background: var(--bg);
+      padding: 15px 0;
+      z-index: 10;
+    }
+    .chapter-tab {
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 25px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+    .chapter-tab:hover, .chapter-tab.active {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+    .chapter-section {
+      margin-bottom: 80px;
+      scroll-margin-top: 150px;
+    }
+    .chapter-header {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15), rgba(127,255,0,0.05));
+      padding: 40px;
+      border-radius: 16px;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+    .chapter-number {
+      display: inline-block;
+      background: var(--green);
+      color: #000;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .chapter-title {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+    .chapter-quote {
+      font-size: 1.1rem;
+      color: var(--green);
+      font-style: italic;
+    }
+
+    .content-block {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+    }
+    .content-block h3 {
+      color: var(--green);
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .comparison-table th {
+      background: rgba(127,255,0,0.2);
+      color: var(--green);
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .comparison-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .comparison-table tr:hover {
+      background: rgba(127,255,0,0.05);
+    }
+
+    .fact-card {
+      background: rgba(127,255,0,0.1);
+      border-left: 4px solid var(--green);
+      padding: 20px 25px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+    .fact-card h4 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .checklist {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 25px 0;
+    }
+    .checklist h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+    .checklist-item::before {
+      content: "☐";
+      margin-right: 15px;
+      color: var(--green);
+      font-size: 1.2rem;
+    }
+
+    .do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .do-box, .dont-box {
+      padding: 25px;
+      border-radius: 12px;
+    }
+    .do-box {
+      background: rgba(127,255,0,0.1);
+      border: 1px solid var(--green);
+    }
+    .dont-box {
+      background: rgba(255,100,100,0.1);
+      border: 1px solid #ff6464;
+    }
+    .do-box h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .dont-box h4 {
+      color: #ff6464;
+      margin-bottom: 15px;
+    }
+    .do-box li::marker { color: var(--green); }
+    .dont-box li::marker { color: #ff6464; }
+
+    .key-insight {
+      background: linear-gradient(135deg, rgba(127,255,0,0.2), rgba(127,255,0,0.1));
+      padding: 20px 25px;
+      border-radius: 12px;
+      margin: 20px 0;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .level-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--green);
+    }
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .level-badge {
+      background: var(--green);
+      color: #000;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .level-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .level-percent {
+      color: var(--gray);
+      margin-left: auto;
+    }
+
+    .action-box {
+      background: rgba(127,255,0,0.08);
+      border: 1px solid rgba(127,255,0,0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 20px 0;
+    }
+    .action-box h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .action-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .action-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .action-title {
+      color: var(--green);
+      font-weight: 600;
+      min-width: 120px;
+    }
+
+    .conclusion-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.2), rgba(127,255,0,0.05));
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 40px 0;
+    }
+    .conclusion-box h3 {
+      color: var(--green);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .appendix-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    .appendix-title {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--green);
+    }
+
+    .consensus-grid {
+      display: grid;
+      gap: 15px;
+    }
+    .consensus-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(127,255,0,0.05);
+      border-radius: 8px;
+    }
+    .consensus-num {
+      background: var(--green);
+      color: #000;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .glossary-item {
+      display: flex;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .glossary-term {
+      color: var(--green);
+      font-weight: 700;
+      min-width: 100px;
+    }
+
+    @media (max-width: 768px) {
+      .chapter-nav {
+        gap: 8px;
+        top: 60px;
+      }
+      .chapter-tab {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+      }
+      .chapter-header {
+        padding: 25px;
+      }
+      .chapter-title {
+        font-size: 1.5rem;
+      }
+      .do-dont {
+        grid-template-columns: 1fr;
+      }
+      .content-block {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">NIVEX <span>BD Portal</span></a>
+      <div class="nav-links">
+        <a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a>
+        <a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a>
+        <a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a>
+        <a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a>
+        <a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a>
+      </div>
+      <button class="lang-toggle" onclick="toggleLanguage()">VN/中</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div class="breadcrumb">
+        <a href="../index.html">首页</a> / <a href="index.html">资源支持</a> / 用户成长白皮书
+      </div>
+      <h1>
+        <span class="cn-only">Nivex 市场《用户成长白皮书》</span>
+        <span class="vn-only">Sách trắng Tăng trưởng Người dùng Nivex</span>
+      </h1>
+      <p class="page-subtitle">
+        <span class="cn-only">从短期参与者，到长期共建者</span>
+        <span class="vn-only">Từ người tham gia ngắn hạn đến người đồng hành lâu dài</span>
+      </p>
+    </div>
+
+    <!-- 章节导航 -->
+    <div class="chapter-nav">
+      <a href="#preface" class="chapter-tab">前言</a>
+      <a href="#chapter1" class="chapter-tab">第一章</a>
+      <a href="#chapter2" class="chapter-tab">第二章</a>
+      <a href="#chapter3" class="chapter-tab">第三章</a>
+      <a href="#chapter4" class="chapter-tab">第四章</a>
+      <a href="#chapter5" class="chapter-tab">第五章</a>
+      <a href="#chapter6" class="chapter-tab">第六章</a>
+      <a href="#chapter7" class="chapter-tab">第七章</a>
+      <a href="#chapter8" class="chapter-tab">第八章</a>
+      <a href="#conclusion" class="chapter-tab">结语</a>
+      <a href="#appendix" class="chapter-tab">附录</a>
+    </div>
+
+    <!-- 前言 -->
+    <section class="chapter-section" id="preface">
+      <div class="chapter-header">
+        <div class="chapter-number">前言</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">为什么我们要写这本白皮书</span>
+          <span class="vn-only">Tại sao chúng tôi viết sách trắng này</span>
+        </h2>
+        <p class="chapter-quote">"在加密市场中，大多数问题不是产品问题，而是认知问题。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>📊 我们观察到的现象</h3>
+        <p>在过去服务数千名用户的过程中，我们发现：</p>
+        <table class="comparison-table">
+          <tr>
+            <th>用户类型</th>
+            <th>占比</th>
+            <th>典型表现</th>
+            <th>结果</th>
+          </tr>
+          <tr>
+            <td>短期投机者</td>
+            <td><strong style="color: #ff6464;">60%</strong></td>
+            <td>追涨杀跌、频繁切换、情绪操作</td>
+            <td>大多数在 3 个月内离场</td>
+          </tr>
+          <tr>
+            <td>摇摆观望者</td>
+            <td><strong style="color: #ffa500;">25%</strong></td>
+            <td>一有波动就动摇、反复进出</td>
+            <td>错过复利，收益碎片化</td>
+          </tr>
+          <tr>
+            <td>长期成长者</td>
+            <td><strong style="color: var(--green);">15%</strong></td>
+            <td>理解系统、接受波动、持续学习</td>
+            <td>穿越周期，持续获益</td>
+          </tr>
+        </table>
+        <div class="key-insight">
+          这本白皮书要解决的问题：如何让更多用户从「60%」走向「15%」？
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>🎯 Nivex 的选择</h3>
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>❌ 我们不想做的事</h4>
+            <ul>
+              <li>吸引「来得快」的人</li>
+              <li>承诺「稳赚不赔」</li>
+              <li>用刺激换短期增长</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>✅ 我们真正想做的事</h4>
+            <ul>
+              <li>陪伴「走得远」的人</li>
+              <li>建立「可持续」的认知体系</li>
+              <li>共建「长期共赢」的市场生态</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-box">
+        <h3>这本白皮书的唯一目的</h3>
+        <p>帮助每一位用户，建立正确的<strong>成长认知</strong>、<strong>学习能力</strong>与<strong>长期视角</strong>，从而在复杂、不确定的市场中，稳健地活下来，并持续成长。</p>
+      </div>
+    </section>
+
+    <!-- 第一章 -->
+    <section class="chapter-section" id="chapter1">
+      <div class="chapter-header">
+        <div class="chapter-number">第一章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">市场的真实样子</span>
+          <span class="vn-only">Bản chất thực sự của thị trường</span>
+        </h2>
+        <p class="chapter-quote">"市场不是来安慰人的，它只按自己的规律运行。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>1.1 问题诊断：你对市场的期待现实吗？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>错误期待</th>
+            <th>现实真相</th>
+          </tr>
+          <tr>
+            <td>"应该每天都赚钱"</td>
+            <td>没有任何系统能做到每天盈利</td>
+          </tr>
+          <tr>
+            <td>"回撤就是出问题了"</td>
+            <td>回撤是系统运行的正常部分</td>
+          </tr>
+          <tr>
+            <td>"波动太大，不正常"</td>
+            <td>波动是市场的常态，不是异常</td>
+          </tr>
+          <tr>
+            <td>"我能预测涨跌"</td>
+            <td>没有人能持续准确预测市场</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>1.2 正确认知：市场的三个基本事实</h3>
+
+        <div class="fact-card">
+          <h4>事实一：市场是波动的系统</h4>
+          <p>市场不是一条直线向上的曲线，而是：有涨有跌、有顺风期有逆风期、有看得懂的时候也有看不懂的时候。</p>
+          <p><strong>接受波动，是参与市场的入场券。</strong></p>
+        </div>
+
+        <div class="fact-card">
+          <h4>事实二：短期结果 ≠ 长期能力</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>时间维度</th>
+              <th>决定因素</th>
+              <th>可信度</th>
+            </tr>
+            <tr><td>1 天</td><td>运气</td><td>极低</td></tr>
+            <tr><td>1 周</td><td>运气 + 少量规律</td><td>低</td></tr>
+            <tr><td>1 个月</td><td>规律开始显现</td><td>中等</td></tr>
+            <tr><td>1 年</td><td>系统能力</td><td>较高</td></tr>
+            <tr><td>3 年+</td><td>系统 + 纪律 + 认知</td><td>高</td></tr>
+          </table>
+          <p><strong>结论：时间越短，噪音越多；时间越长，真相越清晰。</strong></p>
+        </div>
+
+        <div class="fact-card">
+          <h4>事实三：市场奖励的是特定的人</h4>
+          <p><strong style="color: #ff6464;">市场不奖励：</strong>情绪化操作的人、频繁切换方向的人、追逐短期刺激的人、忽视风险管理的人</p>
+          <p style="margin-top: 15px;"><strong style="color: var(--green);">市场长期奖励三种人：</strong></p>
+          <ul>
+            <li><strong>有纪律的人</strong> — 能按规则执行</li>
+            <li><strong>有系统的人</strong> — 不靠感觉决策</li>
+            <li><strong>有耐心的人</strong> — 愿意用时间换确定性</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <h4>📋 1.3 自检清单</h4>
+        <div class="checklist-item">我能接受连续 2 周没有收益吗？</div>
+        <div class="checklist-item">我能接受 10% 以内的回撤吗？</div>
+        <div class="checklist-item">我不会因为单日涨跌改变决策吗？</div>
+        <div class="checklist-item">我理解短期结果不代表系统好坏吗？</div>
+        <div class="checklist-item">我愿意用 1 年以上的时间来验证系统吗？</div>
+        <p style="margin-top: 15px; color: var(--gray);">如果「是」少于 3 个，说明你对市场的认知还需要提升。</p>
+      </div>
+    </section>
+
+    <!-- 第二章 -->
+    <section class="chapter-section" id="chapter2">
+      <div class="chapter-header">
+        <div class="chapter-number">第二章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">用户为什么容易失败</span>
+          <span class="vn-only">Tại sao người dùng dễ thất bại</span>
+        </h2>
+        <p class="chapter-quote">"大多数人不是输给市场，是输给自己的认知。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>2.1 问题诊断：三大致命误区</h3>
+
+        <div class="fact-card">
+          <h4>误区一：把单次收益当能力</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>错误想法</th>
+              <th>真实情况</th>
+            </tr>
+            <tr>
+              <td>"这次赚了 50%，我很厉害"</td>
+              <td>可能只是运气好</td>
+            </tr>
+            <tr>
+              <td>"我选的币涨了，说明我判断对了"</td>
+              <td>单次结果说明不了任何事</td>
+            </tr>
+            <tr>
+              <td>"别人都亏，我赚了，我比他们强"</td>
+              <td>市场会让过度自信的人付出代价</td>
+            </tr>
+          </table>
+          <div class="key-insight">
+            正确认知：运气不可复制，系统才可以。一次赚钱可能是运气，持续赚钱才是能力。
+          </div>
+        </div>
+
+        <div class="fact-card">
+          <h4>误区二：把回撤当失败</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>错误反应</th>
+              <th>后果</th>
+            </tr>
+            <tr>
+              <td>一回撤就恐慌</td>
+              <td>在最低点卖出</td>
+            </tr>
+            <tr>
+              <td>一回撤就质疑系统</td>
+              <td>频繁切换，什么都做不成</td>
+            </tr>
+            <tr>
+              <td>一回撤就想加仓回本</td>
+              <td>情绪化操作，亏损加大</td>
+            </tr>
+          </table>
+          <div class="key-insight">
+            正确认知：回撤是概率模型中的正常现象。回撤不可怕，可怕的是回撤中失去理性。
+          </div>
+        </div>
+
+        <div class="fact-card">
+          <h4>误区三：不断寻找"更快的产品"</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>行为模式</th>
+              <th>结果</th>
+            </tr>
+            <tr>
+              <td>这个涨得慢，换一个</td>
+              <td>刚换完，原来的开始涨</td>
+            </tr>
+            <tr>
+              <td>听说那个更赚钱，追过去</td>
+              <td>追进去就开始跌</td>
+            </tr>
+            <tr>
+              <td>一直在找"最好的"</td>
+              <td>什么复利都没拿到</td>
+            </tr>
+          </table>
+          <div class="key-insight">
+            正确认知：频繁切换 = 复利归零。坚持一个中等的策略，胜过频繁切换完美的策略。
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>2.2 真正的风险是什么？</h3>
+        <p><strong style="color: #ff6464;">大多数人以为的风险：</strong>市场波动、价格下跌、回撤发生</p>
+        <table class="comparison-table" style="margin-top: 20px;">
+          <tr>
+            <th>真正的风险</th>
+            <th>为什么致命</th>
+          </tr>
+          <tr>
+            <td>没有风控</td>
+            <td>一次极端行情就可能归零</td>
+          </tr>
+          <tr>
+            <td>没有系统</td>
+            <td>只能靠情绪和运气决策</td>
+          </tr>
+          <tr>
+            <td>没有长期计划</td>
+            <td>频繁进出，无法享受复利</td>
+          </tr>
+          <tr>
+            <td>没有认知</td>
+            <td>每次波动都是煎熬</td>
+          </tr>
+        </table>
+        <div class="key-insight">结论：波动不是风险，失控才是风险。</div>
+      </div>
+
+      <div class="checklist">
+        <h4>📋 2.3 自检清单</h4>
+        <div class="checklist-item">我是否曾因一次大赚而过度自信？</div>
+        <div class="checklist-item">我是否曾因回撤而恐慌性操作？</div>
+        <div class="checklist-item">我是否在过去一年换过 3 个以上产品/策略？</div>
+        <div class="checklist-item">我是否有明确的风控规则？</div>
+        <div class="checklist-item">我是否有 1 年以上的投资计划？</div>
+        <p style="margin-top: 15px; color: var(--gray);">如果前三个回答「是」，后两个回答「否」，你正在犯大多数人犯的错误。</p>
+      </div>
+    </section>
+
+    <!-- 第三章 -->
+    <section class="chapter-section" id="chapter3">
+      <div class="chapter-header">
+        <div class="chapter-number">第三章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">成长型用户的底层逻辑</span>
+          <span class="vn-only">Logic của người dùng tăng trưởng</span>
+        </h2>
+        <p class="chapter-quote">"成长不是知道更多，而是在相同环境下做出更稳定的决策。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>3.1 两类用户的对比</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>维度</th>
+            <th style="color: #ff6464;">普通用户</th>
+            <th style="color: var(--green);">成长型用户</th>
+          </tr>
+          <tr>
+            <td>对波动的态度</td>
+            <td>恐惧、逃避</td>
+            <td>接受、理解</td>
+          </tr>
+          <tr>
+            <td>决策依据</td>
+            <td>情绪、感觉、消息</td>
+            <td>系统、规则、数据</td>
+          </tr>
+          <tr>
+            <td>时间视角</td>
+            <td>看天、看周</td>
+            <td>看月、看年</td>
+          </tr>
+          <tr>
+            <td>对回撤的反应</td>
+            <td>质疑、动摇、想退出</td>
+            <td>复盘、学习、继续执行</td>
+          </tr>
+          <tr>
+            <td>追求的目标</td>
+            <td>快速翻倍</td>
+            <td>长期可持续</td>
+          </tr>
+          <tr>
+            <td>学习态度</td>
+            <td>觉得自己懂了</td>
+            <td>知道自己还有很多不懂</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>3.2 成长型用户的四个特征</h3>
+
+        <div class="fact-card">
+          <h4>特征一：接受不确定性</h4>
+          <p style="font-style: italic;">"我不知道明天会涨还是跌，但我知道我的系统长期是正期望的。"</p>
+          <ul>
+            <li>不追求预测准确</li>
+            <li>接受短期的随机性</li>
+            <li>相信长期的规律性</li>
+          </ul>
+        </div>
+
+        <div class="fact-card">
+          <h4>特征二：理解概率与周期</h4>
+          <p style="font-style: italic;">"这个月表现不好，不代表系统有问题，可能只是处于周期低谷。"</p>
+          <ul>
+            <li>用统计思维看结果</li>
+            <li>不被单次结果左右</li>
+            <li>理解任何系统都有周期</li>
+          </ul>
+        </div>
+
+        <div class="fact-card">
+          <h4>特征三：重视学习与复盘</h4>
+          <p style="font-style: italic;">"这次我做错了，我要想想为什么，下次怎么避免。"</p>
+          <ul>
+            <li>把错误当学习素材</li>
+            <li>定期复盘自己的决策</li>
+            <li>持续提升认知水平</li>
+          </ul>
+        </div>
+
+        <div class="fact-card">
+          <h4>特征四：愿意长期陪伴系统</h4>
+          <p style="font-style: italic;">"我选择了这套系统，就会给它足够的时间来证明。"</p>
+          <ul>
+            <li>不频繁切换</li>
+            <li>给系统完整的周期</li>
+            <li>用时间换确定性</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>3.3 成长的本质</h3>
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>成长不是</h4>
+            <ul>
+              <li>知道更多信息</li>
+              <li>看更多分析</li>
+              <li>听更多建议</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>成长是</h4>
+            <p>在相同的市场环境下，能够做出比以前更稳定、更理性的决策。</p>
+          </div>
+        </div>
+
+        <table class="comparison-table" style="margin-top: 20px;">
+          <tr>
+            <th>场景</th>
+            <th>以前的反应</th>
+            <th>成长后的反应</th>
+          </tr>
+          <tr>
+            <td>市场下跌 5%</td>
+            <td>恐慌、想卖</td>
+            <td>检查是否在预期范围内</td>
+          </tr>
+          <tr>
+            <td>连续一周没收益</td>
+            <td>焦虑、质疑</td>
+            <td>正常现象，继续等待</td>
+          </tr>
+          <tr>
+            <td>看到别人赚得更多</td>
+            <td>羡慕、想换</td>
+            <td>坚持自己的系统</td>
+          </tr>
+          <tr>
+            <td>遇到不懂的事</td>
+            <td>假装懂了</td>
+            <td>承认不懂，去学习</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="checklist">
+        <h4>📋 3.4 自检清单</h4>
+        <div class="checklist-item">我能接受"不知道明天涨跌"这件事吗？</div>
+        <div class="checklist-item">我会用统计思维（看整体）而非个案思维（看单次）吗？</div>
+        <div class="checklist-item">我有复盘的习惯吗？</div>
+        <div class="checklist-item">我愿意给系统至少 1 年的验证时间吗？</div>
+        <div class="checklist-item">我追求的是长期可持续，而非快速翻倍吗？</div>
+        <p style="margin-top: 15px; color: var(--gray);">如果「是」达到 4 个以上，你已经具备成长型用户的基础。</p>
+      </div>
+    </section>
+
+    <!-- 第四章 -->
+    <section class="chapter-section" id="chapter4">
+      <div class="chapter-header">
+        <div class="chapter-number">第四章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">学习力：决定上限的核心能力</span>
+          <span class="vn-only">Khả năng học tập: Năng lực cốt lõi</span>
+        </h2>
+        <p class="chapter-quote">"学习不是听课，是让认知转化为行为改变。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>4.1 问题诊断：你的学习有效吗？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>无效学习的表现</th>
+            <th>问题所在</th>
+          </tr>
+          <tr>
+            <td>听了很多课，行为没变</td>
+            <td>知道但没做到</td>
+          </tr>
+          <tr>
+            <td>看了很多分析，还是恐慌</td>
+            <td>信息没有转化为认知</td>
+          </tr>
+          <tr>
+            <td>觉得自己懂了，遇到情况又懵</td>
+            <td>理解停留在表面</td>
+          </tr>
+          <tr>
+            <td>学完就忘，下次还犯同样的错</td>
+            <td>没有重复和内化</td>
+          </tr>
+        </table>
+        <div class="key-insight">核心问题：学习 ≠ 听课 ≠ 看消息 ≠ 知道</div>
+      </div>
+
+      <div class="content-block">
+        <h3>4.2 真正的学习是什么？</h3>
+        <p>真正的学习包含四个步骤：</p>
+        <div class="fact-card">
+          <h4>第一步：理解逻辑</h4>
+          <p>不只是记住结论，而是理解"为什么"</p>
+        </div>
+        <div class="fact-card">
+          <h4>第二步：接受周期</h4>
+          <p>理解任何方法都有适应期和调整期</p>
+        </div>
+        <div class="fact-card">
+          <h4>第三步：执行纪律</h4>
+          <p>把理解转化为规则，按规则执行</p>
+        </div>
+        <div class="fact-card">
+          <h4>第四步：复盘修正</h4>
+          <p>定期回顾，发现问题，持续优化</p>
+        </div>
+        <div class="key-insight">检验标准：学习的效果不是"你知道多少"，而是"你的行为改变了多少"。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>4.3 为什么必须反复学习？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>原因</th>
+            <th>解释</th>
+          </tr>
+          <tr>
+            <td>情绪会反复出现</td>
+            <td>今天冷静，明天可能又恐慌</td>
+          </tr>
+          <tr>
+            <td>市场会反复测试认知</td>
+            <td>不同的行情考验不同的认知</td>
+          </tr>
+          <tr>
+            <td>一次学习无法固化行为</td>
+            <td>大脑需要重复才能形成习惯</td>
+          </tr>
+        </table>
+        <div class="key-insight">结论：重复不是多余，是必要。你觉得重复，说明开始记住了。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>4.4 学习力的四个层级</h3>
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Level 1</span>
+            <span class="level-name">不知道自己不知道</span>
+          </div>
+          <p>盲目自信，觉得投资很简单</p>
+        </div>
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Level 2</span>
+            <span class="level-name">知道自己不知道</span>
+          </div>
+          <p>开始学习，但还很困惑</p>
+        </div>
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Level 3</span>
+            <span class="level-name">知道自己知道</span>
+          </div>
+          <p>理解了逻辑，能稳定执行</p>
+        </div>
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Level 4</span>
+            <span class="level-name">不知道自己知道</span>
+          </div>
+          <p>内化成本能，自然而然做对</p>
+        </div>
+        <p style="margin-top: 20px; color: var(--gray);">大多数人停留在 Level 1 和 Level 2。目标是达到 Level 3，最终进入 Level 4。</p>
+      </div>
+
+      <div class="action-box">
+        <h4>📌 4.5 行动指引：如何提升学习力？</h4>
+        <div class="action-item">
+          <span class="action-title">每天学习一条认知</span>
+          <span>参与每日推送，认真阅读并思考</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">遇到问题先学习再决策</span>
+          <span>不要凭情绪做决定，先看看相关认知</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">记录自己的决策和想法</span>
+          <span>写下来，过段时间回看</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">定期复盘</span>
+          <span>每周/每月回顾自己的操作和心态</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">接受重复</span>
+          <span>同样的内容多听几遍，直到真正内化</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第五章 -->
+    <section class="chapter-section" id="chapter5">
+      <div class="chapter-header">
+        <div class="chapter-number">第五章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">系统思维：为什么我们强调"规则"</span>
+          <span class="vn-only">Tư duy hệ thống: Tại sao chúng tôi nhấn mạnh "quy tắc"</span>
+        </h2>
+        <p class="chapter-quote">"系统不是万能的，但比情绪稳定一万倍。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>5.1 问题诊断：你是靠什么做决策的？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>决策方式</th>
+            <th>来源</th>
+            <th>稳定性</th>
+            <th>长期结果</th>
+          </tr>
+          <tr>
+            <td>靠感觉</td>
+            <td>直觉、情绪</td>
+            <td>极不稳定</td>
+            <td>追涨杀跌</td>
+          </tr>
+          <tr>
+            <td>靠消息</td>
+            <td>新闻、小道消息</td>
+            <td>不稳定</td>
+            <td>被操纵</td>
+          </tr>
+          <tr>
+            <td>靠别人</td>
+            <td>朋友推荐、大V喊单</td>
+            <td>不稳定</td>
+            <td>跟错人</td>
+          </tr>
+          <tr style="background: rgba(127,255,0,0.1);">
+            <td><strong>靠系统</strong></td>
+            <td>规则、数据、纪律</td>
+            <td><strong>稳定</strong></td>
+            <td><strong>长期正期望</strong></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>5.2 系统的三大价值</h3>
+
+        <div class="fact-card">
+          <h4>价值一：降低情绪干扰</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>没有系统</th>
+              <th>有系统</th>
+            </tr>
+            <tr>
+              <td>涨了兴奋，想加仓</td>
+              <td>按规则，该加才加</td>
+            </tr>
+            <tr>
+              <td>跌了恐慌，想割肉</td>
+              <td>按规则，该止损才止损</td>
+            </tr>
+            <tr>
+              <td>每天情绪起伏</td>
+              <td>情绪与决策分离</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="fact-card">
+          <h4>价值二：用规则替代主观判断</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>没有系统</th>
+              <th>有系统</th>
+            </tr>
+            <tr>
+              <td>"我觉得该买了"</td>
+              <td>"系统信号出现了，执行买入"</td>
+            </tr>
+            <tr>
+              <td>"我觉得要跌了"</td>
+              <td>"还没触发止损，继续持有"</td>
+            </tr>
+            <tr>
+              <td>每次都在纠结</td>
+              <td>规则清晰，执行就好</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="fact-card">
+          <h4>价值三：用长期统计替代单次结果</h4>
+          <table class="comparison-table">
+            <tr>
+              <th>没有系统</th>
+              <th>有系统</th>
+            </tr>
+            <tr>
+              <td>这次亏了，系统不行</td>
+              <td>看 100 次的统计结果</td>
+            </tr>
+            <tr>
+              <td>这次赚了，我很厉害</td>
+              <td>单次结果不说明问题</td>
+            </tr>
+            <tr>
+              <td>被单次结果左右</td>
+              <td>关注长期期望值</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>5.3 系统不是完美的</h3>
+        <p>任何系统都会经历三个阶段：</p>
+        <table class="comparison-table">
+          <tr>
+            <th>阶段</th>
+            <th>表现</th>
+            <th>正确应对</th>
+          </tr>
+          <tr>
+            <td>顺风期</td>
+            <td>连续盈利，很舒服</td>
+            <td>不要过度自信</td>
+          </tr>
+          <tr>
+            <td>回撤期</td>
+            <td>连续亏损，很难受</td>
+            <td>检查是否在预期范围内</td>
+          </tr>
+          <tr>
+            <td>震荡期</td>
+            <td>不赚不亏，很无聊</td>
+            <td>保持耐心，继续执行</td>
+          </tr>
+        </table>
+        <div class="key-insight">关键认知：没有系统的人，只有一个阶段：情绪期。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>5.4 系统 vs 情绪</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>维度</th>
+            <th style="color: var(--green);">系统</th>
+            <th style="color: #ff6464;">情绪</th>
+          </tr>
+          <tr><td>稳定性</td><td>高</td><td>低</td></tr>
+          <tr><td>可复制</td><td>是</td><td>否</td></tr>
+          <tr><td>可预期</td><td>是</td><td>否</td></tr>
+          <tr><td>长期表现</td><td>正期望</td><td>负期望</td></tr>
+          <tr><td>能否传授</td><td>能</td><td>不能</td></tr>
+        </table>
+        <div class="key-insight">结论：相信系统，胜过相信感觉。</div>
+      </div>
+
+      <div class="action-box">
+        <h4>📌 5.5 行动指引：如何建立系统思维？</h4>
+        <div class="action-item">
+          <span class="action-title">把决策交给规则</span>
+          <span>提前定好规则，遇到情况按规则执行</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">减少人为干预</span>
+          <span>系统在运行，就不要频繁调整</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">用数据验证</span>
+          <span>不凭感觉判断系统好坏，看统计数据</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">给系统时间</span>
+          <span>至少一个完整周期（3-6 个月）再评价</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">接受不完美</span>
+          <span>系统不可能每次都对，追求长期优势</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第六章 -->
+    <section class="chapter-section" id="chapter6">
+      <div class="chapter-header">
+        <div class="chapter-number">第六章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">长期主义与复利认知</span>
+          <span class="vn-only">Chủ nghĩa dài hạn và nhận thức về lãi kép</span>
+        </h2>
+        <p class="chapter-quote">"复利是反人性的能力，所以大多数人拿不到。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>6.1 复利从哪里来？</h3>
+        <p><strong>复利的公式：</strong>复利 = 本金 × (1 + 收益率) ^ 时间</p>
+        <table class="comparison-table" style="margin-top: 20px;">
+          <tr>
+            <th>变量</th>
+            <th>重要性</th>
+            <th>你能控制吗？</th>
+          </tr>
+          <tr>
+            <td>本金</td>
+            <td>中</td>
+            <td>能（慢慢积累）</td>
+          </tr>
+          <tr>
+            <td>收益率</td>
+            <td>中</td>
+            <td>部分能（选择好系统）</td>
+          </tr>
+          <tr style="background: rgba(127,255,0,0.1);">
+            <td><strong>时间</strong></td>
+            <td><strong>最高</strong></td>
+            <td><strong>完全能（坚持不退出）</strong></td>
+          </tr>
+        </table>
+        <div class="key-insight">核心洞察：时间是指数项，是复利最大的放大器。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>6.2 复利的威力</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>年化收益</th>
+            <th>1 年</th>
+            <th>3 年</th>
+            <th>5 年</th>
+            <th>10 年</th>
+          </tr>
+          <tr>
+            <td>10%</td>
+            <td>1.1x</td>
+            <td>1.33x</td>
+            <td>1.61x</td>
+            <td>2.59x</td>
+          </tr>
+          <tr>
+            <td>20%</td>
+            <td>1.2x</td>
+            <td>1.73x</td>
+            <td>2.49x</td>
+            <td>6.19x</td>
+          </tr>
+          <tr style="background: rgba(127,255,0,0.1);">
+            <td><strong>30%</strong></td>
+            <td>1.3x</td>
+            <td>2.20x</td>
+            <td>3.71x</td>
+            <td><strong>13.79x</strong></td>
+          </tr>
+        </table>
+        <div class="key-insight">结论：不需要暴利，只需要稳定 + 时间。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>6.3 为什么大多数人拿不到复利？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>原因</th>
+            <th>表现</th>
+            <th>后果</th>
+          </tr>
+          <tr>
+            <td>太急</td>
+            <td>想一个月翻倍</td>
+            <td>冒险操作，亏损出局</td>
+          </tr>
+          <tr>
+            <td>太频繁</td>
+            <td>不断切换产品/策略</td>
+            <td>每次都从零开始</td>
+          </tr>
+          <tr>
+            <td>太容易动摇</td>
+            <td>一有波动就退出</td>
+            <td>错过复利累积期</td>
+          </tr>
+        </table>
+        <div class="key-insight">核心问题：复利需要连续性，而大多数人不断中断。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>6.4 复利的敌人</h3>
+        <table class="comparison-table">
+          <tr>
+            <th style="color: #ff6464;">敌人</th>
+            <th>如何杀死复利</th>
+          </tr>
+          <tr>
+            <td>频繁切换</td>
+            <td>每次切换，复利归零</td>
+          </tr>
+          <tr>
+            <td>情绪化退出</td>
+            <td>在低点离场，错过恢复</td>
+          </tr>
+          <tr>
+            <td>追求暴利</td>
+            <td>冒险导致大亏，本金受损</td>
+          </tr>
+          <tr>
+            <td>过度干预</td>
+            <td>打断系统运行，降低效率</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>6.5 长期主义的本质</h3>
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>长期主义不是</h4>
+            <ul>
+              <li>傻傻等待</li>
+              <li>不管不问</li>
+              <li>盲目坚持</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>长期主义是</h4>
+            <ul>
+              <li>理解周期后的坚持</li>
+              <li>有系统支撑的耐心</li>
+              <li>主动选择用时间换确定性</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <h4>📌 6.6 行动指引：如何实现复利？</h4>
+        <div class="action-item">
+          <span class="action-title">选定一个系统，坚持下去</span>
+          <span>不频繁切换，给系统完整周期</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">接受过程中的波动</span>
+          <span>波动是正常的，不是退出的理由</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">把时间维度拉长</span>
+          <span>不看天，看月；不看月，看年</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">减少操作</span>
+          <span>最好的操作是不操作</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">保护本金</span>
+          <span>不亏大钱，才能享受复利</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第七章 -->
+    <section class="chapter-section" id="chapter7">
+      <div class="chapter-header">
+        <div class="chapter-number">第七章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">风险管理：真正的第一收益</span>
+          <span class="vn-only">Quản lý rủi ro: Lợi nhuận thực sự đầu tiên</span>
+        </h2>
+        <p class="chapter-quote">"风控不是保守，是成熟；不是胆小，是专业。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>7.1 问题诊断：你重视风险吗？</h3>
+        <table class="comparison-table">
+          <tr>
+            <th style="color: #ff6464;">态度</th>
+            <th>表现</th>
+            <th>后果</th>
+          </tr>
+          <tr>
+            <td>忽视</td>
+            <td>"不会那么倒霉"</td>
+            <td>极端行情来了措手不及</td>
+          </tr>
+          <tr>
+            <td>逃避</td>
+            <td>"不想这些不开心的事"</td>
+            <td>没有准备，损失惨重</td>
+          </tr>
+          <tr>
+            <td>误解</td>
+            <td>"风控就是少赚钱"</td>
+            <td>不愿意做风控</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>7.2 正确认知：风控的本质</h3>
+        <p>风控的目的只有三个：</p>
+        <div class="fact-card">
+          <h4>① 活下来</h4>
+          <p>不被一次极端行情淘汰</p>
+        </div>
+        <div class="fact-card">
+          <h4>② 有下一次</h4>
+          <p>保留继续参与的资格</p>
+        </div>
+        <div class="fact-card">
+          <h4>③ 有长期可能性</h4>
+          <p>能够享受时间带来的复利</p>
+        </div>
+        <div class="key-insight">核心逻辑：先求不败，再求胜。</div>
+      </div>
+
+      <div class="content-block">
+        <h3>7.3 风控的四个维度</h3>
+
+        <div class="fact-card">
+          <h4>维度一：仓位管理</h4>
+          <table class="comparison-table">
+            <tr><th>规则</th><th>原因</th></tr>
+            <tr><td>单笔不超过总资金的 X%</td><td>单次失败不致命</td></tr>
+            <tr><td>分批建仓</td><td>降低入场时机风险</td></tr>
+            <tr><td>不 All in</td><td>永远留有余地</td></tr>
+          </table>
+        </div>
+
+        <div class="fact-card">
+          <h4>维度二：止损纪律</h4>
+          <table class="comparison-table">
+            <tr><th>规则</th><th>原因</th></tr>
+            <tr><td>提前设定止损点</td><td>不让亏损无限扩大</td></tr>
+            <tr><td>触发就执行，不犹豫</td><td>情绪化会让止损失效</td></tr>
+            <tr><td>止损后不立刻回本</td><td>防止情绪化操作</td></tr>
+          </table>
+        </div>
+
+        <div class="fact-card">
+          <h4>维度三：分散投资</h4>
+          <table class="comparison-table">
+            <tr><th>规则</th><th>原因</th></tr>
+            <tr><td>不把所有钱投一个产品</td><td>单一风险不致命</td></tr>
+            <tr><td>不同策略/周期组合</td><td>降低系统性风险</td></tr>
+          </table>
+        </div>
+
+        <div class="fact-card">
+          <h4>维度四：极端情况预案</h4>
+          <table class="comparison-table">
+            <tr><th>规则</th><th>原因</th></tr>
+            <tr><td>提前想好最坏情况</td><td>真发生了不慌</td></tr>
+            <tr><td>设定极端止损线</td><td>保护最后的本金</td></tr>
+            <tr><td>接受"可能会亏"</td><td>心理准备到位</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>7.4 没有风控的收益，都是幻觉</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>场景</th>
+            <th>没有风控</th>
+            <th>有风控</th>
+          </tr>
+          <tr>
+            <td>正常行情</td>
+            <td>赚得多</td>
+            <td>赚得稳</td>
+          </tr>
+          <tr>
+            <td>极端行情</td>
+            <td style="color: #ff6464;">可能归零</td>
+            <td style="color: var(--green);">亏损可控</td>
+          </tr>
+          <tr>
+            <td>长期结果</td>
+            <td style="color: #ff6464;">大概率出局</td>
+            <td style="color: var(--green);">持续在场</td>
+          </tr>
+        </table>
+        <div class="key-insight">结论：没有风控的收益，迟早会用更大的代价偿还。</div>
+      </div>
+
+      <div class="action-box">
+        <h4>📌 7.5 行动指引：如何做好风控？</h4>
+        <div class="action-item">
+          <span class="action-title">投入前先问自己</span>
+          <span>"这笔钱亏了，我能接受吗？"</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">设定明确的止损规则</span>
+          <span>写下来，触发就执行</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">不要用输不起的钱</span>
+          <span>只用闲钱投资</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">提前想好最坏情况</span>
+          <span>"如果跌 50%，我怎么办？"</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">定期检视风险敞口</span>
+          <span>确保在可承受范围内</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第八章 -->
+    <section class="chapter-section" id="chapter8">
+      <div class="chapter-header">
+        <div class="chapter-number">第八章</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">信任、陪伴与市场共建</span>
+          <span class="vn-only">Tin tưởng, đồng hành và xây dựng thị trường</span>
+        </h2>
+        <p class="chapter-quote">"我们不做一次性收割，做长期共建。"</p>
+      </div>
+
+      <div class="content-block">
+        <h3>8.1 Nivex 对用户的基本原则</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>原则</th>
+            <th>具体表现</th>
+          </tr>
+          <tr>
+            <td>不承诺不确定的结果</td>
+            <td>不说"稳赚"、"保本"、"翻倍"</td>
+          </tr>
+          <tr>
+            <td>不隐瞒真实的风险</td>
+            <td>提前说明可能的回撤和亏损</td>
+          </tr>
+          <tr>
+            <td>不追求短期刺激</td>
+            <td>不搞噱头，不制造 FOMO</td>
+          </tr>
+          <tr>
+            <td>不以收割为目标</td>
+            <td>你赚钱，我们才赚钱</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-block">
+        <h3>8.2 我们真正想建立的是什么？</h3>
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>不是</h4>
+            <ul>
+              <li>一次交易关系</li>
+              <li>割完就跑的模式</li>
+              <li>短期刺激换增长</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>而是</h4>
+            <p style="font-size: 1.1rem; font-weight: 600;">长期、透明、可持续的市场共建关系</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>8.3 共建的逻辑</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>角色</th>
+            <th>责任</th>
+            <th>收益</th>
+          </tr>
+          <tr>
+            <td>Nivex</td>
+            <td>提供系统、教育、陪伴</td>
+            <td>用户长期留存、规模增长</td>
+          </tr>
+          <tr>
+            <td>用户</td>
+            <td>学习、执行、反馈</td>
+            <td>认知提升、收益增长</td>
+          </tr>
+          <tr>
+            <td>BD</td>
+            <td>服务、解答、陪伴</td>
+            <td>客户信任、长期合作</td>
+          </tr>
+        </table>
+        <div class="key-insight">核心逻辑：用户成功 = 平台成功 = BD 成功</div>
+      </div>
+
+      <div class="content-block">
+        <h3>8.4 信任的建立</h3>
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>信任不是</h4>
+            <ul>
+              <li>承诺出来的</li>
+              <li>短期能建立的</li>
+              <li>靠话术获得的</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>信任是</h4>
+            <ul>
+              <li>一致性做出来的</li>
+              <li>时间积累出来的</li>
+              <li>真实表现赢得的</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>8.5 陪伴的价值</h3>
+        <table class="comparison-table">
+          <tr>
+            <th>场景</th>
+            <th>我们的做法</th>
+          </tr>
+          <tr>
+            <td>回撤期</td>
+            <td>主动沟通，解释逻辑，稳定情绪</td>
+          </tr>
+          <tr>
+            <td>困惑时</td>
+            <td>耐心解答，反复解释，直到理解</td>
+          </tr>
+          <tr>
+            <td>动摇时</td>
+            <td>提供认知支持，帮助做出理性决策</td>
+          </tr>
+          <tr>
+            <td>成长时</td>
+            <td>一起复盘，巩固正确的认知</td>
+          </tr>
+        </table>
+        <div class="key-insight">核心理念：陪伴比承诺重要，真实比好看重要。</div>
+      </div>
+
+      <div class="action-box">
+        <h4>📌 8.6 行动指引：如何参与共建？</h4>
+        <div class="action-item">
+          <span class="action-title">积极学习</span>
+          <span>参与每日推送，阅读白皮书</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">真实反馈</span>
+          <span>有问题就说，帮助我们改进</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">理性参与</span>
+          <span>不情绪化，用学到的认知指导行动</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">长期视角</span>
+          <span>给系统时间，给信任时间</span>
+        </div>
+        <div class="action-item">
+          <span class="action-title">共同成长</span>
+          <span>你的成功，就是我们的成功</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结语 -->
+    <section class="chapter-section" id="conclusion">
+      <div class="chapter-header">
+        <div class="chapter-number">结语</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">这不是一条快路，但是一条远路</span>
+          <span class="vn-only">Đây không phải con đường nhanh, nhưng là con đường xa</span>
+        </h2>
+        <p class="chapter-quote">"如果你想走得快，一个人走；如果你想走得远，一群人走。"</p>
+      </div>
+
+      <div class="content-block">
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>❌ 这条路不适合谁？</h4>
+            <p>如果你在寻找：</p>
+            <ul>
+              <li>一夜暴富</li>
+              <li>永不回撤</li>
+              <li>绝对确定性</li>
+              <li>不用学习就能赚钱</li>
+            </ul>
+            <p style="margin-top: 15px;">那么这条路不适合你。</p>
+          </div>
+          <div class="do-box">
+            <h4>✅ 这条路适合谁？</h4>
+            <p>如果你愿意：</p>
+            <ul>
+              <li>学习，持续提升认知</li>
+              <li>理解，接受市场的不确定性</li>
+              <li>陪伴，给系统足够的时间</li>
+              <li>长期参与，享受复利的回报</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>那么 Nivex 欢迎你，一起走这条长期的路。</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>我们的承诺</h3>
+        <div class="do-dont">
+          <div class="do-box">
+            <h4>✅ 我们承诺</h4>
+            <ul>
+              <li>持续提供高质量的认知教育</li>
+              <li>透明地展示真实的收益和风险</li>
+              <li>在你需要的时候提供陪伴和支持</li>
+              <li>和你一起穿越周期，长期共建</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <h4>❌ 我们不承诺</h4>
+            <ul>
+              <li>具体的收益数字</li>
+              <li>永不回撤</li>
+              <li>稳赚不赔</li>
+            </ul>
+            <p style="margin-top: 15px; font-style: italic;">因为这些承诺，没有人能真正给你。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-box">
+        <h3>最后一句话</h3>
+        <p style="font-size: 1.3rem; margin-bottom: 20px;"><strong>这不是一条快路，但这是一条远路。</strong></p>
+        <p style="font-size: 1.1rem;">慢慢走，才能走得远；一起走，才能走得久。</p>
+      </div>
+    </section>
+
+    <!-- 附录 -->
+    <section class="chapter-section" id="appendix">
+      <div class="chapter-header">
+        <div class="chapter-number">附录</div>
+        <h2 class="chapter-title">
+          <span class="cn-only">附录与参考资料</span>
+          <span class="vn-only">Phụ lục và Tài liệu tham khảo</span>
+        </h2>
+      </div>
+
+      <!-- 附录一：核心共识 20 条 -->
+      <div class="appendix-section">
+        <h3 class="appendix-title">附录一｜用户成长共识（完整版）</h3>
+        <div class="consensus-grid">
+          <div class="consensus-item"><span class="consensus-num">1</span><span>市场不是来安慰人的，它只按自己的规律运行</span></div>
+          <div class="consensus-item"><span class="consensus-num">2</span><span>回撤是系统的一部分，不是失败</span></div>
+          <div class="consensus-item"><span class="consensus-num">3</span><span>短期结果不代表长期能力</span></div>
+          <div class="consensus-item"><span class="consensus-num">4</span><span>运气不可复制，系统可以</span></div>
+          <div class="consensus-item"><span class="consensus-num">5</span><span>系统比感觉重要</span></div>
+          <div class="consensus-item"><span class="consensus-num">6</span><span>纪律比聪明重要</span></div>
+          <div class="consensus-item"><span class="consensus-num">7</span><span>风控是第一收益</span></div>
+          <div class="consensus-item"><span class="consensus-num">8</span><span>活下来比赚得多更重要</span></div>
+          <div class="consensus-item"><span class="consensus-num">9</span><span>没有风控的收益是幻觉</span></div>
+          <div class="consensus-item"><span class="consensus-num">10</span><span>时间是最大的盟友</span></div>
+          <div class="consensus-item"><span class="consensus-num">11</span><span>复利来自坚持，不来自暴利</span></div>
+          <div class="consensus-item"><span class="consensus-num">12</span><span>频繁切换 = 复利归零</span></div>
+          <div class="consensus-item"><span class="consensus-num">13</span><span>学习不是听课，是行为改变</span></div>
+          <div class="consensus-item"><span class="consensus-num">14</span><span>重复不是多余，是必要</span></div>
+          <div class="consensus-item"><span class="consensus-num">15</span><span>成长是做出更稳定的决策</span></div>
+          <div class="consensus-item"><span class="consensus-num">16</span><span>信任需要时间建立</span></div>
+          <div class="consensus-item"><span class="consensus-num">17</span><span>陪伴比承诺重要</span></div>
+          <div class="consensus-item"><span class="consensus-num">18</span><span>真实比好看重要</span></div>
+          <div class="consensus-item"><span class="consensus-num">19</span><span>用户成功 = 平台成功</span></div>
+          <div class="consensus-item"><span class="consensus-num">20</span><span>信任是最强复利</span></div>
+        </div>
+      </div>
+
+      <!-- 附录二：用户成长等级 -->
+      <div class="appendix-section">
+        <h3 class="appendix-title">附录二｜用户成长等级</h3>
+        <p style="margin-bottom: 20px;">五级成长体系</p>
+
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Lv.1</span>
+            <span class="level-name">新手期</span>
+            <span class="level-percent">占比 40%</span>
+          </div>
+          <p>不了解市场，容易被情绪左右。把投资当赌博、追涨杀跌、一有波动就恐慌、频繁切换产品、不愿意学习</p>
+        </div>
+
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Lv.2</span>
+            <span class="level-name">学习期</span>
+            <span class="level-percent">占比 30%</span>
+          </div>
+          <p>开始学习，但知行不一。开始接触认知内容、知道一些道理但做不到、遇到波动还是会动摇、在"理解"和"执行"之间挣扎、需要持续陪伴</p>
+        </div>
+
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Lv.3</span>
+            <span class="level-name">成长期</span>
+            <span class="level-percent">占比 20%</span>
+          </div>
+          <p>理解系统，能稳定执行。理解系统运行逻辑、能按规则执行、接受回撤的存在、不被单次结果左右、有复盘习惯</p>
+        </div>
+
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Lv.4</span>
+            <span class="level-name">成熟期</span>
+            <span class="level-percent">占比 8%</span>
+          </div>
+          <p>穿越过周期，心态稳定。穿越过至少一个完整周期、心态稳定不受短期波动影响、风控意识强、长期视角、能帮助他人理解</p>
+        </div>
+
+        <div class="level-card">
+          <div class="level-header">
+            <span class="level-badge">Lv.5</span>
+            <span class="level-name">共建期</span>
+            <span class="level-percent">占比 2%</span>
+          </div>
+          <p>认同理念，主动传播。完全认同 Nivex 理念、主动传播正确认知、帮助其他用户成长、参与社区建设、真正的长期伙伴</p>
+        </div>
+      </div>
+
+      <!-- 附录三：名词解释 -->
+      <div class="appendix-section">
+        <h3 class="appendix-title">附录四｜名词解释</h3>
+        <div class="glossary-item"><span class="glossary-term">复利</span><span>收益再投资产生的利滚利效应</span></div>
+        <div class="glossary-item"><span class="glossary-term">回撤</span><span>从最高点到某一低点的跌幅</span></div>
+        <div class="glossary-item"><span class="glossary-term">风控</span><span>风险控制，管理可能的损失</span></div>
+        <div class="glossary-item"><span class="glossary-term">系统</span><span>一套可复制、可执行的投资规则</span></div>
+        <div class="glossary-item"><span class="glossary-term">周期</span><span>市场从上涨到下跌再到上涨的完整循环</span></div>
+        <div class="glossary-item"><span class="glossary-term">仓位</span><span>投入资金占总资金的比例</span></div>
+        <div class="glossary-item"><span class="glossary-term">止损</span><span>亏损达到预设值时卖出以控制损失</span></div>
+        <div class="glossary-item"><span class="glossary-term">纪律</span><span>按规则执行，不受情绪影响</span></div>
+        <div class="glossary-item"><span class="glossary-term">长期主义</span><span>用时间换取确定性的投资理念</span></div>
+        <div class="glossary-item"><span class="glossary-term">共建</span><span>用户与平台共同成长的合作模式</span></div>
+      </div>
+    </section>
+
+    <!-- 版本信息 -->
+    <div class="conclusion-box" style="margin-top: 60px;">
+      <p style="font-size: 1rem; color: var(--gray);">《Nivex 市场用户成长白皮书》</p>
+      <p style="font-size: 0.9rem; color: var(--gray);">版本：1.0 ｜ 发布日期：2025年</p>
+      <p style="margin-top: 20px; font-size: 1.2rem; color: var(--green);">—— 从短期参与者，到长期共建者 ——</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p><span class="cn-only">© 2025 NIVEX BD Portal. 仅供内部使用。</span><span class="vn-only">© 2025 NIVEX BD Portal. Chỉ sử dụng nội bộ.</span></p>
+  </footer>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // 章节导航高亮
+    document.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.chapter-section');
+      const tabs = document.querySelectorAll('.chapter-tab');
+
+      let currentSection = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 200;
+        if (window.scrollY >= sectionTop) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('href') === '#' + currentSection) {
+          tab.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

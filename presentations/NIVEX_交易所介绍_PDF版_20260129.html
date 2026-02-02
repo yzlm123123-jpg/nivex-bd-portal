@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX 交易所介绍 | NIVEX 거래소 소개 - PDF版</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #151515;
+      --green: #7fff00;
+      --green-dark: #5cbf00;
+      --white: #ffffff;
+      --gray-light: #cccccc;
+      --gray: #888888;
+      --gray-dark: #555555;
+      --red-soft: #ff6b6b;
+      --blue-accent: #4a9eff;
+      --gold: #ffd700;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', 'Noto Sans SC', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media print {
+      body { background: var(--bg); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { page-break-after: always; page-break-inside: avoid; }
+      .page:last-child { page-break-after: auto; }
+      .no-print { display: none !important; }
+    }
+
+    .page {
+      width: 297mm;
+      height: 210mm;
+      padding: 15mm 20mm;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .page-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title-kr {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .title-cn {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-light);
+      margin-bottom: 30px;
+      line-height: 1.2;
+    }
+
+    .subtitle-kr {
+      font-size: 1.3rem;
+      color: var(--gray-light);
+      margin-bottom: 5px;
+    }
+
+    .subtitle-cn {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: 6px;
+    }
+
+    .page-number {
+      position: absolute;
+      bottom: 8mm;
+      right: 15mm;
+      font-size: 0.8rem;
+      color: var(--gray-dark);
+    }
+
+    .year {
+      position: absolute;
+      bottom: 8mm;
+      left: 15mm;
+      font-size: 0.8rem;
+      color: var(--gray-dark);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .card-highlight {
+      background: linear-gradient(135deg, rgba(127,255,0,0.12) 0%, rgba(127,255,0,0.04) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.25);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+
+    .feature-box {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .feature-box .icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .feature-box .kr { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .feature-box .cn { font-size: 0.75rem; color: var(--gray); }
+
+    .feature-item {
+      background: var(--bg-card);
+      border-radius: 6px;
+      padding: 12px 15px;
+      border-left: 3px solid var(--green);
+      margin-bottom: 10px;
+    }
+
+    .feature-item .kr { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+    .feature-item .cn { font-size: 0.8rem; color: var(--gray); }
+
+    .product-card {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 15px;
+      border-top: 3px solid var(--green);
+    }
+
+    .product-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .product-card .advantage {
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      line-height: 1.4;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.8rem;
+    }
+
+    .stat-row .label { color: var(--gray); }
+    .stat-row .value { color: var(--white); font-weight: 600; }
+    .stat-row .value.highlight { color: var(--green); }
+
+    .key-point {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.04) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.25);
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-top: auto;
+    }
+
+    .key-point .kr { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+    .key-point .cn { font-size: 0.85rem; color: var(--gray); }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray-dark);
+      margin-right: 12px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .timeline-dot.active {
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .timeline-content h4 { font-size: 0.95rem; color: var(--white); margin-bottom: 3px; }
+    .timeline-content p { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
+
+    .airdrop-card {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .airdrop-card .type { font-size: 0.9rem; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+    .airdrop-card .formula { font-size: 1.1rem; font-weight: 900; color: var(--white); margin-bottom: 5px; }
+    .airdrop-card .rate { font-size: 1.3rem; font-weight: 900; color: var(--green); margin-bottom: 8px; }
+    .airdrop-card .desc { font-size: 0.75rem; color: var(--gray); line-height: 1.4; }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .flow-item { text-align: center; }
+    .flow-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--bg);
+      font-size: 1.2rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+    }
+
+    .flow-content .kr { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+    .flow-content .cn { font-size: 0.75rem; color: var(--gray); }
+
+    .flow-arrow { font-size: 1.5rem; color: var(--green); }
+
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--green);
+      color: var(--bg);
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .print-btn:hover { background: var(--green-dark); }
+
+    .print-instructions {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background: var(--bg-card);
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      max-width: 280px;
+      z-index: 1000;
+    }
+
+    .print-instructions strong { color: var(--green); }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn no-print" onclick="window.print()">🖨️ 打印/导出 PDF</button>
+
+  <div class="print-instructions no-print">
+    <strong>导出 PDF 步骤：</strong><br>
+    1. 点击上方按钮或按 Ctrl+P<br>
+    2. 目标选择「另存为 PDF」<br>
+    3. 布局选择「横向」<br>
+    4. 勾选「背景图形」<br>
+    5. 点击保存
+  </div>
+
+  <!-- Page 1: 封面 -->
+  <div class="page page-cover">
+    <p class="title-kr">NIVEX 거래소 소개</p>
+    <h1 class="title-cn">NIVEX 交易所介绍</h1>
+    <p class="subtitle-kr">기관급 AI 퀀트 트레이딩 플랫폼</p>
+    <p class="subtitle-cn">机构级 AI 量化交易平台</p>
+    <div class="logo">NIVEX</div>
+    <div class="year">2026</div>
+    <div class="page-number">1 / 13</div>
+  </div>
+
+  <!-- Page 2: NIVEX 是谁 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">NIVEX는 누구인가?</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">NIVEX 是谁？</h1>
+
+    <div class="grid-2">
+      <div>
+        <div class="feature-item">
+          <div class="kr">글로벌 디지털 자산 거래소</div>
+          <div class="cn">全球化数字资产交易所</div>
+        </div>
+        <div class="feature-item">
+          <div class="kr">싱가포르, 두바이 법인 등록</div>
+          <div class="cn">主体注册于新加坡、迪拜</div>
+        </div>
+        <div class="feature-item">
+          <div class="kr">미국, 캐나다, 아프리카 등 다수 라이선스 보유</div>
+          <div class="cn">持有美国、加拿大、非洲等多地牌照</div>
+        </div>
+        <div class="feature-item">
+          <div class="kr">AI 스마트 트레이딩 인프라 구축에 집중</div>
+          <div class="cn">专注 AI 智能交易基础设施建设</div>
+        </div>
+      </div>
+
+      <div class="card card-highlight" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <div style="font-size: 1rem; color: var(--gray-light); margin-bottom: 10px;">핵심 포지셔닝 / 核心定位</div>
+        <div style="font-size: 1.4rem; font-weight: 900; color: var(--white); margin-bottom: 8px;">기관급 AI 금융 플랫폼</div>
+        <div style="font-size: 1rem; color: var(--gray);">机构级 AI 金融平台</div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">단기 상품이 아닌, 장기적으로 진화 가능한 디지털 금융 생태계</p>
+      <p class="cn">不是短期产品，而是长期可进化的数字金融生态</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">2 / 13</div>
+  </div>
+
+  <!-- Page 3: 核心优势 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">거래소 핵심 강점</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">交易所核心优势</h1>
+
+    <div class="grid-5" style="margin-bottom: 20px;">
+      <div class="feature-box">
+        <div class="icon">🔒</div>
+        <div class="kr">자산 보안</div>
+        <div class="cn">资产安全</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">🤖</div>
+        <div class="kr">AI 전략</div>
+        <div class="cn">AI 策略</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">📜</div>
+        <div class="kr">규정 준수 라이선스</div>
+        <div class="cn">合规牌照</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">⚡</div>
+        <div class="kr">고효율 안정성</div>
+        <div class="cn">高效稳定</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">🌏</div>
+        <div class="kr">글로벌 서비스</div>
+        <div class="cn">全球服务</div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 15px;">
+      <span style="font-size: 0.9rem; color: var(--gray-light); background: var(--bg-card); padding: 6px 15px; border-radius: 15px;">기관 AI 카피트레이딩 데이터 / 机构 AI 跟单数据</span>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 2rem; font-weight: 900; color: var(--green);">8,900만+</div>
+        <div style="color: var(--gray); margin-top: 8px; font-size: 0.85rem;">AI 카피트레이딩 관리 규모<br>AI 跟单管理规模 USDT</div>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 2rem; font-weight: 900; color: var(--green);">26,300+</div>
+        <div style="color: var(--gray); margin-top: 8px; font-size: 0.85rem;">AI 카피트레이딩 사용자 수<br>AI 跟单用户数</div>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 2rem; font-weight: 900; color: var(--green);">1,850만+</div>
+        <div style="color: var(--gray); margin-top: 8px; font-size: 0.85rem;">AI 카피트레이딩 총 수익<br>AI 跟单总利润 USDT</div>
+      </div>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">3 / 13</div>
+  </div>
+
+  <!-- Page 4: 5大 AI 产品 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">5대 AI 기관 카피트레이딩 상품</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">5大 AI 机构跟单产品</h1>
+
+    <div class="grid-5" style="margin-bottom: 20px;">
+      <div class="card" style="text-align: center; padding: 15px 10px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 8px;">Alpha10</div>
+        <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 5px; line-height: 1.3;">스마트 헤징<br>엄격한 리스크 관리</div>
+        <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 8px;">智能对冲 · 严格风控</div>
+        <div style="font-size: 0.75rem; color: var(--gray);">최대 운용 규모<br>管理规模最大</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 15px 10px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #4ad991; margin-bottom: 8px;">Astrabit</div>
+        <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 5px; line-height: 1.3;">추세 추적<br>자동 리밸런싱</div>
+        <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 8px;">趋势追踪 · 自动调仓</div>
+        <div style="font-size: 0.75rem; color: var(--gray);">팔로워 수 최다<br>跟单人数最多</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 15px 10px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: #ffc107; margin-bottom: 8px;">AITrade</div>
+        <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 5px; line-height: 1.3;">고급 알고리즘<br>균형 잡힌 수익</div>
+        <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 8px;">先进算法 · 均衡收益</div>
+        <div style="font-size: 0.75rem; color: var(--gray);">최저 진입장벽<br>100U起投</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 15px 10px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--red-soft); margin-bottom: 8px;">XHunter</div>
+        <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 5px; line-height: 1.3;">단기 추세 포착<br>폭발적 잠재력</div>
+        <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 8px;">短线趋势 · 爆发潜力</div>
+        <div style="font-size: 0.75rem; color: var(--gray);">고변동 고수익<br>高波动高回报</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 15px 10px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--blue-accent); margin-bottom: 8px;">Fidelity</div>
+        <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 5px; line-height: 1.3;">낮은 손실률<br>장기 안정 성장</div>
+        <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 8px;">稳定低回撤 · 长期增长</div>
+        <div style="font-size: 0.75rem; color: var(--gray);">최근 2주 손실률 0%<br>稳定优先</div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">모든 상품 수익 배분 비율 20% 통일, 자금은 개인 계정에 보관, 완전한 자기 통제</p>
+      <p class="cn">所有产品分润比例统一 20%，资金在个人账户，完全自主掌控</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">4 / 13</div>
+  </div>
+
+  <!-- Page 5: Alpha10 & Astrabit -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">상품 운영 현황 (1)</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">产品运营概况（一）</h1>
+
+    <div class="grid-2">
+      <div class="product-card">
+        <h3>Alpha10</h3>
+        <div class="advantage">스마트 헤징 + 엄격한 리스크 관리 = 낮은 손실률, 높은 승률<br><span style="color: var(--gray); font-size: 0.8rem;">智能对冲 + 严格风控 = 低回撤高胜率</span></div>
+        <div class="stat-row"><span class="label">출시일 / 上线时间</span><span class="value">2024.9.30</span></div>
+        <div class="stat-row"><span class="label">운영 기간 / 运营时长</span><span class="value highlight">16개월+</span></div>
+        <div class="stat-row"><span class="label">관리 규모 / 管理规模</span><span class="value">2,884만 USDT</span></div>
+        <div class="stat-row"><span class="label">팔로워 수 / 跟单人数</span><span class="value">8,321명</span></div>
+        <div class="stat-row"><span class="label">총 수익 / 总收益</span><span class="value highlight">698만 USDT</span></div>
+        <div class="stat-row"><span class="label">최소 투자 / 起投金额</span><span class="value">1,000 USDT</span></div>
+      </div>
+
+      <div class="product-card">
+        <h3 style="color: #4ad991;">Astrabit</h3>
+        <div class="advantage">실시간 추세 추적 + 자동 리밸런싱 = 편안한 수익<br><span style="color: var(--gray); font-size: 0.8rem;">实时追踪趋势 + 自动调仓 = 安心躺赚</span></div>
+        <div class="stat-row"><span class="label">출시일 / 上线时间</span><span class="value">2024.9.30</span></div>
+        <div class="stat-row"><span class="label">운영 기간 / 运营时长</span><span class="value highlight">16개월+</span></div>
+        <div class="stat-row"><span class="label">관리 규모 / 管理规模</span><span class="value">2,421만 USDT</span></div>
+        <div class="stat-row"><span class="label">팔로워 수 / 跟单人数</span><span class="value">8,331명 (최다)</span></div>
+        <div class="stat-row"><span class="label">총 수익 / 总收益</span><span class="value highlight">671만 USDT</span></div>
+        <div class="stat-row"><span class="label">최소 투자 / 起投金额</span><span class="value">500 USDT</span></div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">16개월 이상 운영, 검증된 안정적 수익 창출</p>
+      <p class="cn">运行超16个月，历史验证稳定输出</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">5 / 13</div>
+  </div>
+
+  <!-- Page 6: AITrade, XHunter, Fidelity -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">상품 운영 현황 (2)</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">产品运营概况（二）</h1>
+
+    <div class="grid-3">
+      <div class="product-card">
+        <h3 style="color: #ffc107;">AITrade</h3>
+        <div class="advantage">고급 알고리즘 + 균형 잡힌 수익<br><span style="color: var(--gray); font-size: 0.8rem;">先进算法 + 均衡收益 · 门槛最低</span></div>
+        <div class="stat-row"><span class="label">출시일</span><span class="value">2024.10.1</span></div>
+        <div class="stat-row"><span class="label">운영 기간</span><span class="value highlight">16개월</span></div>
+        <div class="stat-row"><span class="label">관리 규모</span><span class="value">725만U</span></div>
+        <div class="stat-row"><span class="label">팔로워 수</span><span class="value">7,403명</span></div>
+        <div class="stat-row"><span class="label">총 수익</span><span class="value highlight">289만U</span></div>
+        <div class="stat-row"><span class="label">최소 투자</span><span class="value">100U</span></div>
+      </div>
+
+      <div class="product-card">
+        <h3 style="color: var(--red-soft);">XHunter</h3>
+        <div class="advantage">단기 추세 포착 · 폭발적 잠재력<br><span style="color: var(--gray); font-size: 0.8rem;">短线趋势 + 爆发潜力 · 高波动高回报</span></div>
+        <div class="stat-row"><span class="label">출시일</span><span class="value">2025.8.10</span></div>
+        <div class="stat-row"><span class="label">운영 기간</span><span class="value highlight">5개월+</span></div>
+        <div class="stat-row"><span class="label">관리 규모</span><span class="value">1,576만U</span></div>
+        <div class="stat-row"><span class="label">팔로워 수</span><span class="value">2,013명</span></div>
+        <div class="stat-row"><span class="label">총 수익</span><span class="value highlight">102만U</span></div>
+        <div class="stat-row"><span class="label">최소 투자</span><span class="value">200U</span></div>
+      </div>
+
+      <div class="product-card">
+        <h3 style="color: var(--blue-accent);">Fidelity</h3>
+        <div class="advantage">낮은 손실률 · 장기 안정 성장<br><span style="color: var(--gray); font-size: 0.8rem;">稳定低回撤 · 长期增长 · 近2周回撤0%</span></div>
+        <div class="stat-row"><span class="label">출시일</span><span class="value">2025.8.10</span></div>
+        <div class="stat-row"><span class="label">운영 기간</span><span class="value highlight">5개월+</span></div>
+        <div class="stat-row"><span class="label">관리 규모</span><span class="value">1,327만U</span></div>
+        <div class="stat-row"><span class="label">팔로워 수</span><span class="value">232명</span></div>
+        <div class="stat-row"><span class="label">총 수익</span><span class="value highlight">92만U</span></div>
+        <div class="stat-row"><span class="label">최소 투자</span><span class="value">200U</span></div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">5대 상품 총 관리 규모 8,900만+ USDT · 총 수익 1,850만+ USDT</p>
+      <p class="cn">5大产品总管理规模 8,900万+ USDT · 总收益 1,850万+ USDT</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">6 / 13</div>
+  </div>
+
+  <!-- Page 7: 为什么选择 AI 跟单 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">왜 AI 기관 카피트레이딩을 선택해야 하는가?</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">为什么选择 AI 机构跟单？</h1>
+
+    <div class="grid-2">
+      <div class="card" style="border-left: 4px solid var(--red-soft);">
+        <h3 style="color: var(--red-soft); margin-bottom: 15px;">❌ 직접 거래 / 自己交易</h3>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">24시간 차트 모니터링 필요</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">需要24小时盯盘</div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">감정이 결정에 영향</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">情绪影响决策</div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">전문적인 리스크 관리 부족</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">缺乏专业风控</div>
+        </div>
+        <div>
+          <div style="color: var(--white); font-size: 0.9rem;">지속적인 수익 창출 어려움</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">难以持续盈利</div>
+        </div>
+      </div>
+
+      <div class="card card-highlight">
+        <h3 style="color: var(--green); margin-bottom: 15px;">✓ AI 기관 카피트레이딩</h3>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">7×24 자동 실행</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">7×24 自动执行</div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">알고리즘 기반 합리적 결정</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">算法理性决策</div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <div style="color: var(--white); font-size: 0.9rem;">기관급 리스크 관리 시스템</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">机构级风控系统</div>
+        </div>
+        <div>
+          <div style="color: var(--white); font-size: 0.9rem;">과거 데이터 검증 완료</div>
+          <div style="color: var(--gray); font-size: 0.8rem;">历史数据验证</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">전문 AI 시스템이 거래를 대신하고, 당신은 전략 선택과 리스크 관리만 하면 됩니다</p>
+      <p class="cn">让专业的 AI 系统替你交易，你只需选择策略、管理风险</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">7 / 13</div>
+  </div>
+
+  <!-- Page 8: 5年发展规划 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">NIVEX 2026-2030 5개년 계획</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">NIVEX 2026-2030 五年规划</h1>
+
+    <div class="grid-2">
+      <div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-content">
+            <h4>5년간 3억 달러 투자 / 5年投入 3亿美金</h4>
+            <p>매년 3000만+ 지속 투자 / 每年 3000万+ 持续建设</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>기술 제품 개발 / 技术产品研发</h4>
+            <p>기관급 AI 전략 시스템 지속 업그레이드</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>시스템 보안 및 컴플라이언스 / 系统安全 & 合规</h4>
+            <p>자금 분리, 리스크 심사, AML</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>글로벌 운영 / 全球化运营</h4>
+            <p>동남아 → 아시아 → 글로벌</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="card card-highlight" style="text-align: center; padding: 20px;">
+          <div style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px;">팀 규모 계획 / 团队规划</div>
+          <div style="font-size: 2rem; font-weight: 900; color: var(--green);">1000+</div>
+          <div style="font-size: 0.9rem; color: var(--gray);">명 / 人</div>
+        </div>
+        <div class="card" style="padding: 15px;">
+          <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 6px;">핵심 이념 / 核心理念</div>
+          <div style="font-size: 0.75rem; color: var(--gray); line-height: 1.5;">
+            단순한 거래소 제품이 아닌<br>
+            장기적으로 확장 가능한 디지털 금융 인프라 생태계 구축<br><br>
+            不是做一个交易所产品，而是建设长期可扩张的数字金融基础设施生态
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">대규모 투자 · 기술 중심 · 장기 역량 구축</p>
+      <p class="cn">重投入 · 重技术 · 重长期能力建设</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">8 / 13</div>
+  </div>
+
+  <!-- Page 9: 五大核心投入 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">5대 핵심 투자 방향</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">五大核心投入方向</h1>
+
+    <div class="grid-5" style="margin-bottom: 20px;">
+      <div class="feature-box" style="border-top: 3px solid var(--green);">
+        <div class="icon">💻</div>
+        <div class="kr">기술 R&D</div>
+        <div class="cn">技术研发</div>
+      </div>
+      <div class="feature-box" style="border-top: 3px solid var(--green);">
+        <div class="icon">🛡️</div>
+        <div class="kr">시스템 보안</div>
+        <div class="cn">系统安全</div>
+      </div>
+      <div class="feature-box" style="border-top: 3px solid var(--green);">
+        <div class="icon">🌐</div>
+        <div class="kr">브랜드 운영</div>
+        <div class="cn">品牌运营</div>
+      </div>
+      <div class="feature-box" style="border-top: 3px solid var(--green);">
+        <div class="icon">👥</div>
+        <div class="kr">팀 빌딩</div>
+        <div class="cn">团队建设</div>
+      </div>
+      <div class="feature-box" style="border-top: 3px solid var(--green);">
+        <div class="icon">📚</div>
+        <div class="kr">교육 생태계</div>
+        <div class="cn">教育生态</div>
+      </div>
+    </div>
+
+    <div class="card card-highlight" style="text-align: center; padding: 25px;">
+      <div style="font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 8px;">
+        이 업계에서 가장 큰 위험은 느리게 가는 것이 아니라
+      </div>
+      <div style="font-size: 1rem; color: var(--green); margin-bottom: 12px;">
+        낡은 시스템으로 새로운 시장에 대응하는 것입니다
+      </div>
+      <div style="font-size: 0.85rem; color: var(--gray);">
+        在这个行业，最大的风险不是走得慢，而是用旧系统面对新市场
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">지속적인 투자 · 지속적인 업그레이드 · 지속적인 구축</p>
+      <p class="cn">持续投入 · 持续升级 · 持续建设</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">9 / 13</div>
+  </div>
+
+  <!-- Page 10: NXT 空投 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">NXT 플랫폼 토큰 에어드롭</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 15px;">NXT 平台币空投</h1>
+
+    <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 15px;">
+      <div class="card" style="text-align: center; padding: 10px 20px;">
+        <div style="font-size: 0.8rem; color: var(--gray);">이벤트 기간 / 活动时间</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--green); margin-top: 3px;">2026.2.1 - 2026.3.1</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 10px 20px;">
+        <div style="font-size: 0.8rem; color: var(--gray);">총 발행량 / NXB 总量</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--white); margin-top: 3px;">10억개 / 10亿枚</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 10px 20px;">
+        <div style="font-size: 0.8rem; color: var(--gray);">소각 목표 / 销毁目标</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--red-soft); margin-top: 3px;">2억개까지 / 至2亿枚</div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="airdrop-card">
+        <div class="type">카피트레이딩 / 跟单</div>
+        <div class="formula">금액 × 0.3%<br><span style="font-size: 0.8rem; color: var(--gray-light);">金额 × 0.3%</span></div>
+        <div class="rate">매일 지급<br><span style="font-size: 0.75rem; color: var(--gray-light);">每日发放</span></div>
+        <div class="desc">
+          예: 10만U = 300 NXT/일<br>
+          28일 = 8,400 NXT
+        </div>
+      </div>
+      <div class="airdrop-card">
+        <div class="type">선물 / 合约</div>
+        <div class="formula">증거금 × 0.2%<br><span style="font-size: 0.8rem; color: var(--gray-light);">保证金 × 0.2%</span></div>
+        <div class="rate">이벤트 후 지급<br><span style="font-size: 0.75rem; color: var(--gray-light);">活动后发放</span></div>
+        <div class="desc">
+          개시 증거금만 계산<br>
+          레버리지 배수 무관
+        </div>
+      </div>
+      <div class="airdrop-card">
+        <div class="type">현물 / 现货</div>
+        <div class="formula">매수액 × 0.1%<br><span style="font-size: 0.8rem; color: var(--gray-light);">买入额 × 0.1%</span></div>
+        <div class="rate">이벤트 후 지급<br><span style="font-size: 0.75rem; color: var(--gray-light);">活动后发放</span></div>
+        <div class="desc">
+          매수 체결만 계산<br>
+          매도 미포함
+        </div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">카피트레이딩 사용자 혜택 최대: 매일 자동 지급, 보유만 해도 채굴</p>
+      <p class="cn">跟单用户收益最大：每日自动发放，持仓即挖矿</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">10 / 13</div>
+  </div>
+
+  <!-- Page 11: 空投计算案例 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">에어드롭 수익 사례</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 20px;">空投收益案例</h1>
+
+    <div class="grid-2">
+      <div class="card card-highlight">
+        <h3 style="color: var(--green); margin-bottom: 15px; font-size: 1rem;">사례: 카피트레이딩 10만 USDT<br><span style="font-size: 0.85rem; color: var(--gray-light);">案例：跟单 10万 USDT</span></h3>
+        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <span class="label">일일 NXT / 每日</span>
+          <span class="value">100,000 × 0.3% = 300</span>
+        </div>
+        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <span class="label">28일 누적 / 累计</span>
+          <span class="value highlight" style="font-size: 1rem;">8,400 NXT</span>
+        </div>
+        <div class="stat-row" style="padding: 8px 0;">
+          <span class="label">동시 혜택 / 同时享受</span>
+          <span class="value">AI 거래 수익</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="color: var(--white); margin-bottom: 15px; font-size: 1rem;">사례: 선물 + 현물<br><span style="font-size: 0.85rem; color: var(--gray);">案例：合约 + 现货</span></h3>
+        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <span class="label">선물 500U 증거금</span>
+          <span class="value">500 × 0.2% = 1 NXT</span>
+        </div>
+        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <span class="label">현물 1000U 매수</span>
+          <span class="value">1000 × 0.1% = 1 NXT</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--gray); margin-top: 10px;">
+          * 레버리지 배수, 거래량은 계산에 영향 없음<br>
+          * 청산, 매도는 미포함
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px; text-align: center; padding: 20px;">
+      <div style="font-size: 1rem; color: var(--white); margin-bottom: 10px;">
+        <span style="color: var(--green); font-weight: 700;">최적 전략 / 最优策略</span>：AI 카피트레이딩 선택
+      </div>
+      <div style="font-size: 0.85rem; color: var(--gray);">
+        카피트레이딩: 0.3% 최고 비율 + 매일 지급 + AI 거래 수익<br>
+        跟单享受 0.3% 最高比例 + 每日发放 + AI 交易收益
+      </div>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">11 / 13</div>
+  </div>
+
+  <!-- Page 12: 如何开始 -->
+  <div class="page">
+    <p class="title-kr" style="font-size: 2rem; margin-bottom: 5px;">어떻게 시작하나요?</p>
+    <h1 class="title-cn" style="font-size: 1.3rem; margin-bottom: 15px;">如何开始？</h1>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-number">1</div>
+        <div class="flow-content">
+          <div class="kr">계정 등록</div>
+          <div class="cn">注册账户</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="flow-number">2</div>
+        <div class="flow-content">
+          <div class="kr">KYC 완료</div>
+          <div class="cn">完成 KYC</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="flow-number">3</div>
+        <div class="flow-content">
+          <div class="kr">USDT 입금</div>
+          <div class="cn">充值 USDT</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="flow-number">4</div>
+        <div class="flow-content">
+          <div class="kr">AI 전략 선택</div>
+          <div class="cn">选择 AI 策略</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">
+        <div class="flow-number">5</div>
+        <div class="flow-content">
+          <div class="kr">카피트레이딩 시작</div>
+          <div class="cn">开始跟单</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 25px;">
+      <div class="feature-box">
+        <div class="icon">💰</div>
+        <div class="kr">최소 100 USDT 투자</div>
+        <div class="cn">最低 100U 起投</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">🔄</div>
+        <div class="kr">언제든지 출금 가능</div>
+        <div class="cn">随时可提现</div>
+      </div>
+      <div class="feature-box">
+        <div class="icon">📊</div>
+        <div class="kr">수익 투명하게 확인</div>
+        <div class="cn">收益透明可见</div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p class="kr">자산은 개인 계정에 보관, 완전한 자기 통제</p>
+      <p class="cn">资产托管在个人账户，完全自主掌控</p>
+    </div>
+    <div class="year">2026</div>
+    <div class="page-number">12 / 13</div>
+  </div>
+
+  <!-- Page 13: 结尾页 -->
+  <div class="page page-cover">
+    <p class="title-kr" style="font-size: 2.5rem;">전문 AI 시스템이 당신을 위해 일하게 하세요</p>
+    <h1 class="title-cn" style="font-size: 1.5rem;">让专业的 AI 系统为你工作</h1>
+
+    <div class="card card-highlight" style="padding: 20px 40px; margin: 30px 0;">
+      <div style="font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 5px;">2월 1일 에어드롭 시작, 지금이 진입 적기</div>
+      <div style="font-size: 0.95rem; color: var(--gray);">2月1日空投开始，现在入场正当时</div>
+    </div>
+
+    <div style="display: flex; gap: 25px;">
+      <div class="card" style="padding: 15px 25px; text-align: center;">
+        <div style="font-size: 0.85rem; color: var(--gray);">다음 단계 / 下一步</div>
+        <div style="font-size: 1rem; color: var(--white); margin-top: 5px;">QR 스캔하여 NIVEX 가입<br><span style="font-size: 0.8rem; color: var(--gray-light);">扫码注册 NIVEX</span></div>
+      </div>
+      <div class="card" style="padding: 15px 25px; text-align: center;">
+        <div style="font-size: 0.85rem; color: var(--gray);">연락처 / 联系方式</div>
+        <div style="font-size: 1rem; color: var(--white); margin-top: 5px;">전담 고문 상담<br><span style="font-size: 0.8rem; color: var(--gray-light);">咨询专属顾问</span></div>
+      </div>
+    </div>
+
+    <div class="logo" style="margin-top: 40px;">NIVEX</div>
+    <div class="year">2026</div>
+    <div class="page-number">13 / 13</div>
+  </div>
+
+</body>
+</html>

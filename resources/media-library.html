@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>素材资料库 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .media-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .media-tab {
+      padding: 12px 24px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+    .media-tab:hover {
+      border-color: var(--green);
+    }
+    .media-tab.active {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+      font-weight: 600;
+    }
+    .media-content {
+      display: none;
+      margin-top: 30px;
+    }
+    .media-content.active {
+      display: block;
+    }
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1200px) {
+      .media-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .media-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .media-grid { grid-template-columns: 1fr; }
+    }
+    .media-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .media-card:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+    }
+    .media-preview {
+      height: 160px;
+      background: linear-gradient(135deg, rgba(127,255,0,0.1), rgba(127,255,0,0.02));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .media-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .media-info {
+      padding: 20px;
+    }
+    .media-info h4 {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .media-info p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 15px;
+    }
+    .media-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .media-tag {
+      padding: 4px 10px;
+      background: rgba(127,255,0,0.1);
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .media-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .media-btn {
+      padding: 8px 20px;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .media-btn.primary {
+      background: var(--green);
+      color: #000;
+      font-weight: 600;
+    }
+    .media-btn.secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+    }
+    .media-btn:hover {
+      opacity: 0.8;
+    }
+    .coming-soon-badge {
+      display: inline-block;
+      padding: 6px 15px;
+      background: rgba(127,255,0,0.1);
+      border: 1px dashed var(--green);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--green);
+    }
+    .video-card .media-preview {
+      position: relative;
+    }
+    .play-icon {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    /* 图片网格 - 统一高度整齐排版 */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1200px) {
+      .case-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .case-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .case-grid { grid-template-columns: 1fr; }
+    }
+    .case-item {
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: var(--bg-card);
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+    .case-item:hover {
+      border-color: var(--green);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(127,255,0,0.15);
+    }
+    .case-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .case-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* 视频网格 - 统一样式 */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    @media (max-width: 900px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+    .video-item {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+      border: 2px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+    }
+    .video-item:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+    }
+    .video-item video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .video-item .video-title {
+      padding: 12px 15px;
+      background: var(--bg-card);
+    }
+    .video-item .video-title h4 {
+      font-size: 0.9rem;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 分类标题样式 */
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(127,255,0,0.2);
+    }
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .category-info h3 {
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+    .category-info p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .category-count {
+      margin-left: auto;
+      padding: 6px 14px;
+      background: rgba(127,255,0,0.15);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 600;
+    }
+    /* 图片弹窗 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 95%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10000;
+    }
+    .lightbox-close:hover {
+      color: var(--green);
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn"><span class="cn-only">素材资料库</span><span class="vn-only">Thư viện tài liệu</span></h1>
+        <p class="title-vn"><span class="cn-only">PPT、图片、海报、视频等营销素材</span><span class="vn-only">PPT, hình ảnh, poster, video và các tài liệu marketing</span></p>
+      </div>
+
+      <!-- 分类标签 -->
+      <div class="media-tabs animate-in">
+        <button class="media-tab active" data-tab="all">
+          <span class="cn-only">📂 全部</span>
+          <span class="vn-only">📂 Tất cả</span>
+        </button>
+        <button class="media-tab" data-tab="ppt">
+          <span class="cn-only">📊 PPT 演示</span>
+          <span class="vn-only">📊 PPT</span>
+        </button>
+        <button class="media-tab" data-tab="images">
+          <span class="cn-only">🖼️ 图片</span>
+          <span class="vn-only">🖼️ Hình ảnh</span>
+        </button>
+        <button class="media-tab" data-tab="posters">
+          <span class="cn-only">🎨 海报</span>
+          <span class="vn-only">🎨 Poster</span>
+        </button>
+        <button class="media-tab" data-tab="videos">
+          <span class="cn-only">🎬 视频</span>
+          <span class="vn-only">🎬 Video</span>
+        </button>
+      </div>
+
+      <!-- 全部内容 -->
+      <div class="media-content active" data-content="all">
+
+        <!-- PPT 部分 -->
+        <div class="section-title animate-in" style="margin-top: 40px;">
+          <h2><span class="cn-only">📊 PPT 演示文件</span><span class="vn-only">📊 Bài thuyết trình PPT</span></h2>
+        </div>
+        <div class="media-grid" style="margin-top: 20px;">
+          <div class="media-card animate-in delay-1">
+            <div class="media-preview">📊</div>
+            <div class="media-info">
+              <h4><span class="cn-only">Nivex 公司介绍</span><span class="vn-only">Giới thiệu Nivex</span></h4>
+              <p><span class="cn-only">公司背景、愿景、核心优势</span><span class="vn-only">Nền tảng, tầm nhìn, lợi thế cốt lõi</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../presentations/NIVEX_交易所介绍_20260129.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-card animate-in delay-2">
+            <div class="media-preview">🤖</div>
+            <div class="media-info">
+              <h4><span class="cn-only">AI 量化产品介绍</span><span class="vn-only">Giới thiệu sản phẩm AI</span></h4>
+              <p><span class="cn-only">5大AI产品功能与优势</span><span class="vn-only">5 sản phẩm AI - tính năng và ưu điểm</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../training/ai-trading-logic.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-card animate-in delay-3">
+            <div class="media-preview">🎯</div>
+            <div class="media-info">
+              <h4><span class="cn-only">客户服务 SOP</span><span class="vn-only">SOP dịch vụ KH</span></h4>
+              <p><span class="cn-only">6步客户全生命周期流程</span><span class="vn-only">6 bước quy trình vòng đời KH</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../presentations/NIVEX_新客户全生命周期服务流程_20260128.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 图片部分 - 5大分类 -->
+        <div class="section-title animate-in" style="margin-top: 50px;">
+          <h2><span class="cn-only">🖼️ 图片素材库</span><span class="vn-only">🖼️ Thư viện hình ảnh</span></h2>
+        </div>
+
+        <!-- 图片分类导航 -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;" class="animate-in">
+          <span style="padding: 8px 16px; background: var(--green); color: #000; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+            <span class="cn-only">📸 活动会议</span><span class="vn-only">📸 Sự kiện</span>
+          </span>
+          <span style="padding: 8px 16px; background: rgba(127,255,0,0.15); border-radius: 20px; font-size: 0.85rem;">
+            <span class="cn-only">📈 收益截图</span><span class="vn-only">📈 Screenshot lợi nhuận</span>
+          </span>
+          <span style="padding: 8px 16px; background: rgba(127,255,0,0.15); border-radius: 20px; font-size: 0.85rem;">
+            <span class="cn-only">💰 返佣收益</span><span class="vn-only">💰 Hoa hồng</span>
+          </span>
+          <span style="padding: 8px 16px; background: rgba(127,255,0,0.15); border-radius: 20px; font-size: 0.85rem;">
+            <span class="cn-only">👤 客户案例</span><span class="vn-only">👤 Case KH</span>
+          </span>
+          <span style="padding: 8px 16px; background: rgba(127,255,0,0.15); border-radius: 20px; font-size: 0.85rem;">
+            <span class="cn-only">🤖 产品介绍</span><span class="vn-only">🤖 Giới thiệu SP</span>
+          </span>
+        </div>
+
+        <!-- 1. 活动会议素材 -->
+        <div class="card animate-in" style="margin-top: 25px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">📸</div>
+            <div class="category-info">
+              <h3><span class="cn-only">活动会议素材</span><span class="vn-only">Tài liệu sự kiện & họp</span></h3>
+              <p><span class="cn-only">线下沙龙、线上会议、团队活动照片</span><span class="vn-only">Hình ảnh salon offline, họp online</span></p>
+            </div>
+            <span class="category-count">29</span>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/d6c6dfdbe1ad6ff336bc.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1703e51ddb6b55350c7a.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/19e9c1f4ff8271dc2893.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1a65a979970f1951401e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/29a234bf0ac98497ddd8.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/39b24eae70d8fe86a7c9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/3f272f3a114c9f12c65d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/41eda9f2978419da4095.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/46066c1a526cdc32857d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/4e65f479ca0f44511d1e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/5d64ca79f40f7a51231e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/60ca52d76ca1e2ffbbb0.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/666d06733805b65bef14.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/6ad25ecf60b9eee7b7a8.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/7393688e56f8d8a681e9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/7946a95a972c1972403d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/8be38afeb4883ad66399.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/97f870e44e92c0cc9983.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/a5dbcbc6f5b07bee22a1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/ae76e96bd71d5943000c.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/af50814dbf3b3165682a.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1aa426be18c89696cfd9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/b69a6b8655f0dbae82e1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/b99be586dbf055ae0ce1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/bd9cbd8183f70da954e6.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/d6a1d8bce6ca689431db.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/dff18eecb09a3ec4678b.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/e6afd0b2eec4609a39d5.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/f1b8c2a4fcd2728c2bc3.jpg" alt="活动会议"></div>
+          </div>
+        </div>
+
+        <!-- 2. 收益截图素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">📈</div>
+            <div class="category-info">
+              <h3><span class="cn-only">收益截图素材</span><span class="vn-only">Screenshot lợi nhuận</span></h3>
+              <p><span class="cn-only">AI产品收益展示</span><span class="vn-only">Hiển thị lợi nhuận AI</span></p>
+            </div>
+            <span class="category-count">19</span>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/05a89a6fee71612f3860.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/0ac10d077919f647af08.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/1a216ee61af895a6cce9.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/243e84f9f0e77fb926f6.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/393ca0fad4e45bba02f5.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/4dbbf37d8763083d5172.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/5de6c320b73e3860612f.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/5f6099a4edba62e43bab.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/9f5f9e99ea8765d93c96.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/aad67611020f8d51d41e.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/ba43ad87d99956c70f88.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/ca6440a034bebbe0e2af.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/cfcfd50ba1152e4b7704.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/d5bfb978cd6642381b77.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/d87226b652a8ddf684b9.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e0a01464607aef24b66b.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e20600c174dffb81a2ce.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e5c56c02181c9742ce0d.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e9631ca568bbe7e5beaa.jpg" alt="收益截图"></div>
+          </div>
+        </div>
+
+        <!-- 3. 产品返佣收益素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">💰</div>
+            <div class="category-info">
+              <h3><span class="cn-only">返佣收益素材</span><span class="vn-only">Tài liệu hoa hồng</span></h3>
+              <p><span class="cn-only">BD/合作方佣金收益截图</span><span class="vn-only">Screenshot hoa hồng BD/đối tác</span></p>
+            </div>
+            <span class="category-count">39</span>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/02b8ce3dba23357d6c32.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1120868165977043662.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1397351601084424790.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1611582057118356685.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1692562622947579127.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1736490635796917052.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1945440b1d72932cca63.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/23766580797210913%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/23766580797210913.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2441172621355953484%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2441172621355953484.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2609771188180305034.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2923718643439652969%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2923718643439652969.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2df48505ef1b6045390a.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3050676204106217948.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3052567748430546069.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3134963340212782367.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(2).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(3).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3686f702831c0c42550d.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3835779601803425228.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3867649157536710735.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/4215491098663251987.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/48bc204c4a52c50c9c43.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/4980b073da6d55330c7c.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/513117b363adecf3b5bc.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/658169823913508349.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/7520f4d39ecd119348dc.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/908169355347495923.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/a91bc19eb5803ade6391.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/ae45f614af6d2133787c.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/b452b1d6c5c84a9613d9.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/c54414c84db1c3ef9aa0.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/d082ed07991916474f08.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/de73faeba3922dcc7483.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/f0425fc62bd8a486fdc9.jpg" alt="返佣收益"></div>
+          </div>
+        </div>
+
+        <!-- 4. 客户投资案例素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">👤</div>
+            <div class="category-info">
+              <h3><span class="cn-only">客户投资案例</span><span class="vn-only">Case đầu tư KH</span></h3>
+              <p><span class="cn-only">真实客户投资历程、成功案例分享</span><span class="vn-only">Hành trình đầu tư thực tế</span></p>
+            </div>
+            <span class="category-count">19</span>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/7293ab6cae1820467909.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/f29f75667012fe4ca703.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2583888f80f00eae57e1.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/6b890d8d05f28bacd2e3.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3789159967933204974.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/889942340946245275.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1520726335186374976.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2628777778812005933.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2955137665724710527.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/567891681217719686.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1699781264418606119.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/923049180410075330.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3458851584390874124.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2339171600616187746.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1661077449875930095.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/4451924693528734336.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/896260473111381457.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3f4a6654e5226b7c3233.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/b6f43bebb89d36c36f8c.jpg" alt="客户案例"></div>
+          </div>
+        </div>
+
+        <!-- 5. 产品介绍素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">🤖</div>
+            <div class="category-info">
+              <h3><span class="cn-only">产品介绍素材</span><span class="vn-only">Tài liệu giới thiệu SP</span></h3>
+              <p><span class="cn-only">5大AI产品Logo、功能介绍图</span><span class="vn-only">Logo 5 sản phẩm AI, hình giới thiệu</span></p>
+            </div>
+            <span class="category-count">5</span>
+          </div>
+          <div class="media-grid">
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/alpha10.png" alt="Alpha10" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Alpha10 Logo</h4>
+                <p><span class="cn-only">智能对冲·严格风控</span><span class="vn-only">Phòng hộ thông minh</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/astrabit.png" alt="Astrabit" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Astrabit Logo</h4>
+                <p><span class="cn-only">趋势追踪·自动调仓</span><span class="vn-only">Theo dõi xu hướng</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/aitrade.png" alt="AITrade" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>AITrade Logo</h4>
+                <p><span class="cn-only">先进算法·均衡收益</span><span class="vn-only">Thuật toán tiên tiến</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/xhunter.png" alt="X-Hunter" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>X-Hunter Logo</h4>
+                <p><span class="cn-only">短线趋势·爆发潜力</span><span class="vn-only">Xu hướng ngắn hạn</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/fidelity.png" alt="Fidelity Stable" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Fidelity Stable Logo</h4>
+                <p><span class="cn-only">稳定低回撤·长期增长</span><span class="vn-only">Ổn định dài hạn</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 海报部分 -->
+        <div class="section-title animate-in" style="margin-top: 50px;">
+          <h2><span class="cn-only">🎨 营销海报</span><span class="vn-only">🎨 Poster marketing</span></h2>
+        </div>
+        <div class="card animate-in" style="margin-top: 20px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">🎨</div>
+            <div class="category-info">
+              <h3><span class="cn-only">营销海报素材</span><span class="vn-only">Poster marketing</span></h3>
+              <p><span class="cn-only">活动海报、产品海报、节日海报</span><span class="vn-only">Poster sự kiện, sản phẩm, lễ hội</span></p>
+            </div>
+            <span class="category-count">23</span>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/0dfc9eadd7d3598d00c2.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/1772511791182125664%20(1).jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/1772511791182125664.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/2379891c2b6ba535fc7a.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/26a6b2090e778029d966.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/33d95d6ff811764f2f00.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/38e109d76388edd6b499.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/4183921241923147383.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/4e6a84f5ae9420ca7985.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/573642e5ff9871c62889.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/642aaca2f2d77c8925c6.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/657377ee629decc3b58c.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/75156576d3085d560419.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/78f214e7a2992cc77588.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/86156c13a1622f3c7673.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/8e97e9e55d9bd3c58a8a.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/8ea9f8dd4ea3c0fd99b2.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/934ebe580e268078d937.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/97c84d60f11e7f40260f.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/9f37737bc3054d5b1414.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/a9adc7f4569ed8c0818f.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/b25a8008c95a47041e4b.jpg" alt="营销海报"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/b2a6e011456fcb31927e.jpg" alt="营销海报"></div>
+          </div>
+        </div>
+
+        <!-- 视频部分 -->
+        <div class="section-title animate-in" style="margin-top: 50px;">
+          <h2><span class="cn-only">🎬 宣传视频</span><span class="vn-only">🎬 Video quảng cáo</span></h2>
+        </div>
+        <div class="card animate-in" style="margin-top: 20px; padding: 25px;">
+          <div class="category-header">
+            <div class="category-icon">🎬</div>
+            <div class="category-info">
+              <h3><span class="cn-only">宣传视频素材</span><span class="vn-only">Video quảng cáo</span></h3>
+              <p><span class="cn-only">活动回顾、品牌宣传、产品介绍</span><span class="vn-only">Recap sự kiện, quảng cáo thương hiệu</span></p>
+            </div>
+            <span class="category-count">11</span>
+          </div>
+          <div class="video-grid">
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/Nivex 2025 Hightlight.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>Nivex 2025 Highlight</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/NIVEX LEGACY AWARDS .mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>NIVEX Legacy Awards</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/NIVEX token 2049 - FULL RECAP.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>Token 2049 Recap</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/Recap Event 0401 - 2p.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>Recap Event 04/01</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/16-10-2025 Nivex FV369邮轮活动.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>FV369 邮轮活动</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/LC Korea (1).MP4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4>LC Korea</h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/2757431814126388580.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4><span class="cn-only">宣传视频 1</span><span class="vn-only">Video 1</span></h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/3073752165690033775.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4><span class="cn-only">宣传视频 2</span><span class="vn-only">Video 2</span></h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/5935713846819065816.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4><span class="cn-only">宣传视频 3</span><span class="vn-only">Video 3</span></h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/6757366562576696817.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4><span class="cn-only">宣传视频 4</span><span class="vn-only">Video 4</span></h4></div>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="../assets/videos/6904923786524284698.mp4" type="video/mp4">
+              </video>
+              <div class="video-title"><h4><span class="cn-only">宣传视频 5</span><span class="vn-only">Video 5</span></h4></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PPT 单独内容 -->
+      <div class="media-content" data-content="ppt">
+        <div class="section-title animate-in" style="margin-top: 40px;">
+          <h2><span class="cn-only">📊 PPT 演示文件</span><span class="vn-only">📊 Bài thuyết trình PPT</span></h2>
+        </div>
+        <div class="media-grid" style="margin-top: 20px;">
+          <div class="media-card animate-in delay-1">
+            <div class="media-preview">📊</div>
+            <div class="media-info">
+              <h4><span class="cn-only">Nivex 公司介绍</span><span class="vn-only">Giới thiệu Nivex</span></h4>
+              <p><span class="cn-only">公司背景、愿景、核心优势</span><span class="vn-only">Nền tảng, tầm nhìn, lợi thế cốt lõi</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../presentations/NIVEX_交易所介绍_20260129.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-card animate-in delay-2">
+            <div class="media-preview">🤖</div>
+            <div class="media-info">
+              <h4><span class="cn-only">AI 量化产品介绍</span><span class="vn-only">Giới thiệu sản phẩm AI</span></h4>
+              <p><span class="cn-only">5大AI产品功能与优势</span><span class="vn-only">5 sản phẩm AI - tính năng và ưu điểm</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../training/ai-trading-logic.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-card animate-in delay-3">
+            <div class="media-preview">🎯</div>
+            <div class="media-info">
+              <h4><span class="cn-only">客户服务 SOP</span><span class="vn-only">SOP dịch vụ KH</span></h4>
+              <p><span class="cn-only">6步客户全生命周期流程</span><span class="vn-only">6 bước quy trình vòng đời KH</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="../presentations/NIVEX_新客户全生命周期服务流程_20260128.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-card animate-in delay-4">
+            <div class="media-preview">📈</div>
+            <div class="media-info">
+              <h4><span class="cn-only">用户成长白皮书</span><span class="vn-only">Sách trắng Tăng trưởng</span></h4>
+              <p><span class="cn-only">8大章节完整认知体系</span><span class="vn-only">8 chương nhận thức hoàn chỉnh</span></p>
+              <div class="media-meta">
+                <span class="media-tag">PPT</span>
+                <span class="media-tag"><span class="cn-only">中/越</span><span class="vn-only">Trung/Việt</span></span>
+              </div>
+              <div class="media-actions">
+                <a href="whitepaper.html" class="media-btn primary">
+                  <span class="cn-only">查看</span><span class="vn-only">Xem</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图片单独内容 - 5大分类 -->
+      <div class="media-content" data-content="images">
+        <div class="section-title animate-in" style="margin-top: 40px;">
+          <h2><span class="cn-only">🖼️ 图片素材库</span><span class="vn-only">🖼️ Thư viện hình ảnh</span></h2>
+          <p style="color: var(--gray); margin-top: 10px;"><span class="cn-only">5大分类，快速找到你需要的素材</span><span class="vn-only">5 loại, tìm nhanh tài liệu bạn cần</span></p>
+        </div>
+
+        <!-- 1. 活动会议素材 -->
+        <div class="card animate-in" style="margin-top: 25px; padding: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <span style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</span>
+            <div>
+              <h3 style="margin-bottom: 5px;"><span class="cn-only">① 活动会议素材</span><span class="vn-only">① Tài liệu sự kiện</span></h3>
+              <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">线下沙龙、线上会议、团队活动（点击放大查看）</span><span class="vn-only">Salon offline, họp online, hoạt động team (nhấp để phóng to)</span></p>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/d6c6dfdbe1ad6ff336bc.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1703e51ddb6b55350c7a.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/19e9c1f4ff8271dc2893.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1a65a979970f1951401e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/29a234bf0ac98497ddd8.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/39b24eae70d8fe86a7c9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/3f272f3a114c9f12c65d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/41eda9f2978419da4095.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/46066c1a526cdc32857d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/4e65f479ca0f44511d1e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/5d64ca79f40f7a51231e.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/60ca52d76ca1e2ffbbb0.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/666d06733805b65bef14.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/6ad25ecf60b9eee7b7a8.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/7393688e56f8d8a681e9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/7946a95a972c1972403d.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/8be38afeb4883ad66399.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/97f870e44e92c0cc9983.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/a5dbcbc6f5b07bee22a1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/ae76e96bd71d5943000c.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/af50814dbf3b3165682a.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/1aa426be18c89696cfd9.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/b69a6b8655f0dbae82e1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/b99be586dbf055ae0ce1.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/bd9cbd8183f70da954e6.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/d6a1d8bce6ca689431db.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/dff18eecb09a3ec4678b.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/e6afd0b2eec4609a39d5.jpg" alt="活动会议"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/events/f1b8c2a4fcd2728c2bc3.jpg" alt="活动会议"></div>
+          </div>
+        </div>
+
+        <!-- 2. 收益截图素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <span style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📈</span>
+            <div>
+              <h3 style="margin-bottom: 5px;"><span class="cn-only">② 收益截图素材</span><span class="vn-only">② Screenshot lợi nhuận</span></h3>
+              <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">AI产品收益展示（19张，点击放大查看）</span><span class="vn-only">Hiển thị lợi nhuận AI (19 hình, nhấp để phóng to)</span></p>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/05a89a6fee71612f3860.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/0ac10d077919f647af08.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/1a216ee61af895a6cce9.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/243e84f9f0e77fb926f6.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/393ca0fad4e45bba02f5.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/4dbbf37d8763083d5172.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/5de6c320b73e3860612f.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/5f6099a4edba62e43bab.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/9f5f9e99ea8765d93c96.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/aad67611020f8d51d41e.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/ba43ad87d99956c70f88.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/ca6440a034bebbe0e2af.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/cfcfd50ba1152e4b7704.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/d5bfb978cd6642381b77.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/d87226b652a8ddf684b9.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e0a01464607aef24b66b.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e20600c174dffb81a2ce.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e5c56c02181c9742ce0d.jpg" alt="收益截图"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/profits/e9631ca568bbe7e5beaa.jpg" alt="收益截图"></div>
+          </div>
+        </div>
+
+        <!-- 3. 返佣收益素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <span style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">💰</span>
+            <div>
+              <h3 style="margin-bottom: 5px;"><span class="cn-only">③ 返佣收益素材</span><span class="vn-only">③ Tài liệu hoa hồng</span></h3>
+              <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">BD/合作方佣金收益截图（39张，点击放大查看）</span><span class="vn-only">Screenshot hoa hồng BD/đối tác (39 hình, nhấp để phóng to)</span></p>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/02b8ce3dba23357d6c32.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1120868165977043662.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1397351601084424790.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1611582057118356685.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1692562622947579127.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1736490635796917052.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/1945440b1d72932cca63.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/23766580797210913%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/23766580797210913.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2441172621355953484%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2441172621355953484.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2609771188180305034.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2923718643439652969%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2923718643439652969.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/2df48505ef1b6045390a.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3050676204106217948.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3052567748430546069.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3134963340212782367.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(1).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(2).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792%20(3).jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3629162531329101792.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3686f702831c0c42550d.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3835779601803425228.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/3867649157536710735.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/4215491098663251987.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/48bc204c4a52c50c9c43.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/4980b073da6d55330c7c.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/513117b363adecf3b5bc.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/658169823913508349.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/7520f4d39ecd119348dc.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/908169355347495923.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/a91bc19eb5803ade6391.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/ae45f614af6d2133787c.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/b452b1d6c5c84a9613d9.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/c54414c84db1c3ef9aa0.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/d082ed07991916474f08.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/de73faeba3922dcc7483.jpg" alt="返佣收益"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/commission/f0425fc62bd8a486fdc9.jpg" alt="返佣收益"></div>
+          </div>
+        </div>
+
+        <!-- 4. 客户投资案例素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <span style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👤</span>
+            <div>
+              <h3 style="margin-bottom: 5px;"><span class="cn-only">④ 客户投资案例</span><span class="vn-only">④ Case đầu tư KH</span></h3>
+              <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">真实客户投资历程、成功案例分享（点击放大查看）</span><span class="vn-only">Hành trình đầu tư thực tế (nhấp để phóng to)</span></p>
+            </div>
+          </div>
+          <div class="case-grid">
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/7293ab6cae1820467909.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/f29f75667012fe4ca703.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2583888f80f00eae57e1.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/6b890d8d05f28bacd2e3.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3789159967933204974.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/889942340946245275.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1520726335186374976.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2628777778812005933.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2955137665724710527.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/567891681217719686.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1699781264418606119.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/923049180410075330.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3458851584390874124.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/2339171600616187746.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/1661077449875930095.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/4451924693528734336.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/896260473111381457.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/3f4a6654e5226b7c3233.jpg" alt="客户案例"></div>
+            <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/cases/b6f43bebb89d36c36f8c.jpg" alt="客户案例"></div>
+          </div>
+        </div>
+
+        <!-- 5. 产品介绍素材 -->
+        <div class="card animate-in" style="margin-top: 15px; padding: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <span style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--green), rgba(127,255,0,0.5)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🤖</span>
+            <div>
+              <h3 style="margin-bottom: 5px;"><span class="cn-only">⑤ 产品介绍素材</span><span class="vn-only">⑤ Tài liệu giới thiệu SP</span></h3>
+              <p style="color: var(--gray); font-size: 0.9rem;"><span class="cn-only">5大AI产品Logo、功能介绍图、APP截图、界面展示</span><span class="vn-only">Logo 5 sản phẩm AI, hình giới thiệu, screenshot APP</span></p>
+            </div>
+          </div>
+          <div class="media-grid">
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/alpha10.png" alt="Alpha10" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Alpha10 Logo</h4>
+                <p><span class="cn-only">智能对冲·严格风控</span><span class="vn-only">Phòng hộ thông minh</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/astrabit.png" alt="Astrabit" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Astrabit Logo</h4>
+                <p><span class="cn-only">趋势追踪·自动调仓</span><span class="vn-only">Theo dõi xu hướng</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/aitrade.png" alt="AITrade" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>AITrade Logo</h4>
+                <p><span class="cn-only">先进算法·均衡收益</span><span class="vn-only">Thuật toán tiên tiến</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/xhunter.png" alt="X-Hunter" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>X-Hunter Logo</h4>
+                <p><span class="cn-only">短线趋势·爆发潜力</span><span class="vn-only">Xu hướng ngắn hạn</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-preview">
+                <img src="../assets/images/ai-products/fidelity.png" alt="Fidelity Stable" style="object-fit: contain; padding: 20px;">
+              </div>
+              <div class="media-info">
+                <h4>Fidelity Stable Logo</h4>
+                <p><span class="cn-only">稳定低回撤·长期增长</span><span class="vn-only">Ổn định dài hạn</span></p>
+                <div class="media-meta">
+                  <span class="media-tag">PNG</span>
+                  <span class="media-tag">Logo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 海报单独内容 -->
+      <div class="media-content" data-content="posters">
+        <div class="section-title animate-in" style="margin-top: 40px;">
+          <h2><span class="cn-only">🎨 营销海报</span><span class="vn-only">🎨 Poster marketing</span></h2>
+          <p style="color: var(--gray); margin-top: 10px;"><span class="cn-only">活动海报、产品海报、节日海报（23张，点击放大查看）</span><span class="vn-only">Poster sự kiện, sản phẩm, lễ hội (23 hình, nhấp để phóng to)</span></p>
+        </div>
+        <div class="case-grid" style="margin-top: 25px;">
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/0dfc9eadd7d3598d00c2.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/1772511791182125664%20(1).jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/1772511791182125664.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/2379891c2b6ba535fc7a.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/26a6b2090e778029d966.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/33d95d6ff811764f2f00.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/38e109d76388edd6b499.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/4183921241923147383.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/4e6a84f5ae9420ca7985.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/573642e5ff9871c62889.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/642aaca2f2d77c8925c6.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/657377ee629decc3b58c.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/75156576d3085d560419.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/78f214e7a2992cc77588.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/86156c13a1622f3c7673.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/8e97e9e55d9bd3c58a8a.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/8ea9f8dd4ea3c0fd99b2.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/934ebe580e268078d937.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/97c84d60f11e7f40260f.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/9f37737bc3054d5b1414.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/a9adc7f4569ed8c0818f.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/b25a8008c95a47041e4b.jpg" alt="营销海报"></div>
+          <div class="case-item" onclick="openLightbox(this)"><img src="../assets/images/posters/b2a6e011456fcb31927e.jpg" alt="营销海报"></div>
+        </div>
+      </div>
+
+      <!-- 视频单独内容 -->
+      <div class="media-content" data-content="videos">
+        <div class="section-title animate-in" style="margin-top: 40px;">
+          <h2><span class="cn-only">🎬 宣传视频</span><span class="vn-only">🎬 Video quảng cáo</span></h2>
+          <p style="color: var(--gray); margin-top: 10px;"><span class="cn-only">活动回顾、品牌宣传、产品介绍（11个视频）</span><span class="vn-only">Recap sự kiện, quảng cáo thương hiệu, giới thiệu SP (11 video)</span></p>
+        </div>
+        <div class="case-grid" style="margin-top: 25px;">
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/Nivex 2025 Hightlight.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">Nivex 2025 Highlight</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/NIVEX LEGACY AWARDS .mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">NIVEX Legacy Awards</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/NIVEX token 2049 - FULL RECAP.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">NIVEX Token 2049 Recap</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/Recap Event 0401 - 2p.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">Recap Event 04/01</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/16-10-2025 Nivex FV369邮轮活动.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">Nivex FV369 邮轮活动</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/LC Korea (1).MP4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;">LC Korea</h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/2757431814126388580.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;"><span class="cn-only">宣传视频 1</span><span class="vn-only">Video QC 1</span></h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/3073752165690033775.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;"><span class="cn-only">宣传视频 2</span><span class="vn-only">Video QC 2</span></h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/5935713846819065816.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;"><span class="cn-only">宣传视频 3</span><span class="vn-only">Video QC 3</span></h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/6757366562576696817.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;"><span class="cn-only">宣传视频 4</span><span class="vn-only">Video QC 4</span></h4>
+            </div>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; background: #000;">
+            <video controls style="width: 100%; display: block;">
+              <source src="../assets/videos/6904923786524284698.mp4" type="video/mp4">
+            </video>
+            <div style="padding: 12px; background: var(--bg-card);">
+              <h4 style="font-size: 0.9rem;"><span class="cn-only">宣传视频 5</span><span class="vn-only">Video QC 5</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提交素材 -->
+      <div class="card animate-in" style="margin-top: 50px; padding: 40px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.1), rgba(127,255,0,0.05));">
+        <div style="font-size: 2.5rem; margin-bottom: 15px;">📤</div>
+        <h3 style="margin-bottom: 15px;"><span class="cn-only">提交素材</span><span class="vn-only">Gửi tài liệu</span></h3>
+        <p style="margin-bottom: 20px; color: var(--gray);">
+          <span class="cn-only">有好的素材想要分享？联系管理员提交</span>
+          <span class="vn-only">Có tài liệu hay muốn chia sẻ? Liên hệ quản lý để gửi</span>
+        </p>
+        <div style="display: inline-block; padding: 12px 30px; background: var(--bg-card); border: 1px solid var(--green); border-radius: 8px;">
+          <span class="cn-only">AK 老师 / Johnny 总监</span>
+          <span class="vn-only">AK / Giám đốc Johnny</span>
+        </div>
+      </div>
+
+      <!-- 返回 -->
+      <div style="margin-top: 40px; margin-bottom: 50px; text-align: center;">
+        <a href="index.html" style="color: var(--gray); text-decoration: none;">
+          <span class="cn-only">← 返回资源支持</span>
+          <span class="vn-only">← Quay lại Tài nguyên</span>
+        </a>
+      </div>
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 图片放大弹窗 -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="放大图片">
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // Tab switching functionality
+    document.querySelectorAll('.media-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active from all tabs
+        document.querySelectorAll('.media-tab').forEach(t => t.classList.remove('active'));
+        // Add active to clicked tab
+        tab.classList.add('active');
+
+        // Hide all content
+        document.querySelectorAll('.media-content').forEach(c => c.classList.remove('active'));
+        // Show corresponding content
+        const tabName = tab.getAttribute('data-tab');
+        document.querySelector(`.media-content[data-content="${tabName}"]`).classList.add('active');
+      });
+    });
+
+    // 图片放大功能
+    function openLightbox(element) {
+      const img = element.querySelector('img');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
