@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>专业术语表 - NIVEX BD 平台</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 搜索栏 */
+    .search-section {
+      padding: 40px 0 30px;
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.1) 0%, rgba(127, 255, 0, 0.02) 100%);
+      margin-bottom: 40px;
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 18px 50px 18px 20px;
+      background: var(--bg-card);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.1rem;
+      transition: all var(--transition-normal);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 20px rgba(127, 255, 0, 0.2);
+    }
+
+    .search-input::placeholder {
+      color: var(--gray);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+      color: var(--gray);
+    }
+
+    /* 分类导航 */
+    .category-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+
+    .category-btn {
+      padding: 10px 20px;
+      background: var(--bg-card);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.95rem;
+    }
+
+    .category-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .category-btn.active {
+      background: var(--green);
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    /* 术语分类卡片 */
+    .glossary-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(127, 255, 0, 0.2);
+    }
+
+    .section-icon {
+      font-size: 1.8rem;
+    }
+
+    .section-title h2 {
+      font-size: 1.5rem;
+      color: var(--green);
+    }
+
+    .section-subtitle {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+
+    /* 术语网格 */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .term-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border-left: 4px solid var(--green);
+      transition: all var(--transition-normal);
+    }
+
+    .term-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .term-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .term-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .term-english {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .term-vietnamese {
+      font-size: 0.9rem;
+      color: var(--green);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .term-desc {
+      color: var(--gray-light);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .term-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(127, 255, 0, 0.1);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--green);
+      margin-top: 10px;
+    }
+
+    /* 快速索引 */
+    .quick-index {
+      position: sticky;
+      top: 80px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .quick-index h3 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: var(--green);
+    }
+
+    .index-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .index-link {
+      padding: 5px 12px;
+      background: rgba(127, 255, 0, 0.05);
+      border-radius: 5px;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all var(--transition-fast);
+    }
+
+    .index-link:hover {
+      background: var(--green);
+      color: var(--black);
+    }
+
+    /* 统计栏 */
+    .stats-bar {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 15px 30px;
+      background: var(--bg-card);
+      border-radius: 8px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .stat-label {
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 992px) {
+      .term-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .category-nav {
+        justify-content: flex-start;
+      }
+
+      .search-input {
+        font-size: 1rem;
+        padding: 15px 45px 15px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页头 -->
+      <div class="page-header animate-in">
+        <h1>
+          <span class="cn-only">📖 专业术语表</span>
+          <span class="vn-only">📖 Bảng thuật ngữ chuyên môn</span>
+        </h1>
+        <p class="vn">
+          <span class="cn-only">加密货币、AI 量化常用术语中越双语对照</span>
+          <span class="vn-only">Thuật ngữ Crypto & AI thường dùng song ngữ Trung-Việt</span>
+        </p>
+      </div>
+
+      <!-- 搜索栏 -->
+      <div class="search-section">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="🔍 搜索术语... / Tìm thuật ngữ..."
+          >
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+
+      <!-- 统计栏 -->
+      <div class="stats-bar animate-in">
+        <div class="stat-item">
+          <div class="stat-number">6</div>
+          <div class="stat-label">
+            <span class="cn-only">主要分类</span>
+            <span class="vn-only">Danh mục</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">120+</div>
+          <div class="stat-label">
+            <span class="cn-only">专业术语</span>
+            <span class="vn-only">Thuật ngữ</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">中越</div>
+          <div class="stat-label">
+            <span class="cn-only">双语对照</span>
+            <span class="vn-only">Song ngữ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分类导航 -->
+      <div class="category-nav animate-in delay-1">
+        <button class="category-btn active" data-category="all">
+          <span class="cn-only">📚 全部</span>
+          <span class="vn-only">📚 Tất cả</span>
+        </button>
+        <button class="category-btn" data-category="basic">
+          <span class="cn-only">💰 基础术语</span>
+          <span class="vn-only">💰 Cơ bản</span>
+        </button>
+        <button class="category-btn" data-category="quant">
+          <span class="cn-only">📊 量化交易</span>
+          <span class="vn-only">📊 Giao dịch định lượng</span>
+        </button>
+        <button class="category-btn" data-category="ai">
+          <span class="cn-only">🤖 AI 交易</span>
+          <span class="vn-only">🤖 AI Trading</span>
+        </button>
+        <button class="category-btn" data-category="nivex">
+          <span class="cn-only">⭐ Nivex 专用</span>
+          <span class="vn-only">⭐ Nivex</span>
+        </button>
+        <button class="category-btn" data-category="bd">
+          <span class="cn-only">💼 BD 沟通</span>
+          <span class="vn-only">💼 BD</span>
+        </button>
+        <button class="category-btn" data-category="vietnam">
+          <span class="cn-only">🇻🇳 越南市场</span>
+          <span class="vn-only">🇻🇳 Thị trường VN</span>
+        </button>
+      </div>
+
+      <!-- 术语内容区域 -->
+      <div id="glossaryContent">
+
+        <!-- 1. 基础加密货币术语 -->
+        <section class="glossary-section animate-in delay-2" data-category="basic">
+          <div class="section-title">
+            <span class="section-icon">💰</span>
+            <h2>
+              <span class="cn-only">一、基础加密货币术语</span>
+              <span class="vn-only">I. Thuật ngữ Crypto cơ bản</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">市场基础 · 交易类型 · 订单类型</span>
+              <span class="vn-only">Cơ sở thị trường · Loại giao dịch · Loại lệnh</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">加密货币</span>
+                    <span class="vn-only">Tiền mã hóa</span>
+                  </div>
+                  <div class="term-english">Cryptocurrency</div>
+                </div>
+                <div class="term-vietnamese">Cryptocurrency</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">基于区块链技术的数字资产</span>
+                <span class="vn-only">Tài sản số dựa trên công nghệ blockchain</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">市场基础</span>
+                <span class="vn-only">Cơ sở</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">主流币</span>
+                    <span class="vn-only">Coin chính</span>
+                  </div>
+                  <div class="term-english">Major Coins</div>
+                </div>
+                <div class="term-vietnamese">Coin chính thống</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">BTC、ETH 等市值前列的币种</span>
+                <span class="vn-only">BTC, ETH và các coin vốn hóa hàng đầu</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">市场基础</span>
+                <span class="vn-only">Cơ sở</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">稳定币</span>
+                    <span class="vn-only">Stablecoin</span>
+                  </div>
+                  <div class="term-english">Stablecoin</div>
+                </div>
+                <div class="term-vietnamese">Coin ổn định</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">USDT、USDC 等锚定法币的数字货币</span>
+                <span class="vn-only">USDT, USDC neo giá với tiền pháp định</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">市场基础</span>
+                <span class="vn-only">Cơ sở</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">现货</span>
+                    <span class="vn-only">Giao ngay</span>
+                  </div>
+                  <div class="term-english">Spot Trading</div>
+                </div>
+                <div class="term-vietnamese">Giao dịch spot</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">即时交割的买卖</span>
+                <span class="vn-only">Mua bán giao ngay lập tức</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">交易类型</span>
+                <span class="vn-only">Loại GD</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">合约</span>
+                    <span class="vn-only">Hợp đồng</span>
+                  </div>
+                  <div class="term-english">Futures/Derivatives</div>
+                </div>
+                <div class="term-vietnamese">Phái sinh</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">永续/交割合约</span>
+                <span class="vn-only">Hợp đồng vĩnh viễn/giao tương lai</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">交易类型</span>
+                <span class="vn-only">Loại GD</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">杠杆</span>
+                    <span class="vn-only">Đòn bẩy</span>
+                  </div>
+                  <div class="term-english">Leverage</div>
+                </div>
+                <div class="term-vietnamese">Leverage</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">放大本金的交易倍数 (如10x、50x、100x)</span>
+                <span class="vn-only">Bội số phóng đại vốn (VD: 10x, 50x, 100x)</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">交易类型</span>
+                <span class="vn-only">Loại GD</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">强平/爆仓</span>
+                    <span class="vn-only">Thanh lý</span>
+                  </div>
+                  <div class="term-english">Liquidation</div>
+                </div>
+                <div class="term-vietnamese">Cháy tài khoản</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">保证金不足被强制平仓,账户资金归零</span>
+                <span class="vn-only">Ký quỹ không đủ bị đóng lệnh cưỡng bức, tài khoản về 0</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风险</span>
+                <span class="vn-only">Rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">止盈</span>
+                    <span class="vn-only">Chốt lời</span>
+                  </div>
+                  <div class="term-english">Take Profit (TP)</div>
+                </div>
+                <div class="term-vietnamese">Take Profit</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">到达目标价格自动平仓</span>
+                <span class="vn-only">Tự động đóng lệnh khi đạt mục tiêu giá</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">订单类型</span>
+                <span class="vn-only">Loại lệnh</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">止损</span>
+                    <span class="vn-only">Cắt lỗ</span>
+                  </div>
+                  <div class="term-english">Stop Loss (SL)</div>
+                </div>
+                <div class="term-vietnamese">Stop Loss</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">到达止损价自动平仓,控制风险</span>
+                <span class="vn-only">Tự động đóng lệnh khi chạm giá cắt lỗ, kiểm soát rủi ro</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风控</span>
+                <span class="vn-only">Kiểm soát</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. 量化交易核心术语 -->
+        <section class="glossary-section animate-in delay-3" data-category="quant">
+          <div class="section-title">
+            <span class="section-icon">📊</span>
+            <h2>
+              <span class="cn-only">二、量化交易核心术语</span>
+              <span class="vn-only">II. Thuật ngữ giao dịch định lượng</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">策略类型 · 风控指标 · 技术指标</span>
+              <span class="vn-only">Chiến lược · Chỉ số rủi ro · Chỉ báo kỹ thuật</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">趋势跟踪</span>
+                    <span class="vn-only">Theo xu hướng</span>
+                  </div>
+                  <div class="term-english">Trend Following</div>
+                </div>
+                <div class="term-vietnamese">Theo trend</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">顺势而为,追涨杀跌</span>
+                <span class="vn-only">Đi theo xu hướng, mua tăng bán giảm</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">策略类型</span>
+                <span class="vn-only">Chiến lược</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">套利</span>
+                    <span class="vn-only">Kiếm lời chênh lệch</span>
+                  </div>
+                  <div class="term-english">Arbitrage</div>
+                </div>
+                <div class="term-vietnamese">Arbitrage</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">利用价差获利 (跨交易所、跨币种)</span>
+                <span class="vn-only">Lợi dụng chênh lệch giá (giữa sàn, giữa coin)</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">策略类型</span>
+                <span class="vn-only">Chiến lược</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">高频交易</span>
+                    <span class="vn-only">Giao dịch tần suất cao</span>
+                  </div>
+                  <div class="term-english">High-Frequency Trading (HFT)</div>
+                </div>
+                <div class="term-vietnamese">HFT</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">毫秒级快速交易</span>
+                <span class="vn-only">Giao dịch nhanh cấp mili giây</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">策略类型</span>
+                <span class="vn-only">Chiến lược</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">最大回撤</span>
+                    <span class="vn-only">Rút vốn tối đa</span>
+                  </div>
+                  <div class="term-english">Max Drawdown (MDD)</div>
+                </div>
+                <div class="term-vietnamese">MDD</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">从高点到低点的最大跌幅</span>
+                <span class="vn-only">Mức giảm tối đa từ đỉnh xuống đáy</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风控指标</span>
+                <span class="vn-only">Chỉ số rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">夏普比率</span>
+                    <span class="vn-only">Tỷ lệ Sharpe</span>
+                  </div>
+                  <div class="term-english">Sharpe Ratio</div>
+                </div>
+                <div class="term-vietnamese">Sharpe Ratio</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">收益/风险比, >1 为优秀</span>
+                <span class="vn-only">Tỷ lệ lợi nhuận/rủi ro, >1 là tốt</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风控指标</span>
+                <span class="vn-only">Chỉ số rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">胜率</span>
+                    <span class="vn-only">Tỷ lệ thắng</span>
+                  </div>
+                  <div class="term-english">Win Rate</div>
+                </div>
+                <div class="term-vietnamese">Win Rate</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">盈利交易次数 / 总交易次数</span>
+                <span class="vn-only">Số lệnh lời / Tổng số lệnh</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风控指标</span>
+                <span class="vn-only">Chỉ số rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">盈亏比</span>
+                    <span class="vn-only">Tỷ lệ lời/lỗ</span>
+                  </div>
+                  <div class="term-english">Risk/Reward Ratio</div>
+                </div>
+                <div class="term-vietnamese">R:R Ratio</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">平均盈利 / 平均亏损</span>
+                <span class="vn-only">Lời trung bình / Lỗ trung bình</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风控指标</span>
+                <span class="vn-only">Chỉ số rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">RSI</span>
+                    <span class="vn-only">RSI</span>
+                  </div>
+                  <div class="term-english">Relative Strength Index</div>
+                </div>
+                <div class="term-vietnamese">Chỉ số RSI</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">相对强弱指数,判断超买超卖</span>
+                <span class="vn-only">Chỉ số sức mạnh tương đối, xác định quá mua/quá bán</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">技术指标</span>
+                <span class="vn-only">Chỉ báo KT</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">MACD</span>
+                    <span class="vn-only">MACD</span>
+                  </div>
+                  <div class="term-english">Moving Average Convergence Divergence</div>
+                </div>
+                <div class="term-vietnamese">MACD</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">趋势指标</span>
+                <span class="vn-only">Chỉ báo xu hướng</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">技术指标</span>
+                <span class="vn-only">Chỉ báo KT</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. AI 量化交易专业术语 -->
+        <section class="glossary-section animate-in delay-4" data-category="ai">
+          <div class="section-title">
+            <span class="section-icon">🤖</span>
+            <h2>
+              <span class="cn-only">三、AI 量化交易专业术语</span>
+              <span class="vn-only">III. Thuật ngữ AI giao dịch định lượng</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">AI技术 · 数据分析 · 机构运作</span>
+              <span class="vn-only">Công nghệ AI · Phân tích dữ liệu · Vận hành tổ chức</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">机器学习</span>
+                    <span class="vn-only">Học máy</span>
+                  </div>
+                  <div class="term-english">Machine Learning (ML)</div>
+                </div>
+                <div class="term-vietnamese">Machine Learning</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">让算法从数据中学习规律</span>
+                <span class="vn-only">Cho thuật toán học quy luật từ dữ liệu</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">AI技术</span>
+                <span class="vn-only">Công nghệ AI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">深度学习</span>
+                    <span class="vn-only">Học sâu</span>
+                  </div>
+                  <div class="term-english">Deep Learning (DL)</div>
+                </div>
+                <div class="term-vietnamese">Deep Learning</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">多层神经网络</span>
+                <span class="vn-only">Mạng nơ-ron nhiều lớp</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">AI技术</span>
+                <span class="vn-only">Công nghệ AI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">强化学习</span>
+                    <span class="vn-only">Học tăng cường</span>
+                  </div>
+                  <div class="term-english">Reinforcement Learning (RL)</div>
+                </div>
+                <div class="term-vietnamese">RL</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">通过奖惩机制优化策略</span>
+                <span class="vn-only">Tối ưu chiến lược qua cơ chế thưởng phạt</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">AI技术</span>
+                <span class="vn-only">Công nghệ AI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">回测</span>
+                    <span class="vn-only">Kiểm tra lại</span>
+                  </div>
+                  <div class="term-english">Backtesting</div>
+                </div>
+                <div class="term-vietnamese">Backtest</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">用历史数据测试策略有效性</span>
+                <span class="vn-only">Dùng dữ liệu lịch sử test hiệu quả chiến lược</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">AI技术</span>
+                <span class="vn-only">Công nghệ AI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">过拟合</span>
+                    <span class="vn-only">Overfitting</span>
+                  </div>
+                  <div class="term-english">Overfitting</div>
+                </div>
+                <div class="term-vietnamese">Tối ưu quá mức</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">策略过度优化历史数据,实盘失效</span>
+                <span class="vn-only">Chiến lược tối ưu quá mức dữ liệu cũ, thực tế thất bại</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">风险</span>
+                <span class="vn-only">Rủi ro</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">Alpha</span>
+                    <span class="vn-only">Alpha</span>
+                  </div>
+                  <div class="term-english">Alpha</div>
+                </div>
+                <div class="term-vietnamese">Lợi nhuận vượt</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">策略超越市场的超额收益</span>
+                <span class="vn-only">Lợi nhuận vượt trội so với thị trường</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">数据分析</span>
+                <span class="vn-only">Phân tích</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">滑点</span>
+                    <span class="vn-only">Trượt giá</span>
+                  </div>
+                  <div class="term-english">Slippage</div>
+                </div>
+                <div class="term-vietnamese">Slippage</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">预期价格与实际成交价的差异</span>
+                <span class="vn-only">Chênh lệch giá kỳ vọng và giá thực tế</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">数据分析</span>
+                <span class="vn-only">Phân tích</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">API 接口</span>
+                    <span class="vn-only">API</span>
+                  </div>
+                  <div class="term-english">API Interface</div>
+                </div>
+                <div class="term-vietnamese">Giao diện API</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">连接交易所的程序接口</span>
+                <span class="vn-only">Giao diện kết nối với sàn giao dịch</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">机构运作</span>
+                <span class="vn-only">Vận hành</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">AUM</span>
+                    <span class="vn-only">AUM</span>
+                  </div>
+                  <div class="term-english">Assets Under Management</div>
+                </div>
+                <div class="term-vietnamese">Tài sản quản lý</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">管理资产规模</span>
+                <span class="vn-only">Quy mô tài sản được quản lý</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">机构运作</span>
+                <span class="vn-only">Vận hành</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Nivex 特色术语 -->
+        <section class="glossary-section animate-in delay-5" data-category="nivex">
+          <div class="section-title">
+            <span class="section-icon">⭐</span>
+            <h2>
+              <span class="cn-only">四、Nivex 特色术语 (BD 必须掌握)</span>
+              <span class="vn-only">IV. Thuật ngữ Nivex (BD phải nắm)</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">产品术语 · 收益模型 · 合规术语</span>
+              <span class="vn-only">Sản phẩm · Mô hình lợi nhuận · Tuân thủ</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">AI 量化策略订单</span>
+                    <span class="vn-only">Đơn chiến lược AI</span>
+                  </div>
+                  <div class="term-english">AI Quant Strategy Order</div>
+                </div>
+                <div class="term-vietnamese">Đơn hàng AI</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">客户购买的自动化交易服务</span>
+                <span class="vn-only">Dịch vụ giao dịch tự động khách mua</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">产品术语</span>
+                <span class="vn-only">Sản phẩm</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">订单周期</span>
+                    <span class="vn-only">Chu kỳ đơn</span>
+                  </div>
+                  <div class="term-english">Order Period</div>
+                </div>
+                <div class="term-vietnamese">Thời hạn</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">策略运行的时间 (如30天、90天、180天)</span>
+                <span class="vn-only">Thời gian chạy (VD: 30, 90, 180 ngày)</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">产品术语</span>
+                <span class="vn-only">Sản phẩm</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">灵活提取</span>
+                    <span class="vn-only">Rút linh hoạt</span>
+                  </div>
+                  <div class="term-english">Flexible Withdrawal</div>
+                </div>
+                <div class="term-vietnamese">Rút tiền tùy ý</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">订单运行中可随时停止并提取</span>
+                <span class="vn-only">Có thể dừng và rút tiền bất cứ lúc nào</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">产品优势</span>
+                <span class="vn-only">Ưu điểm</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">资金托管</span>
+                    <span class="vn-only">Quản lý vốn</span>
+                  </div>
+                  <div class="term-english">Custody</div>
+                </div>
+                <div class="term-vietnamese">Ký quỹ</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">资金在客户自己的 Nivex 账户,平台不触碰本金</span>
+                <span class="vn-only">Tiền trong tài khoản Nivex của KH, sàn không chạm vốn</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">安全保障</span>
+                <span class="vn-only">An toàn</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">复利</span>
+                    <span class="vn-only">Lãi kép</span>
+                  </div>
+                  <div class="term-english">Compound Interest</div>
+                </div>
+                <div class="term-vietnamese">Lãi kép</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">收益再投资滚动增长</span>
+                <span class="vn-only">Lợi nhuận tái đầu tư tăng trưởng lũy thừa</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">收益模型</span>
+                <span class="vn-only">Mô hình LN</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">KYC</span>
+                    <span class="vn-only">KYC</span>
+                  </div>
+                  <div class="term-english">Know Your Customer</div>
+                </div>
+                <div class="term-vietnamese">Xác thực danh tính</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">实名认证</span>
+                <span class="vn-only">Xác minh danh tính thật</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">合规</span>
+                <span class="vn-only">Tuân thủ</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">牌照</span>
+                    <span class="vn-only">Giấy phép</span>
+                  </div>
+                  <div class="term-english">License</div>
+                </div>
+                <div class="term-vietnamese">License</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">金融监管许可</span>
+                <span class="vn-only">Giấy phép giám sát tài chính</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">合规</span>
+                <span class="vn-only">Tuân thủ</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">冷钱包</span>
+                    <span class="vn-only">Ví lạnh</span>
+                  </div>
+                  <div class="term-english">Cold Wallet</div>
+                </div>
+                <div class="term-vietnamese">Cold Wallet</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">离线存储,安全性高</span>
+                <span class="vn-only">Lưu trữ offline, bảo mật cao</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">安全</span>
+                <span class="vn-only">An toàn</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. BD 沟通高频术语 -->
+        <section class="glossary-section animate-in delay-6" data-category="bd">
+          <div class="section-title">
+            <span class="section-icon">💼</span>
+            <h2>
+              <span class="cn-only">五、BD 沟通高频术语</span>
+              <span class="vn-only">V. Thuật ngữ BD thường dùng</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">客户分类 · 业绩指标 · 异议处理</span>
+              <span class="vn-only">Phân loại KH · Chỉ số hiệu suất · Xử lý phản đối</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">大户/鲸鱼</span>
+                    <span class="vn-only">Cá voi</span>
+                  </div>
+                  <div class="term-english">Whale</div>
+                </div>
+                <div class="term-vietnamese">Whale</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">大额资金持有者</span>
+                <span class="vn-only">Người nắm giữ vốn lớn</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">客户分类</span>
+                <span class="vn-only">Phân loại KH</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">KOL</span>
+                    <span class="vn-only">KOL</span>
+                  </div>
+                  <div class="term-english">Key Opinion Leader</div>
+                </div>
+                <div class="term-vietnamese">Influencer</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">意见领袖、有影响力的人</span>
+                <span class="vn-only">Người có ảnh hưởng, dẫn dắt dư luận</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">客户分类</span>
+                <span class="vn-only">Phân loại KH</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">转化率</span>
+                    <span class="vn-only">Tỷ lệ chuyển đổi</span>
+                  </div>
+                  <div class="term-english">Conversion Rate</div>
+                </div>
+                <div class="term-vietnamese">Conversion</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">咨询客户到投资客户的比例</span>
+                <span class="vn-only">Tỷ lệ từ tư vấn thành đầu tư</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">业绩指标</span>
+                <span class="vn-only">Chỉ số KPI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">复投率</span>
+                    <span class="vn-only">Tỷ lệ tái đầu tư</span>
+                  </div>
+                  <div class="term-english">Reinvestment Rate</div>
+                </div>
+                <div class="term-vietnamese">Tái đầu tư</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">到期后继续投资的比例</span>
+                <span class="vn-only">Tỷ lệ tiếp tục đầu tư sau khi hết hạn</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">业绩指标</span>
+                <span class="vn-only">Chỉ số KPI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">客单价</span>
+                    <span class="vn-only">ARPU</span>
+                  </div>
+                  <div class="term-english">Average Revenue Per User</div>
+                </div>
+                <div class="term-vietnamese">Doanh thu/KH</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">单个客户平均投资额</span>
+                <span class="vn-only">Số tiền đầu tư trung bình mỗi KH</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">业绩指标</span>
+                <span class="vn-only">Chỉ số KPI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">LTV</span>
+                    <span class="vn-only">LTV</span>
+                  </div>
+                  <div class="term-english">Lifetime Value</div>
+                </div>
+                <div class="term-vietnamese">Giá trị vòng đời</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">客户终身价值</span>
+                <span class="vn-only">Tổng giá trị KH mang lại</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">业绩指标</span>
+                <span class="vn-only">Chỉ số KPI</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">FOMO</span>
+                    <span class="vn-only">FOMO</span>
+                  </div>
+                  <div class="term-english">Fear of Missing Out</div>
+                </div>
+                <div class="term-vietnamese">Sợ bỏ lỡ</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">害怕错过机会</span>
+                <span class="vn-only">Sợ lỡ cơ hội</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">心理</span>
+                <span class="vn-only">Tâm lý</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">FUD</span>
+                    <span class="vn-only">FUD</span>
+                  </div>
+                  <div class="term-english">Fear, Uncertainty, Doubt</div>
+                </div>
+                <div class="term-vietnamese">Sợ hãi & Nghi ngờ</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">恐惧、不确定、怀疑</span>
+                <span class="vn-only">Sợ hãi, không chắc chắn, nghi ngờ</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">异议处理</span>
+                <span class="vn-only">Xử lý phản đối</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">HODL</span>
+                    <span class="vn-only">HODL</span>
+                  </div>
+                  <div class="term-english">Hold On for Dear Life</div>
+                </div>
+                <div class="term-vietnamese">Nắm giữ lâu dài</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">长期持有 (拼写错误演变的术语)</span>
+                <span class="vn-only">Hold dài hạn (từ lỗi đánh máy)</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">俚语</span>
+                <span class="vn-only">Slang</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. 越南市场特殊术语 -->
+        <section class="glossary-section animate-in delay-7" data-category="vietnam">
+          <div class="section-title">
+            <span class="section-icon">🇻🇳</span>
+            <h2>
+              <span class="cn-only">六、越南市场特殊术语</span>
+              <span class="vn-only">VI. Thuật ngữ đặc thù thị trường Việt Nam</span>
+            </h2>
+            <span class="section-subtitle">
+              <span class="cn-only">本地化运营术语</span>
+              <span class="vn-only">Vận hành bản địa hóa</span>
+            </span>
+          </div>
+
+          <div class="term-grid">
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">线下沙龙</span>
+                    <span class="vn-only">Hội thảo offline</span>
+                  </div>
+                  <div class="term-english">Offline Salon</div>
+                </div>
+                <div class="term-vietnamese">Meetup</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">面对面客户交流会</span>
+                <span class="vn-only">Buổi gặp mặt khách hàng trực tiếp</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">获客方式</span>
+                <span class="vn-only">Kênh KH</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">线上会议</span>
+                    <span class="vn-only">Hội nghị online</span>
+                  </div>
+                  <div class="term-english">Online Meeting</div>
+                </div>
+                <div class="term-vietnamese">Webinar</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">Zoom/Telegram 群组培训</span>
+                <span class="vn-only">Đào tạo qua Zoom/Telegram</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">获客方式</span>
+                <span class="vn-only">Kênh KH</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">转介绍</span>
+                    <span class="vn-only">Giới thiệu</span>
+                  </div>
+                  <div class="term-english">Referral</div>
+                </div>
+                <div class="term-vietnamese">Referral</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">老客户推荐新客户</span>
+                <span class="vn-only">KH cũ giới thiệu KH mới</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">获客方式</span>
+                <span class="vn-only">Kênh KH</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">社群运营</span>
+                    <span class="vn-only">Vận hành cộng đồng</span>
+                  </div>
+                  <div class="term-english">Community Management</div>
+                </div>
+                <div class="term-vietnamese">Quản lý group</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">Telegram、Facebook 群维护</span>
+                <span class="vn-only">Duy trì nhóm Telegram, Facebook</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">运营</span>
+                <span class="vn-only">Vận hành</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">公域引流</span>
+                    <span class="vn-only">Thu hút từ công cộng</span>
+                  </div>
+                  <div class="term-english">Public Domain Traffic</div>
+                </div>
+                <div class="term-vietnamese">Traffic công cộng</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">从社交平台获取新客户</span>
+                <span class="vn-only">Lấy khách mới từ mạng xã hội</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">营销</span>
+                <span class="vn-only">Marketing</span>
+              </span>
+            </div>
+
+            <div class="term-card">
+              <div class="term-header">
+                <div>
+                  <div class="term-name">
+                    <span class="cn-only">私域流量</span>
+                    <span class="vn-only">Lưu lượng riêng</span>
+                  </div>
+                  <div class="term-english">Private Domain Traffic</div>
+                </div>
+                <div class="term-vietnamese">Traffic riêng</div>
+              </div>
+              <div class="term-desc">
+                <span class="cn-only">自己可掌控的客户资源</span>
+                <span class="vn-only">Nguồn khách có thể kiểm soát</span>
+              </div>
+              <span class="term-badge">
+                <span class="cn-only">营销</span>
+                <span class="vn-only">Marketing</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- 返回按钮 -->
+      <div style="margin-top: 50px; margin-bottom: 50px; text-align: center;">
+        <a href="index.html" style="color: var(--gray); text-decoration: none;">
+          <span class="cn-only">← 返回资源支持</span>
+          <span class="vn-only">← Quay lại Tài nguyên</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // 搜索功能
+    const searchInput = document.getElementById('searchInput');
+    const allCards = document.querySelectorAll('.term-card');
+    const allSections = document.querySelectorAll('.glossary-section');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+
+      allCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+          card.style.display = 'block';
+          card.closest('.glossary-section').style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // 隐藏没有可见卡片的分类
+      allSections.forEach(section => {
+        const visibleCards = section.querySelectorAll('.term-card[style="display: block;"]');
+        if (visibleCards.length === 0 && searchTerm !== '') {
+          section.style.display = 'none';
+        } else {
+          section.style.display = 'block';
+        }
+      });
+    });
+
+    // 分类筛选
+    const categoryBtns = document.querySelectorAll('.category-btn');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 更新激活状态
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.dataset.category;
+
+        // 清空搜索
+        searchInput.value = '';
+
+        // 显示/隐藏分类
+        allSections.forEach(section => {
+          if (category === 'all' || section.dataset.category === category) {
+            section.style.display = 'block';
+            section.querySelectorAll('.term-card').forEach(card => {
+              card.style.display = 'block';
+            });
+          } else {
+            section.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
