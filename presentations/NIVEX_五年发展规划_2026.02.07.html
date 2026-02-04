@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX 五年发展规划 2026-2030</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #151515;
+      --green: #7fff00;
+      --green-dark: #5cbf00;
+      --green-glow: rgba(127, 255, 0, 0.3);
+      --green-subtle: rgba(127, 255, 0, 0.08);
+      --white: #ffffff;
+      --gray-light: #cccccc;
+      --gray: #888888;
+      --gray-dark: #555555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', 'Noto Sans', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Progress Bar */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--green-dark));
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+
+    /* Slides Container */
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Content Area */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Typography */
+    .title-cn {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .title-vn {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--green);
+      margin-bottom: 40px;
+    }
+
+    .subtitle-cn {
+      font-size: 1.8rem;
+      color: var(--gray-light);
+      margin-bottom: 8px;
+    }
+
+    .subtitle-vn {
+      font-size: 1.4rem;
+      color: var(--gray);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px var(--green-glow); }
+      50% { box-shadow: 0 0 40px var(--green-glow), 0 0 60px var(--green-glow); }
+    }
+
+    .slide.active .animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .slide.active .animate-left {
+      animation: fadeInLeft 0.6s ease forwards;
+    }
+
+    .slide.active .animate-right {
+      animation: fadeInRight 0.6s ease forwards;
+    }
+
+    .slide.active .animate-scale {
+      animation: scaleIn 0.6s ease forwards;
+    }
+
+    .animate-in, .animate-left, .animate-right, .animate-scale {
+      opacity: 0;
+    }
+
+    .animate-in-delay-1 { animation-delay: 0.1s !important; }
+    .animate-in-delay-2 { animation-delay: 0.2s !important; }
+    .animate-in-delay-3 { animation-delay: 0.3s !important; }
+    .animate-in-delay-4 { animation-delay: 0.4s !important; }
+    .animate-in-delay-5 { animation-delay: 0.5s !important; }
+    .animate-in-delay-6 { animation-delay: 0.6s !important; }
+    .animate-in-delay-7 { animation-delay: 0.7s !important; }
+    .animate-in-delay-8 { animation-delay: 0.8s !important; }
+
+    /* Cover Slide */
+    .slide-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .slide-cover .title-cn {
+      font-size: 4.5rem;
+    }
+
+    .slide-cover .title-vn {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-family: Arial Black, sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: 4px;
+      margin-top: 60px;
+    }
+
+    .year {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      font-size: 1.2rem;
+      color: var(--gray-dark);
+    }
+
+    /* Circle Decorations */
+    .circle-decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--green-dark);
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .circle-1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      left: -100px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .circle-2 {
+      width: 300px;
+      height: 300px;
+      bottom: -50px;
+      right: -50px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .card-highlight {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    /* Feature Box */
+    .feature-box {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-box .icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-box .icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 1.5;
+      filter: drop-shadow(0 0 8px var(--green-glow));
+    }
+
+    .feature-box .cn {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .feature-box .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Feature List */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 20px;
+      background: var(--bg-card);
+      border-radius: 8px;
+      border-left: 4px solid var(--green);
+    }
+
+    .feature-item .cn {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .feature-item .vn {
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    /* Key Point */
+    .key-point {
+      margin-top: auto;
+      padding: 25px 30px;
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: 12px;
+    }
+
+    .key-point .cn {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .key-point .vn {
+      font-size: 1.2rem;
+      color: var(--gray);
+    }
+
+    /* Big Question */
+    .big-question {
+      font-size: 4rem;
+      font-weight: 900;
+      text-align: center;
+      color: var(--green);
+      margin: 60px 0 30px;
+    }
+
+    .big-question-sub {
+      font-size: 1.5rem;
+      text-align: center;
+      color: var(--gray);
+    }
+
+    /* Money Highlight */
+    .money-highlight {
+      font-size: 5rem;
+      font-weight: 900;
+      text-align: center;
+      color: var(--green);
+      margin: 30px 0;
+      text-shadow: 0 0 40px var(--green-glow);
+    }
+
+    .money-sub {
+      font-size: 1.5rem;
+      text-align: center;
+      color: var(--gray-light);
+      margin-bottom: 40px;
+    }
+
+    /* Section Tag */
+    .section-tag {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(127, 255, 0, 0.1);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: 20px;
+      font-size: 1rem;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+
+    /* Phase Grid */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .phase-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 4px solid var(--green);
+    }
+
+    .phase-item.current {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-top: 4px solid var(--green);
+    }
+
+    .phase-item .year {
+      position: static;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+
+    .phase-item .cn {
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .phase-item .vn {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Comparison */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .comparison-card {
+      padding: 35px;
+    }
+
+    .comparison-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+
+    .comparison-card h3 .vn {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gray);
+    }
+
+    .comparison-card.wrong {
+      opacity: 0.6;
+    }
+
+    .comparison-card.wrong h3 {
+      color: var(--gray-light);
+    }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .comparison-list li:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-list .cn {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .comparison-list .vn {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .arrow-between {
+      font-size: 3rem;
+      color: var(--green);
+      text-align: center;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Position Grid */
+    .position-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .position-card {
+      flex: 0 0 calc(20% - 12px);
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 20px 15px;
+      text-align: center;
+      border-top: 3px solid var(--green);
+      transition: transform 0.3s ease;
+    }
+
+    .position-card:hover {
+      transform: scale(1.05);
+    }
+
+    .position-card h4 {
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .position-card .vn {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* Final Slide */
+    .slide-final {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .final-quote {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .final-quote .highlight {
+      color: var(--green);
+    }
+
+    .final-sub {
+      font-size: 1.5rem;
+      color: var(--gray);
+      margin-bottom: 60px;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      background: rgba(127, 255, 0, 0.1);
+      color: var(--green);
+      font-size: 1.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: var(--gray);
+      z-index: 100;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      bottom: 40px;
+      left: 40px;
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      background: rgba(127, 255, 0, 0.1);
+      color: var(--green);
+      font-size: 1.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .fullscreen-btn:hover {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .slide { padding: 40px 50px; }
+      .title-cn { font-size: 2.8rem; }
+      .title-vn { font-size: 1.5rem; }
+      .grid-5 { grid-template-columns: repeat(3, 1fr); }
+      .phase-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="slides-container">
+
+    <!-- Slide 1: 封面 -->
+    <div class="slide slide-cover active" data-slide="1">
+      <div class="circle-decoration circle-1"></div>
+      <div class="circle-decoration circle-2"></div>
+      <div class="content-area" style="justify-content: center; align-items: center;">
+        <h1 class="title-cn animate-in">NIVEX 五年发展规划</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Kế hoạch Phát triển 5 Năm của NIVEX</p>
+        <p class="subtitle-cn animate-in animate-in-delay-2">构建长期可进化的 AI 数字金融生态</p>
+        <p class="subtitle-vn animate-in animate-in-delay-3">Xây dựng hệ sinh thái tài chính số AI có thể tiến hóa lâu dài</p>
+        <div class="logo animate-in animate-in-delay-4">NIVEX</div>
+      </div>
+      <div class="year">2026.02</div>
+    </div>
+
+    <!-- Slide 2: 钩子问题 -->
+    <div class="slide" data-slide="2">
+      <div class="content-area" style="justify-content: center; align-items: center;">
+        <div class="big-question animate-in">你靠什么穿越周期？</div>
+        <div class="big-question-sub animate-in animate-in-delay-1">Bạn dựa vào điều gì để vượt qua chu kỳ?</div>
+        <div style="margin-top: 60px; text-align: center;" class="animate-in animate-in-delay-2">
+          <p style="font-size: 1.5rem; color: var(--gray-light); margin-bottom: 10px;">市场不缺项目，缺的是能活过周期的体系</p>
+          <p style="font-size: 1.2rem; color: var(--gray);">Thị trường không thiếu dự án, thiếu hệ thống có thể sống qua chu kỳ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: 行业现实 -->
+    <div class="slide" data-slide="3">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">行业现实</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Thực tế ngành</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 30px; margin-bottom: 30px;">
+          <p style="font-size: 2rem; font-weight: 700; color: var(--white);">不升级，本身就是最大的风险</p>
+          <p style="font-size: 1.3rem; color: var(--gray); margin-top: 10px;">Không nâng cấp, bản thân đó là rủi ro lớn nhất</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item animate-in animate-in-delay-3">
+            <div>
+              <div class="cn">加密 × AI × 金融科技 → 指数级演化</div>
+              <div class="vn">Crypto × AI × Fintech → Tiến hóa cấp số nhân</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4">
+            <div>
+              <div class="cn">市场变化速度 > 人的适应速度</div>
+              <div class="vn">Tốc độ thay đổi thị trường > Tốc độ thích ứng của con người</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-5">
+            <div>
+              <div class="cn">用户对"系统稳定性"的要求在持续抬高</div>
+              <div class="vn">Yêu cầu về "độ ổn định hệ thống" của người dùng liên tục tăng</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">核心判断：这个行业不是慢慢优化出来的，而是被"不断升级的系统"淘汰掉的</div>
+          <div class="vn">Nhận định cốt lõi: Ngành này không tiến hóa từ từ, mà bị đào thải bởi "hệ thống liên tục nâng cấp"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: NIVEX的选择 -->
+    <div class="slide" data-slide="4">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">NIVEX 的选择</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Sự lựa chọn của NIVEX</p>
+
+        <div class="grid-3" style="margin: 30px 0;">
+          <div class="feature-box animate-in animate-in-delay-2">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="cn">交易所</div>
+            <div class="vn">Sàn giao dịch</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 1rem;">只是入口 / Chỉ là đầu vào</div>
+          </div>
+          <div class="feature-box card-highlight animate-in animate-in-delay-3">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="cn">AI 与系统</div>
+            <div class="vn">AI và Hệ thống</div>
+            <div style="color: var(--green); margin-top: 10px; font-size: 1rem; font-weight: 700;">才是核心 / Mới là cốt lõi</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="cn">生态与组织</div>
+            <div class="vn">Hệ sinh thái & Tổ chức</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 1rem;">决定天花板 / Quyết định trần</div>
+          </div>
+        </div>
+
+        <div class="card card-highlight animate-in animate-in-delay-5" style="text-align: center; padding: 25px;">
+          <p style="font-size: 1.8rem; font-weight: 700;">这是<span style="color: var(--green);">"平台级"</span>而非"产品级"竞争</p>
+          <p style="font-size: 1.2rem; color: var(--gray); margin-top: 10px;">Đây là cạnh tranh <span style="color: var(--green);">"cấp nền tảng"</span> chứ không phải "cấp sản phẩm"</p>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">目标：成为亚洲最具持续生命力的 AI 金融平台之一</div>
+          <div class="vn">Mục tiêu: Trở thành một trong những nền tảng tài chính AI có sức sống bền vững nhất châu Á</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: 五年投入承诺 -->
+    <div class="slide" data-slide="5">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">五年投入承诺</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Cam kết đầu tư 5 năm</p>
+
+        <div class="money-highlight animate-in animate-in-delay-2">3 亿美金</div>
+        <div class="money-sub animate-in animate-in-delay-3">2026-2030 · 年均投入 ≥ 3000 万美金<br><span style="color: var(--gray);">Đầu tư trung bình hàng năm ≥ 30 triệu USD</span></div>
+
+        <div class="grid-3" style="margin-bottom: 30px;">
+          <div class="feature-box animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="cn">技术与产品研发</div>
+            <div class="vn">R&D Công nghệ & Sản phẩm</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-5">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="cn">系统安全与风控</div>
+            <div class="vn">An ninh hệ thống & Quản lý rủi ro</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-6">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="cn">组织与人才体系</div>
+            <div class="vn">Hệ thống Tổ chức & Nhân tài</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-7">
+          <div class="cn">核心态度：我们选择的是重投入、重技术、重长期能力建设的路线</div>
+          <div class="vn">Thái độ cốt lõi: Chúng tôi chọn con đường đầu tư mạnh, trọng công nghệ, xây dựng năng lực dài hạn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: 五大核心投入方向 -->
+    <div class="slide" data-slide="6">
+      <div class="content-area">
+        <div class="section-tag animate-in">PART 2 · 做什么 / Làm gì</div>
+        <h1 class="title-cn animate-in animate-in-delay-1">五大核心投入方向</h1>
+        <p class="title-vn animate-in animate-in-delay-2">5 Hướng đầu tư cốt lõi</p>
+
+        <div class="grid-5" style="margin: 30px 0;">
+          <div class="feature-box card-highlight animate-in animate-in-delay-3">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="cn">技术与产品研发</div>
+            <div class="vn">R&D Công nghệ</div>
+            <div style="color: var(--green); margin-top: 8px; font-size: 0.85rem;">最高优先级</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div class="cn">交易基础设施</div>
+            <div class="vn">Cơ sở hạ tầng</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-5">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="cn">品牌建设</div>
+            <div class="vn">Xây dựng thương hiệu</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-6">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="cn">团队与组织</div>
+            <div class="vn">Đội ngũ & Tổ chức</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-7">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="cn">教育体系</div>
+            <div class="vn">Hệ thống giáo dục</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-8">
+          <div class="cn">核心目标：不是"功能多"，而是 — 稳定 | 可复制 | 可长期运行</div>
+          <div class="vn">Mục tiêu: Không phải "nhiều tính năng", mà là — Ổn định | Có thể nhân rộng | Vận hành lâu dài</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: 技术与产品研发 -->
+    <div class="slide" data-slide="7">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">核心投入一：技术与产品研发</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Đầu tư cốt lõi 1: R&D Công nghệ & Sản phẩm</p>
+
+        <p style="font-size: 1.3rem; color: var(--gray-light); margin-bottom: 25px;" class="animate-in animate-in-delay-2">这是 Nivex 的"根系统" / Đây là "hệ thống gốc" của Nivex</p>
+
+        <div class="grid-3" style="margin-bottom: 25px;">
+          <div class="feature-item animate-in animate-in-delay-3" style="flex-direction: column;">
+            <div class="cn">机构级 AI 策略系统持续升级</div>
+            <div class="vn">Nâng cấp liên tục hệ thống chiến lược AI cấp tổ chức</div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4" style="flex-direction: column;">
+            <div class="cn">多交易平台分发执行架构</div>
+            <div class="vn">Kiến trúc phân phối đa nền tảng giao dịch</div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-5" style="flex-direction: column;">
+            <div class="cn">风控与回撤控制模型</div>
+            <div class="vn">Mô hình quản lý rủi ro & drawdown</div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 25px;">
+          <div class="feature-item animate-in animate-in-delay-6" style="flex-direction: column;">
+            <div class="cn">高频 × 低频策略并行系统</div>
+            <div class="vn">Hệ thống song song chiến lược cao tần & thấp tần</div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-7" style="flex-direction: column;">
+            <div class="cn">APP / Web / API 全端体验</div>
+            <div class="vn">Trải nghiệm toàn diện APP / Web / API</div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-8" style="flex-direction: column;">
+            <div class="cn">安全架构、审计、容灾系统</div>
+            <div class="vn">Kiến trúc bảo mật, kiểm toán, khắc phục thảm họa</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-8">
+          <div class="cn">核心原则：稳定 | 可复制 | 可长期运行</div>
+          <div class="vn">Nguyên tắc cốt lõi: Ổn định | Có thể nhân rộng | Vận hành lâu dài</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: 交易基础设施与系统安全 -->
+    <div class="slide" data-slide="8">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">核心投入二：交易基础设施与系统安全</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Đầu tư cốt lõi 2: Cơ sở hạ tầng & An ninh hệ thống</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 25px; margin-bottom: 25px;">
+          <p style="font-size: 1.8rem; font-weight: 700;">系统安全优先于增长速度</p>
+          <p style="font-size: 1.2rem; color: var(--gray); margin-top: 8px;">An ninh hệ thống ưu tiên hơn tốc độ tăng trưởng</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item animate-in animate-in-delay-3">
+            <div>
+              <div class="cn">高并发、低延迟的系统稳定性</div>
+              <div class="vn">Độ ổn định hệ thống cao cùng lúc, độ trễ thấp</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4">
+            <div>
+              <div class="cn">资金与账户隔离机制</div>
+              <div class="vn">Cơ chế cách ly vốn và tài khoản</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-5">
+            <div>
+              <div class="cn">合规框架与风控审查 · 异常交易与反洗钱系统</div>
+              <div class="vn">Khung tuân thủ & Kiểm tra rủi ro · Hệ thống AML & phát hiện giao dịch bất thường</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">核心原则：宁愿慢一点扩张，也不牺牲系统安全</div>
+          <div class="vn">Nguyên tắc: Thà mở rộng chậm hơn, không hy sinh an ninh hệ thống</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: 品牌建设与全球化运营 -->
+    <div class="slide" data-slide="9">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">核心投入三：品牌建设与全球化运营</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Đầu tư cốt lõi 3: Xây dựng thương hiệu & Vận hành toàn cầu</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 25px; margin-bottom: 25px;">
+          <p style="font-size: 1.8rem; font-weight: 700;">我们不做情绪化营销</p>
+          <p style="font-size: 1.2rem; color: var(--gray); margin-top: 8px;">Chúng tôi không làm marketing cảm xúc</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item animate-in animate-in-delay-3">
+            <div>
+              <div class="cn">持续、克制、专业的品牌认知建设</div>
+              <div class="vn">Xây dựng nhận thức thương hiệu bền vững, kiềm chế, chuyên nghiệp</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-4">
+            <div>
+              <div class="cn">区域深耕路径：东南亚 → 亚洲 → 全球</div>
+              <div class="vn">Lộ trình khu vực: Đông Nam Á → Châu Á → Toàn cầu</div>
+            </div>
+          </div>
+          <div class="feature-item animate-in animate-in-delay-5">
+            <div>
+              <div class="cn">线下活动 × 教育体系 × 社区生态</div>
+              <div class="vn">Hoạt động offline × Hệ thống giáo dục × Hệ sinh thái cộng đồng</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">品牌定位关键词：专业 | 克制 | 长期主义</div>
+          <div class="vn">Từ khóa định vị: Chuyên nghiệp | Kiềm chế | Chủ nghĩa dài hạn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: 团队与组织建设 -->
+    <div class="slide" data-slide="10">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">核心投入四：团队与组织建设</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Đầu tư cốt lõi 4: Xây dựng đội ngũ & Tổ chức</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 25px; margin-bottom: 25px;">
+          <p style="font-size: 2rem; font-weight: 700;">5 年内构建 <span style="color: var(--green);">1500 人+</span> 长期组织</p>
+          <p style="font-size: 1.2rem; color: var(--gray); margin-top: 8px;">Xây dựng tổ chức dài hạn 1500+ người trong 5 năm</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 25px;">
+          <div class="feature-box animate-in animate-in-delay-3">
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">技术研发团队</div>
+            <div class="vn">Đội ngũ R&D</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.95rem;">产品与数据团队<br>风控与合规团队</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-4">
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">市场与社区运营</div>
+            <div class="vn">Vận hành thị trường & Cộng đồng</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.95rem;">客户服务与教育体系</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-5">
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">BD / 合作伙伴体系</div>
+            <div class="vn">Hệ thống BD / Đối tác</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.95rem;">全球区域负责人</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">组织核心理念：长期共建 · 承受周期 · 持续进化</div>
+          <div class="vn">Lý niệm cốt lõi: Đồng xây dựng dài hạn · Chịu đựng chu kỳ · Tiến hóa liên tục</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: 教育体系与社区生态 -->
+    <div class="slide" data-slide="11">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">核心投入五：教育体系与社区生态</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Đầu tư cốt lõi 5: Hệ thống giáo dục & Hệ sinh thái cộng đồng</p>
+
+        <div class="card card-highlight animate-in animate-in-delay-2" style="text-align: center; padding: 25px; margin-bottom: 25px;">
+          <p style="font-size: 1.8rem; font-weight: 700;">从"交易工具"升级为"金融能力平台"</p>
+          <p style="font-size: 1.2rem; color: var(--gray); margin-top: 8px;">Nâng cấp từ "công cụ giao dịch" thành "nền tảng năng lực tài chính"</p>
+        </div>
+
+        <div class="grid-3" style="gap: 30px;">
+          <div class="animate-in animate-in-delay-3">
+            <h3 style="font-size: 1.3rem; color: var(--green); margin-bottom: 15px;">教育目标 / Mục tiêu giáo dục</h3>
+            <div class="feature-item" style="flex-direction: column;">
+              <div class="cn">教会用户理解 AI、风险、周期、结构</div>
+              <div class="vn">Dạy người dùng hiểu AI, rủi ro, chu kỳ, cấu trúc</div>
+            </div>
+          </div>
+          <div class="animate-in animate-in-delay-4">
+            <h3 style="font-size: 1.3rem; color: var(--green); margin-bottom: 15px;">用户定位 / Định vị người dùng</h3>
+            <div class="feature-item" style="flex-direction: column;">
+              <div class="cn">让用户不是"赌行情"，而是参与系统</div>
+              <div class="vn">Người dùng không "đánh cược", mà tham gia hệ thống</div>
+            </div>
+          </div>
+          <div class="animate-in animate-in-delay-5">
+            <h3 style="font-size: 1.3rem; color: var(--green); margin-bottom: 15px;">社区定位 / Định vị cộng đồng</h3>
+            <div class="feature-item" style="flex-direction: column;">
+              <div class="cn">留存、信任、复投与共识的长期承载体</div>
+              <div class="vn">Nơi lưu giữ, tin tưởng, tái đầu tư & đồng thuận lâu dài</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">社区承担着用户关系沉淀与长期价值共建的角色</div>
+          <div class="vn">Cộng đồng đảm nhận vai trò tích lũy quan hệ người dùng & đồng xây dựng giá trị dài hạn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: 为什么从越南开始 -->
+    <div class="slide" data-slide="12">
+      <div class="content-area">
+        <div class="section-tag animate-in">PART 3 · 怎么落地 / Triển khai thế nào</div>
+        <h1 class="title-cn animate-in animate-in-delay-1">为什么从越南开始？</h1>
+        <p class="title-vn animate-in animate-in-delay-2">Tại sao bắt đầu từ Việt Nam?</p>
+
+        <div class="grid-3" style="margin: 30px 0;">
+          <div class="feature-box card-highlight animate-in animate-in-delay-3">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.3rem; font-weight: 700;">用户基数大</div>
+            <div class="vn">Lượng người dùng lớn</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">增长快速 · 年轻化人口<br>Tăng trưởng nhanh · Dân số trẻ</div>
+          </div>
+          <div class="feature-box card-highlight animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.3rem; font-weight: 700;">市场仍处早期</div>
+            <div class="vn">Thị trường còn sớm</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">竞争格局未定 · 先发优势<br>Cục diện chưa định · Lợi thế tiên phong</div>
+          </div>
+          <div class="feature-box card-highlight animate-in animate-in-delay-5">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.3rem; font-weight: 700;">缺乏长期体系</div>
+            <div class="vn">Thiếu hệ thống dài hạn</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">短期项目多 · 体系化平台少<br>Nhiều dự án ngắn hạn · Ít nền tảng hệ thống</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-6">
+          <div class="cn">核心判断：越南不缺热度，缺的是体系。这正是我们的机会。</div>
+          <div class="vn">Nhận định: Việt Nam không thiếu sự sôi động, thiếu hệ thống. Đây chính là cơ hội của chúng tôi.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 13: 2026 全国行计划 -->
+    <div class="slide" data-slide="13">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">2026 全国行推动计划</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Kế hoạch Tour toàn quốc 2026</p>
+
+        <div class="grid-3" style="margin: 30px 0;">
+          <div class="feature-box animate-in animate-in-delay-2">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">全国巡回推动</div>
+            <div class="vn">Tour toàn quốc</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">深入各个核心城市<br>面对面交流</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-3">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">本地深度沟通</div>
+            <div class="vn">Giao tiếp sâu địa phương</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">了解真实需求<br>解决实际问题</div>
+          </div>
+          <div class="feature-box animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.2rem; font-weight: 700;">结构与方法支持</div>
+            <div class="vn">Hỗ trợ cấu trúc & phương pháp</div>
+            <div style="color: var(--gray-light); margin-top: 10px;">提供可落地的<br>体系和工具</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-5">
+          <div class="cn">核心态度：平台要走到市场里，而不是站在远处。不是走过场，是一起把市场跑通。</div>
+          <div class="vn">Thái độ: Nền tảng phải đi vào thị trường, không đứng xa. Không qua loa, mà cùng nhau thông suốt thị trường.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 14: 合作方的真实角色 -->
+    <div class="slide" data-slide="14">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">合作方的真实角色定位</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Định vị vai trò thực sự của đối tác</p>
+
+        <div class="comparison-grid" style="margin: 30px 0;">
+          <div class="card comparison-card wrong animate-in animate-left animate-in-delay-2">
+            <h3>合作方 ≠ <span class="vn">Đối tác ≠</span></h3>
+            <ul class="comparison-list">
+              <li><span class="cn">拉人头</span><span class="vn">Kéo người</span></li>
+              <li><span class="cn">短期变现</span><span class="vn">Kiếm tiền ngắn hạn</span></li>
+              <li><span class="cn">一次性推广</span><span class="vn">Quảng bá một lần</span></li>
+            </ul>
+          </div>
+
+          <div class="arrow-between animate-in animate-scale animate-in-delay-3">→</div>
+
+          <div class="card comparison-card card-highlight animate-in animate-right animate-in-delay-4">
+            <h3 style="color: var(--green);">合作方 = <span class="vn" style="color: var(--gray);">Đối tác =</span></h3>
+            <ul class="comparison-list">
+              <li><span class="cn">市场连接者</span><span class="vn">Người kết nối thị trường</span></li>
+              <li><span class="cn">产品解释者</span><span class="vn">Người giải thích sản phẩm</span></li>
+              <li><span class="cn">客户长期服务者</span><span class="vn">Người phục vụ khách hàng lâu dài</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-5">
+          <div class="cn">核心标准：能留下客户的，才是合格合作方</div>
+          <div class="vn">Tiêu chuẩn: Có thể giữ chân khách hàng, mới là đối tác đủ tiêu chuẩn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: BD团队建设标准 -->
+    <div class="slide" data-slide="15">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">BD 团队建设标准</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Tiêu chuẩn xây dựng đội ngũ BD</p>
+
+        <div class="grid-3" style="margin: 30px 0;">
+          <div class="feature-box card-highlight animate-in animate-in-delay-2">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.4rem; font-weight: 700; color: var(--green);">体系化</div>
+            <div class="vn">Hệ thống hóa</div>
+            <div style="color: var(--gray-light); margin-top: 15px; font-size: 1rem; line-height: 1.8;">
+              标准流程<br>培训体系<br>考核机制
+            </div>
+          </div>
+          <div class="feature-box card-highlight animate-in animate-in-delay-3">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.4rem; font-weight: 700; color: var(--green);">专业化</div>
+            <div class="vn">Chuyên nghiệp hóa</div>
+            <div style="color: var(--gray-light); margin-top: 15px; font-size: 1rem; line-height: 1.8;">
+              统一话术<br>统一产品认知<br>统一服务标准
+            </div>
+          </div>
+          <div class="feature-box card-highlight animate-in animate-in-delay-4">
+            <div class="icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div class="cn" style="font-size: 1.4rem; font-weight: 700; color: var(--green);">可复制</div>
+            <div class="vn">Có thể nhân rộng</div>
+            <div style="color: var(--gray-light); margin-top: 15px; font-size: 1rem; line-height: 1.8;">
+              个人 → 小组 → 城市<br>成功路径可复制
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-5">
+          <div class="cn">核心逻辑：人，是市场真正的基础设施。有体系、够专业、能复制，才能走得远。</div>
+          <div class="vn">Logic cốt lõi: Con người là hạ tầng thực sự của thị trường. Có hệ thống, đủ chuyên nghiệp, có thể nhân rộng, mới đi xa được.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 16: 五年节奏感 -->
+    <div class="slide" data-slide="16">
+      <div class="content-area">
+        <div class="section-tag animate-in">PART 4 · 时间表 / Lộ trình</div>
+        <h1 class="title-cn animate-in animate-in-delay-1">五年节奏感</h1>
+        <p class="title-vn animate-in animate-in-delay-2">Nhịp độ 5 năm</p>
+
+        <div class="phase-grid" style="margin: 30px 0;">
+          <div class="phase-item current animate-in animate-in-delay-3">
+            <div class="year">2026-2027</div>
+            <div class="cn">系统稳定性 + AI 能力夯实</div>
+            <div class="vn">Ổn định hệ thống + Củng cố năng lực AI</div>
+          </div>
+          <div class="phase-item animate-in animate-in-delay-4">
+            <div class="year">2027-2028</div>
+            <div class="cn">生态扩展 + 多区域复制</div>
+            <div class="vn">Mở rộng sinh thái + Nhân rộng đa khu vực</div>
+          </div>
+          <div class="phase-item animate-in animate-in-delay-5">
+            <div class="year">2028-2029</div>
+            <div class="cn">平台化能力成熟</div>
+            <div class="vn">Năng lực nền tảng trưởng thành</div>
+          </div>
+          <div class="phase-item animate-in animate-in-delay-6">
+            <div class="year">2029-2030</div>
+            <div class="cn">全球级 AI 金融基础设施</div>
+            <div class="vn">Hạ tầng tài chính AI cấp toàn cầu</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-7">
+          <div class="cn">核心节奏：不急于扩张，先把根扎深。方向对了，时间会给答案。</div>
+          <div class="vn">Nhịp cốt lõi: Không vội mở rộng, trước tiên đâm rễ sâu. Đúng hướng, thời gian sẽ cho câu trả lời.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 17: 普通人能站在哪里 -->
+    <div class="slide" data-slide="17">
+      <div class="content-area">
+        <h1 class="title-cn animate-in">普通人能站在哪里？</h1>
+        <p class="title-vn animate-in animate-in-delay-1">Người bình thường có thể đứng ở đâu?</p>
+
+        <div class="position-grid" style="margin: 30px 0;">
+          <div class="position-card animate-in animate-in-delay-2">
+            <h4>投资者</h4>
+            <div class="vn">Nhà đầu tư</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.9rem;">参与机构 AI 投资<br>Tham gia đầu tư AI tổ chức</div>
+          </div>
+          <div class="position-card animate-in animate-in-delay-3">
+            <h4>合作方</h4>
+            <div class="vn">Đối tác</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.9rem;">市场推广与服务<br>Marketing & Dịch vụ</div>
+          </div>
+          <div class="position-card animate-in animate-in-delay-4">
+            <h4>社区节点</h4>
+            <div class="vn">Node cộng đồng</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.9rem;">本地社群运营<br>Vận hành cộng đồng địa phương</div>
+          </div>
+          <div class="position-card animate-in animate-in-delay-5">
+            <h4>内容创作者</h4>
+            <div class="vn">Nhà sáng tạo nội dung</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.9rem;">教育与传播<br>Giáo dục & Truyền bá</div>
+          </div>
+          <div class="position-card animate-in animate-in-delay-6">
+            <h4>技术贡献者</h4>
+            <div class="vn">Người đóng góp kỹ thuật</div>
+            <div style="color: var(--gray-light); margin-top: 10px; font-size: 0.9rem;">产品优化建议<br>Đề xuất tối ưu sản phẩm</div>
+          </div>
+        </div>
+
+        <div class="key-point animate-in animate-in-delay-7">
+          <div class="cn">核心定位：这是一个"位置型平台"，每个人都能找到自己的位置</div>
+          <div class="vn">Định vị: Đây là "nền tảng định vị", mọi người đều có thể tìm thấy vị trí của mình</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 18: 收尾 -->
+    <div class="slide slide-final" data-slide="18">
+      <div class="circle-decoration circle-2"></div>
+      <div class="content-area" style="justify-content: center; align-items: center;">
+        <div class="final-quote animate-in">
+          Nivex 目前仍处于演进阶段，<br>
+          系统建设以长期投入与迭代为前提展开。<br><br>
+          <span class="highlight">方向对了，时间会给答案。</span>
+        </div>
+        <div class="final-sub animate-in animate-in-delay-1">
+          Nivex vẫn đang trong giai đoạn tiến hóa,<br>
+          xây dựng hệ thống với tiền đề đầu tư & lặp lại dài hạn.<br>
+          <span style="color: var(--green);">Đúng hướng, thời gian sẽ cho câu trả lời.</span>
+        </div>
+        <div class="logo animate-in animate-in-delay-2" style="margin-top: 60px;">NIVEX</div>
+      </div>
+      <div class="year">2026</div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn">←</button>
+    <button class="nav-btn" id="nextBtn">→</button>
+  </div>
+
+  <div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">18</span>
+  </div>
+
+  <button class="fullscreen-btn" onclick="document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() : document.documentElement.webkitRequestFullscreen()">⛶</button>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progress = document.getElementById('progress');
+    const currentSlideEl = document.getElementById('currentSlide');
+    const totalSlidesEl = document.getElementById('totalSlides');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    totalSlidesEl.textContent = totalSlides;
+
+    function updateSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        slide.querySelectorAll('.animate-in, .animate-left, .animate-right, .animate-scale').forEach(el => {
+          el.style.opacity = '0';
+        });
+      });
+
+      slides[index].classList.add('active');
+      currentSlideEl.textContent = index + 1;
+      progress.style.width = ((index + 1) / totalSlides * 100) + '%';
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide(currentSlide);
+    }
+
+    // 键盘导航：← → ↑ ↓ 空格 回车 PageUp PageDown（兼容遥控笔/翻页器）
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // 按钮导航
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // 触摸滑动（移动端）
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    });
+
+    // 点击翻页（避开导航按钮）
+    document.querySelector('.slides-container').addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-btn') && !e.target.closest('.fullscreen-btn')) {
+        nextSlide();
+      }
+    });
+
+    // 初始化
+    updateSlide(0);
+  </script>
+</body>
+</html>
