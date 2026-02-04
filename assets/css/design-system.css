@@ -731,8 +731,31 @@ h4 { font-size: 1.1rem; font-weight: 700; line-height: 1.4; }
 .visible { display: block !important; }
 
 /* 语言切换隐藏类 */
-[data-lang="cn"] .vn-only { display: none !important; }
-[data-lang="vn"] .cn-only { display: none !important; }
+/* 语言切换显示控制 */
+[data-lang="cn"] .vn-only,
+[data-lang="cn"] .en-only,
+[data-lang="cn"] .ko-only,
+[data-lang="cn"] .ja-only { display: none !important; }
+
+[data-lang="vn"] .cn-only,
+[data-lang="vn"] .en-only,
+[data-lang="vn"] .ko-only,
+[data-lang="vn"] .ja-only { display: none !important; }
+
+[data-lang="en"] .cn-only,
+[data-lang="en"] .vn-only,
+[data-lang="en"] .ko-only,
+[data-lang="en"] .ja-only { display: none !important; }
+
+[data-lang="ko"] .cn-only,
+[data-lang="ko"] .vn-only,
+[data-lang="ko"] .en-only,
+[data-lang="ko"] .ja-only { display: none !important; }
+
+[data-lang="ja"] .cn-only,
+[data-lang="ja"] .vn-only,
+[data-lang="ja"] .en-only,
+[data-lang="ja"] .ko-only { display: none !important; }
 
 /* 双语内容切换 - .cn 和 .vn 类 */
 [data-lang="cn"] .vn { display: none !important; }
