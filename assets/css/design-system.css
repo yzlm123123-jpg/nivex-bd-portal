@@ -730,28 +730,45 @@ h4 { font-size: 1.1rem; font-weight: 700; line-height: 1.4; }
 .hidden { display: none !important; }
 .visible { display: block !important; }
 
-/* 语言切换隐藏类 */
 /* 语言切换显示控制 */
+/* 默认隐藏所有非中文内容 */
+.vn-only,
+.en-only,
+.ko-only,
+.ja-only {
+  display: none !important;
+}
+
+/* 中文模式 - 只显示中文 */
+[data-lang="cn"] .cn-only { display: inline !important; }
 [data-lang="cn"] .vn-only,
 [data-lang="cn"] .en-only,
 [data-lang="cn"] .ko-only,
 [data-lang="cn"] .ja-only { display: none !important; }
 
+/* 越南语模式 - 只显示越南语 */
+[data-lang="vn"] .vn-only { display: inline !important; }
 [data-lang="vn"] .cn-only,
 [data-lang="vn"] .en-only,
 [data-lang="vn"] .ko-only,
 [data-lang="vn"] .ja-only { display: none !important; }
 
+/* 英文模式 - 只显示英文 */
+[data-lang="en"] .en-only { display: inline !important; }
 [data-lang="en"] .cn-only,
 [data-lang="en"] .vn-only,
 [data-lang="en"] .ko-only,
 [data-lang="en"] .ja-only { display: none !important; }
 
+/* 韩文模式 - 只显示韩文 */
+[data-lang="ko"] .ko-only { display: inline !important; }
 [data-lang="ko"] .cn-only,
 [data-lang="ko"] .vn-only,
 [data-lang="ko"] .en-only,
 [data-lang="ko"] .ja-only { display: none !important; }
 
+/* 日文模式 - 只显示日文 */
+[data-lang="ja"] .ja-only { display: inline !important; }
 [data-lang="ja"] .cn-only,
 [data-lang="ja"] .vn-only,
 [data-lang="ja"] .en-only,
