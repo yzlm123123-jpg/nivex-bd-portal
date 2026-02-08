@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIVEX 机构AI自动化交易 · 社交媒体营销文案全集</title>
+    <style>
+        :root {
+            --primary: #b6e82d;
+            --primary-dark: #9acc1e;
+            --primary-light: #c8f04a;
+            --accent: #b6e82d;
+            --gold: #b6e82d;
+            --dark: #0a0a0a;
+            --dark-card: #141414;
+            --dark-border: #222222;
+            --text-primary: #e8e8e8;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --success: #b6e82d;
+            --danger: #e74c3c;
+            --warning: #b6e82d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 30%, #111111 60%, #1a2a0a 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(182, 232, 45, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(182, 232, 45, 0.06) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(182, 232, 45, 0.2);
+            border: 1px solid rgba(182, 232, 45, 0.4);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #b6e82d 50%, #d4ff4a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .hero-sub {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .hero-platforms {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .platform-tag {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .toc {
+            max-width: 900px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .toc-inner {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 32px 40px;
+        }
+
+        .toc h2 {
+            font-size: 20px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .toc-item:hover {
+            background: rgba(182, 232, 45, 0.08);
+            border-color: rgba(182, 232, 45, 0.25);
+            transform: translateX(4px);
+        }
+
+        .toc-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #b6e82d;
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .toc-label {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .toc-label small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            padding: 24px 32px;
+            background: rgba(182, 232, 45, 0.08);
+            border-left: 4px solid #b6e82d;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .section-header .strategy {
+            font-size: 14px;
+            color: var(--accent);
+            line-height: 1.6;
+        }
+
+        .section-header .strategy strong {
+            color: var(--gold);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(182, 232, 45, 0.3);
+            box-shadow: 0 8px 32px rgba(182, 232, 45, 0.08);
+        }
+
+        .card-header {
+            padding: 20px 28px;
+            background: rgba(182, 232, 45, 0.06);
+            border-bottom: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .card-tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(182, 232, 45, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(182, 232, 45, 0.25);
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .card-body p {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            line-height: 2;
+        }
+
+        .card-body .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .card-body .emphasis {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .card-body .pain {
+            color: var(--danger);
+        }
+
+        .card-body .success-text {
+            color: var(--success);
+        }
+
+        .hashtags {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hashtag {
+            font-size: 13px;
+            color: var(--primary);
+            background: rgba(182, 232, 45, 0.08);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            padding: 8px 20px;
+            background: #b6e82d;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(182, 232, 45, 0.4);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, var(--success), #0ba36a);
+        }
+
+        /* ===== SCRIPT CARDS ===== */
+        .script-card .card-body {
+            padding: 0;
+        }
+
+        .script-line {
+            display: flex;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .script-line:last-child {
+            border-bottom: none;
+        }
+
+        .script-label {
+            width: 100px;
+            flex-shrink: 0;
+            padding: 14px 16px;
+            background: rgba(182, 232, 45, 0.05);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            border-right: 1px solid var(--dark-border);
+        }
+
+        .script-content {
+            padding: 14px 20px;
+            flex: 1;
+            font-size: 15px;
+        }
+
+        /* ===== SCHEDULE TABLE ===== */
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+        }
+
+        .schedule-table thead th {
+            background: rgba(182, 232, 45, 0.15);
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .schedule-table tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--dark-border);
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .schedule-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tbody tr:hover {
+            background: rgba(182, 232, 45, 0.04);
+        }
+
+        .day-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .day-1 { background: rgba(182, 232, 45, 0.1); color: #b6e82d; }
+        .day-2 { background: rgba(182, 232, 45, 0.12); color: #b6e82d; }
+        .day-3 { background: rgba(182, 232, 45, 0.14); color: #b6e82d; }
+        .day-4 { background: rgba(182, 232, 45, 0.16); color: #b6e82d; }
+        .day-5 { background: rgba(182, 232, 45, 0.18); color: #b6e82d; }
+        .day-6 { background: rgba(182, 232, 45, 0.2); color: #b6e82d; }
+        .day-7 { background: rgba(182, 232, 45, 0.3); color: #fff; }
+
+        .schedule-theme {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .schedule-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .schedule-img {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ===== QUOTES SECTION ===== */
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .quote-category {
+            margin-bottom: 28px;
+        }
+
+        .quote-category-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .cat-pain { background: rgba(231, 76, 60, 0.12); color: var(--danger); }
+        .cat-trend { background: rgba(182, 232, 45, 0.12); color: #b6e82d; }
+        .cat-action { background: rgba(182, 232, 45, 0.15); color: #c8f04a; }
+        .cat-trust { background: rgba(182, 232, 45, 0.1); color: #9acc1e; }
+
+        .quote-item {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quote-item:hover {
+            background: rgba(182, 232, 45, 0.06);
+            transform: translateX(4px);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid var(--dark-border);
+            margin-top: 60px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b6e82d, #c8f04a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 50px 16px; }
+            .hero h1 { font-size: 28px; }
+            .hero-sub { font-size: 16px; }
+            .toc-grid { grid-template-columns: 1fr; }
+            .toc-inner { padding: 24px 20px; }
+            .section-header { padding: 20px 24px; }
+            .section-header h2 { font-size: 22px; }
+            .card-header { padding: 16px 20px; }
+            .card-body { padding: 20px; }
+            .script-label { width: 80px; font-size: 12px; padding: 12px; }
+            .schedule-table { font-size: 13px; }
+            .schedule-table thead th,
+            .schedule-table tbody td { padding: 12px 14px; }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body { background: #fff; color: #333; }
+            .hero { background: #f5f5f5; }
+            .card { border: 1px solid #ddd; }
+            .copy-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">NIVEX MARKETING HUB</div>
+        <h1>机构AI自动化交易<br>社交媒体营销文案全集</h1>
+        <p class="hero-sub">朋友圈 / Facebook / TikTok / Twitter 即用素材库</p>
+        <div class="hero-platforms">
+            <span class="platform-tag">📱 朋友圈</span>
+            <span class="platform-tag">📘 Facebook</span>
+            <span class="platform-tag">🎵 TikTok</span>
+            <span class="platform-tag">🐦 Twitter</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 目录 ===== -->
+<div class="toc">
+    <div class="toc-inner">
+        <h2>📋 文案目录</h2>
+        <div class="toc-grid">
+            <a href="#part1" class="toc-item">
+                <span class="toc-num">1</span>
+                <span class="toc-label">痛点共鸣系列（5条）<small>扎心文案，引爆讨论</small></span>
+            </a>
+            <a href="#part2" class="toc-item">
+                <span class="toc-num">2</span>
+                <span class="toc-label">热点借势系列（4条）<small>蹭热度，造话题</small></span>
+            </a>
+            <a href="#part3" class="toc-item">
+                <span class="toc-num">3</span>
+                <span class="toc-label">认知颠覆系列（4条）<small>打破常识，建立信任</small></span>
+            </a>
+            <a href="#part4" class="toc-item">
+                <span class="toc-num">4</span>
+                <span class="toc-label">案例见证系列（3条）<small>用事实说话</small></span>
+            </a>
+            <a href="#part5" class="toc-item">
+                <span class="toc-num">5</span>
+                <span class="toc-label">行动号召系列（3条）<small>逼单型文案</small></span>
+            </a>
+            <a href="#part6" class="toc-item">
+                <span class="toc-num">6</span>
+                <span class="toc-label">TikTok短视频脚本（4条）<small>15-60秒脚本</small></span>
+            </a>
+            <a href="#part7" class="toc-item">
+                <span class="toc-num">7</span>
+                <span class="toc-label">Facebook长帖系列（2篇）<small>深度内容</small></span>
+            </a>
+            <a href="#part8" class="toc-item">
+                <span class="toc-num">8</span>
+                <span class="toc-label">每日朋友圈7天排期表<small>一周发圈计划</small></span>
+            </a>
+            <a href="#quotes" class="toc-item">
+                <span class="toc-num">✦</span>
+                <span class="toc-label">高频金句库（20条）<small>随时取用</small></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ===================================================================
+         第一部分：痛点共鸣系列
+         =================================================================== -->
+    <div class="section" id="part1">
+        <div class="section-header">
+            <h2>第一部分：痛点共鸣系列</h2>
+            <p class="strategy"><strong>策略：</strong>直击散户最深的痛——亏钱、爆仓、焦虑、被割。用真实场景引发共鸣，让用户自发讨论和转发。</p>
+        </div>
+
+        <!-- 痛点 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">痛点文案 #1 | 凌晨三点还在盯盘的你</span>
+                <span class="card-tag">朋友圈 / FB / TK</span>
+            </div>
+            <div class="card-body" id="copy-pain1">
+                <p>凌晨3点，你还在盯着K线发抖。<br>涨了不敢卖，跌了不敢割。<br>这不是投资，这是煎熬。</p>
+                <p>问你一句话：<br>过去一年，你花了多少个日夜盯盘，<br>最后收益是正的还是负的？</p>
+                <p><span class="pain">90%的散户答案是：亏。</span></p>
+                <p>不是你不够努力，<br>是你在用人脑跟AI打仗。</p>
+                <p>2025年，机构用AI赚钱，你还在用感觉下单？<br><span class="emphasis">该醒了。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#加密货币</span>
+                    <span class="hashtag">#AI交易</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-pain1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 痛点 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">痛点文案 #2 | 你的对手从来不是行情</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-pain2">
+                <p>很多人以为自己输给了行情，<br>其实你输给的是：<br>——凌晨2点的恐慌抛售<br>——看到暴涨后的冲动追高<br>——KOL一句"梭哈"你就all in</p>
+                <p><span class="pain">行情不会害你，你的情绪才会。</span></p>
+                <p>AI没有情绪，<br>它只看数据、看模型、看概率。<br>该进就进，该撤就撤，毫秒执行。</p>
+                <p>这就是为什么机构年年赚钱，散户年年被割。<br><span class="emphasis">差距不在智商，在工具。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#散户觉醒</span>
+                    <span class="hashtag">#机构AI</span>
+                    <span class="hashtag">#Nivex交易所</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-pain2')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 痛点 #3 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">痛点文案 #3 | 合约爆仓后的那条朋友圈</span>
+                <span class="card-tag">朋友圈 / FB / TK</span>
+            </div>
+            <div class="card-body" id="copy-pain3">
+                <p>「合约爆了，这次是全部身家。」</p>
+                <p>这条朋友圈，你见过几次？<br>或者……你自己发过？</p>
+                <p>我见过太多人：<br>第一次爆仓——"我会吸取教训"<br>第二次爆仓——"这次是意外"<br>第三次爆仓——"再也不碰了"</p>
+                <p>然后牛市来了，又冲进去，又爆了。</p>
+                <p><span class="pain">不是你不行，是这条路本身就是死路。</span><br>99%做单的人，终将被淘汰。</p>
+                <p>出路不是更努力地做单，<br><span class="emphasis">而是站到系统那一边。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#合约爆仓</span>
+                    <span class="hashtag">#交易真相</span>
+                    <span class="hashtag">#AI跟单</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-pain3')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 痛点 #4 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">痛点文案 #4 | 2024-2025年你亏了多少？</span>
+                <span class="card-tag">FB长帖 / 朋友圈</span>
+            </div>
+            <div class="card-body" id="copy-pain4">
+                <p>2024到现在，<br>BTC从高位回调、山寨币腰斩再腰斩、<br>链上交互暴跌、VC都不投了。</p>
+                <p>你亏了多少？<br><span class="pain">3000美金？1万？还是全部？</span></p>
+                <p>但你知道同一时间段，<br>机构在干嘛吗？</p>
+                <p>贝莱德、灰度、MicroStrategy……<br><span class="success-text">他们在疯狂买入BTC。</span></p>
+                <p>散户在亏钱，机构在囤货。<br>这不是巧合，这是<span class="highlight">信息差 + 工具差 + 策略差</span>。</p>
+                <p>你还要继续用肉身对抗算法吗？</p>
+                <div class="hashtags">
+                    <span class="hashtag">#市场真相</span>
+                    <span class="hashtag">#机构布局</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-pain4')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 痛点 #5 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">痛点文案 #5 | 你以为低迷，其实是分化</span>
+                <span class="card-tag">朋友圈 / FB / Twitter</span>
+            </div>
+            <div class="card-body" id="copy-pain5">
+                <p>市场不是低迷，是<span class="highlight">深度分化</span>。</p>
+                <p>一边是散户在割肉离场，<br>一边是机构ETF持续吸金。</p>
+                <p>一边是山寨币项目血崩，<br>一边是AI交易赛道年增长40%。</p>
+                <p><span class="emphasis">你站在哪一边？</span></p>
+                <p>牛市从来不是所有人都赚钱，<br>而是提前布局的人赚走了后来者的钱。</p>
+                <p>现在的沉寂期，<br>正是你决定下一个周期站哪一边的<span class="highlight">窗口期</span>。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#加密寒冬</span>
+                    <span class="hashtag">#牛市布局</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-pain5')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第二部分：热点借势系列
+         =================================================================== -->
+    <div class="section" id="part2">
+        <div class="section-header">
+            <h2>第二部分：热点借势系列</h2>
+            <p class="strategy"><strong>策略：</strong>结合AI、宏观经济、加密行业最新热点，借势营销，制造话题讨论。</p>
+        </div>
+
+        <!-- 热点 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">热点文案 #1 | ChatGPT都会炒股了，你还在手动下单？</span>
+                <span class="card-tag">全平台</span>
+            </div>
+            <div class="card-body" id="copy-hot1">
+                <p>OpenAI的AI已经能写代码、写论文、生成视频。<br>华尔街的AI已经在管理万亿美金。<br>特斯拉的AI已经在路上开车了。</p>
+                <p>而你……<br><span class="pain">还在凌晨3点，拿着手机，凭感觉点"买入"。</span></p>
+                <p><span class="emphasis">AI不是未来，AI是现在。</span><br>它正在替代每一个低效的人工操作。</p>
+                <p>交易市场是AI冲击最大的领域之一——<br>自动化交易、实时风控、策略优化。<br>这些你一个人做得了吗？</p>
+                <p>选择很简单：<br><span class="highlight">要么被AI淘汰，要么让AI帮你赚钱。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#AI时代</span>
+                    <span class="hashtag">#智能交易</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-hot1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 热点 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">热点文案 #2 | BTC ETF通过一年了，散户赚到了吗？</span>
+                <span class="card-tag">FB / Twitter</span>
+            </div>
+            <div class="card-body" id="copy-hot2">
+                <p>BTC ETF通过的时候，多少人兴奋得睡不着？<br>"这次真的要起飞了！"</p>
+                <p>一年过去了——<br>BTC确实涨了，<br><span class="pain">但你赚到了吗？</span></p>
+                <p>大概率你经历的是：<br>追高 → 被套 → 割肉 → 再追 → 再套。</p>
+                <p>因为ETF的钱流向了机构，<br>机构用AI和算法精准操盘，<br>而你还在跟着群里的"老师"抄作业。</p>
+                <p><span class="emphasis">你有没有想过：<br>为什么不直接跟着机构的AI策略走？</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#BTC</span>
+                    <span class="hashtag">#ETF</span>
+                    <span class="hashtag">#机构级AI</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-hot2')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 热点 #3 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">热点文案 #3 | 全球央行都在降息，聪明钱去了哪？</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-hot3">
+                <p>全球降息周期开启。<br>热钱需要出口。</p>
+                <p>传统理财？年化2-3%，连通胀都跑不赢。<br>房产？周期太长，流动性差。<br>股票？散户照样被割。</p>
+                <p>聪明钱正在涌入两个方向：<br><span class="success-text">1. 比特币（数字黄金，抗通胀）</span><br><span class="success-text">2. AI量化交易（高效稳健，复利增长）</span></p>
+                <p>而Nivex刚好站在这两个赛道的交叉点——<br><span class="highlight">用机构级AI策略，在加密市场稳定获利。</span></p>
+                <p>这不是机会，这是时代给你的船票。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#降息</span>
+                    <span class="hashtag">#资产配置</span>
+                    <span class="hashtag">#加密投资</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-hot3')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 热点 #4 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">热点文案 #4 | 越南成为东南亚加密增长最快的市场</span>
+                <span class="card-tag">FB / TK 越南市场</span>
+            </div>
+            <div class="card-body" id="copy-hot4">
+                <p>你知道吗？<br><span class="highlight">越南加密货币采用率全球排名前5。</span><br>年轻人口占比超过60%。<br>政府正在推动数字经济政策。</p>
+                <p>当中国在限制，日韩在观望的时候，<br><span class="emphasis">越南正在拥抱加密新时代。</span></p>
+                <p>这就是为什么Nivex把越南作为重点市场——<br>因为这里有最大的增长潜力。</p>
+                <p>你是在风口到来前布局的人，<br>还是在风口过去后追赶的人？</p>
+                <div class="hashtags">
+                    <span class="hashtag">#越南市场</span>
+                    <span class="hashtag">#加密货币</span>
+                    <span class="hashtag">#东南亚</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-hot4')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第三部分：认知颠覆系列
+         =================================================================== -->
+    <div class="section" id="part3">
+        <div class="section-header">
+            <h2>第三部分：认知颠覆系列</h2>
+            <p class="strategy"><strong>策略：</strong>用反常识的观点打破用户固有认知，建立对机构AI交易的新理解。</p>
+        </div>
+
+        <!-- 认知 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">认知文案 #1 | 过去十年，真正赚到钱的不是交易员</span>
+                <span class="card-tag">全平台</span>
+            </div>
+            <div class="card-body" id="copy-cog1">
+                <p>过去十年，币圈真正赚到钱的人是谁？</p>
+                <p>不是天天画线的技术派。<br>不是熬夜盯盘的"勤奋型选手"。<br>不是追热点追新币的投机者。</p>
+                <p>而是：<br><span class="success-text">✅ 交易所（每笔交易都抽手续费）</span><br><span class="success-text">✅ 机构AI（没情绪、不犯错、严格执行）</span><br><span class="success-text">✅ 生态建设者（返佣体系里的人）</span></p>
+                <p>行情一轮一轮换，<br>但<span class="highlight">平台、系统、结构——一直在赚钱</span>。</p>
+                <p>你不需要战胜市场，<br><span class="emphasis">你需要站到系统那一边。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#交易真相</span>
+                    <span class="hashtag">#认知升级</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-cog1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 认知 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">认知文案 #2 | 你不是输在不努力，是输在站错位置</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-cog2">
+                <p>币圈有一句残酷的真话：</p>
+                <p><span class="pain">做单的人，99%会被淘汰。</span></p>
+                <p>不是你不聪明，不是你不努力。<br>而是你选错了位置。</p>
+                <p>你在跟谁竞争？<br>——交易所（规则制定者）<br>——做市商（流动性提供者）<br>——机构AI（毫秒级执行、零情绪）<br>——专业交易团队（千万级资金）</p>
+                <p>一个普通人，拿着几千美金，<br>凭什么赢他们？</p>
+                <p>答案是：你赢不了。</p>
+                <p>但你可以成为他们的一部分。<br>Nivex做的事情就是——<br><span class="emphasis">把机构级AI策略开放给普通人。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#认知觉醒</span>
+                    <span class="hashtag">#位置大于努力</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-cog2')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 认知 #3 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">认知文案 #3 |「别人靠感觉交易，我们靠AI赚钱」</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-cog3">
+                <p>你有没有算过一笔账：</p>
+                <p>每天盯盘5小时，一个月150小时。<br><span class="pain">如果月收益是负的——你的时间单价是多少？</span></p>
+                <p>换个方式想：<br>如果有一套系统，<br><span class="success-text">每月5-15%的收益率，</span><br><span class="success-text">回撤控制在2-5%，</span><br><span class="success-text">全自动执行，不需要你盯盘。</span></p>
+                <p>你选哪个？</p>
+                <p>AI不睡觉，AI不恐慌，AI不贪婪。<br>AI只做一件事：<span class="emphasis">按照数据和模型，精准执行。</span></p>
+                <p>这就是Nivex机构级AI的价值——<br><span class="highlight">让时间帮你复利增长，而不是让时间折磨你。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#时间价值</span>
+                    <span class="hashtag">#AI交易</span>
+                    <span class="hashtag">#被动收入</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-cog3')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 认知 #4 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">认知文案 #4 | 复利的真正力量</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-cog4">
+                <p>很多人想一夜暴富，<br>但真正的财富来自<span class="highlight">复利</span>。</p>
+                <p>假设每月收益8%：<br><span class="success-text">1000美金 → 6个月后 ≈ 1,587美金</span><br><span class="success-text">5000美金 → 12个月后 ≈ 12,500美金</span><br><span class="success-text">10000美金 → 18个月后 ≈ 40,000美金</span></p>
+                <p>这不是暴利，但这是<span class="emphasis">确定性的增长</span>。<br>关键是——你不需要做任何操作。</p>
+                <p>AI帮你执行，时间帮你复利，<br>你只需要做一个决定：<span class="highlight">开始</span>。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#复利</span>
+                    <span class="hashtag">#稳定收益</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-cog4')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第四部分：案例见证系列
+         =================================================================== -->
+    <div class="section" id="part4">
+        <div class="section-header">
+            <h2>第四部分：案例见证系列</h2>
+            <p class="strategy"><strong>策略：</strong>用真实场景化的案例和数据说话，建立可信度。</p>
+        </div>
+
+        <!-- 案例 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">案例文案 #1 | 从月亏3000到月赚稳定收益的转变</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-case1">
+                <p>他是一个普通上班族，<br>白天上班，晚上炒币。<br><span class="pain">2024年，亏了将近3000美金。</span></p>
+                <p>后来朋友介绍了Nivex的AI跟单，<br>他抱着试试的心态，入了1000美金。</p>
+                <p><span class="success-text">第一个月：+8.5%</span><br><span class="success-text">第二个月：+7.2%</span><br><span class="success-text">第三个月：开始加仓到5000美金。</span></p>
+                <p>他说了一句话：<br><span class="emphasis">"我以前花了一年亏的钱，AI三个月就帮我赚回来了。"</span></p>
+                <p>最关键的是——他再也不用熬夜盯盘了。</p>
+                <p>这不是个例，<span class="highlight">这是趋势</span>。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#真实案例</span>
+                    <span class="hashtag">#AI跟单</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-case1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 案例 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">案例文案 #2 | 社群领袖的选择</span>
+                <span class="card-tag">FB / 朋友圈</span>
+            </div>
+            <div class="card-body" id="copy-case2">
+                <p>一个50人团队的社群领袖，<br>入金10,000美金。</p>
+                <p><span class="success-text">月均收益：+12.3%</span><br><span class="success-text">团队总入金：50万美金</span><br><span class="success-text">他的月佣金收入：7,000美金</span></p>
+                <p>他说：<br><span class="emphasis">"过去带人做单，压力巨大，一个信号错了就被骂。<br>现在跟AI策略走，我轻松了，团队也赚钱了，大家都开心。"</span></p>
+                <p>这就是Nivex的<span class="highlight">双轨制</span>——<br>自己赚收益 + 团队赚返佣。<br>不是只有一条路，而是两条收入线同时跑。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#团队建设</span>
+                    <span class="hashtag">#返佣</span>
+                    <span class="hashtag">#被动收入</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-case2')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 案例 #3 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">案例文案 #3 | 新手小白的第一笔AI交易</span>
+                <span class="card-tag">朋友圈 / TK</span>
+            </div>
+            <div class="card-body" id="copy-case3">
+                <p>「我完全不懂加密货币，<br>K线是什么我都看不明白。」</p>
+                <p>她是一个宝妈，<br>朋友推荐她试试Nivex。</p>
+                <p><span class="emphasis">注册 → KYC → 充值200美金 → 选AI策略 → 一键启动。</span><br>整个过程不到15分钟。</p>
+                <p><span class="success-text">7天后查看收益：+3.2%</span></p>
+                <p>她说："原来赚钱可以这么简单？<br>我还以为要学很多才能开始。"</p>
+                <p>Nivex的设计理念就是：<br><span class="highlight">零门槛，让完全不懂的人也能参与机构级交易。</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#新手友好</span>
+                    <span class="hashtag">#零基础</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-case3')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第五部分：行动号召系列
+         =================================================================== -->
+    <div class="section" id="part5">
+        <div class="section-header">
+            <h2>第五部分：行动号召系列</h2>
+            <p class="strategy"><strong>策略：</strong>制造紧迫感，推动用户从观望到行动。逼单型文案。</p>
+        </div>
+
+        <!-- 行动 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">行动文案 #1 | 你还要观望多久？</span>
+                <span class="card-tag">朋友圈 / FB</span>
+            </div>
+            <div class="card-body" id="copy-act1">
+                <p><span class="emphasis">你在等什么？</span></p>
+                <p>等牛市来了？到时候你又会追高。<br>等确认安全？等你确认的时候，别人已经赚到了。<br>等有钱了再投？200美金就可以开始。</p>
+                <p><span class="pain">市场永远不会等你准备好。</span><br>趋势不是等你上车才发动的。</p>
+                <p>现在，你有两个选择：<br>1. 关掉这条消息，继续观望<br>2. 点击了解Nivex，用AI开始你的第一笔交易</p>
+                <p><span class="highlight">哪个选择，3个月后的你会感谢？</span></p>
+                <div class="hashtags">
+                    <span class="hashtag">#行动</span>
+                    <span class="hashtag">#不要等</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-act1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 行动 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">行动文案 #2 | 200美金，一杯星巴克一天</span>
+                <span class="card-tag">朋友圈 / TK</span>
+            </div>
+            <div class="card-body" id="copy-act2">
+                <p>200美金能做什么？</p>
+                <p>两双运动鞋？三顿大餐？<br>还是……你人生中<span class="highlight">第一笔机构级AI投资</span>？</p>
+                <p>Nivex最低200美金就能开始跟单。<br>用的是和华尔街机构一样的AI策略。</p>
+                <p>过去，这种技术只有亿万富翁才能用。<br><span class="emphasis">今天，你只需要200美金。</span></p>
+                <p>这不是消费，这是给未来的自己一张船票。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#低门槛</span>
+                    <span class="hashtag">#开始行动</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-act2')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- 行动 #3 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">行动文案 #3 | 散户唯一的机会</span>
+                <span class="card-tag">全平台 | 强转化</span>
+            </div>
+            <div class="card-body" id="copy-act3">
+                <p>我说一句得罪人的话：</p>
+                <p><span class="highlight">散户唯一的机会，<br>不是对抗机构，<br>而是——跟随机构。</span></p>
+                <p>你打不过AI算法，<br>你拼不过千万级资金池，<br>你扛不住24小时不眠的执行系统。</p>
+                <p>但你可以跟它们站在一起。</p>
+                <p>Nivex把机构的AI策略开放给了每一个人。<br><span class="emphasis">一键跟单，同步机构的每一笔操作。</span></p>
+                <p>这就是普通人翻身的唯一路径——<br><span class="highlight">不是更努力，而是站对位置。</span></p>
+                <p>今天注册，开启你的第一笔AI交易。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#跟随机构</span>
+                    <span class="hashtag">#AI跟单</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-act3')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第六部分：TikTok 短视频脚本
+         =================================================================== -->
+    <div class="section" id="part6">
+        <div class="section-header">
+            <h2>第六部分：TikTok 短视频脚本</h2>
+            <p class="strategy"><strong>策略：</strong>适合15-60秒短视频，开头3秒必须抓眼球。</p>
+        </div>
+
+        <!-- TK #1 -->
+        <div class="card script-card">
+            <div class="card-header">
+                <span class="card-title">TK脚本 #1 |「你还在手动炒币？」30秒</span>
+                <span class="card-tag">TikTok / Reels</span>
+            </div>
+            <div class="card-body">
+                <div id="copy-tk1">
+                    <div class="script-line">
+                        <div class="script-label">画面</div>
+                        <div class="script-content">你在凌晨盯着手机K线，满脸疲惫</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">字幕</div>
+                        <div class="script-content">"2025年了，你还在手动炒币？"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">画面切换</div>
+                        <div class="script-content">AI交易界面，自动执行中</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">旁白</div>
+                        <div class="script-content">"华尔街机构早就用AI了。现在，普通人也可以。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">画面</div>
+                        <div class="script-content">收益曲线稳步上涨</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">字幕</div>
+                        <div class="script-content">"每月5-15%，全自动，不用盯盘"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">画面</div>
+                        <div class="script-content">手机展示Nivex操作界面</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">旁白</div>
+                        <div class="script-content">"200美金起步，一键跟单，跟机构同步。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">结尾字幕</div>
+                        <div class="script-content">"别人靠感觉，我靠AI。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">CTA</div>
+                        <div class="script-content">"评论区扣'AI'，教你怎么开始"</div>
+                    </div>
+                </div>
+                <div class="hashtags" style="padding: 16px 20px;">
+                    <span class="hashtag">#AI交易</span>
+                    <span class="hashtag">#加密货币</span>
+                    <span class="hashtag">#Nivex</span>
+                    <span class="hashtag">#被动收入</span>
+                </div>
+                <div style="padding: 0 20px 20px;">
+                    <button class="copy-btn" onclick="copyCard('copy-tk1')">📋 一键复制脚本</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TK #2 -->
+        <div class="card script-card">
+            <div class="card-header">
+                <span class="card-title">TK脚本 #2 |「合约亏了多少？说出来别怕」15秒</span>
+                <span class="card-tag">TikTok</span>
+            </div>
+            <div class="card-body">
+                <div id="copy-tk2">
+                    <div class="script-line">
+                        <div class="script-label">字幕大字</div>
+                        <div class="script-content">"合约亏了多少？勇敢说出来"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">快速切换</div>
+                        <div class="script-content">"3000美金" → "1万" → "全部" → "爆仓三次了"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">转折</div>
+                        <div class="script-content">"如果有一种方式，不用你亲自下单……"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">画面</div>
+                        <div class="script-content">AI自动交易界面 + 收益截图</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">结尾</div>
+                        <div class="script-content">"让AI替你做决策。评论区扣1了解"</div>
+                    </div>
+                </div>
+                <div class="hashtags" style="padding: 16px 20px;">
+                    <span class="hashtag">#爆仓</span>
+                    <span class="hashtag">#AI交易</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <div style="padding: 0 20px 20px;">
+                    <button class="copy-btn" onclick="copyCard('copy-tk2')">📋 一键复制脚本</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TK #3 -->
+        <div class="card script-card">
+            <div class="card-header">
+                <span class="card-title">TK脚本 #3 | 对比型：「散户 vs AI」20秒</span>
+                <span class="card-tag">TikTok / Reels</span>
+            </div>
+            <div class="card-body">
+                <div id="copy-tk3">
+                    <div class="script-line">
+                        <div class="script-label">画面分屏</div>
+                        <div class="script-content">左边：散户（凌晨盯盘、愁眉苦脸、亏钱画面）<br>右边：AI（全自动运行、收益稳定、主人在睡觉）</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">字幕对比</div>
+                        <div class="script-content">散户：靠感觉 → AI：靠数据<br>散户：日夜盯盘 → AI：24小时自动<br>散户：年年被割 → AI：年年复利</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">结尾</div>
+                        <div class="script-content">"你选哪边？"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">CTA</div>
+                        <div class="script-content">"评论区扣'选AI'"</div>
+                    </div>
+                </div>
+                <div class="hashtags" style="padding: 16px 20px;">
+                    <span class="hashtag">#散户vsAI</span>
+                    <span class="hashtag">#智能交易</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <div style="padding: 0 20px 20px;">
+                    <button class="copy-btn" onclick="copyCard('copy-tk3')">📋 一键复制脚本</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TK #4 -->
+        <div class="card script-card">
+            <div class="card-header">
+                <span class="card-title">TK脚本 #4 | 知识科普型：「什么是机构级AI交易？」45秒</span>
+                <span class="card-tag">TikTok / YouTube Shorts</span>
+            </div>
+            <div class="card-body">
+                <div id="copy-tk4">
+                    <div class="script-line">
+                        <div class="script-label">开头</div>
+                        <div class="script-content">"你知道华尔街怎么赚钱吗？不是靠感觉。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">科普段落</div>
+                        <div class="script-content">"他们用的是机构级AI——大数据分析 + 量化算法 + 风控系统，毫秒级执行，24小时不停。BlackRock在用，Citadel在用，全球70%的交易已经是AI在做了。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">转折</div>
+                        <div class="script-content">"但过去，这种技术只有亿万富翁能用。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">亮点</div>
+                        <div class="script-content">"现在，Nivex把它开放了。200美金就能一键跟单，同步机构的AI策略。"</div>
+                    </div>
+                    <div class="script-line">
+                        <div class="script-label">CTA</div>
+                        <div class="script-content">"想了解更多？关注我，下期讲怎么操作。"</div>
+                    </div>
+                </div>
+                <div class="hashtags" style="padding: 16px 20px;">
+                    <span class="hashtag">#机构AI</span>
+                    <span class="hashtag">#华尔街</span>
+                    <span class="hashtag">#Nivex</span>
+                    <span class="hashtag">#加密知识</span>
+                </div>
+                <div style="padding: 0 20px 20px;">
+                    <button class="copy-btn" onclick="copyCard('copy-tk4')">📋 一键复制脚本</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第七部分：Facebook 长帖系列
+         =================================================================== -->
+    <div class="section" id="part7">
+        <div class="section-header">
+            <h2>第七部分：Facebook 长帖系列</h2>
+            <p class="strategy"><strong>策略：</strong>适合深度内容，讲逻辑、讲故事、引发评论区讨论。</p>
+        </div>
+
+        <!-- FB长帖 #1 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">FB长帖 #1 |《为什么我放弃了手动交易》</span>
+                <span class="card-tag">FB长帖 / 公众号</span>
+            </div>
+            <div class="card-body" id="copy-fb1">
+                <p>坦白说，我做了3年加密货币交易。</p>
+                <p>前两年，我像大多数人一样——<br>每天花5-6个小时看K线，<br>关注几十个KOL，抄他们的作业，<br>用合约加杠杆，以为自己是天才。</p>
+                <p>结果呢？<br><span class="pain">第一年亏了40%。<br>第二年以为学聪明了，结果爆仓两次，归零。</span></p>
+                <p>直到有一天，一个做量化的朋友跟我说：<br>"你知道你在跟谁竞争吗？<br>机构的AI，毫秒级执行，<br>做市商的算法，控制着价格，<br>你凭什么赢？"</p>
+                <p><span class="emphasis">那一刻我醒了。</span></p>
+                <p>我不需要更努力地做单，<br>我需要换一个位置。</p>
+                <p>我开始研究机构AI交易，<br>最终选择了Nivex。</p>
+                <p>原因很简单：<br><span class="success-text">1. 真正的机构级策略，不是噱头</span><br><span class="success-text">2. 一键跟单，零门槛</span><br><span class="success-text">3. 每笔交易可追踪，收益曲线透明</span><br><span class="success-text">4. 资金自由进出，不锁仓</span></p>
+                <p>用了6个月后，我的账户是正收益。<br>不是暴利，但稳定。<br><span class="highlight">每月5-12%的增长，回撤控制在5%以内。</span></p>
+                <p>最重要的是——<br>我终于不用凌晨3点盯盘了。<br>我终于把生活还给了自己。</p>
+                <p>如果你也在亏钱，<br>如果你也在焦虑，<br>不妨问自己一句：<br><span class="emphasis">"我是不是站错了位置？"</span></p>
+                <p>评论区聊聊，你的交易经历是什么样的？</p>
+                <div class="hashtags">
+                    <span class="hashtag">#加密交易</span>
+                    <span class="hashtag">#AI跟单</span>
+                    <span class="hashtag">#Nivex</span>
+                    <span class="hashtag">#我的故事</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-fb1')">📋 一键复制文案</button>
+            </div>
+        </div>
+
+        <!-- FB长帖 #2 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">FB长帖 #2 |《2025年，散户还有机会吗？》</span>
+                <span class="card-tag">FB长帖</span>
+            </div>
+            <div class="card-body" id="copy-fb2">
+                <p>最近很多朋友问我：<br>"市场这么差，散户还有机会吗？"</p>
+                <p>我的回答是：<span class="emphasis">有。但不是你以为的那种。</span></p>
+                <p>先看现实：<br><span class="pain">——山寨币90%已经腰斩再腰斩<br>——链上活跃数据持续下降<br>——VC不投了，项目方跑了<br>——散户信心降到冰点</span></p>
+                <p>但同时：<br><span class="success-text">——BTC ETF在持续吸金<br>——机构在默默加仓<br>——AI交易赛道年增长40%<br>——越来越多的资金流向自动化策略</span></p>
+                <p>这意味着什么？<br><span class="highlight">市场在分化，不是在死亡。</span></p>
+                <p>散户的机会在哪里？三条路：</p>
+                <p><span class="emphasis">第一条：跟随机构，布局BTC。</span><br>但你需要资金和耐心。</p>
+                <p><span class="emphasis">第二条：用AI策略，稳健复利。</span><br>不追涨杀跌，让系统帮你执行。<br>这是Nivex正在做的事——把机构AI策略开放给普通人。</p>
+                <p><span class="emphasis">第三条：建设社群，构建被动收入网络。</span><br>Nivex的返佣机制让你不仅自己赚，<br>还能通过推荐建立长期收入。</p>
+                <p><span class="highlight">寒冬不是终点，是起跑线。</span><br>真正的赢家，是在别人恐惧时布局的人。</p>
+                <p>你怎么看？评论区分享你的想法。</p>
+                <div class="hashtags">
+                    <span class="hashtag">#2025加密</span>
+                    <span class="hashtag">#散户出路</span>
+                    <span class="hashtag">#AI交易</span>
+                    <span class="hashtag">#Nivex</span>
+                </div>
+                <button class="copy-btn" onclick="copyCard('copy-fb2')">📋 一键复制文案</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         第八部分：每日朋友圈7天排期表
+         =================================================================== -->
+    <div class="section" id="part8">
+        <div class="section-header">
+            <h2>第八部分：每日朋友圈 7天排期表</h2>
+            <p class="strategy"><strong>核心原则：</strong>7天只有1天提到产品，其余6天输出价值、制造共鸣���建立信任。</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body" style="padding: 0; overflow-x: auto;">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">日期</th>
+                            <th style="width: 100px;">主题</th>
+                            <th>内容策略</th>
+                            <th style="width: 100px;">配图</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="day-badge day-1">星期一</span></td>
+                            <td><span class="schedule-theme">行业认知</span></td>
+                            <td>
+                                <div class="schedule-desc">分享一条行业趋势观点。如：全球AI交易规模已超30万亿美元，未来5年AI交易将占市场70%。不提产品，只输出价值。</div>
+                            </td>
+                            <td><span class="schedule-img">数据图表</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-2">星期二</span></td>
+                            <td><span class="schedule-theme">痛点共鸣</span></td>
+                            <td>
+                                <div class="schedule-desc">讲一个散户故事：凌晨盯盘、合约爆仓、追涨杀跌的真实场景。引发评论和讨论。</div>
+                            </td>
+                            <td><span class="schedule-img">场景图/表情包</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-3">星期三</span></td>
+                            <td><span class="schedule-theme">AI科普</span></td>
+                            <td>
+                                <div class="schedule-desc">科普机构AI交易的工作原理：大数据+量化算法+风控系统，对比人工交易的劣势。</div>
+                            </td>
+                            <td><span class="schedule-img">对比图表</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-4">星期四</span></td>
+                            <td><span class="schedule-theme">案例分享</span></td>
+                            <td>
+                                <div class="schedule-desc">分享用户收益截图或案例故事。如：1000美金入金，一个月+8.5%。强调真实、透明。</div>
+                            </td>
+                            <td><span class="schedule-img">收益截图</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-5">星期五</span></td>
+                            <td><span class="schedule-theme">生活方式</span></td>
+                            <td>
+                                <div class="schedule-desc">晒生活：不用盯盘的自由感，出去旅游/喝咖啡/陪家人的照片。潜台词：被动收入带来的状态。</div>
+                            </td>
+                            <td><span class="schedule-img">生活照片</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-6">星期六</span></td>
+                            <td><span class="schedule-theme">互动提问</span></td>
+                            <td>
+                                <div class="schedule-desc">发起投票/问题：你觉得AI交易靠谱吗？你2024年亏了还是赚了？引导评论区讨论。</div>
+                            </td>
+                            <td><span class="schedule-img">投票截图</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge day-7">星期日</span></td>
+                            <td><span class="schedule-theme">行动引导</span></td>
+                            <td>
+                                <div class="schedule-desc"><strong>唯一提产品的一天。</strong>软性推荐：今天有朋友问我怎么开始AI跟单，我帮她花15分钟搞定了。有兴趣的私聊。</div>
+                            </td>
+                            <td><span class="schedule-img">聊天截图</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         附录：高频金句库
+         =================================================================== -->
+    <div class="section" id="quotes">
+        <div class="section-header">
+            <h2>附录：高频金句库</h2>
+            <p class="strategy"><strong>用途：</strong>朋友圈签名、评论区回复、视频结尾字幕，随时取用。</p>
+        </div>
+
+        <!-- 痛点类 -->
+        <div class="quote-category">
+            <span class="quote-category-title cat-pain">痛点类</span>
+            <div class="quotes-grid">
+                <div class="quote-item" onclick="copyQuote(this)">「凌晨3点还在盯盘的人，赚的不是钱，是焦虑。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「你不是输在不努力，而是输在站错位置。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「做单的人99%会被淘汰，不是因为笨，是因为赛道选错了。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「行情从来不亏钱，你的情绪才会。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「和系统对抗的人，迟早被系统埋掉。」</div>
+            </div>
+        </div>
+
+        <!-- 趋势类 -->
+        <div class="quote-category">
+            <span class="quote-category-title cat-trend">趋势类</span>
+            <div class="quotes-grid">
+                <div class="quote-item" onclick="copyQuote(this)">「AI不是未来，AI是正在发生的现在。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「未来5年，AI交易将占全球市场70%。你站在哪一边？」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「别人靠感觉在交易，我们靠AI在赚钱。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「趋势不是等你准备好了才来，而是来了就不会等你。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「选择大于努力，位置决定结果。」</div>
+            </div>
+        </div>
+
+        <!-- 行动类 -->
+        <div class="quote-category">
+            <span class="quote-category-title cat-action">行动类</span>
+            <div class="quotes-grid">
+                <div class="quote-item" onclick="copyQuote(this)">「散户唯一的机会，不是对抗机构，而是跟随机构。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「你不需要战胜系统，你需要站进系统。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「200美金，不是消费，是给未来的自己一张船票。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「3个月后，你会感谢今天做出的决定。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「市场不奖励努力，只奖励站对位置的人。」</div>
+            </div>
+        </div>
+
+        <!-- 信任类 -->
+        <div class="quote-category">
+            <span class="quote-category-title cat-trust">信任类</span>
+            <div class="quotes-grid">
+                <div class="quote-item" onclick="copyQuote(this)">「每笔交易可追踪，收益曲线完全公开。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「资金自由进出，从不锁仓。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「不是AI噱头，是亿级资金训练出来的真实策略。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「让AI帮你控制风险，让时间帮你复利增长。」</div>
+                <div class="quote-item" onclick="copyQuote(this)">「在Nivex，你不用盯盘，也能像机构一样赚钱。」</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    <div class="footer-logo">NIVEX</div>
+    <p>营销素材库 · 持续更新</p>
+    <p style="margin-top: 8px; color: var(--text-muted);">机构AI自动化交易 · 社交媒体营销文案全集</p>
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+function copyCard(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    // Get text content, clean up
+    let text = '';
+    const paragraphs = el.querySelectorAll('p');
+    paragraphs.forEach(p => {
+        text += p.innerText + '\n\n';
+    });
+
+    // Add hashtags
+    const hashtags = el.querySelectorAll('.hashtag');
+    if (hashtags.length > 0) {
+        text += hashtags[0].parentElement.innerText;
+    }
+
+    // For script cards, get script content
+    const scriptLines = el.querySelectorAll('.script-line');
+    if (scriptLines.length > 0) {
+        text = '';
+        scriptLines.forEach(line => {
+            const label = line.querySelector('.script-label').innerText;
+            const content = line.querySelector('.script-content').innerText;
+            text += `【${label}】${content}\n\n`;
+        });
+    }
+
+    navigator.clipboard.writeText(text.trim()).then(() => {
+        const btn = el.querySelector('.copy-btn') || el.parentElement.querySelector('.copy-btn');
+        if (btn) {
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ 已复制！';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+    });
+}
+
+function copyQuote(el) {
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const original = el.style.borderLeftColor;
+        el.style.borderLeftColor = '#b6e82d';
+        el.style.background = 'rgba(182, 232, 45, 0.08)';
+        setTimeout(() => {
+            el.style.borderLeftColor = original;
+            el.style.background = '';
+        }, 1500);
+    });
+}
+
+// Smooth scroll for TOC links
+document.querySelectorAll('.toc-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
