@@ -6,17 +6,172 @@
   <title>资源下载 | NIVEX BD</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .download-card {
+      padding: 28px;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+    .download-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(127,255,0,0.08);
+    }
+    .download-card .file-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .download-card .file-info {
+      flex: 1;
+    }
+    .download-card .file-info h4 {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+    .download-card .file-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .download-card .file-usage {
+      font-size: 0.82rem;
+      color: var(--gray-dark);
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      border-left: 3px solid rgba(127,255,0,0.3);
+    }
+    .download-card .file-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .download-card .file-tags span {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .tag-excel { background: rgba(34,139,34,0.15); color: #7fff00; }
+    .tag-pdf { background: rgba(255,107,107,0.12); color: #ff6b6b; }
+    .tag-ppt { background: rgba(74,158,255,0.12); color: #4a9eff; }
+    .tag-txt { background: rgba(255,200,50,0.12); color: #ffc832; }
+    .tag-html { background: rgba(127,255,0,0.1); color: #7fff00; }
+    .download-btn-area {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .download-btn {
+      display: inline-block;
+      padding: 10px 25px;
+      background: var(--green);
+      color: #000;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+    .download-btn:hover {
+      background: var(--green-dark);
+      color: #000;
+      transform: scale(1.02);
+    }
+    .section-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .badge-new {
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+    }
+    .badge-count {
+      background: rgba(255,255,255,0.08);
+      color: var(--gray-light);
+    }
+    .category-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+    .guide-step {
+      padding: 25px;
+      text-align: center;
+    }
+    .guide-step .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(127,255,0,0.1);
+      color: var(--green);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .guide-step h4 {
+      margin-bottom: 10px;
+    }
+    .guide-step .step-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    .ppt-table td, .ppt-table th {
+      padding: 15px 0;
+    }
+    .ppt-table tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ppt-table thead tr {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .stats-bar {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+    .stats-bar .stat-item {
+      padding: 14px 24px;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      flex: 1;
+      min-width: 120px;
+    }
+    .stats-bar .stat-num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--green);
+      display: block;
+    }
+    .stats-bar .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+  </style>
 </head>
 <body>
   <nav class="top-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">NIVEX</a>
       <ul class="nav-menu" id="navMenu">
-        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
-        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
-        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
-        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
-        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Dao tao</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kich ban</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khach hang</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hang ngay</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tai nguyen</span></a></li>
       </ul>
       <div class="nav-lang">
         <button class="lang-btn active" data-lang="cn">中文</button>
@@ -28,141 +183,622 @@
 
   <div class="page-wrapper">
     <div class="container">
+      <!-- 页面标题 -->
       <div class="page-title animate-in" style="padding-top: 40px;">
-        <h1 class="title-cn"><span class="cn-only">资源下载</span><span class="vn-only">Tải tài nguyên</span></h1>
-        <p class="title-vn"><span class="cn-only">工作模板、工具表格一键下载</span><span class="vn-only">Mẫu công việc, bảng công cụ tải một chạm</span></p>
+        <h1 class="title-cn"><span class="cn-only">资源下载中心</span><span class="vn-only">Trung tam tai tai nguyen</span></h1>
+        <p class="title-vn"><span class="cn-only">工作模板、培训资料、话术卡片、演示文件一键下载</span><span class="vn-only">Mau cong viec, tai lieu dao tao, the kich ban, bai thuyet trinh tai mot cham</span></p>
       </div>
 
-      <!-- 工作表格 -->
-      <div class="section-title animate-in" style="margin-top: 40px;">
-        <h2><span class="cn-only">📊 工作表格</span><span class="vn-only">📊 Bảng công việc</span></h2>
+      <!-- 统计概览 -->
+      <div class="stats-bar animate-in">
+        <div class="stat-item">
+          <span class="stat-num">19</span>
+          <div class="stat-label"><span class="cn-only">可下载资源</span><span class="vn-only">Tai nguyen co the tai</span></div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">5</span>
+          <div class="stat-label"><span class="cn-only">资源类别</span><span class="vn-only">Danh muc</span></div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">12</span>
+          <div class="stat-label"><span class="cn-only">新增资源</span><span class="vn-only">Tai nguyen moi</span></div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <div class="stat-label"><span class="cn-only">免费使用</span><span class="vn-only">Mien phi</span></div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 类别一：BD 日常工具表格 -->
+      <!-- ============================================ -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">📊 BD 日常工具表格</span>
+          <span class="vn-only">📊 Bang cong cu hang ngay BD</span>
+          <span class="section-badge badge-count">4</span>
+        </h2>
+        <p class="category-desc">
+          <span class="cn-only">标准化工作表格，统一团队数据管理规范</span>
+          <span class="vn-only">Bang cong viec chuan hoa, thong nhat quy trinh quan ly du lieu doi nhom</span>
+        </p>
       </div>
 
       <div class="grid-2" style="margin-top: 20px;">
-        <div class="card animate-in delay-1" style="padding: 30px;">
+        <!-- 1. 客户跟进管理表（已有） -->
+        <div class="card download-card animate-in delay-1">
           <div style="display: flex; align-items: flex-start; gap: 20px;">
-            <div style="font-size: 2.5rem;">📋</div>
-            <div style="flex: 1;">
-              <h4 style="margin-bottom: 8px;"><span class="cn-only">BD 客户跟进管理表</span><span class="vn-only">Bảng quản lý theo dõi KH BD</span></h4>
-              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray); margin-bottom: 15px;">记录客户信息、跟进状态、成交进度</div>
-              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray); margin-bottom: 15px;">Ghi chép thông tin KH, trạng thái theo dõi, tiến độ chốt đơn</div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <span style="padding: 4px 10px; background: rgba(127,255,0,0.1); border-radius: 4px; font-size: 0.8rem;">Excel</span>
+            <div class="file-icon">📋</div>
+            <div class="file-info">
+              <h4><span class="cn-only">BD 客户跟进管理表</span><span class="vn-only">Bang quan ly theo doi KH BD</span></h4>
+              <div class="file-desc">
+                <span class="cn-only">记录客户基本信息、跟进状态、投资意向、成交进度，一表掌握全部客户动态</span>
+                <span class="vn-only">Ghi chep thong tin KH, trang thai theo doi, y dinh dau tu, tien do chot don, mot bang nam bat tat ca</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：每日更新客户跟进情况，周会汇报时直接调用</span>
+                <span class="vn-only">Ap dung: Cap nhat hang ngay, su dung truc tiep khi hop tuan</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-excel">📊 Excel</span>
                 <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
                   <span class="cn-only">可选：Google Sheets</span>
-                  <span class="vn-only">Tùy chọn: Google Sheets</span>
+                  <span class="vn-only">Tuy chon: Google Sheets</span>
                 </span>
               </div>
             </div>
           </div>
-          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-            <a href="../downloads/BD客户跟进管理表.xlsx" class="btn" style="display: inline-block; padding: 10px 25px; background: var(--green); color: #000; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+          <div class="download-btn-area">
+            <a href="../downloads/BD客户跟进管理表.xlsx" class="download-btn">
               <span class="cn-only">📥 下载 Excel</span>
-              <span class="vn-only">📥 Tải Excel</span>
+              <span class="vn-only">📥 Tai Excel</span>
             </a>
           </div>
         </div>
 
-        <div class="card animate-in delay-2" style="padding: 30px;">
+        <!-- 2. 周报模板（已有） -->
+        <div class="card download-card animate-in delay-2">
           <div style="display: flex; align-items: flex-start; gap: 20px;">
-            <div style="font-size: 2.5rem;">📝</div>
-            <div style="flex: 1;">
-              <h4 style="margin-bottom: 8px;"><span class="cn-only">周报模板</span><span class="vn-only">Mẫu báo cáo tuần</span></h4>
-              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray); margin-bottom: 15px;">标准化周报格式，业绩汇总+计划</div>
-              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray); margin-bottom: 15px;">Định dạng chuẩn, tổng hợp hiệu suất + kế hoạch</div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <span style="padding: 4px 10px; background: rgba(127,255,0,0.1); border-radius: 4px; font-size: 0.8rem;">Excel</span>
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <h4><span class="cn-only">BD 周报模板</span><span class="vn-only">Mau bao cao tuan BD</span></h4>
+              <div class="file-desc">
+                <span class="cn-only">标准化周报格式，包含本周业绩汇总、客户动态、下周计划三大板块</span>
+                <span class="vn-only">Dinh dang chuan, gom tong hop hieu suat tuan, dong thai KH, ke hoach tuan toi</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：每周五提交，确保团队信息同步</span>
+                <span class="vn-only">Ap dung: Nop thu 6 hang tuan, dam bao dong bo thong tin doi nhom</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-excel">📊 Excel</span>
               </div>
             </div>
           </div>
-          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-            <a href="../downloads/周报模板.xlsx" class="btn" style="display: inline-block; padding: 10px 25px; background: var(--green); color: #000; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+          <div class="download-btn-area">
+            <a href="../downloads/周报模板.xlsx" class="download-btn">
               <span class="cn-only">📥 下载 Excel</span>
-              <span class="vn-only">📥 Tải Excel</span>
+              <span class="vn-only">📥 Tai Excel</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. 日报模板（新增） -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">BD 日报模板</span><span class="vn-only">Mau bao cao ngay BD</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">每日工作记录表，包含当日拜访数、新增客户、跟进客户、意向等级、明日计划</span>
+                <span class="vn-only">Bang ghi chep cong viec hang ngay: so luot tham, KH moi, KH theo doi, muc do quan tam, ke hoach ngay mai</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：每日下班前 5 分钟填写，养成复盘习惯</span>
+                <span class="vn-only">Ap dung: Dien truoc khi tan lam 5 phut moi ngay, tao thoi quen review</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-excel">📊 Excel</span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn">
+              <span class="cn-only">📥 下载 Excel</span>
+              <span class="vn-only">📥 Tai Excel</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. 客户分级管理表（新增） -->
+        <div class="card download-card animate-in delay-2">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">客户分级管理表（S/A/B/C）</span><span class="vn-only">Bang phan cap KH (S/A/B/C)</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">按投资金额与活跃度将客户分为 S/A/B/C 四个等级，自动计算优先级，精准分配跟进资源</span>
+                <span class="vn-only">Phan KH thanh 4 cap S/A/B/C theo so tien dau tu va muc hoat dong, tu dong tinh uu tien</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：管理 50+ 客户的 BD，避免遗漏高价值客户</span>
+                <span class="vn-only">Ap dung: BD quan ly 50+ KH, tranh bo sot KH gia tri cao</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-excel">📊 Excel</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">含公式自动计算</span>
+                  <span class="vn-only">Co cong thuc tu dong</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn">
+              <span class="cn-only">📥 下载 Excel</span>
+              <span class="vn-only">📥 Tai Excel</span>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- 演示文件 -->
+      <!-- ============================================ -->
+      <!-- 类别二：培训资料 -->
+      <!-- ============================================ -->
       <div class="section-title animate-in" style="margin-top: 50px;">
-        <h2><span class="cn-only">🎬 演示文件</span><span class="vn-only">🎬 Bài thuyết trình</span></h2>
+        <h2>
+          <span class="cn-only">📚 培训资料</span>
+          <span class="vn-only">📚 Tai lieu dao tao</span>
+          <span class="section-badge badge-new">NEW</span>
+          <span class="section-badge badge-count">3</span>
+        </h2>
+        <p class="category-desc">
+          <span class="cn-only">系统化培训文件，加速新人上手，强化老人技能</span>
+          <span class="vn-only">Tai lieu dao tao he thong, giup nguoi moi bat nhip nhanh, nang cao ky nang nguoi cu</span>
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-top: 20px;">
+        <!-- 1. 新 BD 入职培训手册 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📕</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">新 BD 入职培训手册</span><span class="vn-only">So tay dao tao BD moi</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">完整入职指南：公司介绍、产品体系、工作流程、考核标准、常见问题，新人 3 天快速上手</span>
+                <span class="vn-only">Huong dan nhap cuoc day du: gioi thieu cong ty, he thong san pham, quy trinh, tieu chuan danh gia, FAQ - BD moi bat nhip trong 3 ngay</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：新 BD 入职第一天发放，配合导师指导使用</span>
+                <span class="vn-only">Ap dung: Phat ngay dau nhan viec, su dung cung huong dan cua mentor</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">约 30 页</span>
+                  <span class="vn-only">Khoang 30 trang</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. 产品知识考核题库 -->
+        <div class="card download-card animate-in delay-2">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">产品知识考核题库</span><span class="vn-only">Ngan hang de thi kien thuc san pham</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">100 道产品相关题目，涵盖 AI 量化、交易所功能、费用结构、合规牌照，附答案和评分标准</span>
+                <span class="vn-only">100 cau hoi san pham: AI luong hoa, chuc nang san, phi, giay phep - kem dap an va tieu chuan cham diem</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：新人入职考核 + 月度知识复习测试</span>
+                <span class="vn-only">Ap dung: Kiem tra nhap cuoc + Bai kiem tra on tap hang thang</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">含答案</span>
+                  <span class="vn-only">Co dap an</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. 话术速查手册 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📒</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">话术速查手册</span><span class="vn-only">So tay tra cuu kich ban nhanh</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">浓缩版话术精华，按场景分类：首次沟通、异议处理、加仓引导、转介绍，随时翻阅</span>
+                <span class="vn-only">Tinh hoa kich ban rut gon, phan loai theo tinh huong: lien he dau, xu ly phan doi, huong dan tang von, gioi thieu - tra cuu bat cu luc nao</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：外出拜访客户时随身携带，遇到问题快速查阅</span>
+                <span class="vn-only">Ap dung: Mang theo khi gap KH, tra cuu nhanh khi gap van de</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">口袋版 A5</span>
+                  <span class="vn-only">Ban bo tui A5</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 类别三：客户沟通模板 -->
+      <!-- ============================================ -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">💬 客户沟通模板</span>
+          <span class="vn-only">💬 Mau giao tiep khach hang</span>
+          <span class="section-badge badge-new">NEW</span>
+          <span class="section-badge badge-count">4</span>
+        </h2>
+        <p class="category-desc">
+          <span class="cn-only">即拿即用的消息模板，覆盖客户沟通全场景，复制粘贴即可发送</span>
+          <span class="vn-only">Mau tin nhan san sang su dung, bao phu moi tinh huong giao tiep KH, chi can sao chep va gui</span>
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-top: 20px;">
+        <!-- 1. 首次沟通破冰话术卡片 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">🤝</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">首次沟通破冰话术卡片</span><span class="vn-only">The kich ban lam quen lan dau</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">12 套首次接触话术，按客户来源分类：社交媒体、线下活动、转介绍、主动咨询，每套含开场白 + 3 轮对话示例</span>
+                <span class="vn-only">12 bo kich ban tiep xuc lan dau, phan theo nguon KH: mang xa hoi, su kien offline, gioi thieu, tu van chu dong - moi bo gom loi mo dau + 3 vong hoi thoai mau</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：新客户第一次 Zalo/电话/见面时参考</span>
+                <span class="vn-only">Ap dung: Tham khao khi lien he KH moi lan dau qua Zalo/dien thoai/gap mat</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span class="tag-txt">📝 TXT</span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8); margin-left: 10px;">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. 行情波动安抚消息模板 -->
+        <div class="card download-card animate-in delay-2">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📉</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">行情波动安抚消息模板</span><span class="vn-only">Mau tin nhan tran an khi thi truong bien dong</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">市场下跌/剧烈波动时的安抚话术，分轻度回调、中度下跌、暴跌三级应对，附数据分析话术</span>
+                <span class="vn-only">Kich ban tran an khi thi truong giam/bien dong manh, chia 3 cap do: dieu chinh nhe, giam vua, giam manh - kem kich ban phan tich du lieu</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：市场异常波动时第一时间群发安抚客户</span>
+                <span class="vn-only">Ap dung: Gui ngay khi thi truong bien dong bat thuong de tran an KH</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-txt">📝 TXT</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">可直接复制发送</span>
+                  <span class="vn-only">Co the sao chep gui ngay</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8);">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. 加仓引导话术卡片 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📈</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">加仓引导话术卡片</span><span class="vn-only">The kich ban huong dan tang von</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">8 套加仓引导场景话术：盈利时追加、到期续投、市场低位加仓、升级策略，用数据说服客户</span>
+                <span class="vn-only">8 bo kich ban tang von: them khi co loi, tai dau tu khi het han, tang von khi thi truong thap, nang cap chien luoc - thuyet phuc bang du lieu</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：客户首投后 30/60/90 天跟进加仓</span>
+                <span class="vn-only">Ap dung: Theo doi tang von sau 30/60/90 ngay dau tu dau tien</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span class="tag-txt">📝 TXT</span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8); margin-left: 10px;">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. 转介绍邀请话术卡片 -->
+        <div class="card download-card animate-in delay-2">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">🔗</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">转介绍邀请话术卡片</span><span class="vn-only">The kich ban moi gioi thieu</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">6 套转介绍话术，覆盖：自然引导、奖励激励、活动邀约、成功案例分享，让客户主动帮你拉新</span>
+                <span class="vn-only">6 bo kich ban gioi thieu: huong dan tu nhien, khuyen khich thuong, moi su kien, chia se thanh cong - de KH tu dong gioi thieu nguoi moi</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：客户盈利后或满意度高时发起转介绍</span>
+                <span class="vn-only">Ap dung: Khi KH co loi nhuan hoac hai long cao, de nghi gioi thieu</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+                <span class="tag-txt">📝 TXT</span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8); margin-left: 10px;">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 类别四：演示文件 -->
+      <!-- ============================================ -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">🎬 演示文件</span>
+          <span class="vn-only">🎬 Bai thuyet trinh</span>
+          <span class="section-badge badge-count">5</span>
+        </h2>
+        <p class="category-desc">
+          <span class="cn-only">专业演示文件，客户会议、沙龙活动、团队培训均可使用</span>
+          <span class="vn-only">Bai thuyet trinh chuyen nghiep, dung cho hop KH, su kien salon, dao tao doi nhom</span>
+        </p>
       </div>
 
       <div class="card animate-in" style="margin-top: 20px; padding: 30px;">
-        <table style="width: 100%; border-collapse: collapse;">
+        <table class="ppt-table" style="width: 100%; border-collapse: collapse;">
           <thead>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <tr>
               <th style="text-align: left; padding: 12px 0; color: var(--gray); font-weight: 500;">
                 <span class="cn-only">文件名</span>
-                <span class="vn-only">Tên tệp</span>
+                <span class="vn-only">Ten tep</span>
               </th>
               <th style="text-align: left; padding: 12px 0; color: var(--gray); font-weight: 500;">
                 <span class="cn-only">类型</span>
-                <span class="vn-only">Loại</span>
+                <span class="vn-only">Loai</span>
+              </th>
+              <th style="text-align: left; padding: 12px 0; color: var(--gray); font-weight: 500;">
+                <span class="cn-only">用途</span>
+                <span class="vn-only">Muc dich</span>
               </th>
               <th style="text-align: right; padding: 12px 0; color: var(--gray); font-weight: 500;">
                 <span class="cn-only">操作</span>
-                <span class="vn-only">Thao tác</span>
+                <span class="vn-only">Thao tac</span>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <!-- 已有1 -->
+            <tr>
               <td style="padding: 15px 0;">
                 <div style="display: flex; align-items: center; gap: 12px;">
                   <span style="font-size: 1.5rem;">🎯</span>
                   <div>
-                    <div class="cn-only">新客户全生命周期服务流程</div>
-                    <div class="vn-only">Quy trình dịch vụ vòng đời KH mới</div>
+                    <div class="cn-only" style="font-weight: 500;">新客户全生命周期服务流程</div>
+                    <div class="vn-only" style="font-weight: 500;">Quy trinh dich vu vong doi KH moi</div>
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 3px;">
+                      <span class="cn-only">完整客户服务 SOP</span>
+                      <span class="vn-only">SOP dich vu KH day du</span>
+                    </div>
                   </div>
                 </div>
               </td>
-              <td style="padding: 15px 0;">
-                <span style="padding: 4px 10px; background: rgba(127,255,0,0.1); border-radius: 4px; font-size: 0.8rem;">HTML</span>
+              <td style="padding: 15px 0;"><span class="tag-html">HTML</span></td>
+              <td style="padding: 15px 0; font-size: 0.85rem; color: var(--gray);">
+                <span class="cn-only">团队培训</span>
+                <span class="vn-only">Dao tao doi nhom</span>
               </td>
               <td style="padding: 15px 0; text-align: right;">
-                <a href="../presentations/NIVEX_新客户全生命周期服务流程_20260128.html" style="color: var(--green); text-decoration: none;">
+                <a href="../presentations/NIVEX_新客户全生命周期服务流程_20260128.html" style="color: var(--green); text-decoration: none; font-weight: 500;">
                   <span class="cn-only">查看 →</span>
                   <span class="vn-only">Xem →</span>
                 </a>
               </td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <!-- 已有2 -->
+            <tr>
               <td style="padding: 15px 0;">
                 <div style="display: flex; align-items: center; gap: 12px;">
                   <span style="font-size: 1.5rem;">💡</span>
                   <div>
-                    <div class="cn-only">AI 量化交易产品介绍</div>
-                    <div class="vn-only">Giới thiệu sản phẩm giao dịch AI</div>
+                    <div class="cn-only" style="font-weight: 500;">AI 量化交易产品介绍</div>
+                    <div class="vn-only" style="font-weight: 500;">Gioi thieu san pham giao dich AI</div>
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 3px;">
+                      <span class="cn-only">核心产品详解</span>
+                      <span class="vn-only">Chi tiet san pham cot loi</span>
+                    </div>
                   </div>
                 </div>
               </td>
-              <td style="padding: 15px 0;">
-                <span style="padding: 4px 10px; background: rgba(127,255,0,0.1); border-radius: 4px; font-size: 0.8rem;">HTML</span>
+              <td style="padding: 15px 0;"><span class="tag-html">HTML</span></td>
+              <td style="padding: 15px 0; font-size: 0.85rem; color: var(--gray);">
+                <span class="cn-only">客户会议</span>
+                <span class="vn-only">Hop KH</span>
               </td>
               <td style="padding: 15px 0; text-align: right;">
-                <a href="../presentations/NIVEX_交易所介绍_20260129.html" style="color: var(--green); text-decoration: none;">
+                <a href="../presentations/NIVEX_交易所介绍_20260129.html" style="color: var(--green); text-decoration: none; font-weight: 500;">
                   <span class="cn-only">查看 →</span>
                   <span class="vn-only">Xem →</span>
                 </a>
               </td>
             </tr>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <!-- 已有3 -->
+            <tr>
               <td style="padding: 15px 0;">
                 <div style="display: flex; align-items: center; gap: 12px;">
                   <span style="font-size: 1.5rem;">🇰🇷</span>
                   <div>
-                    <div class="cn-only">韩国客户分享会</div>
-                    <div class="vn-only">Hội thảo khách hàng Hàn Quốc</div>
+                    <div class="cn-only" style="font-weight: 500;">韩国客户分享会</div>
+                    <div class="vn-only" style="font-weight: 500;">Hoi thao khach hang Han Quoc</div>
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 3px;">
+                      <span class="cn-only">韩国市场定制版</span>
+                      <span class="vn-only">Phien ban thi truong Han Quoc</span>
+                    </div>
                   </div>
                 </div>
               </td>
-              <td style="padding: 15px 0;">
-                <span style="padding: 4px 10px; background: rgba(127,255,0,0.1); border-radius: 4px; font-size: 0.8rem;">HTML</span>
+              <td style="padding: 15px 0;"><span class="tag-html">HTML</span></td>
+              <td style="padding: 15px 0; font-size: 0.85rem; color: var(--gray);">
+                <span class="cn-only">沙龙活动</span>
+                <span class="vn-only">Su kien salon</span>
               </td>
               <td style="padding: 15px 0; text-align: right;">
-                <a href="../presentations/NIVEX_韩国客户分享会_20260129.html" style="color: var(--green); text-decoration: none;">
+                <a href="../presentations/NIVEX_韩国客户分享会_20260129.html" style="color: var(--green); text-decoration: none; font-weight: 500;">
+                  <span class="cn-only">查看 →</span>
+                  <span class="vn-only">Xem →</span>
+                </a>
+              </td>
+            </tr>
+            <!-- 新增4：产品一页纸 -->
+            <tr>
+              <td style="padding: 15px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 1.5rem;">📋</span>
+                  <div>
+                    <div style="font-weight: 500;">
+                      <span class="cn-only">Nivex 产品一页纸</span>
+                      <span class="vn-only">Nivex mot trang san pham</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 3px;">
+                      <span class="cn-only">简版产品介绍，适合转发客户</span>
+                      <span class="vn-only">Gioi thieu ngan gon, phu hop gui cho KH</span>
+                    </div>
+                    <span class="section-badge badge-new" style="margin-left: 0; margin-top: 5px;">NEW</span>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 15px 0;"><span class="tag-pdf">PDF</span></td>
+              <td style="padding: 15px 0; font-size: 0.85rem; color: var(--gray);">
+                <span class="cn-only">客户转发</span>
+                <span class="vn-only">Chuyen tiep KH</span>
+              </td>
+              <td style="padding: 15px 0; text-align: right;">
+                <a href="#" style="color: var(--green); text-decoration: none; font-weight: 500;">
+                  <span class="cn-only">下载 →</span>
+                  <span class="vn-only">Tai →</span>
+                </a>
+              </td>
+            </tr>
+            <!-- 新增5：BD 团队介绍 PPT -->
+            <tr>
+              <td style="padding: 15px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 1.5rem;">👥</span>
+                  <div>
+                    <div style="font-weight: 500;">
+                      <span class="cn-only">BD 团队介绍 PPT</span>
+                      <span class="vn-only">PPT gioi thieu doi nhom BD</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 3px;">
+                      <span class="cn-only">团队实力展示，增强客户信任</span>
+                      <span class="vn-only">The hien nang luc doi nhom, tang niem tin KH</span>
+                    </div>
+                    <span class="section-badge badge-new" style="margin-left: 0; margin-top: 5px;">NEW</span>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 15px 0;"><span class="tag-html">HTML</span></td>
+              <td style="padding: 15px 0; font-size: 0.85rem; color: var(--gray);">
+                <span class="cn-only">合作洽谈</span>
+                <span class="vn-only">Dam phan hop tac</span>
+              </td>
+              <td style="padding: 15px 0; text-align: right;">
+                <a href="#" style="color: var(--green); text-decoration: none; font-weight: 500;">
                   <span class="cn-only">查看 →</span>
                   <span class="vn-only">Xem →</span>
                 </a>
@@ -173,34 +809,247 @@
         <div style="margin-top: 20px; text-align: center;">
           <a href="../presentations/index.html" style="color: var(--gray); text-decoration: none; font-size: 0.9rem;">
             <span class="cn-only">查看全部演示文件 →</span>
-            <span class="vn-only">Xem tất cả bài thuyết trình →</span>
+            <span class="vn-only">Xem tat ca bai thuyet trinh →</span>
           </a>
         </div>
       </div>
 
-      <!-- 使用指南 -->
+      <!-- ============================================ -->
+      <!-- 类别五：社群运营素材 -->
+      <!-- ============================================ -->
       <div class="section-title animate-in" style="margin-top: 50px;">
-        <h2><span class="cn-only">📖 使用指南</span><span class="vn-only">📖 Hướng dẫn sử dụng</span></h2>
+        <h2>
+          <span class="cn-only">📱 社群运营素材</span>
+          <span class="vn-only">📱 Tai lieu van hanh cong dong</span>
+          <span class="section-badge badge-new">NEW</span>
+          <span class="section-badge badge-count">3</span>
+        </h2>
+        <p class="category-desc">
+          <span class="cn-only">Zalo 社群、朋友圈运营必备素材包，让内容输出不再发愁</span>
+          <span class="vn-only">Goi tai lieu can thiet cho van hanh cong dong Zalo, noi dung tren mang xa hoi - khong con lo thieu noi dung</span>
+        </p>
       </div>
 
-      <div class="grid-3" style="margin-top: 20px;">
-        <div class="card animate-in delay-1" style="padding: 25px;">
-          <div style="font-size: 1.5rem; margin-bottom: 15px; color: var(--green);">①</div>
-          <h4 style="margin-bottom: 10px;"><span class="cn-only">下载模板</span><span class="vn-only">Tải mẫu</span></h4>
-          <div class="cn-only" style="font-size: 0.9rem; color: var(--gray);">点击下载按钮，保存到本地或云端</div>
-          <div class="vn-only" style="font-size: 0.85rem; color: var(--gray);">Nhấn nút tải, lưu vào máy hoặc đám mây</div>
+      <div class="grid-2" style="margin-top: 20px;">
+        <!-- 1. 每日社群推送文案库 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📅</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">每日社群推送文案库（30 天版）</span><span class="vn-only">Thu vien noi dung cong dong hang ngay (30 ngay)</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">30 天完整社群内容日历，每天 3 条推送：早间行情、午间知识、晚间互动，直接复制使用</span>
+                <span class="vn-only">Lich noi dung cong dong 30 ngay, moi ngay 3 bai: tin sang, kien thuc trua, tuong tac toi - sao chep su dung ngay</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：Zalo 群日常运营，保持群内活跃度</span>
+                <span class="vn-only">Ap dung: Van hanh nhom Zalo hang ngay, duy tri do hoat dong</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-txt">📝 TXT</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">90 条文案</span>
+                  <span class="vn-only">90 mau van ban</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8);">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
         </div>
-        <div class="card animate-in delay-2" style="padding: 25px;">
-          <div style="font-size: 1.5rem; margin-bottom: 15px; color: var(--green);">②</div>
-          <h4 style="margin-bottom: 10px;"><span class="cn-only">填写信息</span><span class="vn-only">Điền thông tin</span></h4>
-          <div class="cn-only" style="font-size: 0.9rem; color: var(--gray);">按照模板格式，录入客户和工作数据</div>
-          <div class="vn-only" style="font-size: 0.85rem; color: var(--gray);">Theo định dạng mẫu, nhập dữ liệu KH và công việc</div>
+
+        <!-- 2. 朋友圈文案模板 -->
+        <div class="card download-card animate-in delay-2">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📸</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">朋友圈文案模板（10 条精选）</span><span class="vn-only">Mau bai dang mang xa hoi (10 bai chon loc)</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">10 条高转化朋友圈/Zalo Moments 文案：产品展示、收益分享、行业洞察、生活化内容，打造专业人设</span>
+                <span class="vn-only">10 bai dang chuyen doi cao cho Zalo Moments: gioi thieu san pham, chia se loi nhuan, nhan dinh nganh, noi dung doi thuong - xay dung hinh anh chuyen nghiep</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：每周 2-3 条朋友圈发布，长期打造个人 IP</span>
+                <span class="vn-only">Ap dung: Dang 2-3 bai/tuan, xay dung IP ca nhan lau dai</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-txt">📝 TXT</span>
+                <span style="padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.8rem; color: var(--gray);">
+                  <span class="cn-only">含配图建议</span>
+                  <span class="vn-only">Co goi y hinh anh</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: rgba(255,200,50,0.8);">
+              <span class="cn-only">📥 下载 TXT</span>
+              <span class="vn-only">📥 Tai TXT</span>
+            </a>
+          </div>
         </div>
-        <div class="card animate-in delay-3" style="padding: 25px;">
-          <div style="font-size: 1.5rem; margin-bottom: 15px; color: var(--green);">③</div>
-          <h4 style="margin-bottom: 10px;"><span class="cn-only">定期更新</span><span class="vn-only">Cập nhật định kỳ</span></h4>
-          <div class="cn-only" style="font-size: 0.9rem; color: var(--gray);">每日/每周更新，保持数据最新</div>
-          <div class="vn-only" style="font-size: 0.85rem; color: var(--gray);">Cập nhật hàng ngày/tuần, giữ dữ liệu mới nhất</div>
+
+        <!-- 3. Zalo 群运营规范手册 -->
+        <div class="card download-card animate-in delay-1">
+          <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div class="file-icon">📘</div>
+            <div class="file-info">
+              <h4>
+                <span class="cn-only">Zalo 群运营规范手册</span><span class="vn-only">So tay quy dinh van hanh nhom Zalo</span>
+                <span class="section-badge badge-new">NEW</span>
+              </h4>
+              <div class="file-desc">
+                <span class="cn-only">Zalo 社群完整运营指南：建群规范、群规模板、活动策划、禁忌红线、数据追踪，确保合规高效</span>
+                <span class="vn-only">Huong dan van hanh nhom Zalo day du: quy tac lap nhom, mau noi quy, to chuc su kien, dieu cam, theo doi du lieu - dam bao hieu qua va tuan thu</span>
+              </div>
+              <div class="file-usage">
+                <span class="cn-only">适用：新建 Zalo 社群或规范现有群的 BD 管理员</span>
+                <span class="vn-only">Ap dung: Quan tri vien BD lap nhom Zalo moi hoac chuan hoa nhom hien tai</span>
+              </div>
+              <div class="file-tags">
+                <span class="tag-pdf">📄 PDF</span>
+              </div>
+            </div>
+          </div>
+          <div class="download-btn-area">
+            <a href="#" class="download-btn" style="background: #ff6b6b;">
+              <span class="cn-only">📥 下载 PDF</span>
+              <span class="vn-only">📥 Tai PDF</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- 使用指南（扩充到5步） -->
+      <!-- ============================================ -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2><span class="cn-only">📖 如何使用这些模板</span><span class="vn-only">📖 Cach su dung cac mau nay</span></h2>
+        <p class="category-desc">
+          <span class="cn-only">5 步流程，从下载到产出结果</span>
+          <span class="vn-only">5 buoc, tu tai ve den co ket qua</span>
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 20px;">
+        <div class="card guide-step animate-in delay-1">
+          <div class="step-num">1</div>
+          <h4><span class="cn-only">下载模板</span><span class="vn-only">Tai mau</span></h4>
+          <div class="step-desc">
+            <span class="cn-only">点击下载按钮，保存文件到本地电脑或云端硬盘</span>
+            <span class="vn-only">Nhan nut tai, luu tep vao may tinh hoac dam may</span>
+          </div>
+        </div>
+        <div class="card guide-step animate-in delay-2">
+          <div class="step-num">2</div>
+          <h4><span class="cn-only">个性化修改</span><span class="vn-only">Tuy chinh</span></h4>
+          <div class="step-desc">
+            <span class="cn-only">根据自己的客户和市场情况，修改模板中的示例内容</span>
+            <span class="vn-only">Chinh sua noi dung mau theo KH va thi truong cua ban</span>
+          </div>
+        </div>
+        <div class="card guide-step animate-in delay-3">
+          <div class="step-num">3</div>
+          <h4><span class="cn-only">投入使用</span><span class="vn-only">Bat dau su dung</span></h4>
+          <div class="step-desc">
+            <span class="cn-only">在实际工作中使用模板，记录客户信息和沟通内容</span>
+            <span class="vn-only">Su dung mau trong cong viec thuc te, ghi chep thong tin KH</span>
+          </div>
+        </div>
+        <div class="card guide-step animate-in delay-1">
+          <div class="step-num">4</div>
+          <h4><span class="cn-only">定期更新</span><span class="vn-only">Cap nhat dinh ky</span></h4>
+          <div class="step-desc">
+            <span class="cn-only">每日/每周更新数据，保持信息时效性，不遗漏任何客户</span>
+            <span class="vn-only">Cap nhat du lieu hang ngay/tuan, giu thong tin moi nhat</span>
+          </div>
+        </div>
+        <div class="card guide-step animate-in delay-2">
+          <div class="step-num">5</div>
+          <h4><span class="cn-only">复盘优化</span><span class="vn-only">Review va toi uu</span></h4>
+          <div class="step-desc">
+            <span class="cn-only">每月复盘模板使用效果，结合实际反馈迭代优化</span>
+            <span class="vn-only">Hang thang review hieu qua, toi uu dua tren phan hoi thuc te</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小贴士 -->
+      <div class="card animate-in" style="margin-top: 30px; padding: 25px; border-left: 4px solid var(--green);">
+        <h4 style="margin-bottom: 12px; color: var(--green);">
+          <span class="cn-only">💡 使用小贴士</span>
+          <span class="vn-only">💡 Meo su dung</span>
+        </h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">Excel 文件：</strong>建议上传到 Google Sheets 多人协作，自动云端同步
+            </div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">Tep Excel:</strong> Nen tai len Google Sheets de hop tac nhieu nguoi, tu dong dong bo dam may
+            </div>
+          </div>
+          <div>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">PDF 文件：</strong>适合打印随身携带，也可以存手机随时查阅
+            </div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">Tep PDF:</strong> Phu hop in mang theo, cung co the luu vao dien thoai de tra cuu
+            </div>
+          </div>
+          <div>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">TXT 文件：</strong>直接复制粘贴到 Zalo/微信，快速发送给客户
+            </div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">Tep TXT:</strong> Sao chep va dan truc tiep vao Zalo, gui nhanh cho KH
+            </div>
+          </div>
+          <div>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">演示文件：</strong>HTML 格式无需安装软件，浏览器直接打开演示
+            </div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 8px;">
+              <strong style="color: var(--white);">Bai thuyet trinh:</strong> Dinh dang HTML khong can cai phan mem, mo truc tiep tren trinh duyet
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 需要更多资源？ -->
+      <div class="card animate-in" style="margin-top: 30px; padding: 30px; text-align: center; background: linear-gradient(135deg, rgba(127,255,0,0.05), rgba(74,158,255,0.05));">
+        <div style="font-size: 2rem; margin-bottom: 15px;">🚀</div>
+        <h3 style="margin-bottom: 10px;">
+          <span class="cn-only">需要更多资源？</span>
+          <span class="vn-only">Can them tai nguyen?</span>
+        </h3>
+        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">
+          <span class="cn-only">如果你需要定制模板或有新的资源需求，请联系团队管理员，我们会持续更新资源库</span>
+          <span class="vn-only">Neu ban can mau tuy chinh hoac co yeu cau tai nguyen moi, hay lien he quan tri vien doi nhom - chung toi se tiep tuc cap nhat</span>
+        </p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+          <a href="../daily/ai-daily-checklist.html" style="padding: 10px 20px; background: rgba(127,255,0,0.1); border: 1px solid rgba(127,255,0,0.2); border-radius: 8px; color: var(--green); text-decoration: none; font-size: 0.9rem;">
+            <span class="cn-only">📋 AI 每日清单</span>
+            <span class="vn-only">📋 Danh sach AI hang ngay</span>
+          </a>
+          <a href="../scripts/index.html" style="padding: 10px 20px; background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 8px; color: #4a9eff; text-decoration: none; font-size: 0.9rem;">
+            <span class="cn-only">💬 话术中心</span>
+            <span class="vn-only">💬 Trung tam kich ban</span>
+          </a>
+          <a href="../training/index.html" style="padding: 10px 20px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.2); border-radius: 8px; color: #ff6b6b; text-decoration: none; font-size: 0.9rem;">
+            <span class="cn-only">📚 培训体系</span>
+            <span class="vn-only">📚 He thong dao tao</span>
+          </a>
         </div>
       </div>
 
@@ -208,7 +1057,7 @@
       <div style="margin-top: 50px; margin-bottom: 50px; text-align: center;">
         <a href="index.html" style="color: var(--gray); text-decoration: none;">
           <span class="cn-only">← 返回资源支持</span>
-          <span class="vn-only">← Quay lại Tài nguyên</span>
+          <span class="vn-only">← Quay lai Tai nguyen</span>
         </a>
       </div>
     </div>
@@ -216,7 +1065,7 @@
     <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
       <div class="container">
         <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
-        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
       </div>
     </footer>
   </div>

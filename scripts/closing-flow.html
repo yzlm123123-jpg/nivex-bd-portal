@@ -69,6 +69,35 @@
       color: var(--green);
       font-size: 1.2rem;
     }
+    .variant-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .chat-bubble-bd {
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(127,255,0,0.08);
+      max-width: 85%;
+    }
+    .chat-bubble-client {
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      max-width: 85%;
+      align-self: flex-end;
+    }
+    .signal-badge {
+      padding: 8px 15px;
+      border-radius: 8px;
+      background: rgba(127,255,0,0.15);
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -100,8 +129,8 @@
           <span class="vn-only">Chuỗi 5 bước chốt đơn</span>
         </h1>
         <p class="title-vn">
-          <span class="cn-only">从共情到成交的完整流程</span>
-          <span class="vn-only">Quy trình hoàn chỉnh từ đồng cảm đến chốt đơn</span>
+          <span class="cn-only">从共情到成交的完整流程 · 分客户类型 · 含实战对话</span>
+          <span class="vn-only">Quy trình hoàn chỉnh từ đồng cảm đến chốt đơn · Theo loại KH · Có đối thoại thực chiến</span>
         </p>
       </div>
 
@@ -133,9 +162,15 @@
           <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Tôi hiểu lo ngại của bạn. Hiện tại môi trường kinh tế thực sự không tốt, làm gì cũng khó kiếm tiền. Nhiều người nói với tôi, lợi nhuận kinh doanh truyền thống ngày càng mỏng, đầu tư thì sợ lỗ, để yên thì mất giá. Bạn có cảm giác như vậy không?"</div>
         </div>
 
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 针对被骗过的客户</span><span class="vn-only">💬 Biến thể — Cho KH từng bị lừa</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你之前被坑过的经历我完全理解。现在市面上确实鱼龙混杂。我跟你聊这些不是让你马上做决定，只是想让你知道，有些东西是可以自己验证的。你的顾虑是什么？我们一个一个聊。"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Trải nghiệm bị lừa trước đây tôi hoàn toàn hiểu. Thị trường bây giờ thực sự lẫn lộn. Tôi nói chuyện không phải để bạn quyết ngay, chỉ muốn bạn biết có những thứ có thể tự kiểm chứng. Lo ngại của bạn là gì? Chúng ta nói từng cái."</div>
+        </div>
+
         <div style="margin-top: 20px; padding: 15px 20px; background: var(--green-subtle); border-radius: var(--radius-sm);">
-          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：用问句结尾，引导客户表达</div>
-          <div class="vn-only">Điểm then chốt: Kết thúc bằng câu hỏi, dẫn dắt khách hàng chia sẻ</div>
+          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：用问句结尾，引导客户表达。不要急于推产品，先建立情感连接。</div>
+          <div class="vn-only">Điểm then chốt: Kết thúc bằng câu hỏi, dẫn dắt khách hàng chia sẻ. Đừng vội giới thiệu sản phẩm, xây dựng kết nối cảm xúc trước.</div>
         </div>
       </div>
 
@@ -154,9 +189,21 @@
           <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Thực ra mọi người đều đang tìm kiếm một thứ — vừa có thu nhập ổn định, vừa không tốn quá nhiều công sức, lại không làm hỏng mối quan hệ vì giới thiệu cho bạn bè. Đúng không?"</div>
         </div>
 
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 有投资经验的客户</span><span class="vn-only">💬 Biến thể — KH có kinh nghiệm đầu tư</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你做投资这么久，肯定也发现一个问题——手动交易太累了。盯盘、做决策、控制情绪，24小时不间断。你有没有想过，如果有一套系统能帮你做这些事，你只需要看结果呢？"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Đầu tư lâu rồi, chắc bạn cũng phát hiện một vấn đề — giao dịch thủ công quá mệt. Theo dõi thị trường, ra quyết định, kiểm soát cảm xúc, 24 giờ không ngừng. Bạn đã bao giờ nghĩ, nếu có một hệ thống giúp bạn làm mấy thứ đó, bạn chỉ cần xem kết quả?"</div>
+        </div>
+
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 年轻上班族</span><span class="vn-only">💬 Biến thể — NV văn phòng trẻ</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你每天上班那么忙，肯定不想下班后还盯着手机看K线。其实你真正需要的是——一份睡觉也在帮你赚钱的被动收入，而且不用影响你的工作和生活。对不对？"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Mỗi ngày đi làm bận vậy, chắc không muốn sau giờ làm còn dán mắt vào điện thoại xem biểu đồ. Thực ra bạn cần — một nguồn thu nhập thụ động kiếm tiền cả khi ngủ, mà không ảnh hưởng công việc và cuộc sống. Đúng không?"</div>
+        </div>
+
         <div style="margin-top: 20px; padding: 15px 20px; background: var(--green-subtle); border-radius: var(--radius-sm);">
-          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：总结客户的多重需求，让他点头认同</div>
-          <div class="vn-only">Điểm then chốt: Tổng hợp nhiều nhu cầu của khách, khiến họ gật đầu đồng ý</div>
+          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：总结客户的多重需求，让他点头认同。根据客户身份选择不同的需求切入点。</div>
+          <div class="vn-only">Điểm then chốt: Tổng hợp nhiều nhu cầu của khách, khiến họ gật đầu đồng ý. Chọn điểm tiếp cận nhu cầu khác nhau tùy theo bản sắc KH.</div>
         </div>
       </div>
 
@@ -175,9 +222,27 @@
           <div class="vn-only" style="line-height: 1.7; margin-top: 15px;">"Để tôi nói về những gì chúng tôi đang làm. Nivex là nền tảng giao dịch AI cấp tổ chức, có một số đặc điểm:<br><br>Thứ nhất, AI tự động giao dịch, không dựa vào xu hướng một chiều, tăng giảm đều tìm được cơ hội;<br>Thứ hai, lợi nhuận đến từ chính thị trường giao dịch, khối lượng giao dịch hàng nghìn tỷ mỗi ngày, thị trường này không biến mất;<br>Thứ ba, đến nay, người dùng của chúng tôi đều đã có lợi nhuận.<br><br>Hơn nữa sản phẩm đã rất hoàn thiện, đã trải qua nhiều tình huống thị trường cực đoan, bao gồm sự kiện thiên nga đen, chiến lược đều chịu được. Hiện đang mở rộng toàn cầu, thương hiệu và cộng đồng đang được xây dựng."</div>
         </div>
 
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 简版快速说明（60 秒版）</span><span class="vn-only">💬 Biến thể — Phiên bản nhanh (60 giây)</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"简单说三句话：<br>① Nivex 是 AI 帮你自动交易，涨跌都能赚；<br>② 钱在你自己账户里，随时可以提；<br>③ 至今所有用户都盈利了。<br>你愿意花 5 分钟了解一下吗？"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Nói đơn giản 3 câu:<br>① Nivex là AI tự động giao dịch giúp bạn, tăng giảm đều kiếm được;<br>② Tiền nằm trong tài khoản của bạn, rút bất cứ lúc nào;<br>③ Đến nay tất cả người dùng đều có lợi nhuận.<br>Bạn có muốn dành 5 phút tìm hiểu không?"</div>
+        </div>
+
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 对比传统投资</span><span class="vn-only">💬 Biến thể — So sánh đầu tư truyền thống</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你对比一下：银行存款 2-3% 年利息，跑不过通胀；股票基金去年大部分人亏钱；房产现在流动性差。Nivex 的 AI 交易是在全球市场做量化，不依赖单一市场方向，你可以把它理解为你的'智能投资助手'。"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"So sánh một chút: Gửi ngân hàng lãi 2-3%/năm, không chạy kịp lạm phát; Cổ phiếu quỹ năm ngoái phần lớn thua; Bất động sản thanh khoản kém. Giao dịch AI của Nivex làm định lượng trên thị trường toàn cầu, không phụ thuộc xu hướng một thị trường, bạn có thể hiểu nó như 'trợ lý đầu tư thông minh' của bạn."</div>
+        </div>
+
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 针对技术型客户</span><span class="vn-only">💬 Biến thể — Cho KH kỹ thuật</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"Nivex 的 AI 策略基于多因子模型——结合市场微观结构、波动率聚类、资金流向和情绪指标，在多个时间维度上执行交易。策略经过超过 3 年历史数据回测，包括 2022 年 LUNA 崩盘、FTX 事件等极端行情。这不是一个简单的追涨杀跌程序，是真正的机构级量化策略。"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Chiến lược AI của Nivex dựa trên mô hình đa nhân tố — kết hợp vi cấu trúc thị trường, phân cụm biến động, dòng tiền và chỉ số tâm lý, thực thi giao dịch trên nhiều khung thời gian. Chiến lược đã được backtest qua hơn 3 năm dữ liệu lịch sử, bao gồm sự kiện LUNA sụp 2022, FTX... Đây không phải chương trình mua đuổi bán tháo đơn giản, mà là chiến lược định lượng cấp tổ chức thực sự."</div>
+        </div>
+
         <div style="margin-top: 20px; padding: 15px 20px; background: var(--green-subtle); border-radius: var(--radius-sm);">
-          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：用具体事实，不用形容词；结构清晰，分点说明</div>
-          <div class="vn-only">Điểm then chốt: Dùng sự thật cụ thể, không dùng tính từ; cấu trúc rõ ràng, giải thích theo điểm</div>
+          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：用具体事实，不用形容词；结构清晰，分点说明。根据客户知识水平选择深度。</div>
+          <div class="vn-only">Điểm then chốt: Dùng sự thật cụ thể, không dùng tính từ; cấu trúc rõ ràng, giải thích theo điểm. Chọn mức độ chi tiết theo kiến thức KH.</div>
         </div>
       </div>
 
@@ -196,9 +261,15 @@
           <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Tôi không yêu cầu bạn đầu tư nhiều ngay. Bạn có thể thử với vốn nhỏ 1-2 tuần, tự xem dữ liệu. Nếu thấy được, hãy xem xét tăng thêm. Chúng tôi muốn hợp tác dài hạn, không phải mua bán một lần."</div>
         </div>
 
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 大额投资者</span><span class="vn-only">💬 Biến thể — Nhà đầu tư lớn</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"像您这种级别的投资者，我建议先用一万美金以内的小仓位试跑两周。等您亲自验证了整个流程——入金、交易、提现都没问题，再决定要不要增加仓位。我们的很多大客户都是这么做的。"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Nhà đầu tư ở cấp của anh/chị, tôi khuyên nên thử với vị thế nhỏ dưới 10 nghìn USD chạy 2 tuần. Khi anh/chị tự kiểm chứng toàn bộ quy trình — nạp tiền, giao dịch, rút tiền đều ổn, rồi quyết định tăng vị thế. Nhiều khách lớn của chúng tôi đều làm vậy."</div>
+        </div>
+
         <div style="margin-top: 20px; padding: 15px 20px; background: var(--green-subtle); border-radius: var(--radius-sm);">
-          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：降低首次投入门槛，强调"小资金验证"和"长期合作"</div>
-          <div class="vn-only">Điểm then chốt: Hạ thấp ngưỡng đầu tư lần đầu, nhấn mạnh "kiểm chứng vốn nhỏ" và "hợp tác dài hạn"</div>
+          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：降低首次投入门槛，强调"小资金验证"和"长期合作"。对大客户要用"分批进场"的思路。</div>
+          <div class="vn-only">Điểm then chốt: Hạ thấp ngưỡng đầu tư lần đầu, nhấn mạnh "kiểm chứng vốn nhỏ" và "hợp tác dài hạn". Với khách lớn dùng tư duy "vào lệnh theo đợt".</div>
         </div>
       </div>
 
@@ -217,9 +288,21 @@
           <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Bạn thấy logic này có thể chấp nhận được không? Có muốn mở tài khoản thử không?"</div>
         </div>
 
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 给对方两个选择</span><span class="vn-only">💬 Biến thể — Cho 2 lựa chọn</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你看这样，你有两个选择：一是现在开个账户，先放个小金额试跑两周看效果；二是先进我们的观察群，看别人的数据和反馈，等你准备好了再开始。你更倾向哪个？"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Thế này nhé, bạn có 2 lựa chọn: Một là mở tài khoản ngay, bỏ số tiền nhỏ chạy thử 2 tuần xem hiệu quả; Hai là vào nhóm quan sát trước, xem dữ liệu và phản hồi của người khác, sẵn sàng rồi bắt đầu. Bạn thích cách nào hơn?"</div>
+        </div>
+
+        <div class="example-box">
+          <div class="label"><span class="cn-only">💬 话术变体 — 利用时间紧迫性（温和版）</span><span class="vn-only">💬 Biến thể — Tận dụng tính cấp bách (bản nhẹ nhàng)</span></div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"我不会催你，但有一个事实你可以参考——你每犹豫一天，复利就少跑一天。很多客户回头跟我说，最后悔的不是投了，而是没有更早开始。"</div>
+          <div class="vn-only" style="line-height: 1.7; margin-top: 10px;">"Tôi không thúc giục, nhưng có một sự thật để tham khảo — mỗi ngày bạn do dự, lãi kép ít chạy một ngày. Nhiều khách quay lại nói, điều hối hận nhất không phải đã đầu tư, mà là không bắt đầu sớm hơn."</div>
+        </div>
+
         <div style="margin-top: 20px; padding: 15px 20px; background: var(--green-subtle); border-radius: var(--radius-sm);">
-          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：让客户自己做决定，你只是提供选择</div>
-          <div class="vn-only">Điểm then chốt: Để khách hàng tự quyết định, bạn chỉ cung cấp lựa chọn</div>
+          <div class="cn-only" style="font-weight: 600; color: var(--green);">💡 关键点：让客户自己做决定，你只是提供选择。永远给两个选项，而不是"要不要"。</div>
+          <div class="vn-only">Điểm then chốt: Để khách hàng tự quyết định, bạn chỉ cung cấp lựa chọn. Luôn cho 2 lựa chọn, không phải "có hoặc không".</div>
         </div>
       </div>
 
@@ -230,6 +313,413 @@
         <div style="margin-top: 15px; font-size: 0.95rem;">
           <div class="cn-only" style="color: var(--gray-light);">每一步都是为下一步铺垫，不要跳步</div>
           <div class="vn-only">Mỗi bước đều là nền tảng cho bước tiếp theo, đừng bỏ qua</div>
+        </div>
+      </div>
+
+      <!-- ==================== 分客户类型话术变体 ==================== -->
+      <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(127,255,0,0.2);">
+        <h2 class="animate-in" style="margin-bottom: 10px;">
+          <span class="cn-only">🎯 分客户类型话术变体</span>
+          <span class="vn-only">🎯 Biến thể kịch bản theo loại khách hàng</span>
+        </h2>
+        <p style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">同一步骤，面对不同客户需要不同的切入方式</span>
+          <span class="vn-only">Cùng bước, đối với khách hàng khác nhau cần cách tiếp cận khác nhau</span>
+        </p>
+
+        <!-- 新手客户 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px; border-left: 4px solid #4a9eff;">
+          <h3 style="color: #4a9eff; margin-bottom: 20px;">
+            <span class="cn-only">🆕 客户类型 A：新手客户（首次接触加密货币）</span>
+            <span class="vn-only">🆕 Loại KH A: Khách mới (lần đầu tiếp xúc tiền mã hóa)</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤1 共情 — 新手版</span><span class="vn-only">Bước 1 Đồng cảm — Phiên bản người mới</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你之前没接触过这个行业很正常。其实大部分人跟你一样，一开始都觉得加密货币很复杂、很遥远。但你有没有发现，身边越来越多人在聊这个话题？"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Bạn chưa tiếp xúc lĩnh vực này rất bình thường. Thực ra phần lớn mọi người cũng như bạn, ban đầu đều thấy tiền mã hóa rất phức tạp, rất xa vời. Nhưng bạn có nhận ra ngày càng nhiều người xung quanh đang nói về chủ đề này không?"</div>
+            </div>
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤3 展示优势 — 新手版</span><span class="vn-only">Bước 3 Ưu thế — Phiên bản người mới</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你完全不需要懂交易。我们的 AI 系统就像你手机上的自动导航一样——你只需要告诉它目的地，它会自动帮你规划路线。你要做的就是开户、选策略、一键启动，剩下的 AI 全部自动完成。"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Bạn hoàn toàn không cần hiểu giao dịch. Hệ thống AI của chúng tôi giống như điều hướng tự động trên điện thoại — bạn chỉ cần cho nó biết đích đến, nó tự lập lộ trình. Bạn chỉ cần mở tài khoản, chọn chiến lược, khởi động một chạm, phần còn lại AI tự động hoàn thành."</div>
+            </div>
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤5 引导决策 — 新手版</span><span class="vn-only">Bước 5 Quyết định — Phiên bản người mới</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"这样吧，我帮你先开个账户，你什么都不用投，先看几天数据感受一下。等你觉得可以了，再放个最小金额试试。怎么样？"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Hay thế này, tôi giúp bạn mở tài khoản trước, bạn không cần đầu tư gì, xem dữ liệu vài ngày cảm nhận. Khi nào bạn thấy ổn, bỏ số tiền nhỏ nhất thử. Được không?"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 有经验客户 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px; border-left: 4px solid #ffa726;">
+          <h3 style="color: #ffa726; margin-bottom: 20px;">
+            <span class="cn-only">📈 客户类型 B：有经验客户（有投资经验但不了解 AI 交易）</span>
+            <span class="vn-only">📈 Loại KH B: Có kinh nghiệm (đã đầu tư nhưng chưa biết AI)</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤1 共情 — 有经验版</span><span class="vn-only">Bước 1 Đồng cảm — Có kinh nghiệm</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你做投资这么久了，肯定也经历过市场的大起大落。手动交易最累的是什么？是不是盯盘、情绪波动、还有错过最佳入场时机？"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Bạn đầu tư lâu rồi, chắc cũng đã trải qua những lúc thị trường lên xuống mạnh. Giao dịch thủ công mệt nhất là gì? Có phải theo dõi thị trường, cảm xúc dao động, và bỏ lỡ thời điểm vào lệnh tốt nhất?"</div>
+            </div>
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤3 展示优势 — 有经验版</span><span class="vn-only">Bước 3 Ưu thế — Có kinh nghiệm</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"Nivex 的 AI 量化策略跟你手动操作最大的区别在三个地方：第一，24小时不间断执行，不会因为睡觉错过行情；第二，严格按照算法执行止盈止损，没有情绪干扰；第三，多维度数据分析，比人脑能处理的信息量大几百倍。你可以理解为——它是一个永远不累、不贪、不怕的交易员。"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Chiến lược AI định lượng của Nivex khác giao dịch thủ công ở 3 điểm: Thứ nhất, thực thi 24 giờ không ngừng, không bỏ lỡ thị trường vì đi ngủ; Thứ hai, thực hiện nghiêm ngặt chốt lời cắt lỗ theo thuật toán, không bị cảm xúc can thiệp; Thứ ba, phân tích dữ liệu đa chiều, xử lý thông tin gấp hàng trăm lần não người. Bạn có thể hiểu rằng — đó là một trader không bao giờ mệt, không tham, không sợ."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 犹豫客户 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px; border-left: 4px solid #ab47bc;">
+          <h3 style="color: #ab47bc; margin-bottom: 20px;">
+            <span class="cn-only">🤔 客户类型 C：犹豫客户（了解但一直犹豫不决）</span>
+            <span class="vn-only">🤔 Loại KH C: Do dự (đã hiểu nhưng luôn do dự)</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤1 共情 — 犹豫版</span><span class="vn-only">Bước 1 Đồng cảm — Do dự</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"我知道你了解了挺久了，一直没下决定也很正常。做投资决策本来就应该谨慎，我很尊重你的态度。不过我想问一个问题——你犹豫到现在，是在等什么？是等更好的时机，还是还有什么顾虑没解决？"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Tôi biết bạn đã tìm hiểu khá lâu, chưa quyết định cũng rất bình thường. Quyết định đầu tư vốn nên thận trọng, tôi rất tôn trọng thái độ của bạn. Nhưng tôi muốn hỏi một câu — bạn do dự đến giờ, đang chờ gì? Chờ thời điểm tốt hơn, hay còn lo ngại gì chưa giải quyết?"</div>
+            </div>
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤4 建立共识 — 犹豫版</span><span class="vn-only">Bước 4 Đồng thuận — Do dự</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"其实你犹豫的这段时间，已经有很多跟你一样谨慎的人开始了。他们也是先用最小金额试，看了一两周数据，确认了再加。你不需要现在做大决定，只需要做一个小实验——就像买东西之前先试用一下。"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Thực ra trong thời gian bạn do dự, nhiều người cẩn thận như bạn đã bắt đầu rồi. Họ cũng thử với số tiền nhỏ nhất trước, xem dữ liệu 1-2 tuần, xác nhận rồi mới tăng. Bạn không cần quyết định lớn bây giờ, chỉ cần làm một thí nghiệm nhỏ — giống như dùng thử trước khi mua."</div>
+            </div>
+            <div class="example-box" style="margin-top: 0;">
+              <div class="label"><span class="cn-only">步骤5 引导决策 — 犹豫版</span><span class="vn-only">Bước 5 Quyết định — Do dự</span></div>
+              <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"你看这样行不行——你先不投任何钱，我把你拉进我们的观察群，每天看看其他用户的真实反馈和数据。等你自己觉得准备好了，随时可以开始。没有任何压力。"</div>
+              <div class="vn-only" style="line-height: 1.7;">"Hay thế này — bạn chưa cần đầu tư gì, tôi kéo bạn vào nhóm quan sát, mỗi ngày xem phản hồi và dữ liệu thực từ người dùng khác. Khi nào bạn tự cảm thấy sẵn sàng, bắt đầu bất cứ lúc nào. Không có áp lực gì cả."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 错误 vs 正确示范 ==================== -->
+      <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(127,255,0,0.2);">
+        <h2 class="animate-in" style="margin-bottom: 10px;">
+          <span class="cn-only">❌ 错误示范 vs ✅ 正确示范</span>
+          <span class="vn-only">❌ Sai vs ✅ Đúng</span>
+        </h2>
+        <p style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">每个步骤最常犯的错误，以及应该怎么做</span>
+          <span class="vn-only">Lỗi thường gặp nhất ở mỗi bước, và nên làm thế nào</span>
+        </p>
+
+        <!-- 对比1：共情 -->
+        <div class="card animate-in" style="margin-bottom: 20px; padding: 25px;">
+          <h4 style="color: var(--green); margin-bottom: 15px;"><span class="cn-only">步骤1：共情痛点</span><span class="vn-only">Bước 1: Đồng cảm</span></h4>
+          <div class="grid-2" style="gap: 15px;">
+            <div style="background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: #ff6b6b; font-weight: 700; margin-bottom: 10px;">❌ <span class="cn-only">错误</span><span class="vn-only">Sai</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"你现在不赚钱是因为你没选对方向，来看看我们这个项目！"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Bạn giờ không kiếm được tiền vì chọn sai hướng, xem dự án của chúng tôi đi!"</div>
+            </div>
+            <div style="background: rgba(127,255,0,0.05); border: 1px solid rgba(127,255,0,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: var(--green); font-weight: 700; margin-bottom: 10px;">✅ <span class="cn-only">正确</span><span class="vn-only">Đúng</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"我理解你的感受，现在大环境确实不好。你能跟我聊聊你现在的状况吗？"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Tôi hiểu cảm giác của bạn, môi trường hiện tại thực sự không tốt. Bạn có thể chia sẻ tình hình hiện tại không?"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 对比2：展示优势 -->
+        <div class="card animate-in" style="margin-bottom: 20px; padding: 25px;">
+          <h4 style="color: var(--green); margin-bottom: 15px;"><span class="cn-only">步骤3：展示优势</span><span class="vn-only">Bước 3: Trình bày ưu thế</span></h4>
+          <div class="grid-2" style="gap: 15px;">
+            <div style="background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: #ff6b6b; font-weight: 700; margin-bottom: 10px;">❌ <span class="cn-only">错误</span><span class="vn-only">Sai</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"我们的产品是最好的，收益非常高，你一定能赚到钱！"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Sản phẩm của chúng tôi là tốt nhất, lợi nhuận rất cao, bạn chắc chắn kiếm được tiền!"</div>
+            </div>
+            <div style="background: rgba(127,255,0,0.05); border: 1px solid rgba(127,255,0,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: var(--green); font-weight: 700; margin-bottom: 10px;">✅ <span class="cn-only">正确</span><span class="vn-only">Đúng</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"让我用数据跟你说：AI 全天候执行策略，经过极端行情验证，用户至今都盈利。你可以自己看数据验证。"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Để tôi nói bằng dữ liệu: AI thực thi chiến lược 24/7, đã qua kiểm chứng thị trường cực đoan, người dùng đến nay đều có lời. Bạn có thể tự xem dữ liệu."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 对比3：引导决策 -->
+        <div class="card animate-in" style="margin-bottom: 20px; padding: 25px;">
+          <h4 style="color: var(--green); margin-bottom: 15px;"><span class="cn-only">步骤5：引导决策</span><span class="vn-only">Bước 5: Hướng dẫn quyết định</span></h4>
+          <div class="grid-2" style="gap: 15px;">
+            <div style="background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: #ff6b6b; font-weight: 700; margin-bottom: 10px;">❌ <span class="cn-only">错误</span><span class="vn-only">Sai</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"你必须现在就开始，不然就错过了。名额有限！"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Bạn phải bắt đầu ngay, không thì bỏ lỡ. Chỉ còn ít suất!"</div>
+            </div>
+            <div style="background: rgba(127,255,0,0.05); border: 1px solid rgba(127,255,0,0.2); padding: 18px; border-radius: 8px;">
+              <div style="color: var(--green); font-weight: 700; margin-bottom: 10px;">✅ <span class="cn-only">正确</span><span class="vn-only">Đúng</span></div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">"你觉得这个逻辑说得通吗？想先开个户了解一下吗？完全没有任何压力。"</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">"Bạn thấy logic này hợp lý không? Muốn mở tài khoản tìm hiểu trước không? Hoàn toàn không có áp lực gì."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 进阶技巧 ==================== -->
+      <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(127,255,0,0.2);">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">🚀 进阶技巧</span>
+          <span class="vn-only">🚀 Kỹ thuật nâng cao</span>
+        </h2>
+
+        <!-- 成交时机判断 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px;">
+          <h3 style="color: var(--green); margin-bottom: 20px;">
+            <span class="cn-only">⏰ 成交时机判断 — 3 个成交信号</span>
+            <span class="vn-only">⏰ Nhận diện thời điểm chốt — 3 tín hiệu</span>
+          </h3>
+          <div class="grid-3" style="gap: 15px;">
+            <div style="background: var(--bg-card); border: 1px solid rgba(127,255,0,0.15); padding: 25px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 2rem; margin-bottom: 12px;">💬</div>
+              <div style="font-weight: 700; margin-bottom: 10px;">
+                <span class="cn-only">信号1：主动追问细节</span>
+                <span class="vn-only">Tín hiệu 1: Chủ động hỏi chi tiết</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--gray-light);">
+                <span class="cn-only">"那最低投多少？""怎么开户？""收益多久能看到？" — 客户开始关心具体操作细节，说明决策意向已经形成。</span>
+                <span class="vn-only">"Vậy đầu tư tối thiểu bao nhiêu?" "Mở tài khoản thế nào?" "Bao lâu thấy lợi nhuận?" — KH bắt đầu quan tâm chi tiết thao tác, ý định quyết định đã hình thành.</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid rgba(127,255,0,0.15); padding: 25px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 2rem; margin-bottom: 12px;">🔄</div>
+              <div style="font-weight: 700; margin-bottom: 10px;">
+                <span class="cn-only">信号2：开始比较竞品</span>
+                <span class="vn-only">Tín hiệu 2: Bắt đầu so sánh</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--gray-light);">
+                <span class="cn-only">"你们跟XX平台有什么不同？" — 客户已经在做选择了，你需要做的是帮他确认 Nivex 是最佳选择。</span>
+                <span class="vn-only">"Các bạn khác gì với nền tảng XX?" — KH đang lựa chọn rồi, bạn cần giúp xác nhận Nivex là lựa chọn tốt nhất.</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid rgba(127,255,0,0.15); padding: 25px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 2rem; margin-bottom: 12px;">👥</div>
+              <div style="font-weight: 700; margin-bottom: 10px;">
+                <span class="cn-only">信号3：询问他人反馈</span>
+                <span class="vn-only">Tín hiệu 3: Hỏi phản hồi người khác</span>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--gray-light);">
+                <span class="cn-only">"有没有其他用户的反馈？""你自己在用吗？" — 客户在寻求社会证明，这是决策前的最后一步。</span>
+                <span class="vn-only">"Có phản hồi từ người dùng khác không?" "Bạn tự dùng không?" — KH đang tìm bằng chứng xã hội, đây là bước cuối trước khi quyết định.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 客户类型快速识别 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px;">
+          <h3 style="color: var(--green); margin-bottom: 20px;">
+            <span class="cn-only">🔍 客户类型快速识别 — 4 种类型 + 应对策略</span>
+            <span class="vn-only">🔍 Nhận diện nhanh loại KH — 4 loại + Chiến lược ứng phó</span>
+          </h3>
+          <div class="grid-2" style="gap: 18px;">
+            <div style="background: var(--bg-card); border: 1px solid rgba(74,158,255,0.2); padding: 22px; border-radius: 12px;">
+              <div style="font-size: 1.5rem; margin-bottom: 10px;">🐰</div>
+              <div style="font-weight: 700; margin-bottom: 8px; color: #4a9eff;">
+                <span class="cn-only">分析型 — 数据驱动</span>
+                <span class="vn-only">Phân tích — Dữ liệu dẫn đường</span>
+              </div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 10px;">特征：问很多技术问题，要看数据报表，做决策慢但理性</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 10px;">Đặc điểm: Hỏi nhiều vấn đề kỹ thuật, muốn xem báo cáo dữ liệu, quyết định chậm nhưng lý trí</div>
+              <div style="background: rgba(74,158,255,0.1); padding: 10px 15px; border-radius: 6px; font-size: 0.85rem;">
+                <span class="cn-only" style="color: #4a9eff;">应对：给数据、给时间、不催促。提供交易记录、历史回测数据。</span>
+                <span class="vn-only" style="color: #4a9eff;">Ứng phó: Cho dữ liệu, cho thời gian, không thúc giục. Cung cấp lịch sử giao dịch, dữ liệu backtest.</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid rgba(255,167,38,0.2); padding: 22px; border-radius: 12px;">
+              <div style="font-size: 1.5rem; margin-bottom: 10px;">🦁</div>
+              <div style="font-weight: 700; margin-bottom: 8px; color: #ffa726;">
+                <span class="cn-only">决断型 — 效率优先</span>
+                <span class="vn-only">Quyết đoán — Ưu tiên hiệu quả</span>
+              </div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 10px;">特征：说话直接，看重结果，不想听太多细节，要快速方案</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 10px;">Đặc điểm: Nói thẳng, coi trọng kết quả, không muốn nghe nhiều chi tiết, muốn giải pháp nhanh</div>
+              <div style="background: rgba(255,167,38,0.1); padding: 10px 15px; border-radius: 6px; font-size: 0.85rem;">
+                <span class="cn-only" style="color: #ffa726;">应对：说重点、给方案、快速行动。直接展示核心优势和操作流程。</span>
+                <span class="vn-only" style="color: #ffa726;">Ứng phó: Nói trọng điểm, đưa phương án, hành động nhanh. Trình bày ưu thế cốt lõi và quy trình.</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid rgba(171,71,188,0.2); padding: 22px; border-radius: 12px;">
+              <div style="font-size: 1.5rem; margin-bottom: 10px;">🐢</div>
+              <div style="font-weight: 700; margin-bottom: 8px; color: #ab47bc;">
+                <span class="cn-only">关系型 — 信任优先</span>
+                <span class="vn-only">Quan hệ — Ưu tiên niềm tin</span>
+              </div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 10px;">特征：重视关系和口碑，问"你自己在用吗"，需要他人验证</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 10px;">Đặc điểm: Coi trọng quan hệ và danh tiếng, hỏi "bạn tự dùng không", cần xác nhận từ người khác</div>
+              <div style="background: rgba(171,71,188,0.1); padding: 10px 15px; border-radius: 6px; font-size: 0.85rem;">
+                <span class="cn-only" style="color: #ab47bc;">应对：分享个人经历、提供用户见证、拉进社群让他观察氛围。</span>
+                <span class="vn-only" style="color: #ab47bc;">Ứng phó: Chia sẻ trải nghiệm cá nhân, cung cấp phản hồi người dùng, kéo vào nhóm để quan sát.</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid rgba(0,200,150,0.2); padding: 22px; border-radius: 12px;">
+              <div style="font-size: 1.5rem; margin-bottom: 10px;">🦊</div>
+              <div style="font-weight: 700; margin-bottom: 8px; color: #00c896;">
+                <span class="cn-only">谨慎型 — 安全第一</span>
+                <span class="vn-only">Thận trọng — An toàn trước tiên</span>
+              </div>
+              <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 10px;">特征：反复问风险、担心安全、曾被骗过、对所有项目都保持怀疑</div>
+              <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 10px;">Đặc điểm: Hỏi rủi ro nhiều lần, lo an toàn, từng bị lừa, nghi ngờ mọi dự án</div>
+              <div style="background: rgba(0,200,150,0.1); padding: 10px 15px; border-radius: 6px; font-size: 0.85rem;">
+                <span class="cn-only" style="color: #00c896;">应对：强调资金在个人账户、可随时提现、先用最小金额试、不催不急。</span>
+                <span class="vn-only" style="color: #00c896;">Ứng phó: Nhấn mạnh tiền trong tài khoản cá nhân, rút bất cứ lúc nào, thử số tiền nhỏ nhất, không thúc giục.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 成交后第一步 -->
+        <div class="card animate-in" style="margin-bottom: 25px; padding: 30px;">
+          <h3 style="color: var(--green); margin-bottom: 20px;">
+            <span class="cn-only">✅ 成交后的第一步 — 入金后 24 小时必做清单</span>
+            <span class="vn-only">✅ Bước đầu sau chốt đơn — Checklist bắt buộc 24 giờ sau nạp tiền</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--bg-card); border-radius: 8px;">
+              <div style="background: var(--green); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
+              <div>
+                <div class="cn-only" style="font-weight: 700;">立即发送欢迎消息</div>
+                <div class="vn-only" style="font-weight: 700;">Gửi tin nhắn chào mừng ngay</div>
+                <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-top: 5px;">"恭喜你迈出了第一步！接下来我会每天跟你同步数据，有任何问题随时联系我。"</div>
+                <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 5px;">"Chúc mừng bạn đã bước đầu tiên! Tiếp theo tôi sẽ đồng bộ dữ liệu mỗi ngày, có vấn đề gì liên hệ tôi bất cứ lúc nào."</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--bg-card); border-radius: 8px;">
+              <div style="background: var(--green); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
+              <div>
+                <div class="cn-only" style="font-weight: 700;">发送第一天收益截图</div>
+                <div class="vn-only" style="font-weight: 700;">Gửi ảnh chụp lợi nhuận ngày đầu</div>
+                <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-top: 5px;">让客户第一时间看到 AI 在运作，建立信心。即使收益很小，也要主动同步。</div>
+                <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 5px;">Để KH thấy AI đang hoạt động ngay lập tức, xây dựng niềm tin. Dù lợi nhuận nhỏ cũng chủ động đồng bộ.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--bg-card); border-radius: 8px;">
+              <div style="background: var(--green); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
+              <div>
+                <div class="cn-only" style="font-weight: 700;">拉入专属社群</div>
+                <div class="vn-only" style="font-weight: 700;">Kéo vào nhóm chuyên</div>
+                <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-top: 5px;">让客户感受到不是一个人在战斗，社群氛围会大大增强留存率。</div>
+                <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 5px;">Để KH cảm nhận không chiến đấu một mình, không khí cộng đồng tăng tỷ lệ giữ chân rất nhiều.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--bg-card); border-radius: 8px;">
+              <div style="background: var(--green); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">4</div>
+              <div>
+                <div class="cn-only" style="font-weight: 700;">设定预期管理</div>
+                <div class="vn-only" style="font-weight: 700;">Quản lý kỳ vọng</div>
+                <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-top: 5px;">"前两周是观察期，有时候会有小波动是正常的。关键是看长期趋势。" — 提前打预防针。</div>
+                <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 5px;">"Hai tuần đầu là giai đoạn quan sát, đôi khi có biến động nhỏ là bình thường. Quan trọng là xu hướng dài hạn." — Phòng ngừa trước.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--bg-card); border-radius: 8px;">
+              <div style="background: var(--green); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">5</div>
+              <div>
+                <div class="cn-only" style="font-weight: 700;">记录客户档案</div>
+                <div class="vn-only" style="font-weight: 700;">Ghi hồ sơ khách hàng</div>
+                <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light); margin-top: 5px;">记录入金金额、入金时间、客户类型、沟通要点。为后续跟进和加仓引导做准备。</div>
+                <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light); margin-top: 5px;">Ghi số tiền nạp, thời gian nạp, loại KH, điểm chính giao tiếp. Chuẩn bị cho theo dõi và hướng dẫn nạp thêm sau.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 实战对话还原 ==================== -->
+      <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(127,255,0,0.2);">
+        <h2 class="animate-in" style="margin-bottom: 10px;">
+          <span class="cn-only">💬 实战对话还原</span>
+          <span class="vn-only">💬 Tái hiện đối thoại thực chiến</span>
+        </h2>
+        <p style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">完整的从开场到成交的真实对话场景</span>
+          <span class="vn-only">Kịch bản đối thoại thực tế hoàn chỉnh từ mở đầu đến chốt đơn</span>
+        </p>
+
+        <!-- 场景1 -->
+        <div class="card animate-in" style="margin-bottom: 30px; padding: 30px; border-left: 4px solid #4a9eff;">
+          <h3 style="color: #4a9eff; margin-bottom: 20px;">
+            <span class="cn-only">场景1：Zalo 私聊新客户（28岁越南白领）</span>
+            <span class="vn-only">Tình huống 1: Chat riêng Zalo khách mới (NV Việt 28 tuổi)</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(127,255,0,0.08); max-width: 85%;">
+              <div style="font-size: 0.75rem; color: var(--green); margin-bottom: 4px;">BD</div>
+              <div class="cn-only" style="font-size: 0.95rem;">"嗨，最近工作忙不忙？看你朋友圈说现在生意不好做，是啊，今年整个经济环境都不太好。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Chào, gần đây bận không? Thấy bạn đăng trên story nói kinh doanh khó khăn, đúng vậy, năm nay kinh tế chung không tốt."</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); max-width: 85%; align-self: flex-end;">
+              <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 4px;"><span class="cn-only">客户</span><span class="vn-only">KH</span></div>
+              <div class="cn-only" style="font-size: 0.95rem;">"是啊，工资也没涨，物价倒是越来越高了。你呢？最近在做什么？"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Ừ, lương không tăng, giá cả thì ngày càng cao. Bạn thì sao? Gần đây đang làm gì?"</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(127,255,0,0.08); max-width: 85%;">
+              <div style="font-size: 0.75rem; color: var(--green); margin-bottom: 4px;">BD</div>
+              <div class="cn-only" style="font-size: 0.95rem;">"我最近在用一个 AI 自动投资工具，就是不用自己操作，AI 帮你做交易。挺适合上班族的，不用花时间盯盘。我自己用了几个月了，感觉还不错。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Gần đây mình đang dùng một công cụ đầu tư AI tự động, không cần tự thao tác, AI giao dịch giúp. Khá phù hợp với dân văn phòng, không tốn thời gian theo dõi. Mình dùng mấy tháng rồi, cảm giác khá ổn."</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); max-width: 85%; align-self: flex-end;">
+              <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 4px;"><span class="cn-only">客户</span><span class="vn-only">KH</span></div>
+              <div class="cn-only" style="font-size: 0.95rem;">"AI 交易？听起来挺新的。安全吗？不会是骗人的吧？"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Giao dịch AI? Nghe mới lắm. An toàn không? Không phải lừa đảo chứ?"</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(127,255,0,0.08); max-width: 85%;">
+              <div style="font-size: 0.75rem; color: var(--green); margin-bottom: 4px;">BD</div>
+              <div class="cn-only" style="font-size: 0.95rem;">"你的顾虑完全正常。跟你说几个事实：第一，钱是在你自己的交易所账户里，不经过任何人；第二，Nivex 在新加坡有牌照，可以查到的；第三，你随时可以停止和提现。你不需要相信我说的，你自己看数据就行。要不你先进我们的观察群看几天？"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Lo ngại của bạn hoàn toàn bình thường. Nói mấy sự thật: Thứ nhất, tiền nằm trong tài khoản sàn của chính bạn, không qua tay ai; Thứ hai, Nivex có giấy phép ở Singapore, tra được; Thứ ba, bất cứ lúc nào cũng dừng và rút được. Bạn không cần tin lời mình, tự xem dữ liệu là được. Hay bạn vào nhóm quan sát xem mấy ngày trước?"</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); max-width: 85%; align-self: flex-end;">
+              <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 4px;"><span class="cn-only">客户</span><span class="vn-only">KH</span></div>
+              <div class="cn-only" style="font-size: 0.95rem;">"好吧，我先看看。最低要投多少？"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Được, để mình xem thử. Tối thiểu phải đầu tư bao nhiêu?"</div>
+            </div>
+            <div style="padding: 8px 15px; border-radius: 8px; background: rgba(127,255,0,0.15); margin-top: 5px;">
+              <div style="font-size: 0.85rem; color: var(--green); font-weight: 600;">
+                <span class="cn-only">✅ 成交信号出现！客户主动问细节 → 进入引导开户流程</span>
+                <span class="vn-only">✅ Tín hiệu chốt xuất hiện! KH chủ động hỏi chi tiết → Vào quy trình hướng dẫn mở tài khoản</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 场景2 -->
+        <div class="card animate-in" style="margin-bottom: 30px; padding: 30px; border-left: 4px solid #ffa726;">
+          <h3 style="color: #ffa726; margin-bottom: 20px;">
+            <span class="cn-only">场景2：线下沙龙后跟进（45岁企业主，曾被骗过）</span>
+            <span class="vn-only">Tình huống 2: Theo dõi sau salon (chủ DN 45 tuổi, từng bị lừa)</span>
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(127,255,0,0.08); max-width: 85%;">
+              <div style="font-size: 0.75rem; color: var(--green); margin-bottom: 4px;">BD</div>
+              <div class="cn-only" style="font-size: 0.95rem;">"张总，昨天活动你走得比较早，我觉得有些内容可能没来得及详细了解。你经商这么多年，一定见过很多项目来来去去，我很理解你的谨慎。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Anh Trương, hôm qua anh về sớm, có lẽ một số nội dung chưa kịp tìm hiểu chi tiết. Kinh doanh nhiều năm, chắc anh đã thấy nhiều dự án đến rồi đi, tôi rất hiểu sự thận trọng của anh."</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); max-width: 85%; align-self: flex-end;">
+              <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 4px;"><span class="cn-only">客户</span><span class="vn-only">KH</span></div>
+              <div class="cn-only" style="font-size: 0.95rem;">"是的，之前朋友介绍我投了一个什么理财项目，结果亏了不少。现在对这类东西都比较警惕。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Đúng vậy, trước đây bạn bè giới thiệu đầu tư một dự án gì đó, kết quả thua không ít. Giờ với loại này đều khá cảnh giác."</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(127,255,0,0.08); max-width: 85%;">
+              <div style="font-size: 0.75rem; color: var(--green); margin-bottom: 4px;">BD</div>
+              <div class="cn-only" style="font-size: 0.95rem;">"完全理解。有过这样的经历，不谨慎才奇怪。我不想说服你，我只想让你自己看几个事实。第一，你的资金始终在你自己的交易所账户里，我们碰不到你的钱；第二，你可以先不投一分钱，先进群看别人的真实数据；第三，觉得可以了你放个最小金额试试，不行随时停。你用你自己的标准来判断。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Hoàn toàn hiểu. Có trải nghiệm như vậy, không cẩn thận mới lạ. Tôi không muốn thuyết phục anh, chỉ muốn anh tự xem vài sự thật. Thứ nhất, tiền luôn trong tài khoản sàn của chính anh, chúng tôi không chạm được tiền anh; Thứ hai, anh có thể chưa đầu tư đồng nào, vào nhóm xem dữ liệu thật của người khác trước; Thứ ba, thấy được thì bỏ số tiền nhỏ nhất thử, không ổn dừng bất cứ lúc nào. Anh dùng tiêu chuẩn của chính mình để đánh giá."</div>
+            </div>
+            <div style="padding: 12px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); max-width: 85%; align-self: flex-end;">
+              <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 4px;"><span class="cn-only">客户</span><span class="vn-only">KH</span></div>
+              <div class="cn-only" style="font-size: 0.95rem;">"那行，先让我看看你们群的情况。你把链接发给我吧。"</div>
+              <div class="vn-only" style="font-size: 0.9rem;">"Được, để anh xem tình hình nhóm trước. Gửi link cho anh đi."</div>
+            </div>
+            <div style="padding: 8px 15px; border-radius: 8px; background: rgba(127,255,0,0.15); margin-top: 5px;">
+              <div style="font-size: 0.85rem; color: var(--green); font-weight: 600;">
+                <span class="cn-only">✅ 信任建立成功！谨慎客户愿意进群观察 → 进入社群培育阶段，预计 1-2 周后自然转化</span>
+                <span class="vn-only">✅ Xây dựng niềm tin thành công! KH thận trọng chấp nhận vào nhóm → Vào giai đoạn nuôi dưỡng cộng đồng, dự kiến 1-2 tuần sẽ chuyển đổi tự nhiên</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
