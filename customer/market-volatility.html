@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行情波动应对手册 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 页面特定样式 */
+    .scenario-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .scenario-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .scenario-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .scenario-title h3 {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .level-green { color: var(--green); font-weight: 700; }
+    .level-yellow { color: #ffd700; font-weight: 700; }
+    .level-orange { color: #ffa500; font-weight: 700; }
+    .level-red { color: #ff6b6b; font-weight: 700; }
+
+    .section-divider {
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-divider:last-child {
+      border-bottom: none;
+    }
+
+    .redline-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px 25px;
+    }
+
+    .redline-card .icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .redline-card h4 {
+      color: var(--red-soft);
+      margin-bottom: 6px;
+    }
+
+    .redline-card p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .scenario-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">行情波动应对手册</span>
+          <span class="vn-only">Sổ tay Ứng phó Biến động Thị trường</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">市场有波动是常态，BD 的专业应对是信任的关键</span>
+          <span class="vn-only">Biến động thị trường là bình thường, phản ứng chuyên nghiệp của BD là chìa khóa niềm tin</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：波动等级与应对策略 -->
+      <section class="section-divider">
+        <h2 class="animate-in delay-1" style="margin-bottom: 30px;">
+          <span class="cn-only">波动等级与应对策略</span>
+          <span class="vn-only">Cấp độ biến động và chiến lược ứng phó</span>
+        </h2>
+
+        <div class="animate-in delay-2" style="overflow-x: auto;">
+          <table class="info-table">
+            <tr>
+              <th>
+                <span class="cn-only">波动等级</span>
+                <span class="vn-only">Cấp độ</span>
+              </th>
+              <th>
+                <span class="cn-only">市场状况</span>
+                <span class="vn-only">Tình hình thị trường</span>
+              </th>
+              <th>
+                <span class="cn-only">BD 应对策略</span>
+                <span class="vn-only">Chiến lược ứng phó của BD</span>
+              </th>
+              <th>
+                <span class="cn-only">时间要求</span>
+                <span class="vn-only">Yêu cầu thời gian</span>
+              </th>
+            </tr>
+            <tr>
+              <td class="level-green">
+                <span class="cn-only">正常波动（日内 3-5%）</span>
+                <span class="vn-only">Bình thường (trong ngày 3-5%)</span>
+              </td>
+              <td>
+                <span class="cn-only">正常市场节奏</span>
+                <span class="vn-only">Nhịp thị trường bình thường</span>
+              </td>
+              <td>
+                <span class="cn-only">不需要特别通知，按正常节奏跟进</span>
+                <span class="vn-only">Không cần thông báo đặc biệt, theo dõi bình thường</span>
+              </td>
+              <td>
+                <span class="cn-only" style="color: var(--green); font-weight: 600;">常规</span>
+                <span class="vn-only" style="color: var(--green); font-weight: 600;">Thường xuyên</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="level-yellow">
+                <span class="cn-only">中度波动（日内 5-10%）</span>
+                <span class="vn-only">Trung bình (trong ngày 5-10%)</span>
+              </td>
+              <td>
+                <span class="cn-only">明显行情变化</span>
+                <span class="vn-only">Biến động rõ rệt</span>
+              </td>
+              <td>
+                <span class="cn-only">主动发消息告知客户情况</span>
+                <span class="vn-only">Chủ động nhắn tin thông báo cho khách hàng</span>
+              </td>
+              <td>
+                <span class="cn-only" style="color: #ffd700; font-weight: 600;">4 小时内</span>
+                <span class="vn-only" style="color: #ffd700; font-weight: 600;">Trong 4 giờ</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="level-orange">
+                <span class="cn-only">剧烈波动（日内 10-20%）</span>
+                <span class="vn-only">Mạnh (trong ngày 10-20%)</span>
+              </td>
+              <td>
+                <span class="cn-only">重大行情事件</span>
+                <span class="vn-only">Sự kiện thị trường lớn</span>
+              </td>
+              <td>
+                <span class="cn-only">立即群发消息 + 逐一联系重点客户</span>
+                <span class="vn-only">Gửi tin nhắn hàng loạt ngay + liên hệ từng khách trọng điểm</span>
+              </td>
+              <td>
+                <span class="cn-only" style="color: #ffa500; font-weight: 600;">1 小时内</span>
+                <span class="vn-only" style="color: #ffa500; font-weight: 600;">Trong 1 giờ</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="level-red">
+                <span class="cn-only">黑天鹅事件（日内 20%+）</span>
+                <span class="vn-only">Thiên nga đen (trong ngày 20%+)</span>
+              </td>
+              <td>
+                <span class="cn-only">极端行情</span>
+                <span class="vn-only">Biến động cực đoan</span>
+              </td>
+              <td>
+                <span class="cn-only">全员响应，所有客户逐一联系</span>
+                <span class="vn-only">Toàn bộ nhân sự phản ứng, liên hệ từng khách hàng</span>
+              </td>
+              <td>
+                <span class="cn-only" style="color: #ff6b6b; font-weight: 600;">30 分钟内</span>
+                <span class="vn-only" style="color: #ff6b6b; font-weight: 600;">Trong 30 phút</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- 第二部分：不同场景的标准话术 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">不同场景的标准话术</span>
+          <span class="vn-only">Kịch bản tiêu chuẩn cho từng tình huống</span>
+        </h2>
+
+        <!-- 场景 1：市场正常回调 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">📉</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 1：市场正常回调（-5% 到 -10%）</span>
+                <span class="vn-only">Tình huống 1: Điều chỉnh bình thường (-5% đến -10%)</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">市场日常波动范围内的正常回调</span>
+                <span class="vn-only">Điều chỉnh bình thường trong phạm vi biến động hàng ngày</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speech-box">
+            <div class="label">
+              <span class="cn-only">BD 发送模板</span>
+              <span class="vn-only">Mẫu tin nhắn BD gửi</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"今天市场出现了一些回调，BTC 下跌了 X%。这是市场正常的波动节奏，AI 策略已经自动调整了仓位配置。不用担心，我在持续关注。有任何问题随时找我。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Hôm nay thị trường có một số điều chỉnh, BTC giảm X%. Đây là nhịp biến động bình thường, chiến lược AI đã tự động điều chỉnh cấu hình vị thế. Đừng lo, tôi đang theo dõi liên tục. Có vấn đề gì liên hệ tôi bất cứ lúc nào."</div>
+          </div>
+        </div>
+
+        <!-- 场景 2：市场大跌 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">🔻</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 2：市场大跌（-10% 到 -20%）</span>
+                <span class="vn-only">Tình huống 2: Giảm mạnh (-10% đến -20%)</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">超出正常范围的剧烈波动</span>
+                <span class="vn-only">Biến động mạnh vượt ngoài phạm vi bình thường</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speech-box">
+            <div class="label">
+              <span class="cn-only">BD 发送模板</span>
+              <span class="vn-only">Mẫu tin nhắn BD gửi</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"今天市场波动较大，BTC 跌幅超过 X%。我第一时间来和你说一下情况：策略目前已启动防御模式，减少了仓位暴露。历史上类似的大跌在之后都有恢复。建议保持耐心，不要在恐慌中做决定。我会持续跟进。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Hôm nay thị trường biến động lớn, BTC giảm hơn X%. Tôi liên hệ bạn ngay để thông báo: chiến lược hiện đã kích hoạt chế độ phòng thủ, giảm mức độ phơi nhiễm vị thế. Trong lịch sử, những lần giảm mạnh tương tự đều phục hồi sau đó. Khuyên bạn giữ kiên nhẫn, đừng quyết định trong hoảng loạn. Tôi sẽ tiếp tục theo dõi."</div>
+          </div>
+        </div>
+
+        <!-- 场景 3：黑天鹅事件 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">🦢</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 3：黑天鹅事件（-20%+）</span>
+                <span class="vn-only">Tình huống 3: Sự kiện thiên nga đen (-20%+)</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">极端行情，市场恐慌蔓延</span>
+                <span class="vn-only">Biến động cực đoan, hoảng loạn lan rộng trên thị trường</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speech-box">
+            <div class="label">
+              <span class="cn-only">BD 发送模板</span>
+              <span class="vn-only">Mẫu tin nhắn BD gửi</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"紧急情况通知：市场出现极端行情，BTC 跌幅超过 X%。策略已经采取了最大程度的风控措施。我理解你现在可能很担心，但请不要恐慌操作。我会在接下来每隔几个小时给你更新一次情况。你的资金安全是第一位的。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Thông báo tình huống khẩn cấp: Thị trường xuất hiện biến động cực đoan, BTC giảm hơn X%. Chiến lược đã áp dụng biện pháp quản lý rủi ro tối đa. Tôi hiểu bạn có thể rất lo lắng, nhưng xin đừng hoảng loạn thao tác. Tôi sẽ cập nhật tình hình cho bạn mỗi vài giờ. An toàn vốn của bạn là ưu tiên hàng đầu."</div>
+          </div>
+        </div>
+
+        <!-- 场景 4：客户恐慌要提现 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">😰</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 4：客户恐慌要提现</span>
+                <span class="vn-only">Tình huống 4: Khách hàng hoảng loạn muốn rút tiền</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">客户因恐慌情绪想立即撤出资金</span>
+                <span class="vn-only">Khách hàng muốn rút tiền ngay vì hoảng loạn</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speech-box">
+            <div class="label">
+              <span class="cn-only">BD 话术</span>
+              <span class="vn-only">Kịch bản BD</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"我完全理解你的感受，市场大跌确实让人不安。但我想跟你分享一个数据：过去几次类似的大跌，策略在之后的 1-3 个月都恢复了。如果你现在提现，等于是在最低点离场。当然最终决定权在你，我只是建议不要在情绪最激动的时候做重大决定。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Tôi hoàn toàn hiểu cảm giác của bạn, thị trường giảm mạnh thật sự khiến người ta lo lắng. Nhưng tôi muốn chia sẻ một dữ liệu: những lần giảm mạnh tương tự trước đây, chiến lược đều phục hồi trong 1-3 tháng sau đó. Nếu bạn rút tiền bây giờ, tương đương rời đi ở điểm thấp nhất. Tất nhiên quyết định cuối cùng là của bạn, tôi chỉ khuyên đừng đưa ra quyết định lớn khi cảm xúc đang dâng cao nhất."</div>
+          </div>
+        </div>
+
+        <!-- 场景 5：收益持续下滑 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">📊</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 5：收益持续下滑（连续 2 周回撤）</span>
+                <span class="vn-only">Tình huống 5: Lợi nhuận giảm liên tục (giảm 2 tuần liên tiếp)</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">策略处于回撤期，客户耐心下降</span>
+                <span class="vn-only">Chiến lược đang trong giai đoạn giảm, sự kiên nhẫn của khách giảm</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="speech-box">
+            <div class="label">
+              <span class="cn-only">BD 话术</span>
+              <span class="vn-only">Kịch bản BD</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"最近这两周策略确实在回撤，我也一直在关注。说实话，任何策略都不可能只赚不亏，关键是看长期胜率和回撤修复能力。从历史数据来看，类似的回撤期通常在 2-4 周内恢复。我建议我们再观察一到两周。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Hai tuần gần đây chiến lược đúng là đang trong giai đoạn giảm, tôi cũng liên tục theo dõi. Thật lòng mà nói, không chiến lược nào chỉ lãi mà không lỗ, quan trọng là tỷ lệ thắng dài hạn và khả năng phục hồi. Từ dữ liệu lịch sử, giai đoạn giảm tương tự thường phục hồi trong 2-4 tuần. Tôi đề nghị chúng ta quan sát thêm một đến hai tuần."</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三部分：应对波动的核心原则 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">应对波动的核心原则</span>
+          <span class="vn-only">Nguyên tắc cốt lõi ứng phó biến động</span>
+        </h2>
+
+        <div class="grid-3 animate-in">
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">1</div>
+            <h4 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">主动先于被动</span>
+              <span class="vn-only">Chủ động trước bị động</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">永远比客户先发消息，不要等客户来质问</div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">Luôn nhắn tin trước khách hàng, đừng đợi khách hỏi</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">2</div>
+            <h4 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">事实先于安慰</span>
+              <span class="vn-only">Sự thật trước an ủi</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">先说数据和策略状态，再给建议</div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">Nói dữ liệu và trạng thái chiến lược trước, sau đó mới đưa lời khuyên</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">3</div>
+            <h4 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">陪伴先于销售</span>
+              <span class="vn-only">Đồng hành trước bán hàng</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">波动时不要提加仓，只做情绪安抚和信息同步</div>
+            <div class="vn-only" style="font-size: 0.85rem; color: var(--gray-light);">Khi biến động đừng đề cập tăng vốn, chỉ an ủi cảm xúc và đồng bộ thông tin</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第四部分：绝对禁止 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px; color: var(--red-soft);">
+          <span class="cn-only">绝对禁止（4 条红线）</span>
+          <span class="vn-only">Tuyệt đối cấm (4 lằn ranh đỏ)</span>
+        </h2>
+
+        <div class="animate-in" style="display: flex; flex-direction: column; gap: 15px;">
+          <div class="myth-card wrong redline-card">
+            <span class="icon">&#10060;</span>
+            <div>
+              <h4>
+                <span class="cn-only">绝不说"没事的，会涨回来的"</span>
+                <span class="vn-only">Tuyệt đối không nói "Không sao, sẽ tăng lại"</span>
+              </h4>
+              <p>
+                <span class="cn-only">这是空洞承诺，客户听到只会更不信任你</span>
+                <span class="vn-only">Đây là lời hứa suông, khách nghe chỉ càng không tin bạn</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="myth-card wrong redline-card">
+            <span class="icon">&#10060;</span>
+            <div>
+              <h4>
+                <span class="cn-only">绝不消失</span>
+                <span class="vn-only">Tuyệt đối không biến mất</span>
+              </h4>
+              <p>
+                <span class="cn-only">行情越差越要在线，消失 = 跑路</span>
+                <span class="vn-only">Thị trường càng xấu càng phải online, biến mất = bỏ trốn</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="myth-card wrong redline-card">
+            <span class="icon">&#10060;</span>
+            <div>
+              <h4>
+                <span class="cn-only">绝不甩锅</span>
+                <span class="vn-only">Tuyệt đối không đổ lỗi</span>
+              </h4>
+              <p>
+                <span class="cn-only">不要说"这是市场的问题，跟我们无关"</span>
+                <span class="vn-only">Đừng nói "Đây là vấn đề thị trường, không liên quan đến chúng tôi"</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="myth-card wrong redline-card">
+            <span class="icon">&#10060;</span>
+            <div>
+              <h4>
+                <span class="cn-only">绝不趁乱推销</span>
+                <span class="vn-only">Tuyệt đối không bán hàng khi hỗn loạn</span>
+              </h4>
+              <p>
+                <span class="cn-only">大跌时劝客户加仓是最蠢的做法</span>
+                <span class="vn-only">Khuyên khách tăng vốn khi giảm mạnh là cách làm ngu ngốc nhất</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn-only" style="font-size: 1.2rem; font-weight: 700;">"行情会恢复，但信任一旦失去就再也回不来"</div>
+        <div class="vn-only" style="font-size: 1.1rem; font-weight: 700;">"Thị trường sẽ phục hồi, nhưng niềm tin một khi mất đi sẽ không bao giờ quay lại"</div>
+      </div>
+
+      <!-- 相关链接 -->
+      <div class="key-point animate-in" style="margin-top: 30px; margin-bottom: 50px;">
+        <div class="cn-only">
+          相关阅读 →
+          <a href="churn-warning.html" style="color: var(--green);">客户流失预警手册</a> |
+          <a href="lifecycle-sop.html" style="color: var(--green);">客户生命周期 SOP</a> |
+          <a href="abc-classification.html" style="color: var(--green);">A/B/C 客户分类</a>
+        </div>
+        <div class="vn-only">
+          Đọc thêm →
+          <a href="churn-warning.html" style="color: var(--green);">Sổ tay cảnh báo mất khách</a> |
+          <a href="lifecycle-sop.html" style="color: var(--green);">SOP vòng đời khách hàng</a> |
+          <a href="abc-classification.html" style="color: var(--green);">Phân loại khách hàng A/B/C</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

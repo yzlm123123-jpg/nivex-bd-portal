@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BD 周数据卡 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 数据字段展示 */
+    .data-field {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .data-field:last-child {
+      border-bottom: none;
+    }
+
+    .data-field .field-label {
+      color: var(--white);
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 140px;
+      font-size: 0.95rem;
+    }
+
+    .data-field .field-blank {
+      flex: 1;
+      border-bottom: 1px dashed rgba(127,255,0,0.3);
+      min-width: 100px;
+      height: 1px;
+    }
+
+    .data-field .field-unit {
+      color: var(--gray);
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    /* 数据指标大卡片 */
+    .metric-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    }
+
+    .metric-card .metric-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .metric-card .metric-title {
+      color: var(--gray-light);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .metric-card .metric-value {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .metric-card .metric-value .blank {
+      display: inline-block;
+      border-bottom: 2px dashed rgba(127,255,0,0.4);
+      min-width: 80px;
+      height: 2px;
+      vertical-align: middle;
+    }
+
+    .metric-card.highlight-green {
+      border-color: rgba(127,255,0,0.25);
+      background: linear-gradient(180deg, rgba(127,255,0,0.08), var(--bg-card));
+    }
+
+    .metric-card.highlight-green .metric-value {
+      color: var(--green);
+    }
+
+    .metric-card.highlight-red {
+      border-color: rgba(255,107,107,0.2);
+    }
+
+    .metric-card.highlight-red .metric-value {
+      color: var(--red-soft);
+    }
+
+    /* 客户动态表 */
+    .dynamics-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .dynamics-table th,
+    .dynamics-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+    }
+
+    .dynamics-table th {
+      color: var(--green);
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: rgba(127,255,0,0.05);
+    }
+
+    .dynamics-table td {
+      color: var(--gray-light);
+    }
+
+    .dynamics-table .level-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-right: 10px;
+    }
+
+    .level-badge.level-a {
+      background: rgba(127,255,0,0.2);
+      color: var(--green);
+    }
+
+    .level-badge.level-b {
+      background: rgba(59,130,246,0.2);
+      color: #60a5fa;
+    }
+
+    .level-badge.level-c {
+      background: rgba(251,191,36,0.2);
+      color: #fbbf24;
+    }
+
+    .dynamics-blank {
+      display: inline-block;
+      border-bottom: 1px dashed rgba(255,255,255,0.15);
+      min-width: 180px;
+      margin-left: 5px;
+    }
+
+    /* 成功案例卡 */
+    .case-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 30px;
+      border-left: 4px solid var(--green);
+    }
+
+    .case-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .case-field:last-child {
+      border-bottom: none;
+    }
+
+    .case-field .case-label {
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 130px;
+      font-size: 0.9rem;
+    }
+
+    .case-field .case-blank {
+      flex: 1;
+      border-bottom: 1px dashed rgba(127,255,0,0.25);
+      min-height: 20px;
+    }
+
+    .case-field .case-hint {
+      color: var(--gray);
+      font-style: italic;
+      font-size: 0.85rem;
+    }
+
+    /* 挑战卡 */
+    .challenge-item {
+      background: rgba(255,107,107,0.05);
+      border: 1px solid rgba(255,107,107,0.12);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 15px;
+    }
+
+    .challenge-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .challenge-item .challenge-label {
+      color: var(--red-soft);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .challenge-item .challenge-blank {
+      border-bottom: 1px dashed rgba(255,107,107,0.25);
+      min-height: 20px;
+      width: 100%;
+    }
+
+    /* AI 提示模板框 */
+    .ai-template-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.08), rgba(127,255,0,0.02));
+      border: 1px solid rgba(127,255,0,0.2);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .ai-template-box .copy-hint {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(127,255,0,0.1);
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .ai-template-box pre {
+      color: var(--gray-light);
+      font-size: 0.88rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin: 0;
+      font-family: 'Noto Sans SC', 'Noto Sans', monospace;
+    }
+
+    /* 计划双栏 */
+    .plan-section {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .plan-section h4 {
+      color: var(--green);
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .plan-field:last-child {
+      border-bottom: none;
+    }
+
+    .plan-field .plan-label {
+      color: var(--white);
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+
+    .plan-field .plan-blank {
+      flex: 1;
+      border-bottom: 1px dashed rgba(127,255,0,0.3);
+      min-width: 80px;
+      height: 1px;
+    }
+
+    /* 底部快捷链接 */
+    .bottom-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    .bottom-link {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--bg-card);
+      padding: 22px 25px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .bottom-link:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .bottom-link .link-icon {
+      font-size: 1.8rem;
+    }
+
+    .bottom-link .link-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Section 标题 */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(127,255,0,0.15);
+    }
+
+    .section-header .section-num {
+      background: var(--green);
+      color: #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      color: var(--white);
+      font-size: 1.3rem;
+      flex: 1;
+    }
+
+    @media (max-width: 992px) {
+      .bottom-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .data-field .field-label {
+        min-width: 100px;
+        font-size: 0.85rem;
+      }
+      .metric-card {
+        padding: 20px 16px;
+      }
+      .metric-card .metric-value {
+        font-size: 1.4rem;
+      }
+      .dynamics-table th,
+      .dynamics-table td {
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+      .case-field .case-label {
+        min-width: 100px;
+      }
+      .plan-section {
+        padding: 20px;
+      }
+      .ai-template-box {
+        padding: 18px;
+      }
+      .ai-template-box pre {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">BD 周数据卡</span>
+          <span class="vn-only">Thẻ Dữ liệu Tuần BD</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">每周标准化数据采集，用数据驱动决策</span>
+          <span class="vn-only">Thu thập dữ liệu chuẩn hóa hàng tuần, dùng dữ liệu để quyết định</span>
+        </p>
+      </div>
+
+
+      <!-- ==================== Section 1: 基础信息 ==================== -->
+      <div class="card animate-in" style="margin-top: 40px; padding: 35px;">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2>
+            <span class="cn-only">基础信息</span>
+            <span class="vn-only">Thông tin cơ bản</span>
+          </h2>
+        </div>
+
+        <div class="data-field">
+          <span class="field-label">
+            <span class="cn-only">BD 姓名</span>
+            <span class="vn-only">Tên BD</span>
+          </span>
+          <span class="field-blank"></span>
+        </div>
+
+        <div class="data-field">
+          <span class="field-label">
+            <span class="cn-only">汇报周期</span>
+            <span class="vn-only">Kỳ báo cáo</span>
+          </span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">第</span>
+            <span class="vn-only">Tuần thứ</span>
+          </span>
+          <span class="field-blank" style="min-width: 40px; max-width: 60px;"></span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">周（</span>
+            <span class="vn-only">(</span>
+          </span>
+          <span class="field-blank" style="min-width: 30px; max-width: 40px;"></span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">月</span>
+            <span class="vn-only">/</span>
+          </span>
+          <span class="field-blank" style="min-width: 30px; max-width: 40px;"></span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">日 -</span>
+            <span class="vn-only"> - </span>
+          </span>
+          <span class="field-blank" style="min-width: 30px; max-width: 40px;"></span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">月</span>
+            <span class="vn-only">/</span>
+          </span>
+          <span class="field-blank" style="min-width: 30px; max-width: 40px;"></span>
+          <span style="color: var(--gray-light); font-size: 0.9rem;">
+            <span class="cn-only">日）</span>
+            <span class="vn-only">)</span>
+          </span>
+        </div>
+
+        <div class="data-field">
+          <span class="field-label">
+            <span class="cn-only">所属区域</span>
+            <span class="vn-only">Khu vuc</span>
+          </span>
+          <span class="field-blank"></span>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 2: 核心业绩数据 ==================== -->
+      <div class="animate-in" style="margin-top: 50px;">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2>
+            <span class="cn-only">核心业绩数据</span>
+            <span class="vn-only">Du lieu hieu suat cot loi</span>
+          </h2>
+        </div>
+
+        <!-- 第一行：资金数据 -->
+        <div class="grid-3 animate-in delay-1" style="margin-bottom: 20px;">
+          <div class="metric-card highlight-green">
+            <div class="metric-icon">💰</div>
+            <div class="metric-title">
+              <span class="cn-only">本周入金总额</span>
+              <span class="vn-only">Tong nap tien tuan</span>
+            </div>
+            <div class="metric-value">$<span class="blank"></span></div>
+          </div>
+
+          <div class="metric-card highlight-red">
+            <div class="metric-icon">📤</div>
+            <div class="metric-title">
+              <span class="cn-only">本周提现总额</span>
+              <span class="vn-only">Tong rut tien tuan</span>
+            </div>
+            <div class="metric-value">$<span class="blank"></span></div>
+          </div>
+
+          <div class="metric-card highlight-green">
+            <div class="metric-icon">📊</div>
+            <div class="metric-title">
+              <span class="cn-only">净留存金额</span>
+              <span class="vn-only">So du rong</span>
+            </div>
+            <div class="metric-value" style="color: var(--green);">$<span class="blank"></span></div>
+            <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">
+              <span class="cn-only">入金 - 提现 = 净留存</span>
+              <span class="vn-only">Nap - Rut = Rong</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第二行：客户数据 -->
+        <div class="grid-3 animate-in delay-2">
+          <div class="metric-card">
+            <div class="metric-icon">👥</div>
+            <div class="metric-title">
+              <span class="cn-only">新增客户数</span>
+              <span class="vn-only">KH moi</span>
+            </div>
+            <div class="metric-value"><span class="blank"></span></div>
+            <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">
+              <span class="cn-only">人</span>
+              <span class="vn-only">nguoi</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">💳</div>
+            <div class="metric-title">
+              <span class="cn-only">入金客户数</span>
+              <span class="vn-only">KH nap tien</span>
+            </div>
+            <div class="metric-value"><span class="blank"></span></div>
+            <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">
+              <span class="cn-only">人</span>
+              <span class="vn-only">nguoi</span>
+            </div>
+          </div>
+
+          <div class="metric-card highlight-green">
+            <div class="metric-icon">🔄</div>
+            <div class="metric-title">
+              <span class="cn-only">转化率</span>
+              <span class="vn-only">Ty le chuyen doi</span>
+            </div>
+            <div class="metric-value"><span class="blank"></span>%</div>
+            <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">
+              <span class="cn-only">入金客户 / 新增客户</span>
+              <span class="vn-only">KH nap / KH moi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 3: 客户动态 ==================== -->
+      <div class="card animate-in" style="margin-top: 50px; padding: 35px;">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2>
+            <span class="cn-only">客户动态</span>
+            <span class="vn-only">Dong thai khach hang</span>
+          </h2>
+        </div>
+
+        <table class="dynamics-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">
+                <span class="cn-only">客户等级</span>
+                <span class="vn-only">Cap KH</span>
+              </th>
+              <th>
+                <span class="cn-only">本周动态描述</span>
+                <span class="vn-only">Mo ta dong thai tuan nay</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="level-badge level-a">A</span>
+                <span class="cn-only">A级客户</span>
+                <span class="vn-only">KH Hang A</span>
+              </td>
+              <td><span class="dynamics-blank"></span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="level-badge level-b">B</span>
+                <span class="cn-only">B级客户</span>
+                <span class="vn-only">KH Hang B</span>
+              </td>
+              <td><span class="dynamics-blank"></span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="level-badge level-c">C</span>
+                <span class="cn-only">C级客户</span>
+                <span class="vn-only">KH Hang C</span>
+              </td>
+              <td><span class="dynamics-blank"></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div class="data-field">
+            <span class="field-label" style="color: var(--red-soft);">
+              <span class="cn-only">本周流失客户</span>
+              <span class="vn-only">KH mat tuan nay</span>
+            </span>
+            <span class="field-blank"></span>
+            <span class="field-unit">
+              <span class="cn-only">人</span>
+              <span class="vn-only">nguoi</span>
+            </span>
+          </div>
+          <div class="data-field">
+            <span class="field-label" style="color: var(--red-soft);">
+              <span class="cn-only">流失原因</span>
+              <span class="vn-only">Ly do mat</span>
+            </span>
+            <span class="field-blank"></span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 4: 本周成功案例 ==================== -->
+      <div class="animate-in" style="margin-top: 50px;">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2>
+            <span class="cn-only">本周成功案例</span>
+            <span class="vn-only">Case thanh cong tuan nay</span>
+          </h2>
+        </div>
+
+        <div class="case-card animate-in delay-1">
+          <div class="case-field">
+            <span class="case-label">
+              <span class="cn-only">🎯 成交客户</span>
+              <span class="vn-only">🎯 KH chot</span>
+            </span>
+            <span class="case-blank"></span>
+          </div>
+
+          <div class="case-field">
+            <span class="case-label">
+              <span class="cn-only">💰 成交金额</span>
+              <span class="vn-only">💰 So tien</span>
+            </span>
+            <span style="color: var(--green); font-weight: 700; font-size: 1.1rem;">$</span>
+            <span class="case-blank"></span>
+          </div>
+
+          <div class="case-field">
+            <span class="case-label">
+              <span class="cn-only">💬 关键话术</span>
+              <span class="vn-only">💬 Kich ban then chot</span>
+            </span>
+            <span class="case-blank"></span>
+          </div>
+          <div style="padding: 4px 0 8px 142px;">
+            <span class="case-hint">
+              <span class="cn-only">"哪句话打动了客户？"</span>
+              <span class="vn-only">"Cau nao da thuyet phuc khach hang?"</span>
+            </span>
+          </div>
+
+          <div class="case-field">
+            <span class="case-label">
+              <span class="cn-only">🏆 成功要素</span>
+              <span class="vn-only">🏆 Yeu to thanh cong</span>
+            </span>
+            <span class="case-blank"></span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 5: 本周挑战 ==================== -->
+      <div class="animate-in" style="margin-top: 50px;">
+        <div class="section-header">
+          <div class="section-num">5</div>
+          <h2>
+            <span class="cn-only">本周挑战</span>
+            <span class="vn-only">Thach thuc tuan nay</span>
+          </h2>
+        </div>
+
+        <div class="card animate-in delay-1" style="padding: 30px;">
+          <div class="challenge-item">
+            <div class="challenge-label">
+              <span>❓</span>
+              <span class="cn-only">最难回答的客户问题</span>
+              <span class="vn-only">Cau hoi KH kho nhat</span>
+            </div>
+            <div class="challenge-blank"></div>
+          </div>
+
+          <div class="challenge-item">
+            <div class="challenge-label">
+              <span>🚧</span>
+              <span class="cn-only">遇到的阻碍</span>
+              <span class="vn-only">Rao can gap phai</span>
+            </div>
+            <div class="challenge-blank"></div>
+          </div>
+
+          <div class="challenge-item">
+            <div class="challenge-label">
+              <span>🆘</span>
+              <span class="cn-only">需要的支持</span>
+              <span class="vn-only">Ho tro can thiet</span>
+            </div>
+            <div class="challenge-blank"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 6: 下周计划 ==================== -->
+      <div class="animate-in" style="margin-top: 50px;">
+        <div class="section-header">
+          <div class="section-num">6</div>
+          <h2>
+            <span class="cn-only">下周计划</span>
+            <span class="vn-only">Ke hoach tuan sau</span>
+          </h2>
+        </div>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- 左栏：业绩目标 -->
+          <div class="plan-section">
+            <h4>
+              <span>🎯</span>
+              <span class="cn-only">业绩目标</span>
+              <span class="vn-only">Muc tieu</span>
+            </h4>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">入金目标</span>
+                <span class="vn-only">Muc tieu nap</span>
+              </span>
+              <span style="color: var(--green); font-weight: 600;">$</span>
+              <span class="plan-blank"></span>
+            </div>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">新增客户目标</span>
+                <span class="vn-only">Muc tieu KH moi</span>
+              </span>
+              <span class="plan-blank"></span>
+              <span style="color: var(--gray); font-size: 0.8rem;">
+                <span class="cn-only">人</span>
+                <span class="vn-only">nguoi</span>
+              </span>
+            </div>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">重点跟进客户</span>
+                <span class="vn-only">KH trong diem</span>
+              </span>
+              <span class="plan-blank"></span>
+            </div>
+          </div>
+
+          <!-- 右栏：行动计划 -->
+          <div class="plan-section">
+            <h4>
+              <span>🚀</span>
+              <span class="cn-only">行动计划</span>
+              <span class="vn-only">Hanh dong</span>
+            </h4>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">开发渠道</span>
+                <span class="vn-only">Kenh phat trien</span>
+              </span>
+              <span class="plan-blank"></span>
+            </div>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">活动计划</span>
+                <span class="vn-only">Ke hoach hoat dong</span>
+              </span>
+              <span class="plan-blank"></span>
+            </div>
+
+            <div class="plan-field">
+              <span class="plan-label">
+                <span class="cn-only">学习计划</span>
+                <span class="vn-only">Ke hoach hoc tap</span>
+              </span>
+              <span class="plan-blank"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==================== Section 7: AI 辅助提示 ==================== -->
+      <div class="animate-in" style="margin-top: 50px;">
+        <div class="section-header">
+          <div class="section-num">7</div>
+          <h2>
+            <span class="cn-only">AI 辅助提示</span>
+            <span class="vn-only">Goi y AI ho tro</span>
+          </h2>
+        </div>
+
+        <div class="key-point animate-in delay-1" style="margin-bottom: 25px;">
+          <p style="font-size: 1rem; font-weight: 600;">
+            <span class="cn-only">填完数据卡后，复制以下内容发给 AI，自动生成周报分析</span>
+            <span class="vn-only">Sau khi dien xong the du lieu, sao chep noi dung sau gui cho AI de tu dong tao bao cao phan tich tuan</span>
+          </p>
+        </div>
+
+        <div class="ai-template-box animate-in delay-2">
+          <span class="copy-hint">
+            <span class="cn-only">📋 复制模板</span>
+            <span class="vn-only">📋 Sao chep</span>
+          </span>
+          <pre class="cn-only">请帮我分析以下BD周数据：
+BD姓名：[姓名]
+本周入金：$[金额]
+本周提现：$[金额]
+新增客户：[数量]人
+入金客户：[数量]人
+客户流失：[数量]人
+流失原因：[描述]
+最成功案例：[描述]
+最难问题：[描述]
+
+请给出：
+1. 本周表现评估（优势+不足）
+2. 数据趋势分析
+3. 下周3个改进建议
+4. 客户流失预警及挽回策略</pre>
+          <pre class="vn-only">Hay giup toi phan tich du lieu BD tuan:
+Ten BD: [Ten]
+Nap tien tuan: $[So tien]
+Rut tien tuan: $[So tien]
+KH moi: [So luong] nguoi
+KH nap tien: [So luong] nguoi
+KH mat: [So luong] nguoi
+Ly do mat: [Mo ta]
+Case thanh cong nhat: [Mo ta]
+Cau hoi kho nhat: [Mo ta]
+
+Hay cho:
+1. Danh gia hieu suat tuan (diem manh + diem yeu)
+2. Phan tich xu huong du lieu
+3. 3 goi y cai thien cho tuan sau
+4. Canh bao mat KH va chien luoc giu chan</pre>
+        </div>
+      </div>
+
+
+      <!-- ==================== 底部快捷链接 ==================== -->
+      <div class="bottom-links animate-in" style="margin-top: 60px;">
+        <a href="ai-weekly-analysis.html" class="bottom-link">
+          <span class="link-icon">📊</span>
+          <span class="link-text">
+            <span class="cn-only">AI 周报分析</span>
+            <span class="vn-only">Phan tich bao cao tuan AI</span>
+          </span>
+        </a>
+        <a href="weekly-report-example.html" class="bottom-link">
+          <span class="link-icon">📈</span>
+          <span class="link-text">
+            <span class="cn-only">标杆周报示例</span>
+            <span class="vn-only">Mau bao cao tuan tieu chuan</span>
+          </span>
+        </a>
+        <a href="../training/ai-usage-guide.html" class="bottom-link">
+          <span class="link-icon">🤖</span>
+          <span class="link-text">
+            <span class="cn-only">AI 使用手册</span>
+            <span class="vn-only">Huong dan su dung AI</span>
+          </span>
+        </a>
+      </div>
+
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 60px;">
+        <p class="cn-only" style="font-size: 1.1rem; font-weight: 600; text-align: center;">
+          「数据是最诚实的教练 · 每周记录，每周进步」
+        </p>
+        <p class="vn-only" style="font-size: 1.1rem; font-weight: 600; text-align: center;">
+          「Du lieu la huan luyen vien trung thuc nhat · Ghi chep moi tuan, tien bo moi tuan」
+        </p>
+      </div>
+
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

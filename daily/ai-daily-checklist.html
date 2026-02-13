@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BD 每日 AI 工作清单 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 时间区块标题 */
+    .time-block {
+      margin-bottom: 60px;
+      scroll-margin-top: 100px;
+    }
+
+    .time-header {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15), rgba(127,255,0,0.05));
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .time-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #000;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .time-header h2 {
+      font-size: 1.5rem;
+      color: var(--white);
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* 工作卡片 */
+    .work-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .work-card h3 {
+      color: var(--green);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .work-card .desc {
+      color: var(--gray-light);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    /* 步骤列表 */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      color: var(--gray-light);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .step-list li:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* AI 提问模板框 */
+    .ai-prompt-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1), rgba(127,255,0,0.03));
+      border: 1px solid rgba(127,255,0,0.25);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin: 15px 0;
+    }
+
+    .ai-prompt-box .label {
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-prompt-box .prompt-text {
+      color: var(--gray-light);
+      font-style: italic;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* 快速链接 */
+    .quick-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: rgba(127,255,0,0.08);
+      border: 1px solid rgba(127,255,0,0.2);
+      border-radius: 20px;
+      color: var(--green);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .quick-link:hover {
+      background: rgba(127,255,0,0.2);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* 日报模板输入区 */
+    .template-box {
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 15px;
+    }
+
+    .template-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--gray-light);
+    }
+
+    .template-row:last-child {
+      border-bottom: none;
+    }
+
+    .template-row .field-label {
+      color: var(--white);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .template-row .field-line {
+      flex: 1;
+      border-bottom: 1px dashed rgba(127,255,0,0.3);
+      min-width: 80px;
+      height: 1px;
+    }
+
+    /* 快查卡片 */
+    .prompt-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      border-top: 3px solid var(--green);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .prompt-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .prompt-card h4 {
+      color: var(--green);
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .prompt-card p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .prompt-card .prompt-num {
+      background: var(--green);
+      color: #000;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* 页内导航 */
+    .day-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 30px 0;
+      position: sticky;
+      top: 70px;
+      background: var(--bg);
+      padding: 15px 0;
+      z-index: 10;
+    }
+
+    .day-tab {
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 25px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .day-tab:hover, .day-tab.active {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
+    }
+
+    @media (max-width: 992px) {
+      .time-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .day-nav {
+        gap: 8px;
+      }
+      .day-tab {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+      .time-header {
+        padding: 20px;
+      }
+      .work-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">BD 每日 AI 工作清单</span>
+          <span class="vn-only">Danh sách công việc AI hàng ngày cho BD</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">打开这个页面，开始你的一天</span>
+          <span class="vn-only">Mở trang này, bắt đầu ngày mới</span>
+        </p>
+      </div>
+
+      <!-- 页内导航 -->
+      <div class="day-nav">
+        <a href="#morning" class="day-tab active">
+          <span class="cn-only">🌅 早间启动</span>
+          <span class="vn-only">🌅 Buổi sáng sớm</span>
+        </a>
+        <a href="#forenoon" class="day-tab">
+          <span class="cn-only">🌞 上午执行</span>
+          <span class="vn-only">🌞 Buổi sáng</span>
+        </a>
+        <a href="#afternoon" class="day-tab">
+          <span class="cn-only">🌆 下午跟进</span>
+          <span class="vn-only">🌆 Buổi chiều</span>
+        </a>
+        <a href="#evening" class="day-tab">
+          <span class="cn-only">🌙 收工总结</span>
+          <span class="vn-only">🌙 Cuối ngày</span>
+        </a>
+        <a href="#prompts" class="day-tab">
+          <span class="cn-only">📋 AI 快查表</span>
+          <span class="vn-only">📋 Bảng tra AI</span>
+        </a>
+      </div>
+
+      <!-- ==================== Section 1: 早间启动 ==================== -->
+      <section class="time-block" id="morning">
+        <div class="time-header animate-in">
+          <div class="time-pill">🌅 7:30 - 8:30</div>
+          <h2>
+            <span class="cn-only">早间启动</span>
+            <span class="vn-only">Khởi động buổi sáng</span>
+          </h2>
+        </div>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- Card 1: 查看客户状态 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">📊 查看客户状态</span>
+              <span class="vn-only">📊 Kiểm tra trạng thái khách hàng</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">AI 生成今日必须联系的客户名单（根据客户分类 + 上次跟进时间）</span>
+              <span class="vn-only">AI tạo danh sách khách hàng cần liên hệ hôm nay (theo phân loại + thời gian theo dõi lần cuối)</span>
+            </p>
+            <ul class="step-list">
+              <li>
+                <span class="step-num">1</span>
+                <span>
+                  <span class="cn-only">打开客户跟进表</span>
+                  <span class="vn-only">Mở bảng theo dõi khách hàng</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <span>
+                  <span class="cn-only">筛选 3 天未联系的客户</span>
+                  <span class="vn-only">Lọc khách hàng chưa liên hệ 3 ngày</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <span>
+                  <span class="cn-only">按 A / B / C 级排序</span>
+                  <span class="vn-only">Sắp xếp theo cấp A / B / C</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">4</span>
+                <span>
+                  <span class="cn-only">生成今日跟进计划</span>
+                  <span class="vn-only">Tạo kế hoạch theo dõi hôm nay</span>
+                </span>
+              </li>
+            </ul>
+            <div class="quick-links">
+              <a href="../customer/abc-classification.html" class="quick-link">
+                <span class="cn-only">→ 客户分类</span>
+                <span class="vn-only">→ Phân loại KH</span>
+              </a>
+              <a href="../customer/follow-up-timeline.html" class="quick-link">
+                <span class="cn-only">→ 跟进节奏</span>
+                <span class="vn-only">→ Nhịp theo dõi</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: 市场快讯准备 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">📰 市场快讯准备</span>
+              <span class="vn-only">📰 Chuẩn bị tin tức thị trường</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">浏览当日加密市场动态，准备和客户聊天的话题</span>
+              <span class="vn-only">Xem tin tức thị trường crypto hôm nay, chuẩn bị chủ đề trò chuyện với khách hàng</span>
+            </p>
+            <ul class="step-list">
+              <li>
+                <span class="step-num">1</span>
+                <span>
+                  <span class="cn-only">查看 BTC / ETH 走势</span>
+                  <span class="vn-only">Xem xu hướng BTC / ETH</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <span>
+                  <span class="cn-only">关注重大新闻</span>
+                  <span class="vn-only">Theo dõi tin tức quan trọng</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <span>
+                  <span class="cn-only">准备 2-3 条聊天素材</span>
+                  <span class="vn-only">Chuẩn bị 2-3 nội dung trò chuyện</span>
+                </span>
+              </li>
+            </ul>
+            <div class="ai-prompt-box">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"今天 BTC 价格是 [价格]，帮我生成 2-3 条可以发给客户的市场简评，要通俗易懂、积极正面"</span>
+                <span class="vn-only">"Hôm nay BTC giá [giá], giúp tôi tạo 2-3 bình luận thị trường ngắn có thể gửi cho KH, dễ hiểu và tích cực"</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== Section 2: 上午执行 ==================== -->
+      <section class="time-block" id="forenoon">
+        <div class="time-header animate-in">
+          <div class="time-pill">🌞 9:00 - 12:00</div>
+          <h2>
+            <span class="cn-only">上午执行</span>
+            <span class="vn-only">Thực hiện buổi sáng</span>
+          </h2>
+        </div>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- Card 1: 客户回复辅助 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">💬 客户回复辅助</span>
+              <span class="vn-only">💬 Hỗ trợ trả lời khách hàng</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">遇到不会回答的客户问题，用 AI 快速生成专业回复</span>
+              <span class="vn-only">Khi gặp câu hỏi khó từ KH, dùng AI để tạo câu trả lời chuyên nghiệp nhanh chóng</span>
+            </p>
+            <div class="ai-prompt-box">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"客户问了 [具体问题]，帮我生成一个专业但通俗的回复，要体现真诚和专业"</span>
+                <span class="vn-only">"KH hỏi [câu hỏi cụ thể], giúp tôi tạo câu trả lời chuyên nghiệp nhưng dễ hiểu, thể hiện sự chân thành"</span>
+              </p>
+            </div>
+            <div class="quick-links">
+              <a href="../scripts/faq.html" class="quick-link">
+                <span class="cn-only">→ FAQ 32 题</span>
+                <span class="vn-only">→ FAQ 32 câu</span>
+              </a>
+              <a href="../scripts/objection-handling.html" class="quick-link">
+                <span class="cn-only">→ 异议处理</span>
+                <span class="vn-only">→ Xử lý phản đối</span>
+              </a>
+              <a href="../scripts/zalo-guide.html" class="quick-link">
+                <span class="cn-only">→ Zalo 运营手册</span>
+                <span class="vn-only">→ Hướng dẫn Zalo</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: 新客户触达 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">🤝 新客户触达</span>
+              <span class="vn-only">🤝 Tiếp cận khách hàng mới</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">用 AI 生成个性化的开场白，提高首次沟通成功率</span>
+              <span class="vn-only">Dùng AI tạo lời mở đầu cá nhân hóa, nâng cao tỷ lệ thành công lần đầu tiếp xúc</span>
+            </p>
+            <div class="ai-prompt-box">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"这个客户的背景是 [描述]，帮我生成一个适合在 Zalo 上发送的开场白"</span>
+                <span class="vn-only">"Khách hàng này có nền tảng [mô tả], giúp tôi tạo lời mở đầu phù hợp gửi trên Zalo"</span>
+              </p>
+            </div>
+            <div class="quick-links">
+              <a href="../scripts/pain-points.html" class="quick-link">
+                <span class="cn-only">→ 痛点挖掘</span>
+                <span class="vn-only">→ Khai thác pain point</span>
+              </a>
+              <a href="../scripts/negotiation-sop.html" class="quick-link">
+                <span class="cn-only">→ 五步谈判法</span>
+                <span class="vn-only">→ 5 bước đàm phán</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== Section 3: 下午跟进 ==================== -->
+      <section class="time-block" id="afternoon">
+        <div class="time-header animate-in">
+          <div class="time-pill">🌆 14:00 - 17:00</div>
+          <h2>
+            <span class="cn-only">下午跟进</span>
+            <span class="vn-only">Theo dõi buổi chiều</span>
+          </h2>
+        </div>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- Card 1: 意向客户深度跟进 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">🎯 意向客户深度跟进</span>
+              <span class="vn-only">🎯 Theo dõi chuyên sâu KH tiềm năng</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">对表现出兴趣的客户进行深入沟通，推动成交</span>
+              <span class="vn-only">Trao đổi sâu với KH đã thể hiện sự quan tâm, thúc đẩy chốt đơn</span>
+            </p>
+            <ul class="step-list">
+              <li>
+                <span class="step-num">1</span>
+                <span>
+                  <span class="cn-only">回顾客户历史对话</span>
+                  <span class="vn-only">Xem lại lịch sử trò chuyện với KH</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <span>
+                  <span class="cn-only">确认客户当前阶段</span>
+                  <span class="vn-only">Xác nhận giai đoạn hiện tại của KH</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <span>
+                  <span class="cn-only">选择对应话术</span>
+                  <span class="vn-only">Chọn kịch bản phù hợp</span>
+                </span>
+              </li>
+              <li>
+                <span class="step-num">4</span>
+                <span>
+                  <span class="cn-only">安排下次跟进</span>
+                  <span class="vn-only">Lên lịch theo dõi lần tiếp</span>
+                </span>
+              </li>
+            </ul>
+            <div class="quick-links">
+              <a href="../scripts/closing-flow.html" class="quick-link">
+                <span class="cn-only">→ 5 步成交</span>
+                <span class="vn-only">→ 5 bước chốt đơn</span>
+              </a>
+              <a href="../customer/upsell-guide.html" class="quick-link">
+                <span class="cn-only">→ 加仓引导</span>
+                <span class="vn-only">→ Hướng dẫn tăng vốn</span>
+              </a>
+              <a href="../customer/vip-strategy.html" class="quick-link">
+                <span class="cn-only">→ 大客户策略</span>
+                <span class="vn-only">→ Chiến lược KH VIP</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: 问题处理 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">🔧 问题处理</span>
+              <span class="vn-only">🔧 Xử lý vấn đề</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">处理客户投诉、疑虑、技术问题</span>
+              <span class="vn-only">Xử lý khiếu nại, lo ngại, vấn đề kỹ thuật của KH</span>
+            </p>
+            <div class="ai-prompt-box">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"客户遇到了 [问题]，情绪比较 [焦虑/不满]，帮我生成一个安抚 + 解决方案的回复"</span>
+                <span class="vn-only">"KH gặp vấn đề [vấn đề], tâm trạng khá [lo lắng/không hài lòng], giúp tôi tạo phản hồi an ủi + giải pháp"</span>
+              </p>
+            </div>
+            <div class="quick-links">
+              <a href="../customer/market-volatility.html" class="quick-link">
+                <span class="cn-only">→ 行情波动应对</span>
+                <span class="vn-only">→ Ứng phó biến động</span>
+              </a>
+              <a href="../customer/churn-warning.html" class="quick-link">
+                <span class="cn-only">→ 流失预警</span>
+                <span class="vn-only">→ Cảnh báo rời bỏ</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== Section 4: 收工总结 ==================== -->
+      <section class="time-block" id="evening">
+        <div class="time-header animate-in">
+          <div class="time-pill">🌙 17:30 - 18:00</div>
+          <h2>
+            <span class="cn-only">收工总结</span>
+            <span class="vn-only">Tổng kết cuối ngày</span>
+          </h2>
+        </div>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- Card 1: AI 生成日报 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">📝 AI 生成日报</span>
+              <span class="vn-only">📝 AI tạo báo cáo ngày</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">输入今日数据，AI 自动格式化日报</span>
+              <span class="vn-only">Nhập dữ liệu hôm nay, AI tự động định dạng báo cáo</span>
+            </p>
+            <div class="template-box">
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">今日联系客户数</span><span class="vn-only">Số KH liên hệ hôm nay</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">新增意向客户</span><span class="vn-only">KH tiềm năng mới</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">入金客户</span><span class="vn-only">KH nạp tiền</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">入金金额</span><span class="vn-only">Số tiền nạp</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">遇到问题</span><span class="vn-only">Vấn đề gặp phải</span></span>
+                <span class="field-line"></span>
+              </div>
+            </div>
+            <div class="ai-prompt-box" style="margin-top: 20px;">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"帮我把以下数据格式化成日报：联系客户X个，新增意向X个，入金X人，金额X美金，遇到问题：[描述]"</span>
+                <span class="vn-only">"Giúp tôi định dạng dữ liệu sau thành báo cáo ngày: Liên hệ X KH, thêm X KH tiềm năng, nạp tiền X người, số tiền X USD, vấn đề: [mô tả]"</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: 明日计划 -->
+          <div class="work-card">
+            <h3>
+              <span class="cn-only">📅 明日计划</span>
+              <span class="vn-only">📅 Kế hoạch ngày mai</span>
+            </h3>
+            <p class="desc">
+              <span class="cn-only">整理明日重点任务</span>
+              <span class="vn-only">Sắp xếp nhiệm vụ trọng điểm ngày mai</span>
+            </p>
+            <div class="template-box">
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">必须跟进的客户</span><span class="vn-only">KH cần theo dõi</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">需要解决的问题</span><span class="vn-only">Vấn đề cần giải quyết</span></span>
+                <span class="field-line"></span>
+              </div>
+              <div class="template-row">
+                <span class="field-label"><span class="cn-only">学习目标</span><span class="vn-only">Mục tiêu học tập</span></span>
+                <span class="field-line"></span>
+              </div>
+            </div>
+            <div class="ai-prompt-box" style="margin-top: 20px;">
+              <div class="label">🤖 <span class="cn-only">AI 提问模板</span><span class="vn-only">Mẫu hỏi AI</span></div>
+              <p class="prompt-text">
+                <span class="cn-only">"根据我今天的工作情况 [简述]，帮我规划明天的重点任务和时间安排"</span>
+                <span class="vn-only">"Dựa trên tình hình công việc hôm nay [mô tả ngắn], giúp tôi lập kế hoạch nhiệm vụ trọng điểm và thời gian ngày mai"</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== Section 5: AI 提问快查表 ==================== -->
+      <section class="time-block" id="prompts">
+        <div class="time-header animate-in" style="background: linear-gradient(135deg, rgba(127,255,0,0.2), rgba(127,255,0,0.08));">
+          <div class="time-pill" style="background: #000; color: var(--green); border: 2px solid var(--green);">📋 <span class="cn-only">收藏备用</span><span class="vn-only">Lưu lại</span></div>
+          <h2>
+            <span class="cn-only">AI 提问快查表</span>
+            <span class="vn-only">Bảng tra nhanh câu hỏi AI</span>
+          </h2>
+        </div>
+
+        <div class="grid-3 animate-in delay-1">
+          <!-- 1 -->
+          <div class="prompt-card">
+            <div class="prompt-num">1</div>
+            <h4>
+              <span class="cn-only">帮我回复客户</span>
+              <span class="vn-only">Giúp tôi trả lời KH</span>
+            </h4>
+            <p>
+              <span class="cn-only">"客户问了 [问题]，帮我用专业但通俗的语言回复"</span>
+              <span class="vn-only">"KH hỏi [câu hỏi], giúp tôi trả lời bằng ngôn ngữ chuyên nghiệp nhưng dễ hiểu"</span>
+            </p>
+          </div>
+
+          <!-- 2 -->
+          <div class="prompt-card">
+            <div class="prompt-num">2</div>
+            <h4>
+              <span class="cn-only">帮我写 Zalo 文案</span>
+              <span class="vn-only">Giúp tôi viết bài Zalo</span>
+            </h4>
+            <p>
+              <span class="cn-only">"帮我写一条关于 [主题] 的 Zalo 朋友圈文案，要吸引投资者"</span>
+              <span class="vn-only">"Giúp tôi viết bài đăng Zalo về [chủ đề], thu hút nhà đầu tư"</span>
+            </p>
+          </div>
+
+          <!-- 3 -->
+          <div class="prompt-card">
+            <div class="prompt-num">3</div>
+            <h4>
+              <span class="cn-only">帮我分析客户</span>
+              <span class="vn-only">Giúp tôi phân tích KH</span>
+            </h4>
+            <p>
+              <span class="cn-only">"这个客户 [行为描述]，帮我分析他的真实需求和最佳跟进策略"</span>
+              <span class="vn-only">"KH này [mô tả hành vi], giúp tôi phân tích nhu cầu thực và chiến lược theo dõi tốt nhất"</span>
+            </p>
+          </div>
+
+          <!-- 4 -->
+          <div class="prompt-card">
+            <div class="prompt-num">4</div>
+            <h4>
+              <span class="cn-only">帮我生成开场白</span>
+              <span class="vn-only">Giúp tôi tạo lời mở đầu</span>
+            </h4>
+            <p>
+              <span class="cn-only">"客户背景是 [描述]，帮我生成一个 Zalo 开场白"</span>
+              <span class="vn-only">"Nền tảng KH là [mô tả], giúp tôi tạo lời mở đầu trên Zalo"</span>
+            </p>
+          </div>
+
+          <!-- 5 -->
+          <div class="prompt-card">
+            <div class="prompt-num">5</div>
+            <h4>
+              <span class="cn-only">帮我处理异议</span>
+              <span class="vn-only">Giúp tôi xử lý phản đối</span>
+            </h4>
+            <p>
+              <span class="cn-only">"客户说 [异议内容]，帮我生成一个真诚的回应"</span>
+              <span class="vn-only">"KH nói [nội dung phản đối], giúp tôi tạo phản hồi chân thành"</span>
+            </p>
+          </div>
+
+          <!-- 6 -->
+          <div class="prompt-card">
+            <div class="prompt-num">6</div>
+            <h4>
+              <span class="cn-only">帮我写周报</span>
+              <span class="vn-only">Giúp tôi viết báo cáo tuần</span>
+            </h4>
+            <p>
+              <span class="cn-only">"本周数据：新增 X 客户，入金 X 万，帮我生成周报"</span>
+              <span class="vn-only">"Dữ liệu tuần: Thêm X KH, nạp X vạn, giúp tôi tạo báo cáo tuần"</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-bottom: 60px;">
+        <div style="font-size: 1.15rem; font-weight: 700;">
+          <span class="cn-only">每天坚持执行，30 天后你就是团队里最专业的 BD</span>
+          <span class="vn-only">Kiên trì thực hiện mỗi ngày, sau 30 ngày bạn sẽ là BD chuyên nghiệp nhất trong đội</span>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // 页内导航高亮
+    document.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.time-block');
+      const tabs = document.querySelectorAll('.day-tab');
+      let currentSection = '';
+      sections.forEach(function(section) {
+        var sectionTop = section.offsetTop - 200;
+        if (window.scrollY >= sectionTop) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+      tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+        if (tab.getAttribute('href') === '#' + currentSection) {
+          tab.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

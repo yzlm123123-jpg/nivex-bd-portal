@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BD 标杆周报示例 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .report-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-top: 30px;
+    }
+    .report-card h3 {
+      color: var(--green);
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+    .report-title-bar {
+      background: linear-gradient(135deg, rgba(127,255,0,0.2), rgba(127,255,0,0.05));
+      border: 1px solid rgba(127,255,0,0.3);
+      border-radius: var(--radius-lg);
+      padding: 25px 30px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .report-title-bar h2 {
+      color: var(--green);
+      font-size: 1.5rem;
+    }
+    .report-section {
+      margin-bottom: 35px;
+    }
+    .report-section:last-child {
+      margin-bottom: 0;
+    }
+    .report-section h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(127,255,0,0.15);
+    }
+    .report-list {
+      list-style: none;
+      padding: 0;
+    }
+    .report-list li {
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+      color: var(--gray-light);
+      line-height: 1.7;
+    }
+    .report-list li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .report-list li strong {
+      color: var(--white);
+    }
+    .todo-list {
+      list-style: none;
+      padding: 0;
+    }
+    .todo-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+      color: var(--gray-light);
+      line-height: 1.7;
+    }
+    .todo-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--green);
+      border-radius: 3px;
+    }
+    .highlight-text {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .positive-change {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .negative-change {
+      color: var(--red-soft);
+      font-weight: 700;
+    }
+    .solution-box {
+      background: rgba(127,255,0,0.05);
+      border-left: 3px solid var(--green);
+      padding: 15px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 10px;
+    }
+    .solution-box strong {
+      color: var(--green);
+    }
+    @media (max-width: 768px) {
+      .report-card {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px; text-align: center;">
+        <h1 class="title-cn">
+          <span class="cn-only">BD 标杆周报示例</span>
+          <span class="vn-only">Mẫu Báo cáo Tuần BD Tiêu chuẩn</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">参照标准模板，写出高质量周报</span>
+          <span class="vn-only">Tham khảo mẫu chuẩn, viết báo cáo tuần chất lượng cao</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：周报结构说明 -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">周报必填 5 大板块</span>
+          <span class="vn-only">5 phần bắt buộc trong báo cáo tuần</span>
+        </h2>
+      </div>
+
+      <div class="flow animate-in" style="margin-top: 25px;">
+        <div class="flow-item">
+          <div class="flow-number">1</div>
+          <div class="flow-content">
+            <div class="cn"><span class="cn-only">本周业绩数据</span><span class="vn-only">Dữ liệu thành tích tuần</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">|</div>
+        <div class="flow-item">
+          <div class="flow-number">2</div>
+          <div class="flow-content">
+            <div class="cn"><span class="cn-only">客户跟进情况</span><span class="vn-only">Tình hình theo dõi khách hàng</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">|</div>
+        <div class="flow-item">
+          <div class="flow-number">3</div>
+          <div class="flow-content">
+            <div class="cn"><span class="cn-only">本周亮点/突破</span><span class="vn-only">Điểm sáng/đột phá tuần</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">|</div>
+        <div class="flow-item">
+          <div class="flow-number">4</div>
+          <div class="flow-content">
+            <div class="cn"><span class="cn-only">遇到的问题与困难</span><span class="vn-only">Vấn đề và khó khăn gặp phải</span></div>
+          </div>
+        </div>
+        <div class="flow-arrow">|</div>
+        <div class="flow-item">
+          <div class="flow-number">5</div>
+          <div class="flow-content">
+            <div class="cn"><span class="cn-only">下周计划与目标</span><span class="vn-only">Kế hoạch và mục tiêu tuần sau</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二部分：标杆周报模板（完整示例） -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">标杆周报完整示例</span>
+          <span class="vn-only">Mẫu báo cáo tuần tiêu chuẩn đầy đủ</span>
+        </h2>
+      </div>
+
+      <div class="report-card animate-in">
+
+        <!-- 周报标题 -->
+        <div class="report-title-bar">
+          <h2>
+            <span class="cn-only">XX BD 周报（2026.02.03 - 02.09）</span>
+            <span class="vn-only">Báo cáo tuần BD XX（2026.02.03 - 02.09）</span>
+          </h2>
+        </div>
+
+        <!-- 一、本周业绩数据 -->
+        <div class="report-section">
+          <h4>
+            <span class="cn-only">一、本周业绩数据</span>
+            <span class="vn-only">I. Dữ liệu thành tích tuần này</span>
+          </h4>
+          <div style="overflow-x: auto;">
+            <table class="info-table">
+              <thead>
+                <tr>
+                  <th><span class="cn-only">指标</span><span class="vn-only">Chỉ số</span></th>
+                  <th><span class="cn-only">本周</span><span class="vn-only">Tuần này</span></th>
+                  <th><span class="cn-only">上周</span><span class="vn-only">Tuần trước</span></th>
+                  <th><span class="cn-only">环比</span><span class="vn-only">So sánh</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="cn-only">新增客户数</span><span class="vn-only">Số khách hàng mới</span></td>
+                  <td>8</td>
+                  <td>5</td>
+                  <td><span class="positive-change">+60%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cn-only">新增入金</span><span class="vn-only">Nạp tiền mới</span></td>
+                  <td>25,000 USDT</td>
+                  <td>18,000 USDT</td>
+                  <td><span class="positive-change">+39%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cn-only">活跃客户数</span><span class="vn-only">Số KH hoạt động</span></td>
+                  <td>35</td>
+                  <td>32</td>
+                  <td><span class="positive-change">+9%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cn-only">客户总 AUM</span><span class="vn-only">Tổng AUM khách hàng</span></td>
+                  <td>180,000 USDT</td>
+                  <td>162,000 USDT</td>
+                  <td><span class="positive-change">+11%</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cn-only">流失客户数</span><span class="vn-only">Số KH rời bỏ</span></td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td><span class="positive-change">-50%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 二、客户跟进情况 -->
+        <div class="report-section">
+          <h4>
+            <span class="cn-only">二、客户跟进情况</span>
+            <span class="vn-only">II. Tình hình theo dõi khách hàng</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only"><strong>新增客户：</strong>8 人（Zalo 引流 3 人、转介绍 3 人、线下活动 2 人）</span>
+              <span class="vn-only"><strong>Khách hàng mới：</strong>8 người（Zalo 3 người, giới thiệu 3 người, sự kiện offline 2 người）</span>
+            </li>
+            <li>
+              <span class="cn-only"><strong>重点跟进：</strong>A 类客户王先生（10,000 USDT 意向，本周约了 2 次通话）</span>
+              <span class="vn-only"><strong>Theo dõi trọng điểm：</strong>KH hạng A ông Vương（ý định 10.000 USDT, tuần này đã hẹn 2 cuộc gọi）</span>
+            </li>
+            <li>
+              <span class="cn-only"><strong>流失预警：</strong>张女士（连续 5 天未登录，已发送关怀消息）</span>
+              <span class="vn-only"><strong>Cảnh báo rời bỏ：</strong>Bà Trương（5 ngày liên tục không đăng nhập, đã gửi tin nhắn quan tâm）</span>
+            </li>
+            <li>
+              <span class="cn-only"><strong>加仓情况：</strong>李先生加仓 5,000 USDT（从 AITrade 追加到 Astrabit）</span>
+              <span class="vn-only"><strong>Tăng vốn：</strong>Ông Lý tăng 5.000 USDT（từ AITrade chuyển sang Astrabit）</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 三、本周亮点 -->
+        <div class="report-section">
+          <h4>
+            <span class="cn-only">三、本周亮点</span>
+            <span class="vn-only">III. Điểm sáng tuần này</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">成功转化 1 位大客户（入金 <span class="highlight-text">15,000 USDT</span>），通过线下见面建立信任</span>
+              <span class="vn-only">Chuyển đổi thành công 1 khách hàng lớn（nạp <span class="highlight-text">15.000 USDT</span>），xây dựng niềm tin qua gặp mặt trực tiếp</span>
+            </li>
+            <li>
+              <span class="cn-only">Zalo 短视频获得 <span class="highlight-text">2,000+</span> 浏览量，带来 3 个新咨询</span>
+              <span class="vn-only">Video ngắn Zalo đạt <span class="highlight-text">2.000+</span> lượt xem, mang lại 3 lượt tư vấn mới</span>
+            </li>
+            <li>
+              <span class="cn-only">客户满意度 <span class="highlight-text">100%</span>，0 投诉</span>
+              <span class="vn-only">Mức độ hài lòng khách hàng <span class="highlight-text">100%</span>, 0 khiếu nại</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 四、遇到的问题 -->
+        <div class="report-section">
+          <h4>
+            <span class="cn-only">四、遇到的问题</span>
+            <span class="vn-only">IV. Vấn đề gặp phải</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">部分客户对 KYC 流程不熟悉，协助时间较长</span>
+              <span class="vn-only">Một số khách hàng chưa quen quy trình KYC, mất nhiều thời gian hỗ trợ</span>
+            </li>
+            <li>
+              <span class="cn-only">竞争对手在同区域做推广，部分潜在客户被分流</span>
+              <span class="vn-only">Đối thủ quảng bá trong cùng khu vực, một số khách hàng tiềm năng bị phân tán</span>
+            </li>
+          </ul>
+          <div class="solution-box" style="margin-top: 15px;">
+            <span class="cn-only"><strong>解决方案：</strong>制作了 KYC 图文教程；强化 NIVEX 差异化优势话术</span>
+            <span class="vn-only"><strong>Giải pháp：</strong>Đã tạo hướng dẫn KYC bằng hình ảnh; tăng cường kịch bản lợi thế khác biệt của NIVEX</span>
+          </div>
+        </div>
+
+        <!-- 五、下周计划 -->
+        <div class="report-section">
+          <h4>
+            <span class="cn-only">五、下周计划</span>
+            <span class="vn-only">V. Kế hoạch tuần sau</span>
+          </h4>
+          <ul class="todo-list">
+            <li>
+              <span class="cn-only">新增客户目标：10 人</span>
+              <span class="vn-only">Mục tiêu khách hàng mới: 10 người</span>
+            </li>
+            <li>
+              <span class="cn-only">新增入金目标：30,000 USDT</span>
+              <span class="vn-only">Mục tiêu nạp tiền mới: 30.000 USDT</span>
+            </li>
+            <li>
+              <span class="cn-only">完成 2 次线下沙龙</span>
+              <span class="vn-only">Hoàn thành 2 buổi hội thảo offline</span>
+            </li>
+            <li>
+              <span class="cn-only">跟进 A 类客户王先生入金</span>
+              <span class="vn-only">Theo dõi KH hạng A ông Vương nạp tiền</span>
+            </li>
+            <li>
+              <span class="cn-only">挽回张女士（流失预警客户）</span>
+              <span class="vn-only">Giữ chân bà Trương（KH cảnh báo rời bỏ）</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 第三部分：周报写作要点 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">周报写作 4 大要点</span>
+          <span class="vn-only">4 yếu tố chính khi viết báo cáo tuần</span>
+        </h2>
+      </div>
+
+      <div class="grid-2" style="margin-top: 25px;">
+
+        <div class="card card-highlight animate-in delay-1" style="padding: 30px;">
+          <h4 style="color: var(--green); margin-bottom: 12px;">
+            <span class="cn-only">1. 数据说话</span>
+            <span class="vn-only">1. Để dữ liệu lên tiếng</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">必须有具体数字和环比变化</span>
+              <span class="vn-only">Phải có số liệu cụ thể và so sánh theo tuần</span>
+            </li>
+            <li>
+              <span class="cn-only">不要写"情况良好"等模糊表述</span>
+              <span class="vn-only">Không viết mô tả mơ hồ như "tình hình tốt"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight animate-in delay-2" style="padding: 30px;">
+          <h4 style="color: var(--green); margin-bottom: 12px;">
+            <span class="cn-only">2. 问题导向</span>
+            <span class="vn-only">2. Định hướng vấn đề</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">遇到问题要附带解决方案</span>
+              <span class="vn-only">Gặp vấn đề phải kèm giải pháp</span>
+            </li>
+            <li>
+              <span class="cn-only">不要只报问题不给方案</span>
+              <span class="vn-only">Không chỉ báo vấn đề mà không đưa giải pháp</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight animate-in delay-3" style="padding: 30px;">
+          <h4 style="color: var(--green); margin-bottom: 12px;">
+            <span class="cn-only">3. 计划具体</span>
+            <span class="vn-only">3. Kế hoạch cụ thể</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">下周计划要可衡量、可执行</span>
+              <span class="vn-only">Kế hoạch tuần sau phải đo lường được, thực hiện được</span>
+            </li>
+            <li>
+              <span class="cn-only">不要写"努力开发客户"等空话</span>
+              <span class="vn-only">Không viết lời nói suông như "cố gắng phát triển khách hàng"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight animate-in delay-4" style="padding: 30px;">
+          <h4 style="color: var(--green); margin-bottom: 12px;">
+            <span class="cn-only">4. 按时提交</span>
+            <span class="vn-only">4. Nộp đúng hạn</span>
+          </h4>
+          <ul class="report-list">
+            <li>
+              <span class="cn-only">每周日晚 8 点前提交</span>
+              <span class="vn-only">Nộp trước 8 giờ tối Chủ nhật hàng tuần</span>
+            </li>
+            <li>
+              <span class="cn-only">迟交扣绩效分</span>
+              <span class="vn-only">Nộp trễ bị trừ điểm hiệu suất</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn-only" style="font-size: 1.15rem; font-weight: 700;">「周报不是形式，是你和团队对齐方向的最重要工具」</div>
+        <div class="vn-only" style="font-size: 1.15rem; font-weight: 700;">「Báo cáo tuần không phải hình thức, mà là công cụ quan trọng nhất để bạn và team thống nhất phương hướng」</div>
+      </div>
+
+      <!-- 相关链接 -->
+      <div class="grid-2" style="margin-top: 40px; margin-bottom: 50px;">
+        <a href="index.html" class="card animate-in delay-1" style="text-decoration: none; padding: 25px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 10px;">📋</div>
+          <div class="cn-only" style="color: var(--white);">日常工作首页</div>
+          <div class="vn-only" style="color: var(--white);">Trang chính công việc hàng ngày</div>
+        </a>
+        <a href="action-plan.html" class="card animate-in delay-2" style="text-decoration: none; padding: 25px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+          <div class="cn-only" style="color: var(--white);">48 小时行动方案</div>
+          <div class="vn-only" style="color: var(--white);">Kế hoạch hành động 48 giờ</div>
+        </a>
+      </div>
+
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

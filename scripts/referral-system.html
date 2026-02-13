@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>转介绍裂变机制 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 信号灯样式 */
+    .signal-green {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15), rgba(127,255,0,0.05));
+      border-left: 5px solid #7fff00;
+    }
+    .signal-yellow {
+      background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.03));
+      border-left: 5px solid #ffd700;
+    }
+    .signal-red {
+      background: linear-gradient(135deg, rgba(255,107,107,0.12), rgba(255,107,107,0.03));
+      border-left: 5px solid #ff6b6b;
+    }
+    .signal-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 20px 25px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: all var(--transition-normal);
+    }
+    .signal-item:hover {
+      transform: translateX(5px);
+    }
+    .signal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .dot-green { background: #7fff00; box-shadow: 0 0 10px rgba(127,255,0,0.5); }
+    .dot-yellow { background: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+    .dot-red { background: #ff6b6b; box-shadow: 0 0 10px rgba(255,107,107,0.5); }
+
+    /* 话术场景卡片 */
+    .script-scene {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+      border-left: 4px solid var(--green);
+    }
+    .script-scene h3 {
+      color: var(--green);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .script-version {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .script-version:last-child {
+      margin-bottom: 0;
+    }
+    .script-version .version-tag {
+      display: inline-block;
+      background: var(--green);
+      color: var(--bg);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
+    }
+    .script-version .version-tag.tag-alt {
+      background: rgba(127,255,0,0.2);
+      color: var(--green);
+    }
+
+    /* 激励方案卡片 */
+    .incentive-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      border-top: 4px solid var(--green);
+      height: 100%;
+    }
+    .incentive-card h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+      font-size: 1.15rem;
+    }
+    .incentive-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .incentive-item:last-child {
+      border-bottom: none;
+    }
+    .incentive-icon {
+      color: var(--green);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* SOP 步骤 */
+    .sop-step {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px 30px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all var(--transition-normal);
+    }
+    .sop-step:hover {
+      transform: translateX(5px);
+    }
+    .sop-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, var(--green), #5cc000);
+      color: var(--bg);
+      font-size: 1.1rem;
+      font-weight: 900;
+      border-radius: var(--radius-circle);
+      flex-shrink: 0;
+    }
+    .sop-content h4 {
+      color: var(--white);
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+    .sop-content p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .sop-arrow {
+      text-align: center;
+      color: var(--green);
+      font-size: 1.3rem;
+      margin: -5px 0 -5px 20px;
+    }
+
+    /* 素材卡片 */
+    .material-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      border: 1px solid rgba(127,255,0,0.15);
+    }
+    .material-card h4 {
+      color: var(--green);
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+    .copy-text {
+      background: var(--bg-code);
+      border-radius: var(--radius-sm);
+      padding: 15px 18px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      line-height: 1.7;
+      border-left: 3px solid var(--green);
+    }
+
+    /* 数据追踪表格 */
+    .track-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    .track-table th {
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+      padding: 12px 18px;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .track-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+    .track-table tr:hover td {
+      background: rgba(127,255,0,0.03);
+    }
+
+    /* FAQ 折叠 */
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all var(--transition-normal);
+    }
+    .faq-question:hover {
+      background: rgba(127,255,0,0.05);
+    }
+    .faq-question h4 {
+      flex: 1;
+      color: var(--white);
+      font-size: 1rem;
+    }
+    .faq-toggle {
+      color: var(--green);
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+    .faq-answer {
+      padding: 0 25px 20px;
+      color: var(--gray-light);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* 统计数字卡片增强 */
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-align: center;
+      border-top: 3px solid var(--green);
+      transition: all var(--transition-normal);
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(127,255,0,0.1);
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+    }
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+
+    /* 原则卡片 */
+    .principle-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      border: 1px solid rgba(127,255,0,0.15);
+      transition: all var(--transition-normal);
+    }
+    .principle-card:hover {
+      border-color: rgba(127,255,0,0.4);
+      transform: translateY(-3px);
+    }
+    .principle-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    .principle-card h4 {
+      color: var(--white);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .principle-card p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* 信号灯标题 */
+    .signal-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      border-radius: var(--radius-lg);
+    }
+    .signal-title h3 {
+      font-size: 1.2rem;
+    }
+    .signal-title.green-bg {
+      background: rgba(127,255,0,0.1);
+    }
+    .signal-title.green-bg h3 { color: #7fff00; }
+    .signal-title.yellow-bg {
+      background: rgba(255,215,0,0.1);
+    }
+    .signal-title.yellow-bg h3 { color: #ffd700; }
+    .signal-title.red-bg {
+      background: rgba(255,107,107,0.1);
+    }
+    .signal-title.red-bg h3 { color: #ff6b6b; }
+
+    /* 警告框 */
+    .warning-box {
+      background: rgba(255,107,107,0.1);
+      border: 1px solid rgba(255,107,107,0.3);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      margin-top: 20px;
+    }
+    .warning-box .label {
+      color: var(--red-soft);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    /* 流程连接线 */
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 0;
+      flex-wrap: wrap;
+    }
+    .flow-node {
+      background: var(--bg-card);
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      border: 1px solid rgba(127,255,0,0.2);
+    }
+    .flow-node.active {
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 700;
+      border-color: var(--green);
+    }
+    .flow-arrow {
+      color: var(--green);
+      font-size: 1.2rem;
+    }
+
+    /* 部分标题 */
+    .section-badge {
+      display: inline-block;
+      background: var(--green);
+      color: var(--bg);
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- ======================== 页面标题 ======================== -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">转介绍裂变机制</span>
+          <span class="vn-only">Co che gioi thieu lan truyen</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">老客户带新客户 · 裂变增长引擎 · 让每个满意客户都成为你的推荐人</span>
+          <span class="vn-only">Khach cu dan khach moi · Dong co tang truong lan truyen · Bien moi khach hang hai long thanh nguoi gioi thieu</span>
+        </p>
+      </div>
+
+      <!-- ======================== 核心数据展示 ======================== -->
+      <div class="grid-4 animate-in delay-1" style="margin-top: 40px;">
+        <div class="stat-card">
+          <div class="stat-number">-80%</div>
+          <div class="stat-label">
+            <span class="cn-only">转介绍获客成本</span>
+            <span class="vn-only">Chi phi co khach qua gioi thieu</span>
+          </div>
+          <div class="stat-desc">
+            <span class="cn-only">比陌生获客低 80%</span>
+            <span class="vn-only">Thap hon 80% so voi khach la</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">+45%</div>
+          <div class="stat-label">
+            <span class="cn-only">客户留存率</span>
+            <span class="vn-only">Ty le giu chan khach</span>
+          </div>
+          <div class="stat-desc">
+            <span class="cn-only">比普通客户高 45%</span>
+            <span class="vn-only">Cao hon 45% so voi khach thuong</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2-3x</div>
+          <div class="stat-label">
+            <span class="cn-only">客均投资额</span>
+            <span class="vn-only">So tien dau tu trung binh</span>
+          </div>
+          <div class="stat-desc">
+            <span class="cn-only">比普通客户高 2-3 倍</span>
+            <span class="vn-only">Cao gap 2-3 lan khach thuong</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="font-size: 1.6rem;">Month 1</div>
+          <div class="stat-label">
+            <span class="cn-only">最佳转介绍时机</span>
+            <span class="vn-only">Thoi diem gioi thieu tot nhat</span>
+          </div>
+          <div class="stat-desc">
+            <span class="cn-only">客户盈利的第一个月</span>
+            <span class="vn-only">Thang dau tien khach co loi nhuan</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 转介绍三大原则 ======================== -->
+      <div class="card-highlight animate-in delay-2" style="margin-top: 50px; padding: 40px;">
+        <h2 style="color: var(--green); margin-bottom: 25px; text-align: center;">
+          <span class="cn-only">转介绍三大核心原则</span>
+          <span class="vn-only">3 Nguyen tac cot loi gioi thieu</span>
+        </h2>
+        <div class="grid-3">
+          <div class="principle-card">
+            <div class="principle-icon">🎯</div>
+            <h4>
+              <span class="cn-only">自然不强迫</span>
+              <span class="vn-only">Tu nhien, khong ep buoc</span>
+            </h4>
+            <p>
+              <span class="cn-only">客户满意了自然愿意推荐，永远不要逼客户转介绍。让好产品自己说话，你只需在对的时机轻轻推一下。</span>
+              <span class="vn-only">Khach hang hai long se tu nguyen gioi thieu, khong bao gio ep khach. De san pham tot tu noi, ban chi can day nhe dung luc.</span>
+            </p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">💡</div>
+            <h4>
+              <span class="cn-only">降低门槛</span>
+              <span class="vn-only">Ha thap rao can</span>
+            </h4>
+            <p>
+              <span class="cn-only">让转介绍变得简单 — 一句话 + 一个链接。不要让客户做复杂的事，帮他准备好一切素材。</span>
+              <span class="vn-only">Lam cho viec gioi thieu tro nen don gian — mot cau + mot link. Khong bat khach lam phuc tap, chuan bi san moi thu cho ho.</span>
+            </p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">🤝</div>
+            <h4>
+              <span class="cn-only">双赢互惠</span>
+              <span class="vn-only">Doi ben cung co loi</span>
+            </h4>
+            <p>
+              <span class="cn-only">推荐人和被推荐人都有好处。不是单方面求人帮忙，而是分享一个好机会。</span>
+              <span class="vn-only">Ca nguoi gioi thieu va nguoi duoc gioi thieu deu co loi. Khong phai xin giup do, ma la chia se co hoi tot.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第一部分：识别转介绍时机 ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 01</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">识别转介绍时机</span>
+          <span class="vn-only">Nhan biet thoi diem gioi thieu</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">时机决定成败 — 在对的时候说对的话，转介绍水到渠成</span>
+          <span class="vn-only">Thoi diem quyet dinh thanh bai — noi dung luc, gioi thieu se den tu nhien</span>
+        </p>
+
+        <!-- 绿灯信号 -->
+        <div class="signal-title green-bg animate-in delay-1">
+          <div style="font-size: 1.5rem;">🟢</div>
+          <h3>
+            <span class="cn-only">最佳时机（绿灯信号）— 立即行动</span>
+            <span class="vn-only">Thoi diem tot nhat (Den xanh) — Hanh dong ngay</span>
+          </h3>
+        </div>
+        <div class="signal-item signal-green animate-in delay-1">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户第一次看到盈利并主动截图分享</span>
+              <span class="vn-only">Khach hang lan dau thay loi nhuan va chu dong chup man hinh chia se</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">兴奋度最高的时刻，分享意愿最强</span>
+              <span class="vn-only">Thoi diem hung phan nhat, mong muon chia se manh nhat</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-green animate-in delay-1">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户连续 3 个月稳定盈利</span>
+              <span class="vn-only">Khach hang co loi nhuan on dinh 3 thang lien tiep</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">信任已建立，推荐底气十足</span>
+              <span class="vn-only">Niem tin da duoc xay dung, gioi thieu tu tin</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-green animate-in delay-2">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户主动加仓（说明信任度高）</span>
+              <span class="vn-only">Khach hang chu dong tang von (cho thay tin tuong cao)</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">用自己的钱投票，最好的信号</span>
+              <span class="vn-only">Bo phieu bang tien cua minh, tin hieu tot nhat</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-green animate-in delay-2">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户在群里主动回答新人问题</span>
+              <span class="vn-only">Khach hang chu dong tra loi cau hoi cua nguoi moi trong nhom</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">已经成为产品代言人，自然推荐</span>
+              <span class="vn-only">Da tro thanh nguoi dai dien san pham, gioi thieu tu nhien</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-green animate-in delay-3">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户主动问"我朋友也想了解"</span>
+              <span class="vn-only">Khach hang chu dong hoi "Ban toi cung muon tim hieu"</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">最完美的转介绍信号，不需要你开口</span>
+              <span class="vn-only">Tin hieu gioi thieu hoan hao nhat, khong can ban len tieng</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-green animate-in delay-3">
+          <div class="signal-dot dot-green"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户参加完线下沙龙后很兴奋</span>
+              <span class="vn-only">Khach hang rat hung phan sau khi tham gia su kien offline</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">情绪高涨 + 社交场景，转介绍黄金窗口</span>
+              <span class="vn-only">Cam xuc cao trao + boi canh xa hoi, cua so vang gioi thieu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 黄灯信号 -->
+        <div class="signal-title yellow-bg animate-in" style="margin-top: 30px;">
+          <div style="font-size: 1.5rem;">🟡</div>
+          <h3>
+            <span class="cn-only">一般时机（黄灯信号）— 可以试探</span>
+            <span class="vn-only">Thoi diem binh thuong (Den vang) — Co the tham do</span>
+          </h3>
+        </div>
+        <div class="signal-item signal-yellow animate-in">
+          <div class="signal-dot dot-yellow"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户已入金 1 个月，没有抱怨</span>
+              <span class="vn-only">Khach hang da nap tien 1 thang, khong co phan nan</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">基本满意但未必热情，可以轻轻试探</span>
+              <span class="vn-only">Hai long co ban nhung chua chac nhiet tinh, co the tham do nhe</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-yellow animate-in">
+          <div class="signal-dot dot-yellow"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户配合完成了 KYC</span>
+              <span class="vn-only">Khach hang da hoan thanh KYC</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">愿意配合说明有一定信任</span>
+              <span class="vn-only">San sang hop tac cho thay co mot muc do tin tuong</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-yellow animate-in">
+          <div class="signal-dot dot-yellow"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户偶尔回复你的消息</span>
+              <span class="vn-only">Khach hang thong thoang tra loi tin nhan cua ban</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">关系一般，先持续维护再考虑转介绍</span>
+              <span class="vn-only">Moi quan he binh thuong, tiep tuc duy tri truoc khi nghi den gioi thieu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红灯信号 -->
+        <div class="signal-title red-bg animate-in" style="margin-top: 30px;">
+          <div style="font-size: 1.5rem;">🔴</div>
+          <h3>
+            <span class="cn-only">禁止时机（红灯信号）— 绝对不要提</span>
+            <span class="vn-only">Thoi diem cam (Den do) — Tuyet doi khong de cap</span>
+          </h3>
+        </div>
+        <div class="signal-item signal-red animate-in">
+          <div class="signal-dot dot-red"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户刚入金还没看到收益</span>
+              <span class="vn-only">Khach hang vua nap tien, chua thay loi nhuan</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">客户还在观望期，提转介绍会让人反感</span>
+              <span class="vn-only">Khach hang dang trong giai doan quan sat, de cap gioi thieu se gay phan cam</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-red animate-in">
+          <div class="signal-dot dot-red"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户正在抱怨或有问题未解决</span>
+              <span class="vn-only">Khach hang dang phan nan hoac co van de chua giai quyet</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">先解决问题！带着不满的客户只会传播负面口碑</span>
+              <span class="vn-only">Giai quyet van de truoc! Khach hang khong hai long chi lan truyen tieng xau</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-red animate-in">
+          <div class="signal-dot dot-red"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户提过想提现/退出</span>
+              <span class="vn-only">Khach hang da de cap muon rut tien/ngung</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">信任已动摇，此时提转介绍等于火上浇油</span>
+              <span class="vn-only">Niem tin da lung lay, de cap gioi thieu luc nay nhu do dau vao lua</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-red animate-in">
+          <div class="signal-dot dot-red"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">市场大幅下跌期间</span>
+              <span class="vn-only">Thi truong dang sut giam manh</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">大环境差时做好维护，不要增加压力</span>
+              <span class="vn-only">Khi moi truong xau, hay duy tri tot, khong tang them ap luc</span>
+            </div>
+          </div>
+        </div>
+        <div class="signal-item signal-red animate-in">
+          <div class="signal-dot dot-red"></div>
+          <div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">
+              <span class="cn-only">客户明确表示不愿意推荐</span>
+              <span class="vn-only">Khach hang ro rang noi khong muon gioi thieu</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.9rem;">
+              <span class="cn-only">尊重客户意愿，反复提只会伤害关系</span>
+              <span class="vn-only">Ton trong y muon cua khach, nhac di nhac lai chi lam ton thuong moi quan he</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第二部分：转介绍话术库 ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 02</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转介绍话术库</span>
+          <span class="vn-only">Thu vien kich ban gioi thieu</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">5 大场景 · 多版本话术 · 直接复制使用</span>
+          <span class="vn-only">5 tinh huong · Nhieu phien ban kich ban · Sao chep va su dung ngay</span>
+        </p>
+
+        <!-- 场景 1 -->
+        <div class="script-scene animate-in delay-1">
+          <h3>
+            <span class="cn-only">场景 1：客户盈利时的自然引导</span>
+            <span class="vn-only">Tinh huong 1: Dan dat tu nhien khi khach co loi nhuan</span>
+          </h3>
+          <div class="script-version">
+            <div class="version-tag">V1 — <span class="cn-only">轻提</span><span class="vn-only">Nhe nhang</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"恭喜！这个月收益不错。对了，有没有朋友也想了解这种 AI 量化投资？我可以给他们做个介绍。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Chuc mung! Thang nay loi nhuan kha tot. Nhan tien, ban co nguoi ban nao cung muon tim hieu ve dau tu luong hoa AI nay khong? Toi co the gioi thieu cho ho."</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V2 — <span class="cn-only">社交证明</span><span class="vn-only">Chung minh xa hoi</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"很多和您一样的投资者，看到收益后都推荐了身边的朋友一起参与。因为一个人赚钱不如一群朋友一起赚，您觉得呢？"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Nhieu nha dau tu giong ban, sau khi thay loi nhuan da gioi thieu ban be xung quanh cung tham gia. Vi mot minh kiem tien khong bang ca nhom ban cung kiem, ban thay sao?"</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V3 — <span class="cn-only">利他角度</span><span class="vn-only">Goc do loi ich cho nguoi khac</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"您朋友的钱放银行也是贬值，不如让他也体验一下 AI 量化交易。先小资金试跑，觉得好再说。我帮您对接。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Tien cua ban ban de ngan hang cung mat gia thoi, hay de ho cung trai nghiem giao dich luong hoa AI. Thu voi so tien nho truoc, thay tot roi tinh tiep. Toi se giup ban ket noi."</div>
+          </div>
+        </div>
+
+        <!-- 场景 2 -->
+        <div class="script-scene animate-in delay-2">
+          <h3>
+            <span class="cn-only">场景 2：客户主动提到朋友时</span>
+            <span class="vn-only">Tinh huong 2: Khach hang chu dong nhac den ban be</span>
+          </h3>
+          <div class="script-version">
+            <div class="version-tag">V1 — <span class="cn-only">顺水推舟</span><span class="vn-only">Thuan theo</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"太好了！您朋友有兴趣是正常的，看到您赚钱了肯定也想了解。您方便帮我转发一下我的 Zalo 名片吗？或者把他的联系方式发给我，我来主动联系他，不用您操心。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Tuyet voi! Ban cua ban quan tam la binh thuong, thay ban kiem duoc tien thi cung muon tim hieu. Ban co the chuyen danh thie Zalo cua toi cho ho duoc khong? Hoac gui lien lac cua ho cho toi, toi se chu dong lien he, ban khong can lo."</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V2 — <span class="cn-only">给面子</span><span class="vn-only">Ton trong</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"其实最好的推荐就是您自己的体验。您可以把自己的收益截图发给朋友看看，比我说一百句都管用。需要的话我帮您整理一份简洁的介绍资料。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Thuc ra gioi thieu tot nhat la trai nghiem cua chinh ban. Ban co the gui hinh chup loi nhuan cua minh cho ban be xem, hieu qua hon toi noi tram cau. Neu can, toi se chuan bi cho ban mot tai lieu gioi thieu ngan gon."</div>
+          </div>
+        </div>
+
+        <!-- 场景 3 -->
+        <div class="script-scene animate-in delay-3">
+          <h3>
+            <span class="cn-only">场景 3：沙龙活动后跟进转介绍</span>
+            <span class="vn-only">Tinh huong 3: Theo doi gioi thieu sau su kien</span>
+          </h3>
+          <div class="script-version">
+            <div class="version-tag">V1 — <span class="cn-only">趁热打铁</span><span class="vn-only">Tan dung thoi co</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"今天沙龙的内容您觉得怎么样？很多参加的朋友都觉得开了眼界。您身边有没有对投资理财感兴趣的朋友？下次可以带他一起来，我们不定期办这种分享会。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Ban thay noi dung su kien hom nay the nao? Nhieu ban tham gia deu cam thay mo mang. Ban co ban be nao quan tam dau tu tai chinh khong? Lan sau co the dan ho cung den, chung toi to chuc chia se dinh ky."</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V2 — <span class="cn-only">独家福利</span><span class="vn-only">Uu dai doc quyen</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"下次沙龙我们会邀请 AK 老师/总监做分享，名额有限。如果您有朋友想来，提前告诉我，我可以帮他们留个位置。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Su kien lan toi chung toi se moi AK / Giam doc chia se, so luong co han. Neu ban co ban be muon den, bao truoc cho toi, toi co the giu cho cho ho."</div>
+          </div>
+        </div>
+
+        <!-- 场景 4 -->
+        <div class="script-scene animate-in delay-4">
+          <h3>
+            <span class="cn-only">场景 4：长期客户定期触达</span>
+            <span class="vn-only">Tinh huong 4: Tiep xuc dinh ky voi khach lau nam</span>
+          </h3>
+          <div class="script-version">
+            <div class="version-tag">V1 — <span class="cn-only">自然聊天</span><span class="vn-only">Tro chuyen tu nhien</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"哥/姐，最近投资收益还满意吗？我这边有些客户最近都在介绍朋友进来，说是看到效果了想让身边人也受益。您身边要是有合适的，随时可以推荐给我。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Anh/Chi, gan day loi nhuan dau tu co hai long khong? Ben toi co nhieu khach hang gan day gioi thieu ban be, noi rang thay hieu qua va muon nguoi than cung huong loi. Neu anh/chi co ai phu hop, cu gioi thieu cho toi bat cu luc nao."</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V2 — <span class="cn-only">价值回馈</span><span class="vn-only">Tri an</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"感谢您一直以来的信任和支持。像您这样的老客户是我们最宝贵的资源。如果您的朋友也有投资需求，我一定用同样的专业和真诚来服务他们。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Cam on su tin tuong va ung ho cua ban bao lau nay. Nhung khach hang lau nam nhu ban la tai san quy gia nhat cua chung toi. Neu ban be cua ban cung co nhu cau dau tu, toi chac chan se phuc vu ho voi su chuyen nghiep va chan thanh tuong tu."</div>
+          </div>
+        </div>
+
+        <!-- 场景 5 -->
+        <div class="script-scene animate-in delay-5">
+          <h3>
+            <span class="cn-only">场景 5：客户犹豫时降低门槛</span>
+            <span class="vn-only">Tinh huong 5: Ha thap rao can khi khach do du</span>
+          </h3>
+          <div class="script-version">
+            <div class="version-tag">V1 — <span class="cn-only">零压力</span><span class="vn-only">Khong ap luc</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"不需要您去推销，只要把我的 Zalo 名片转发给朋友就行。接下来的事都交给我来处理，不会给您添麻烦的。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Ban khong can phai ban hang, chi can chuyen danh thie Zalo cua toi cho ban be la duoc. Moi viec con lai de toi xu ly, se khong lam phien ban dau."</div>
+          </div>
+          <div class="script-version">
+            <div class="version-tag tag-alt">V2 — <span class="cn-only">无压力了解</span><span class="vn-only">Tim hieu khong ap luc</span></div>
+            <div class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"您朋友可以先了解，不投也没关系的。让他先看看我们的产品和数据，有问题随时问。了解清楚再决定要不要参与，这样最稳妥。"</div>
+            <div class="vn-only" style="color: var(--gray-light); line-height: 1.7; margin-top: 8px;">"Ban cua ban co the tim hieu truoc, khong dau tu cung khong sao. De ho xem san pham va du lieu cua chung toi, co cau hoi cu hoi bat cu luc nao. Hieu ro roi moi quyet dinh co tham gia khong, nhu vay la chac chan nhat."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第三部分：转介绍激励方案 ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 03</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转介绍激励方案</span>
+          <span class="vn-only">Chuong trinh khuyen khich gioi thieu</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">物质激励 + 精神激励 · 让推荐人感到被重视</span>
+          <span class="vn-only">Khuyen khich vat chat + tinh than · Lam nguoi gioi thieu cam thay duoc coi trong</span>
+        </p>
+
+        <div class="grid-3 animate-in delay-1">
+          <!-- 方案 A -->
+          <div class="incentive-card">
+            <div style="text-align: center; font-size: 2.5rem; margin-bottom: 15px;">🎁</div>
+            <h4 style="text-align: center;">
+              <span class="cn-only">方案 A：直接奖励</span>
+              <span class="vn-only">Phuong an A: Thuong truc tiep</span>
+            </h4>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">推荐 1 位客户入金</span>
+                  <span class="vn-only">Gioi thieu 1 khach nap tien</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">推荐人获专属奖励</span>
+                  <span class="vn-only">Nguoi gioi thieu nhan thuong doc quyen</span>
+                </div>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">推荐 3 位客户入金</span>
+                  <span class="vn-only">Gioi thieu 3 khach nap tien</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">升级 VIP 服务</span>
+                  <span class="vn-only">Nang cap dich vu VIP</span>
+                </div>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">推荐 5 位及以上</span>
+                  <span class="vn-only">Gioi thieu 5 khach tro len</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">专属投资顾问 + 优先服务</span>
+                  <span class="vn-only">Co van dau tu rieng + Phuc vu uu tien</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 方案 B -->
+          <div class="incentive-card">
+            <div style="text-align: center; font-size: 2.5rem; margin-bottom: 15px;">🤝</div>
+            <h4 style="text-align: center;">
+              <span class="cn-only">方案 B：双向奖励</span>
+              <span class="vn-only">Phuong an B: Thuong hai chieu</span>
+            </h4>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">推荐人获得奖励</span>
+                  <span class="vn-only">Nguoi gioi thieu duoc thuong</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">每成功推荐一位，双方都受益</span>
+                  <span class="vn-only">Moi gioi thieu thanh cong, ca hai deu huong loi</span>
+                </div>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">被推荐人首次入金优惠</span>
+                  <span class="vn-only">Nguoi duoc gioi thieu co uu dai nap tien lan dau</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">降低新客户入门门槛</span>
+                  <span class="vn-only">Giam rao can cho khach moi</span>
+                </div>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">→</div>
+              <div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 3px;">
+                  <span class="cn-only">推荐越多，双方权益越大</span>
+                  <span class="vn-only">Gioi thieu cang nhieu, quyen loi ca hai cang lon</span>
+                </div>
+                <div style="color: var(--gray); font-size: 0.85rem;">
+                  <span class="cn-only">形成正向飞轮效应</span>
+                  <span class="vn-only">Tao hieu ung banh da tich cuc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 方案 C -->
+          <div class="incentive-card">
+            <div style="text-align: center; font-size: 2.5rem; margin-bottom: 15px;">🏆</div>
+            <h4 style="text-align: center;">
+              <span class="cn-only">方案 C：荣誉激励</span>
+              <span class="vn-only">Phuong an C: Khuyen khich danh du</span>
+            </h4>
+            <div class="incentive-item">
+              <div class="incentive-icon">⭐</div>
+              <div style="color: var(--gray-light); font-size: 0.9rem;">
+                <span class="cn-only">"金牌推荐人" 专属称号</span>
+                <span class="vn-only">Danh hieu "Nguoi gioi thieu vang" doc quyen</span>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">🔬</div>
+              <div style="color: var(--gray-light); font-size: 0.9rem;">
+                <span class="cn-only">优先参与新产品内测</span>
+                <span class="vn-only">Uu tien tham gia thu nghiem san pham moi</span>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">🎩</div>
+              <div style="color: var(--gray-light); font-size: 0.9rem;">
+                <span class="cn-only">线下 VIP 私享会邀请名额</span>
+                <span class="vn-only">Su kien VIP rieng offline</span>
+              </div>
+            </div>
+            <div class="incentive-item">
+              <div class="incentive-icon">👤</div>
+              <div style="color: var(--gray-light); font-size: 0.9rem;">
+                <span class="cn-only">AK/总监一对一投资策略咨询</span>
+                <span class="vn-only">Tu van chien luoc dau tu 1-1 voi AK/Giam doc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 警告 -->
+        <div class="warning-box animate-in delay-2" style="margin-top: 25px;">
+          <div class="label">⚠️ <span class="cn-only">重要提醒</span><span class="vn-only">Luu y quan trong</span></div>
+          <div style="color: var(--gray-light); line-height: 1.7;">
+            <span class="cn-only">所有激励方案需经公司审批，BD 不得私自承诺具体奖励金额或权益。承诺了做不到比不承诺更伤害客户信任。</span>
+            <span class="vn-only">Tat ca chuong trinh khuyen khich phai duoc cong ty phe duyet, BD khong duoc tu y hua hen so tien thuong hoac quyen loi cu the. Hua ma khong lam duoc con lam ton thuong niem tin cua khach hon la khong hua.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第四部分：转介绍执行流程 SOP ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 04</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转介绍执行流程 SOP</span>
+          <span class="vn-only">Quy trinh thuc hien gioi thieu SOP</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 15px;">
+          <span class="cn-only">7 步标准流程 · 每周执行一次 · 形成固定获客节奏</span>
+          <span class="vn-only">7 buoc tieu chuan · Thuc hien hang tuan · Hinh thanh nhip do co khach on dinh</span>
+        </p>
+
+        <!-- 流程概览 -->
+        <div class="flow-connector animate-in delay-1" style="margin-bottom: 30px;">
+          <div class="flow-node"><span class="cn-only">筛选</span><span class="vn-only">Sang loc</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><span class="cn-only">预热</span><span class="vn-only">Lam nong</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node active"><span class="cn-only">引导</span><span class="vn-only">Dan dat</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><span class="cn-only">降门槛</span><span class="vn-only">Ha rao can</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><span class="cn-only">承接</span><span class="vn-only">Tiep nhan</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><span class="cn-only">反馈</span><span class="vn-only">Phan hoi</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><span class="cn-only">激活</span><span class="vn-only">Kich hoat</span></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="sop-step animate-in delay-1">
+          <div class="sop-number">1</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">筛选 — 找出"绿灯客户"</span>
+              <span class="vn-only">Sang loc — Tim "khach den xanh"</span>
+            </h4>
+            <p>
+              <span class="cn-only">从客户列表中找出符合"绿灯信号"的客户。建议每周一固定筛选一次，标注在客户管理表中。优先选择：盈利中、主动加仓、在群里活跃的客户。</span>
+              <span class="vn-only">Tim trong danh sach khach hang nhung nguoi phu hop "tin hieu den xanh". Nen sang loc co dinh moi thu Hai, danh dau trong bang quan ly khach hang. Uu tien: khach dang co loi nhuan, chu dong tang von, tich cuc trong nhom.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 2 -->
+        <div class="sop-step animate-in delay-2">
+          <div class="sop-number">2</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">预热 — 先维护好关系</span>
+              <span class="vn-only">Lam nong — Duy tri moi quan he truoc</span>
+            </h4>
+            <p>
+              <span class="cn-only">不要一上来就提转介绍。先分享有价值的信息（行情分析、策略调整、盈利数据），关心客户近况。让客户感受到你的价值，转介绍才会水到渠成。</span>
+              <span class="vn-only">Khong de cap gioi thieu ngay tu dau. Truoc tien chia se thong tin gia tri (phan tich thi truong, dieu chinh chien luoc, du lieu loi nhuan), quan tam tinh hinh cua khach. De khach cam nhan gia tri cua ban, gioi thieu se den tu nhien.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 3 -->
+        <div class="sop-step animate-in delay-3" style="border-left: 4px solid var(--green);">
+          <div class="sop-number">3</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">自然引导 — 在合适时机开口</span>
+              <span class="vn-only">Dan dat tu nhien — Len tieng dung luc</span>
+            </h4>
+            <p>
+              <span class="cn-only">使用上面的话术库，根据客户当前状态选择合适的场景和版本。记住：问句结尾，不给压力，让客户自己决定要不要推荐。</span>
+              <span class="vn-only">Su dung thu vien kich ban o tren, chon tinh huong va phien ban phu hop theo trang thai hien tai cua khach. Nho: ket thuc bang cau hoi, khong tao ap luc, de khach tu quyet dinh co muon gioi thieu khong.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 4 -->
+        <div class="sop-step animate-in delay-4">
+          <div class="sop-number">4</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">降低门槛 — 提供现成转发素材</span>
+              <span class="vn-only">Ha rao can — Cung cap tai lieu san co de chuyen tiep</span>
+            </h4>
+            <p>
+              <span class="cn-only">准备好"一段文字 + 开户链接 + 你的名片"，让客户一键转发。客户不需要自己组织语言，复制粘贴就行。门槛越低，转介绍越容易发生。</span>
+              <span class="vn-only">Chuan bi san "mot doan van + link mo tai khoan + danh thie cua ban", de khach chuyen tiep mot cham. Khach khong can tu soan, chi can sao chep dan la duoc. Rao can cang thap, gioi thieu cang de xay ra.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 5 -->
+        <div class="sop-step animate-in delay-5">
+          <div class="sop-number">5</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">承接新客 — 24 小时内联系</span>
+              <span class="vn-only">Tiep nhan khach moi — Lien he trong 24 gio</span>
+            </h4>
+            <p>
+              <span class="cn-only">新客户添加后 24 小时内主动联系，第一句话说明来源："您好！我是 XXX，您朋友 XXX 推荐的。他说您也对 AI 量化投资感兴趣……"。利用推荐人的信任背书快速建立关系。</span>
+              <span class="vn-only">Lien he chu dong trong 24 gio sau khi khach moi ket ban, cau dau tien noi ro nguon: "Xin chao! Toi la XXX, ban XXX cua ban gioi thieu. Anh/chi oi bao ban cung quan tam dau tu luong hoa AI...". Tan dung su tin tuong cua nguoi gioi thieu de xay dung moi quan he nhanh.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 6 -->
+        <div class="sop-step animate-in">
+          <div class="sop-number">6</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">双向反馈 — 感谢推荐人</span>
+              <span class="vn-only">Phan hoi hai chieu — Cam on nguoi gioi thieu</span>
+            </h4>
+            <p>
+              <span class="cn-only">新客户入金后，第一时间感谢推荐人："您推荐的朋友已经开始体验了，非常感谢您的信任！"。让推荐人知道朋友已在使用，形成正反馈循环，激励他继续推荐。</span>
+              <span class="vn-only">Sau khi khach moi nap tien, lap tuc cam on nguoi gioi thieu: "Ban cua ban da bat dau trai nghiem roi, rat cam on su tin tuong cua ban!". De nguoi gioi thieu biet ban da su dung, tao vong phan hoi tich cuc, khuyen khich ho tiep tuc gioi thieu.</span>
+            </p>
+          </div>
+        </div>
+        <div class="sop-arrow animate-in">↓</div>
+
+        <!-- Step 7 -->
+        <div class="sop-step animate-in" style="border-left: 4px solid var(--green); background: linear-gradient(135deg, rgba(127,255,0,0.08) 0%, var(--bg-card) 100%);">
+          <div class="sop-number">7</div>
+          <div class="sop-content">
+            <h4>
+              <span class="cn-only">持续激活 — 每月回顾推荐人列表</span>
+              <span class="vn-only">Kich hoat lien tuc — Xem lai danh sach nguoi gioi thieu hang thang</span>
+            </h4>
+            <p>
+              <span class="cn-only">每月 1 号回顾一次所有推荐人。对推荐过的客户给予特别关注和维护，让他们感受到"推荐是值得的"。定期分享推荐人专属资讯，保持激活状态。</span>
+              <span class="vn-only">Moi ngay 1 hang thang xem lai tat ca nguoi gioi thieu. Dac biet quan tam va duy tri khach da gioi thieu, de ho cam thay "gioi thieu la xung dang". Dinh ky chia se thong tin doc quyen cho nguoi gioi thieu, duy tri trang thai kich hoat.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第五部分：转发素材库 ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 05</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转发素材库</span>
+          <span class="vn-only">Thu vien tai lieu chuyen tiep</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">准备好的素材 · 客户直接复制转发 · 零门槛</span>
+          <span class="vn-only">Tai lieu san co · Khach sao chep chuyen tiep ngay · Khong rao can</span>
+        </p>
+
+        <div class="grid-2 animate-in delay-1">
+          <!-- 推荐语 1 -->
+          <div class="material-card">
+            <h4>📝 <span class="cn-only">推荐语 1（越南语）</span><span class="vn-only">Loi gioi thieu 1 (Tieng Viet)</span></h4>
+            <div class="copy-text">
+              <span class="cn-only" style="font-style: italic; color: var(--gray);">[越南语版本]</span>
+              <span class="vn-only">"Chao ban, minh dang dung nen tang dau tu AI nay duoc may thang roi, loi nhuan kha on dinh. Neu ban quan tam, co the tim hieu thu, khong bat buoc dau tu. Day la lien he cua co van cua minh: [Zalo link]. Noi minh gioi thieu nhe!"</span>
+            </div>
+          </div>
+
+          <!-- 推荐语 2 -->
+          <div class="material-card">
+            <h4>📝 <span class="cn-only">推荐语 2（越南语）</span><span class="vn-only">Loi gioi thieu 2 (Tieng Viet)</span></h4>
+            <div class="copy-text">
+              <span class="cn-only" style="font-style: italic; color: var(--gray);">[越南语版本]</span>
+              <span class="vn-only">"Minh moi phat hien mot nen tang giao dich AI rat chuyen nghiep, ho dung cong nghe luong hoa de giao dich tu dong. Minh da thu va thay hieu qua. Ban muon xem khong? Day la thong tin chi tiet: [Link]. Co van cua minh rat nhiet tinh, co the tu van mien phi."</span>
+            </div>
+          </div>
+
+          <!-- 推荐语 3 -->
+          <div class="material-card">
+            <h4>📝 <span class="cn-only">推荐语 3（简短版）</span><span class="vn-only">Loi gioi thieu 3 (Ngan gon)</span></h4>
+            <div class="copy-text">
+              <span class="cn-only" style="font-style: italic; color: var(--gray);">[越南语版本]</span>
+              <span class="vn-only">"Ket ban voi co van nay di, minh dang dung dich vu cua ho. AI giao dich tu dong, khong can nhin chart ca ngay. Ket qua minh kha hai long. [Zalo link]"</span>
+            </div>
+          </div>
+
+          <!-- 30 秒语音脚本 -->
+          <div class="material-card">
+            <h4>🎤 <span class="cn-only">30 秒语音介绍脚本</span><span class="vn-only">Kich ban gioi thieu bang giong noi 30 giay</span></h4>
+            <div class="copy-text">
+              <span class="cn-only" style="color: var(--gray-light); line-height: 1.7;">"嗨，我跟你说个事。我最近在用一个 AI 量化交易平台叫 NIVEX，跑了几个月了，收益还挺稳定的。它是用 AI 自动交易，不用你盯盘。我觉得你可以了解一下，我把我顾问的联系方式发给你，你可以先问问看，不投也没关系。"</span>
+              <span class="vn-only" style="color: var(--gray-light); line-height: 1.7;">"Nay, minh noi chuyen nay nhe. Gan day minh dang dung mot nen tang giao dich luong hoa AI ten NIVEX, chay may thang roi, loi nhuan kha on dinh. No dung AI tu dong giao dich, khong can ban nhin bieu do ca ngay. Minh nghi ban nen tim hieu thu, minh gui lien he cua co van minh cho ban, hoi truoc xem sao, khong dau tu cung khong sao."</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zalo 标准转发格式 -->
+        <div class="card animate-in delay-2" style="margin-top: 25px; padding: 30px; border: 1px solid rgba(127,255,0,0.2);">
+          <h4 style="color: var(--green); margin-bottom: 15px;">📱 <span class="cn-only">Zalo 标准转发格式</span><span class="vn-only">Dinh dang chuyen tiep Zalo tieu chuan</span></h4>
+          <div class="copy-text" style="border-left-color: var(--green);">
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 8px;">
+              <span class="cn-only">[客户转发给朋友的消息模板]</span>
+              <span class="vn-only">[Mau tin nhan khach chuyen cho ban be]</span>
+            </div>
+            <div style="color: var(--gray-light); line-height: 1.8;">
+              <span class="cn-only">① 推荐语（从上面选一条）<br>② 你的 Zalo 名片（长按头像 → 转发名片）<br>③ 开户链接：[公司统一提供的注册链接]<br><br>提示：三件事一条消息发完，不要分三次发，降低朋友的操作成本。</span>
+              <span class="vn-only">① Loi gioi thieu (chon mot cau o tren)<br>② Danh thie Zalo cua ban (nhan giu avatar → Chuyen danh thie)<br>③ Link mo tai khoan: [Link dang ky cong ty cung cap]<br><br>Meo: Gui ca ba thu trong mot tin nhan, khong gui ba lan, giam chi phi thao tac cho ban be.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第六部分：转介绍数据追踪 ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 06</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转介绍数据追踪</span>
+          <span class="vn-only">Theo doi du lieu gioi thieu</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">用数据驱动优化 · 每月复盘 · 持续提升转介绍效率</span>
+          <span class="vn-only">Toi uu bang du lieu · Danh gia hang thang · Lien tuc nang cao hieu qua gioi thieu</span>
+        </p>
+
+        <div class="card animate-in delay-1" style="padding: 30px; overflow-x: auto;">
+          <table class="track-table">
+            <thead>
+              <tr>
+                <th><span class="cn-only">追踪指标</span><span class="vn-only">Chi so theo doi</span></th>
+                <th><span class="cn-only">统计周期</span><span class="vn-only">Chu ky thong ke</span></th>
+                <th><span class="cn-only">目标值</span><span class="vn-only">Muc tieu</span></th>
+                <th><span class="cn-only">记录方式</span><span class="vn-only">Cach ghi nhan</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--white); font-weight: 600;">
+                  <span class="cn-only">转介绍客户数量</span>
+                  <span class="vn-only">So khach gioi thieu</span>
+                </td>
+                <td><span class="cn-only">每月</span><span class="vn-only">Hang thang</span></td>
+                <td style="color: var(--green); font-weight: 700;">
+                  <span class="cn-only">占总获客 30%+</span>
+                  <span class="vn-only">30%+ tong khach</span>
+                </td>
+                <td><span class="cn-only">客户管理表标注来源</span><span class="vn-only">Danh dau nguon trong bang quan ly</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--white); font-weight: 600;">
+                  <span class="cn-only">转介绍转化率</span>
+                  <span class="vn-only">Ty le chuyen doi gioi thieu</span>
+                </td>
+                <td><span class="cn-only">每月</span><span class="vn-only">Hang thang</span></td>
+                <td style="color: var(--green); font-weight: 700;">&gt;40%</td>
+                <td><span class="cn-only">推荐人数 → 入金人数</span><span class="vn-only">So nguoi gioi thieu → So nguoi nap tien</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--white); font-weight: 600;">
+                  <span class="cn-only">转介绍客均入金额</span>
+                  <span class="vn-only">So tien nap trung binh khach gioi thieu</span>
+                </td>
+                <td><span class="cn-only">每月</span><span class="vn-only">Hang thang</span></td>
+                <td style="color: var(--green); font-weight: 700;">
+                  <span class="cn-only">高于普通客户 2x</span>
+                  <span class="vn-only">Cao hon khach thuong 2x</span>
+                </td>
+                <td><span class="cn-only">对比普通渠道数据</span><span class="vn-only">So sanh voi kenh thuong</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--white); font-weight: 600;">
+                  <span class="cn-only">TOP 推荐人排行</span>
+                  <span class="vn-only">Xep hang nguoi gioi thieu TOP</span>
+                </td>
+                <td><span class="cn-only">每月</span><span class="vn-only">Hang thang</span></td>
+                <td style="color: var(--green); font-weight: 700;">Top 10</td>
+                <td><span class="cn-only">月度排名 + 表彰</span><span class="vn-only">Xep hang thang + Khen thuong</span></td>
+              </tr>
+              <tr>
+                <td style="color: var(--white); font-weight: 600;">
+                  <span class="cn-only">推荐人活跃率</span>
+                  <span class="vn-only">Ty le hoat dong nguoi gioi thieu</span>
+                </td>
+                <td><span class="cn-only">每季度</span><span class="vn-only">Hang quy</span></td>
+                <td style="color: var(--green); font-weight: 700;">&gt;60%</td>
+                <td><span class="cn-only">3 个月内有推荐的比例</span><span class="vn-only">Ty le gioi thieu trong 3 thang</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 目标强调 -->
+        <div style="margin-top: 25px; padding: 25px; background: linear-gradient(135deg, rgba(127,255,0,0.12), rgba(127,255,0,0.03)); border-radius: var(--radius-lg); border: 1px solid rgba(127,255,0,0.2);" class="animate-in delay-2">
+          <div style="text-align: center;">
+            <div style="font-size: 2.5rem; font-weight: 900; color: var(--green); margin-bottom: 10px;">30%</div>
+            <div style="color: var(--white); font-weight: 600; font-size: 1.1rem; margin-bottom: 8px;">
+              <span class="cn-only">核心目标：转介绍占总获客 30% 以上</span>
+              <span class="vn-only">Muc tieu cot loi: Gioi thieu chiem 30%+ tong khach</span>
+            </div>
+            <div style="color: var(--gray-light); font-size: 0.9rem;">
+              <span class="cn-only">转介绍获客质量最高、成本最低、关系最深 — 是 BD 最应该发力的增长渠道</span>
+              <span class="vn-only">Khach qua gioi thieu co chat luong cao nhat, chi phi thap nhat, moi quan he sau nhat — la kenh tang truong BD nen tap trung nhat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 第七部分：常见问题 FAQ ======================== -->
+      <div style="margin-top: 60px;">
+        <div class="section-badge">PART 07</div>
+        <h2 class="animate-in" style="font-size: 1.6rem; margin-bottom: 10px;">
+          <span class="cn-only">转介绍常见问题 FAQ</span>
+          <span class="vn-only">Cau hoi thuong gap ve gioi thieu</span>
+        </h2>
+        <p class="animate-in" style="color: var(--gray-light); margin-bottom: 30px;">
+          <span class="cn-only">实战中最常遇到的 6 个难题 + 解决方案</span>
+          <span class="vn-only">6 van de thuong gap nhat trong thuc te + Giai phap</span>
+        </p>
+
+        <!-- FAQ 1 -->
+        <div class="faq-item animate-in delay-1">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">客户说"我朋友不感兴趣"怎么办？</span>
+              <span class="vn-only">Khach noi "ban toi khong quan tam" thi lam sao?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong>不要追问，不要强推。</strong>回复："没关系，以后如果他有需要随时可以联系我。"<br><br>
+              <strong>背后策略：</strong><br>
+              ① 可能客户自己还不够满意，先做好服务提升满意度<br>
+              ② 可能客户真的问过了，尊重这个结果<br>
+              ③ 过 1-2 个月再自然提起，不要同一话题反复追问<br>
+              ④ 换个角度：下次邀请客户参加线下沙龙，让他带朋友来"聚聚"
+            </span>
+            <span class="vn-only">
+              <strong>Khong hoi them, khong ep.</strong> Tra loi: "Khong sao, sau nay neu ho co nhu cau thi bat cu luc nao cung co the lien he toi."<br><br>
+              <strong>Chien luoc phia sau:</strong><br>
+              ① Co the khach chua du hai long, hay lam tot dich vu truoc<br>
+              ② Co the khach da hoi that, ton trong ket qua nay<br>
+              ③ Sau 1-2 thang de cap lai tu nhien, khong lap lai cung chu de<br>
+              ④ Doi goc: lan sau moi khach du su kien offline, de ho dan ban "di choi"
+            </span>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item animate-in delay-2">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">被推荐的朋友比较警惕怎么破冰？</span>
+              <span class="vn-only">Ban duoc gioi thieu khac canh giac, lam sao pha bang?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong>核心策略：借推荐人的信任做桥梁。</strong><br><br>
+              ① 第一句话一定提推荐人："您好，我是 XXX 的投资顾问，他特别推荐您了解一下"<br>
+              ② 不急着推产品，先聊对方的投资经历和需求<br>
+              ③ 让推荐人牵个三人群，在群里自然聊几句，比一对一更自然<br>
+              ④ 发送推荐人的真实收益数据（征得推荐人同意后），用事实说话<br>
+              ⑤ 明确告诉对方："先了解，不一定要投。您朋友当初也是先看了两周才决定的。"
+            </span>
+            <span class="vn-only">
+              <strong>Chien luoc cot loi: Muon niem tin cua nguoi gioi thieu lam cau noi.</strong><br><br>
+              ① Cau dau tien phai nhac nguoi gioi thieu: "Xin chao, toi la co van dau tu cua XXX, anh/chi ay dac biet de nghi ban tim hieu"<br>
+              ② Khong voi gioi thieu san pham, truoc tien tro chuyen ve kinh nghiem va nhu cau dau tu cua doi phuong<br>
+              ③ De nguoi gioi thieu tao nhom 3 nguoi, tro chuyen tu nhien trong nhom, tu nhien hon 1-1<br>
+              ④ Gui du lieu loi nhuan that cua nguoi gioi thieu (sau khi duoc dong y), noi bang su that<br>
+              ⑤ Noi ro: "Tim hieu truoc, khong nhat thiet phai dau tu. Ban cua ban hoi do cung xem hai tuan moi quyet dinh."
+            </span>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item animate-in delay-3">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">推荐人要求回扣/返佣怎么处理？</span>
+              <span class="vn-only">Nguoi gioi thieu yeu cau hoa hong/tra lai thi xu ly sao?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong style="color: var(--red-soft);">绝对红线：BD 不得私自承诺任何返佣！</strong><br><br>
+              ① 回应话术："非常感谢您的推荐。关于合作方面的权益，我需要跟公司确认后给您一个准确的答复，请给我一点时间。"<br>
+              ② 如果客户坚持要求，上报给总监/AK 老师，由公司层面统一处理<br>
+              ③ 引导客户关注非物质权益："其实我们更看重长期合作，推荐满 3 位客户可以升级 VIP 服务……"<br>
+              ④ 如果客户是冲着返佣来的，这类客户质量往往不高，需要谨慎对待
+            </span>
+            <span class="vn-only">
+              <strong style="color: var(--red-soft);">Ranh gioi tuyet doi: BD khong duoc tu y hua hen bat ky hoa hong nao!</strong><br><br>
+              ① Kich ban tra loi: "Rat cam on su gioi thieu cua ban. Ve quyen loi hop tac, toi can xac nhan voi cong ty de tra loi chinh xac, xin cho toi mot chut thoi gian."<br>
+              ② Neu khach kien quyet yeu cau, bao cao cho Giam doc/AK, de cong ty xu ly thong nhat<br>
+              ③ Huong khach quan tam quyen loi phi vat chat: "Thuc ra chung toi coi trong hop tac lau dai hon, gioi thieu du 3 khach co the nang cap dich vu VIP..."<br>
+              ④ Neu khach chi vi hoa hong, chat luong khach nay thuong khong cao, can than trong
+            </span>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item animate-in delay-4">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">如何让沉默客户也帮你转介绍？</span>
+              <span class="vn-only">Lam sao de khach im lang cung gioi thieu cho ban?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong>沉默 ≠ 不满意，可能只是性格内向或忙。</strong><br><br>
+              ① 先激活关系：发一个他感兴趣的行情分析，或者一个对他有价值的信息<br>
+              ② 用间接方式引导："我最近帮几个客户的朋友都开了户，效果不错。您有时间的话帮我转发一下朋友圈吧？就是个截图而已。"<br>
+              ③ 降低到极致：不需要他说话，只要帮你发一个朋友圈/Zalo 动态<br>
+              ④ 邀请参加线下活动（社交场景更容易打开话题）<br>
+              ⑤ 给他看其他推荐人的成功故事，用社交证明激活
+            </span>
+            <span class="vn-only">
+              <strong>Im lang khong co nghia la khong hai long, co the chi la tinh cach huong noi hoac ban.</strong><br><br>
+              ① Kich hoat moi quan he truoc: gui phan tich thi truong ho quan tam, hoac thong tin co gia tri voi ho<br>
+              ② Dan dat gian tiep: "Gan day toi giup ban be cua may khach mo tai khoan, ket qua kha tot. Khi nao ranh ban giup toi chuyen tiep len timeline nhe? Chi la mot hinh chup thoi."<br>
+              ③ Giam rao can toi thieu: khong can ho noi gi, chi can giup ban dang mot bai Zalo/timeline<br>
+              ④ Moi tham gia su kien offline (boi canh xa hoi de mo dau de tai hon)<br>
+              ⑤ Cho ho xem cau chuyen thanh cong cua nguoi gioi thieu khac, dung chung minh xa hoi de kich hoat
+            </span>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item animate-in delay-5">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">转介绍来的客户出问题，影响推荐人关系怎么办？</span>
+              <span class="vn-only">Khach gioi thieu gap van de, anh huong moi quan he voi nguoi gioi thieu thi sao?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong>这是转介绍最大的风险，必须提前做好预防。</strong><br><br>
+              ① <strong>预防措施</strong>：在新客户入金前就做好预期管理，"投资有波动是正常的，AI 策略追求长期稳定收益，短期可能有波动"<br>
+              ② <strong>问题出现时</strong>：第一时间联系推荐人说明情况，"您推荐的朋友遇到了一些疑问，我正在帮他处理，请您放心"<br>
+              ③ <strong>同步处理</strong>：解决新客户问题的同时，保持和推荐人的沟通，让他安心<br>
+              ④ <strong>问题解决后</strong>：向推荐人反馈结果，"已经帮您朋友处理好了，他现在很满意"<br>
+              ⑤ <strong>核心原则</strong>：永远不要让推荐人因为推荐而"丢面子"，这比损失一个客户更严重
+            </span>
+            <span class="vn-only">
+              <strong>Day la rui ro lon nhat cua gioi thieu, phai phong ngua truoc.</strong><br><br>
+              ① <strong>Bien phap phong ngua</strong>: Truoc khi khach moi nap tien, quan ly ky vong tot, "Dau tu co bien dong la binh thuong, chien luoc AI theo duoi loi nhuan on dinh dai han, ngan han co the co bien dong"<br>
+              ② <strong>Khi van de xay ra</strong>: Lien he nguoi gioi thieu ngay, "Ban cua ban gap mot so thac mac, toi dang xu ly, xin ban yen tam"<br>
+              ③ <strong>Xu ly dong thoi</strong>: Giai quyet van de khach moi, dong thoi duy tri lien lac voi nguoi gioi thieu<br>
+              ④ <strong>Sau khi giai quyet</strong>: Phan hoi ket qua cho nguoi gioi thieu, "Da xu ly xong cho ban cua ban, hien tai ho rat hai long"<br>
+              ⑤ <strong>Nguyen tac cot loi</strong>: Khong bao gio de nguoi gioi thieu "mat mat" vi gioi thieu, dieu nay nghiem trong hon mat mot khach hang
+            </span>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item animate-in">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'; this.querySelector('.faq-toggle').textContent = this.nextElementSibling.style.display === 'block' ? '−' : '+';">
+            <div style="font-size: 1.3rem;">❓</div>
+            <h4>
+              <span class="cn-only">转介绍和"拉人头"有什么区别？怎么跟客户解释？</span>
+              <span class="vn-only">Gioi thieu va "loi keo nguoi" khac nhau the nao? Giai thich voi khach sao?</span>
+            </h4>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer" style="display: none;">
+            <span class="cn-only">
+              <strong>这是很多客户的顾虑，必须正面回应。</strong><br><br>
+              ① <strong>本质区别</strong>：转介绍是基于产品体验的真实推荐，"拉人头"是没有产品价值的金字塔骗局<br>
+              ② <strong>收益来源不同</strong>：我们的收益来自 AI 量化交易在市场中赚取的真实利润，而不是后来人的本金<br>
+              ③ <strong>客户可随时退出</strong>：随时可以停止交易、提取资金，这是"拉人头"做不到的<br>
+              ④ <strong>推荐不是义务</strong>：您不推荐也完全不影响您的收益和服务，推荐是因为您自己觉得好想分享<br>
+              ⑤ <strong>话术</strong>："我们和传销的根本区别是 — 您的收益来自交易市场，不来自其他人的口袋。而且您随时可以提现离开。"
+            </span>
+            <span class="vn-only">
+              <strong>Day la lo ngai cua nhieu khach, phai tra loi thang than.</strong><br><br>
+              ① <strong>Ban chat khac nhau</strong>: Gioi thieu la de xuat chan that dua tren trai nghiem san pham, "loi keo nguoi" la lua dao kim tu thap khong co gia tri san pham<br>
+              ② <strong>Nguon loi nhuan khac nhau</strong>: Loi nhuan cua chung toi den tu giao dich luong hoa AI kiem tren thi truong, khong phai tu tien goc cua nguoi khac<br>
+              ③ <strong>Khach co the rut bat cu luc nao</strong>: Bat cu luc nao cung co the ngung giao dich, rut tien, dieu ma "loi keo nguoi" khong the lam<br>
+              ④ <strong>Gioi thieu khong bat buoc</strong>: Ban khong gioi thieu cung khong anh huong loi nhuan va dich vu, gioi thieu vi ban thay tot muon chia se<br>
+              ⑤ <strong>Kich ban</strong>: "Su khac biet co ban giua chung toi va da cap — loi nhuan cua ban den tu thi truong giao dich, khong tu tui nguoi khac. Va ban co the rut tien bat cu luc nao."
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== 核心要点 ======================== -->
+      <div class="key-point animate-in" style="margin-top: 60px;">
+        <div style="font-size: 1.15rem; line-height: 1.8;">
+          <span class="cn-only">转介绍不是求人帮忙，是分享好的投资机会<br>客户满意是一切裂变的前提</span>
+          <span class="vn-only">Gioi thieu khong phai xin giup do, ma la chia se co hoi dau tu tot<br>Khach hang hai long la tien de cua moi su lan truyen</span>
+        </div>
+      </div>
+
+      <!-- ======================== 相关链接 ======================== -->
+      <div class="grid-3 animate-in" style="margin-top: 40px; margin-bottom: 50px;">
+        <a href="../customer/lifecycle-sop.html" class="card" style="text-decoration: none; padding: 25px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+          <h4 style="color: var(--green); margin-bottom: 8px;">
+            <span class="cn-only">客户全生命周期 SOP</span>
+            <span class="vn-only">SOP vong doi khach hang</span>
+          </h4>
+          <div style="font-size: 0.85rem;">
+            <span class="cn-only">转介绍的前置流程</span>
+            <span class="vn-only">Quy trinh truoc gioi thieu</span>
+          </div>
+        </a>
+        <a href="../customer/success-cases.html" class="card" style="text-decoration: none; padding: 25px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 10px;">🏆</div>
+          <h4 style="color: var(--green); margin-bottom: 8px;">
+            <span class="cn-only">客户成功案例库</span>
+            <span class="vn-only">Kho cau chuyen thanh cong</span>
+          </h4>
+          <div style="font-size: 0.85rem;">
+            <span class="cn-only">用真实案例辅助推荐</span>
+            <span class="vn-only">Dung case thuc te ho tro gioi thieu</span>
+          </div>
+        </a>
+        <a href="faq.html" class="card" style="text-decoration: none; padding: 25px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 10px;">❓</div>
+          <h4 style="color: var(--green); margin-bottom: 8px;">
+            <span class="cn-only">客户常见问题 FAQ</span>
+            <span class="vn-only">Cau hoi thuong gap</span>
+          </h4>
+          <div style="font-size: 0.85rem;">
+            <span class="cn-only">新客户常问问题速查</span>
+            <span class="vn-only">Tra nhanh cau hoi khach moi</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加仓引导手册 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 话术卡片样式 */
+    .speech-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 25px;
+      border-left: 4px solid var(--green);
+      position: relative;
+    }
+
+    .speech-card .speech-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 15px;
+    }
+
+    .speech-card .speech-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--white);
+      padding: 15px 20px;
+      background: rgba(127, 255, 0, 0.05);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+    }
+
+    .speech-card .speech-text-vn {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-light);
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+    }
+
+    /* 时机卡片样式 */
+    .timing-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: all var(--transition-normal);
+      border-top: 3px solid var(--green);
+    }
+
+    .timing-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .timing-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-weight: 900;
+      font-size: 1.1rem;
+      border-radius: var(--radius-circle);
+      margin-bottom: 15px;
+    }
+
+    .timing-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .timing-card p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 红线区域 */
+    .redline-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px 30px;
+      margin-bottom: 20px;
+      border-left: 4px solid #ff4757;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .redline-card .redline-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .redline-card h4 {
+      color: #ff4757;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .redline-card p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 底部金句 */
+    .golden-quote {
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 60px;
+      background: linear-gradient(135deg, rgba(127,255,0,0.08) 0%, rgba(127,255,0,0.02) 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(127, 255, 0, 0.15);
+    }
+
+    .golden-quote .quote-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .golden-quote .quote-text-vn {
+      font-size: 1.1rem;
+      color: var(--gray-light);
+    }
+
+    /* 区块标题 */
+    .section-block {
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .section-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-size: 1.5rem;
+      border-radius: var(--radius-circle);
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+    }
+
+    @media (max-width: 768px) {
+      .golden-quote .quote-text {
+        font-size: 1.2rem;
+      }
+      .speech-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">加仓引导手册</span>
+          <span class="vn-only">S&#7893; tay H&#432;&#7899;ng d&#7851;n T&#259;ng v&#7889;n</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">找准时机、自然引导、客户自主决策</span>
+          <span class="vn-only">Ch&#7885;n &#273;&#250;ng th&#7901;i &#273;i&#7875;m, h&#432;&#7899;ng d&#7851;n t&#7921; nhi&#234;n, kh&#225;ch t&#7921; quy&#7871;t &#273;&#7883;nh</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：加仓时机判断 -->
+      <section class="section-block">
+        <div class="section-header animate-in delay-1">
+          <div class="section-icon">1</div>
+          <div>
+            <h2>
+              <span class="cn-only">加仓时机判断</span>
+              <span class="vn-only">&#272;&#225;nh gi&#225; th&#7901;i &#273;i&#7875;m t&#259;ng v&#7889;n</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="grid-2 animate-in delay-2">
+          <!-- 时机 1 -->
+          <div class="timing-card">
+            <div class="timing-num">1</div>
+            <h3>
+              <span class="cn-only">策略连续盈利 2 周以上</span>
+              <span class="vn-only">Chi&#7871;n l&#432;&#7907;c c&#243; l&#7907;i nhu&#7853;n li&#234;n t&#7909;c tr&#234;n 2 tu&#7847;n</span>
+            </h3>
+            <p>
+              <span class="cn-only">客户信心高，是最佳引导窗口</span>
+              <span class="vn-only">Kh&#225;ch h&#224;ng t&#7921; tin cao, l&#224; c&#7917;a s&#7893; h&#432;&#7899;ng d&#7851;n t&#7889;t nh&#7845;t</span>
+            </p>
+          </div>
+
+          <!-- 时机 2 -->
+          <div class="timing-card">
+            <div class="timing-num">2</div>
+            <h3>
+              <span class="cn-only">客户主动询问更多产品</span>
+              <span class="vn-only">Kh&#225;ch ch&#7911; &#273;&#7897;ng h&#7887;i th&#234;m s&#7843;n ph&#7849;m</span>
+            </h3>
+            <p>
+              <span class="cn-only">说明兴趣在升级</span>
+              <span class="vn-only">Cho th&#7845;y s&#7921; quan t&#226;m &#273;ang t&#259;ng l&#234;n</span>
+            </p>
+          </div>
+
+          <!-- 时机 3 -->
+          <div class="timing-card">
+            <div class="timing-num">3</div>
+            <h3>
+              <span class="cn-only">验证期结束（1-2 个月后）</span>
+              <span class="vn-only">K&#7871;t th&#250;c giai &#273;o&#7841;n ki&#7875;m ch&#7913;ng (sau 1-2 th&#225;ng)</span>
+            </h3>
+            <p>
+              <span class="cn-only">客户已有数据验证，信任基础已建立</span>
+              <span class="vn-only">Kh&#225;ch &#273;&#227; c&#243; d&#7919; li&#7879;u ki&#7875;m ch&#7913;ng, n&#7873;n t&#7843;ng ni&#7873;m tin &#273;&#227; x&#226;y d&#7921;ng</span>
+            </p>
+          </div>
+
+          <!-- 时机 4 -->
+          <div class="timing-card">
+            <div class="timing-num">4</div>
+            <h3>
+              <span class="cn-only">市场出现明确趋势</span>
+              <span class="vn-only">Th&#7883; tr&#432;&#7901;ng xu&#7845;t hi&#7879;n xu h&#432;&#7899;ng r&#245; r&#224;ng</span>
+            </h3>
+            <p>
+              <span class="cn-only">大行情来临前，提前布局有说服力</span>
+              <span class="vn-only">Tr&#432;&#7899;c khi h&#224;nh &#273;&#7897;ng l&#7899;n, b&#7889; tr&#237; tr&#432;&#7899;c c&#243; s&#7913;c thuy&#7871;t ph&#7909;c</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二部分：加仓话术模板 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon">2</div>
+          <div>
+            <h2>
+              <span class="cn-only">加仓话术模板</span>
+              <span class="vn-only">M&#7851;u k&#7883;ch b&#7843;n t&#259;ng v&#7889;n</span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- 话术 1 -->
+        <div class="speech-card animate-in">
+          <div class="speech-label">
+            <span class="cn-only">话术 1：自然过渡型</span>
+            <span class="vn-only">K&#7883;ch b&#7843;n 1: Chuy&#7875;n ti&#7871;p t&#7921; nhi&#234;n</span>
+          </div>
+          <div class="speech-text cn-only">
+            "你现在跑的这个策略表现还不错，如果你觉得还行的话，可以考虑追加一部分资金，让收益放大。当然完全看你自己的节奏。"
+          </div>
+          <div class="speech-text vn-only">
+            "Chi&#7871;n l&#432;&#7907;c hi&#7879;n t&#7841;i b&#7841;n &#273;ang ch&#7841;y kh&#225; t&#7889;t, n&#7871;u b&#7841;n th&#7845;y &#7893;n, c&#243; th&#7875; xem x&#233;t th&#234;m m&#7897;t ph&#7847;n v&#7889;n &#273;&#7875; ph&#243;ng &#273;&#7841;i l&#7907;i nhu&#7853;n. T&#7845;t nhi&#234;n ho&#224;n to&#224;n theo nh&#7883;p c&#7911;a b&#7841;n."
+          </div>
+        </div>
+
+        <!-- 话术 2 -->
+        <div class="speech-card animate-in">
+          <div class="speech-label">
+            <span class="cn-only">话术 2：数据引导型</span>
+            <span class="vn-only">K&#7883;ch b&#7843;n 2: D&#7851;n d&#7855;t b&#7857;ng d&#7919; li&#7879;u</span>
+          </div>
+          <div class="speech-text cn-only">
+            "你看这两周的数据，策略胜率在 65% 以上，月化收益也比较稳定。如果你信任这个策略，加仓可以让复利效果更明显。"
+          </div>
+          <div class="speech-text vn-only">
+            "B&#7841;n xem d&#7919; li&#7879;u hai tu&#7847;n n&#224;y, t&#7927; l&#7879; th&#7855;ng chi&#7871;n l&#432;&#7907;c tr&#234;n 65%, l&#7907;i nhu&#7853;n th&#225;ng c&#361;ng t&#432;&#417;ng &#273;&#7889;i &#7893;n &#273;&#7883;nh. N&#7871;u b&#7841;n tin t&#432;&#7903;ng chi&#7871;n l&#432;&#7907;c n&#224;y, t&#259;ng v&#7889;n s&#7869; l&#224;m hi&#7879;u &#7913;ng l&#227;i k&#233;p r&#245; r&#7879;t h&#417;n."
+          </div>
+        </div>
+
+        <!-- 话术 3 -->
+        <div class="speech-card animate-in">
+          <div class="speech-label">
+            <span class="cn-only">话术 3：场景建议型</span>
+            <span class="vn-only">K&#7883;ch b&#7843;n 3: G&#7907;i &#253; theo t&#236;nh hu&#7889;ng</span>
+          </div>
+          <div class="speech-text cn-only">
+            "你现在用的是 X 策略，如果资金量到 Y 美金，可以同时跑两个策略，分散风险。这是很多老客户的做法。"
+          </div>
+          <div class="speech-text vn-only">
+            "Hi&#7879;n t&#7841;i b&#7841;n &#273;ang d&#249;ng chi&#7871;n l&#432;&#7907;c X, n&#7871;u v&#7889;n l&#234;n Y &#273;&#244;, c&#243; th&#7875; ch&#7841;y &#273;&#7891;ng th&#7901;i hai chi&#7871;n l&#432;&#7907;c, ph&#226;n t&#225;n r&#7911;i ro. &#272;&#226;y l&#224; c&#225;ch nhi&#7873;u kh&#225;ch h&#224;ng c&#361; th&#432;&#7901;ng l&#224;m."
+          </div>
+        </div>
+
+        <!-- 话术 4 -->
+        <div class="speech-card animate-in">
+          <div class="speech-label">
+            <span class="cn-only">话术 4：竞品对比型</span>
+            <span class="vn-only">K&#7883;ch b&#7843;n 4: So s&#225;nh &#273;&#7889;i th&#7911;</span>
+          </div>
+          <div class="speech-text cn-only">
+            "你之前在其他平台的资金收益怎么样？如果这边表现更好，可以考虑把一部分资金调过来。"
+          </div>
+          <div class="speech-text vn-only">
+            "L&#7907;i nhu&#7853;n v&#7889;n tr&#432;&#7899;c &#273;&#226;y c&#7911;a b&#7841;n tr&#234;n n&#7873;n t&#7843;ng kh&#225;c th&#7871; n&#224;o? N&#7871;u b&#234;n n&#224;y hi&#7879;u qu&#7843; h&#417;n, c&#243; th&#7875; xem x&#233;t chuy&#7875;n m&#7897;t ph&#7847;n v&#7889;n sang."
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三部分：加仓红线 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon" style="background: linear-gradient(135deg, #ff4757, #c0392b);">!</div>
+          <div>
+            <h2>
+              <span class="cn-only">加仓红线（绝对禁止）</span>
+              <span class="vn-only">Ranh gi&#7899;i &#273;&#7887; t&#259;ng v&#7889;n (Tuy&#7879;t &#273;&#7889;i c&#7845;m)</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="animate-in">
+          <!-- 红线 1 -->
+          <div class="redline-card">
+            <div class="redline-icon">&#10060;</div>
+            <div>
+              <h4>
+                <span class="cn-only">绝不催促</span>
+                <span class="vn-only">Tuy&#7879;t &#273;&#7889;i kh&#244;ng th&#250;c gi&#7909;c</span>
+              </h4>
+              <p>
+                <span class="cn-only">客户没准备好就不要推，欲速则不达</span>
+                <span class="vn-only">Kh&#225;ch ch&#432;a s&#7861;n s&#224;ng th&#236; kh&#244;ng &#273;&#7849;y, v&#7897;i v&#224;ng s&#7869; ph&#7843;n t&#225;c d&#7909;ng</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- 红线 2 -->
+          <div class="redline-card">
+            <div class="redline-icon">&#10060;</div>
+            <div>
+              <h4>
+                <span class="cn-only">绝不承诺</span>
+                <span class="vn-only">Tuy&#7879;t &#273;&#7889;i kh&#244;ng h&#7913;a h&#7865;n</span>
+              </h4>
+              <p>
+                <span class="cn-only">不能说"加仓肯定赚更多"</span>
+                <span class="vn-only">Kh&#244;ng &#273;&#432;&#7907;c n&#243;i "t&#259;ng v&#7889;n ch&#7855;c ch&#7855;n l&#227;i nhi&#7873;u h&#417;n"</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- 红线 3 -->
+          <div class="redline-card">
+            <div class="redline-icon">&#10060;</div>
+            <div>
+              <h4>
+                <span class="cn-only">绝不比较</span>
+                <span class="vn-only">Tuy&#7879;t &#273;&#7889;i kh&#244;ng so s&#225;nh</span>
+              </h4>
+              <p>
+                <span class="cn-only">不要拿别的客户加仓金额来刺激客户</span>
+                <span class="vn-only">Kh&#244;ng d&#249;ng s&#7889; v&#7889;n t&#259;ng c&#7911;a kh&#225;ch kh&#225;c &#273;&#7875; k&#237;ch th&#237;ch kh&#225;ch h&#224;ng</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第四部分：加仓金额建议表 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon">4</div>
+          <div>
+            <h2>
+              <span class="cn-only">加仓金额建议表</span>
+              <span class="vn-only">B&#7843;ng g&#7907;i &#253; s&#7889; v&#7889;n t&#259;ng</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="animate-in">
+          <table class="info-table">
+            <tr>
+              <th>
+                <span class="cn-only">当前投资额</span>
+                <span class="vn-only">V&#7889;n &#273;&#7847;u t&#432; hi&#7879;n t&#7841;i</span>
+              </th>
+              <th>
+                <span class="cn-only">建议加仓范围</span>
+                <span class="vn-only">Ph&#7841;m vi t&#259;ng v&#7889;n g&#7907;i &#253;</span>
+              </th>
+              <th>
+                <span class="cn-only">建议策略</span>
+                <span class="vn-only">Chi&#7871;n l&#432;&#7907;c g&#7907;i &#253;</span>
+              </th>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 700;">$1,000 - $5,000</td>
+              <td>
+                <span class="cn-only">追加 $1,000 - $3,000</span>
+                <span class="vn-only">Th&#234;m $1,000 - $3,000</span>
+              </td>
+              <td>
+                <span class="cn-only">保持单策略，加大仓位</span>
+                <span class="vn-only">Gi&#7919; m&#7897;t chi&#7871;n l&#432;&#7907;c, t&#259;ng v&#7883; th&#7871;</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 700;">$5,000 - $20,000</td>
+              <td>
+                <span class="cn-only">追加 $5,000 - $10,000</span>
+                <span class="vn-only">Th&#234;m $5,000 - $10,000</span>
+              </td>
+              <td>
+                <span class="cn-only">开启双策略分散</span>
+                <span class="vn-only">M&#7903; hai chi&#7871;n l&#432;&#7907;c ph&#226;n t&#225;n</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 700;">$20,000 - $50,000</td>
+              <td>
+                <span class="cn-only">追加 $10,000 - $30,000</span>
+                <span class="vn-only">Th&#234;m $10,000 - $30,000</span>
+              </td>
+              <td>
+                <span class="cn-only">多策略组合 + 定制化服务</span>
+                <span class="vn-only">T&#7893; h&#7907;p nhi&#7873;u chi&#7871;n l&#432;&#7907;c + d&#7883;ch v&#7909; t&#249;y ch&#7881;nh</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 700;">
+                <span class="cn-only">$50,000 以上</span>
+                <span class="vn-only">Tr&#234;n $50,000</span>
+              </td>
+              <td>
+                <span class="cn-only">根据客户需求定制</span>
+                <span class="vn-only">T&#249;y ch&#7881;nh theo nhu c&#7847;u kh&#225;ch h&#224;ng</span>
+              </td>
+              <td>
+                <span class="cn-only">VIP 专属方案</span>
+                <span class="vn-only">Ph&#432;&#417;ng &#225;n &#273;&#7897;c quy&#7873;n VIP</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="golden-quote animate-in">
+        <div class="quote-text cn-only">"加仓是信任的延续，不是销售的终点"</div>
+        <div class="quote-text vn-only">"T&#259;ng v&#7889;n l&#224; s&#7921; ti&#7871;p n&#7889;i c&#7911;a ni&#7873;m tin, kh&#244;ng ph&#7843;i &#273;&#237;ch &#273;&#7871;n c&#7911;a b&#225;n h&#224;ng"</div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; margin-top: 40px;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">N&#7873;n t&#7843;ng quy tr&#236;nh BD · To&#224;n c&#7847;u</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

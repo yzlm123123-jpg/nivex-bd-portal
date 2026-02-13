@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>市场异议库 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* Objection card system (consistent with objection-handling.html) */
+    .objection-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    .objection-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .objection-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .objection-question {
+      flex: 1;
+    }
+    .objection-question h3 {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .real-concern {
+      background: var(--red-bg);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 15px 20px;
+      margin-bottom: 20px;
+    }
+    .real-concern .label {
+      color: var(--red-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .response-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 20px 25px;
+    }
+    .response-box .label {
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* Market tab navigation */
+    .market-tabs {
+      position: sticky;
+      top: 60px;
+      z-index: 50;
+      background: var(--bg-dark);
+      padding: 15px 0;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .market-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .market-tab--vn {
+      background: rgba(218, 37, 29, 0.12);
+      color: #ff6b6b;
+      border-color: rgba(218, 37, 29, 0.3);
+    }
+    .market-tab--vn:hover {
+      background: rgba(218, 37, 29, 0.25);
+      border-color: rgba(218, 37, 29, 0.6);
+      transform: translateY(-2px);
+    }
+    .market-tab--cn {
+      background: rgba(255, 215, 0, 0.12);
+      color: #ffd700;
+      border-color: rgba(255, 215, 0, 0.3);
+    }
+    .market-tab--cn:hover {
+      background: rgba(255, 215, 0, 0.25);
+      border-color: rgba(255, 215, 0, 0.6);
+      transform: translateY(-2px);
+    }
+    .market-tab--kr {
+      background: rgba(0, 51, 160, 0.15);
+      color: #6b9fff;
+      border-color: rgba(0, 51, 160, 0.3);
+    }
+    .market-tab--kr:hover {
+      background: rgba(0, 51, 160, 0.3);
+      border-color: rgba(0, 51, 160, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Market section headers */
+    .market-header {
+      border-radius: var(--radius-lg);
+      padding: 35px;
+      margin-bottom: 35px;
+      margin-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-header::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      opacity: 0.06;
+      z-index: 0;
+    }
+    .market-header > * {
+      position: relative;
+      z-index: 1;
+    }
+    .market-header--vn {
+      background: linear-gradient(135deg, rgba(218, 37, 29, 0.15), rgba(218, 37, 29, 0.05));
+      border: 1px solid rgba(218, 37, 29, 0.3);
+    }
+    .market-header--vn::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='%23DA251D' width='30' height='20'/%3E%3Cpolygon fill='%23FFFF00' points='15,4 16.76,9.41 22.52,9.41 17.88,12.59 19.64,18 15,14.82 10.36,18 12.12,12.59 7.48,9.41 13.24,9.41'/%3E%3C/svg%3E") center / 120px no-repeat;
+    }
+    .market-header--cn {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+    .market-header--cn::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='%23DE2910' width='30' height='20'/%3E%3C/svg%3E") center / 120px no-repeat;
+    }
+    .market-header--kr {
+      background: linear-gradient(135deg, rgba(0, 51, 160, 0.15), rgba(0, 51, 160, 0.05));
+      border: 1px solid rgba(0, 51, 160, 0.3);
+    }
+    .market-header--kr::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect fill='%23FFFFFF' width='30' height='20'/%3E%3Ccircle fill='%23C60C30' cx='15' cy='10' r='5'/%3E%3C/svg%3E") center / 120px no-repeat;
+    }
+    .market-header h2 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .market-char-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .market-char-item {
+      background: rgba(0,0,0,0.3);
+      border-radius: var(--radius-sm);
+      padding: 15px;
+    }
+    .market-char-item .char-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      opacity: 0.7;
+    }
+    .market-char-item .char-value {
+      font-size: 0.95rem;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .market-header--vn .char-label { color: #ff6b6b; }
+    .market-header--cn .char-label { color: #ffd700; }
+    .market-header--kr .char-label { color: #6b9fff; }
+
+    /* Objection number badge */
+    .objection-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .badge-vn { background: rgba(218,37,29,0.25); color: #ff6b6b; }
+    .badge-cn { background: rgba(255,215,0,0.25); color: #ffd700; }
+    .badge-kr { background: rgba(0,51,160,0.3); color: #6b9fff; }
+
+    /* Quick link cards */
+    .quick-link-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .quick-link-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 22px 25px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .quick-link-card:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+    }
+    .quick-link-card .ql-icon { font-size: 1.8rem; }
+    .quick-link-card .ql-text { color: var(--white); font-weight: 600; font-size: 0.95rem; }
+
+    /* Scroll margin for anchor targets */
+    .market-section {
+      scroll-margin-top: 140px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .market-char-grid {
+        grid-template-columns: 1fr;
+      }
+      .market-tabs {
+        gap: 8px;
+        top: 55px;
+      }
+      .market-tab {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+      }
+      .quick-link-row {
+        grid-template-columns: 1fr;
+      }
+      .objection-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Dao tao</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kich ban</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khach hang</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hang ngay</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tai nguyen</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- Page Title -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">市场异议库</span>
+          <span class="vn-only">Thu vien Phan doi theo Thi truong</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">不同市场 · 不同异议 · 不同打法</span>
+          <span class="vn-only">Thi truong khac · Phan doi khac · Cach tiep can khac</span>
+        </p>
+      </div>
+
+      <!-- Top Highlight -->
+      <div class="key-point animate-in delay-1" style="margin-bottom: 40px; border-color: var(--green);">
+        <div class="cn-only">同一个客户顾虑，越南客户和中国客户的回应方式完全不同。理解市场差异，才能精准命中客户的真实痛点。</div>
+        <div class="vn-only">Cung mot lo ngai cua khach hang, cach phan hoi cho khach Viet Nam va Trung Quoc hoan toan khac nhau. Hieu su khac biet thi truong moi co the danh trung diem dau that su.</div>
+      </div>
+
+      <!-- Market Tab Navigation (sticky) -->
+      <div class="market-tabs animate-in delay-2">
+        <a href="#market-vn" class="market-tab market-tab--vn">
+          <span style="font-size: 1.3rem;">&#x1F1FB;&#x1F1F3;</span>
+          <span class="cn-only">越南市场</span>
+          <span class="vn-only">Viet Nam</span>
+        </a>
+        <a href="#market-cn" class="market-tab market-tab--cn">
+          <span style="font-size: 1.3rem;">&#x1F1E8;&#x1F1F3;</span>
+          <span class="cn-only">中国市场</span>
+          <span class="vn-only">Trung Quoc</span>
+        </a>
+        <a href="#market-kr" class="market-tab market-tab--kr">
+          <span style="font-size: 1.3rem;">&#x1F1F0;&#x1F1F7;</span>
+          <span class="cn-only">韩国市场</span>
+          <span class="vn-only">Han Quoc</span>
+        </a>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- SECTION 1: VIETNAM MARKET                    -->
+      <!-- ============================================ -->
+      <section id="market-vn" class="market-section">
+        <div class="market-header market-header--vn animate-in">
+          <h2>
+            <span class="cn-only">&#x1F1FB;&#x1F1F3; 越南市场</span>
+            <span class="vn-only">&#x1F1FB;&#x1F1F3; Thi truong Viet Nam</span>
+          </h2>
+          <div class="market-char-grid">
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">核心关注</span><span class="vn-only">Quan tam chinh</span></div>
+              <div class="char-value"><span class="cn-only">是不是诈骗？能不能提现？</span><span class="vn-only">Co phai lua dao khong? Rut tien duoc khong?</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">信任基础</span><span class="vn-only">Nen tang tin tuong</span></div>
+              <div class="char-value"><span class="cn-only">本地活动照片、越南BD亲身经历、Zalo群真实用户</span><span class="vn-only">Anh hoat dong tai dia phuong, trai nghiem BD Viet Nam, nguoi dung that trong nhom Zalo</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">决策风格</span><span class="vn-only">Phong cach quyet dinh</span></div>
+              <div class="char-value"><span class="cn-only">群体决策，看周围人的反馈</span><span class="vn-only">Quyet dinh theo nhom, xem phan hoi cua nguoi xung quanh</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- V1 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V1</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Co phai lua dao khong?" / 这是骗局吗？</span>
+                <span class="vn-only">"Co phai lua dao khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">越南投资骗局太多，客户高度警惕</span>
+                <span class="vn-only">Viet Nam co qua nhieu lua dao dau tu, khach hang rat canh giac</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">越南市场投资骗局横行，客户被骗过或听过太多案例，对任何投资项目都高度警惕。核心是对"陌生平台"的不信任。</div>
+            <div class="vn-only">Thi truong Viet Nam day ray lua dao dau tu, khach hang da bi lua hoac nghe qua nhieu vu, nen canh giac cao voi moi du an dau tu.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">用本地化证据打消疑虑：</strong><br><br>
+              "Toi hieu ban lo lang. Cho ban xem may thu nay nhe:<br><br>
+              <strong style="color: var(--green);">1.</strong> Day la anh hoat dong offline cua chung toi tai TP.HCM va Ha Noi (展示越南线下活动照片)；<br>
+              <strong style="color: var(--green);">2.</strong> Day la anh doi ngu tham gia Token2049 — hoi nghi lon nhat the gioi (展示国际峰会参会照)；<br>
+              <strong style="color: var(--green);">3.</strong> Day la nhung nguoi dung Viet Nam dang su dung va chia se trai nghiem (展示Zalo群截图)。<br><br>
+              Ban co the tu xac minh — dang ky mien phi, thu voi 100 USD, thay ket qua roi quyet dinh."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Dung bang chung ban dia de giai toa:</strong><br><br>
+              "Toi hieu ban lo lang. Cho ban xem may thu nay nhe:<br><br>
+              <strong style="color: var(--green);">1.</strong> Day la anh hoat dong offline cua chung toi tai TP.HCM va Ha Noi;<br>
+              <strong style="color: var(--green);">2.</strong> Day la anh doi ngu tham gia Token2049;<br>
+              <strong style="color: var(--green);">3.</strong> Day la nhung nguoi dung Viet Nam dang su dung va chia se trai nghiem.<br><br>
+              Ban co the tu xac minh — dang ky mien phi, thu voi 100 USD, thay ket qua roi quyet dinh."
+            </div>
+          </div>
+        </div>
+
+        <!-- V2 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V2</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Rut tien co duoc khong?" / 能提现吗？</span>
+                <span class="vn-only">"Rut tien co duoc khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">怕钱进去出不来</span>
+                <span class="vn-only">So tien vao roi khong ra duoc</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">资金安全是越南客户最大的焦虑。很多平台入金容易出金难，客户怕重蹈覆辙。</div>
+            <div class="vn-only">An toan von la noi lo lon nhat cua khach Viet Nam. Nhieu nen tang nap tien de rut tien kho, khach so bi lap lai.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">现场演示 + 真实截图：</strong><br><br>
+              "Day — toi cho ban xem. Day la lich su rut tien cua khach hang khac, 24 gio la tien ve tai khoan.<br><br>
+              Von cua ban o trong tai khoan ca nhan cua ban, khong phai gui cho chung toi. Ban muon rut luc nao cung duoc.<br><br>
+              Muon chac chan hon? Thu nap 100 USD, roi rut ngay — tu xac minh quy trinh."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Trinh dien truc tiep + anh chup that:</strong><br><br>
+              "Day — toi cho ban xem. Day la lich su rut tien cua khach hang khac, 24 gio la tien ve tai khoan.<br><br>
+              Von cua ban o trong tai khoan ca nhan cua ban, khong phai gui cho chung toi. Ban muon rut luc nao cung duoc.<br><br>
+              Muon chac chan hon? Thu nap 100 USD, roi rut ngay — tu xac minh quy trinh."
+            </div>
+          </div>
+        </div>
+
+        <!-- V3 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V3</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Sao lai can KYC?" / 为什么要KYC？</span>
+                <span class="vn-only">"Sao lai can KYC?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">怕个人信息泄露</span>
+                <span class="vn-only">So thong tin ca nhan bi lo</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">越南客户对个人信息保护意识强，担心身份证照片被滥用或信息泄露。</div>
+            <div class="vn-only">Khach Viet Nam rat y thuc bao ve thong tin ca nhan, lo so anh CCCD bi lam dung hoac thong tin bi lo.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">类比 + 合规解释：</strong><br><br>
+              "Hieu lo lang cua ban. KYC giong nhu mo tai khoan ngan hang vay — ngan hang cung can xac minh danh tinh de bao ve ban.<br><br>
+              <strong style="color: var(--green);">Tai sao can KYC?</strong> Vi Nivex la san co giay phep, phap luat yeu cau phai xac minh nguoi dung de chong rua tien va bao ve tai san cua ban.<br><br>
+              Du lieu cua ban duoc ma hoa va bao mat theo tieu chuan quoc te. Khong ai co the truy cap thong tin cua ban ngoai he thong."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">So sanh + giai thich tuan thu:</strong><br><br>
+              "Hieu lo lang cua ban. KYC giong nhu mo tai khoan ngan hang — ngan hang cung can xac minh danh tinh de bao ve ban.<br><br>
+              <strong style="color: var(--green);">Tai sao can KYC?</strong> Vi Nivex la san co giay phep, phap luat yeu cau xac minh nguoi dung de chong rua tien va bao ve tai san cua ban.<br><br>
+              Du lieu cua ban duoc ma hoa va bao mat theo tieu chuan quoc te."
+            </div>
+          </div>
+        </div>
+
+        <!-- V4 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V4</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Ban be toi noi AI giao dich la gia" / 朋友说AI交易是假的</span>
+                <span class="vn-only">"Ban be toi noi AI giao dich la gia"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">受周围人负面影响</span>
+                <span class="vn-only">Bi anh huong tieu cuc tu nguoi xung quanh</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">越南客户群体决策特征明显，朋友和家人的意见权重极高。一旦身边人否定，客户很难独立做决定。</div>
+            <div class="vn-only">Khach Viet Nam co dac diem quyet dinh theo nhom rat ro, y kien ban be va gia dinh rat quan trong. Mot khi nguoi xung quanh phu dinh, khach kho tu quyet dinh.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">邀请验证 + 小资金体验：</strong><br><br>
+              "Ban be ban lo cho ban la tot. Nhung ho da thu Nivex chua? Hay de su that noi.<br><br>
+              <strong style="color: var(--green);">Cach xac minh:</strong> Moi ban be cung xem — dang ky tai khoan mien phi, nap 100 USD, bat AI chay 1 tuan. Ket qua co ngay truoc mat.<br><br>
+              Khong can tin toi, khong can tin ban be — chi can tin du lieu. So lieu khong biet noi doi."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Moi xac minh + trai nghiem von nho:</strong><br><br>
+              "Ban be ban lo cho ban la tot. Nhung ho da thu Nivex chua? Hay de su that noi.<br><br>
+              <strong style="color: var(--green);">Cach xac minh:</strong> Moi ban be cung xem — dang ky mien phi, nap 100 USD, bat AI chay 1 tuan. Ket qua co ngay truoc mat.<br><br>
+              Khong can tin toi, khong can tin ban be — chi can tin du lieu."
+            </div>
+          </div>
+        </div>
+
+        <!-- V5 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V5</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Phi co dat khong?" / 费用贵不贵？</span>
+                <span class="vn-only">"Phi co dat khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">怕隐藏收费</span>
+                <span class="vn-only">So co phi an</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">越南客户对费用非常敏感，怕有隐藏收费。很多平台前期免费后期高额收费的做法让客户不信任。</div>
+            <div class="vn-only">Khach Viet Nam rat nhay cam voi phi, so co phi an. Nhieu nen tang mien phi ban dau roi thu phi cao sau do khien khach mat niem tin.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">完全透明 + 对比行业：</strong><br><br>
+              "Cau hoi rat tot. Phi cua Nivex hoan toan minh bach:<br><br>
+              <strong style="color: var(--green);">Khong co phi an.</strong> Moi khoan phi deu hien thi ro rang truoc khi ban giao dich.<br><br>
+              So sanh voi ngan hang? Gui tiet kiem lai suat 5-6%/nam, quy dau tu thu phi quan ly 1-2%. Nivex chi thu phi giao dich — ban chi tra khi thuc su giao dich.<br><br>
+              Ban co the kiem tra lich su phi bat cu luc nao trong tai khoan."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Minh bach hoan toan + so sanh nganh:</strong><br><br>
+              "Cau hoi rat tot. Phi cua Nivex hoan toan minh bach:<br><br>
+              <strong style="color: var(--green);">Khong co phi an.</strong> Moi khoan phi deu hien thi ro rang truoc khi giao dich.<br><br>
+              So voi ngan hang? Gui tiet kiem lai suat 5-6%/nam, quy dau tu thu phi quan ly 1-2%. Nivex chi thu phi giao dich.<br><br>
+              Ban co the kiem tra lich su phi bat cu luc nao."
+            </div>
+          </div>
+        </div>
+
+        <!-- V6 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-vn">V6</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"Toi khong hieu cong nghe" / 我不懂技术</span>
+                <span class="vn-only">"Toi khong hieu cong nghe"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">技术门槛高，觉得自己不适合</span>
+                <span class="vn-only">Rao can cong nghe cao, cam thay khong phu hop</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">觉得加密货币和AI交易太复杂，自己学不会、操作不了。本质是怕犯错导致亏损。</div>
+            <div class="vn-only">Cam thay tien ma hoa va AI giao dich qua phuc tap, khong the hoc va van hanh. Ban chat la so sai lam dan den thua lo.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">降低门槛 + 全程陪伴：</strong><br><br>
+              "Khong can lo! Ban khong can hieu cong nghe — giong nhu ban dung Grab ma khong can biet lap trinh vay.<br><br>
+              <strong style="color: var(--green);">Mo tai khoan chi can 3 buoc:</strong> Dang ky → KYC → Nap tien. Toi se huong dan ban tung buoc qua Zalo.<br><br>
+              Sau khi bat AI, ban chi can kiem tra ket qua moi ngay — don gian nhu xem so du ngan hang.<br><br>
+              Va toi luon o day — bat cu luc nao ban can ho tro, chi can nhan tin."
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Ha rao can + dong hanh toan trinh:</strong><br><br>
+              "Khong can lo! Ban khong can hieu cong nghe — giong nhu dung Grab ma khong can biet lap trinh.<br><br>
+              <strong style="color: var(--green);">Mo tai khoan chi can 3 buoc:</strong> Dang ky → KYC → Nap tien. Toi huong dan tung buoc qua Zalo.<br><br>
+              Bat AI xong, chi can kiem tra ket qua moi ngay — don gian nhu xem so du ngan hang.<br><br>
+              Va toi luon o day — bat cu luc nao can ho tro, chi can nhan tin."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- SECTION 2: CHINA MARKET                      -->
+      <!-- ============================================ -->
+      <section id="market-cn" class="market-section">
+        <div class="market-header market-header--cn animate-in">
+          <h2>
+            <span class="cn-only">&#x1F1E8;&#x1F1F3; 中国市场</span>
+            <span class="vn-only">&#x1F1E8;&#x1F1F3; Thi truong Trung Quoc</span>
+          </h2>
+          <div class="market-char-grid">
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">核心关注</span><span class="vn-only">Quan tam chinh</span></div>
+              <div class="char-value"><span class="cn-only">合规性？和头部平台差距？</span><span class="vn-only">Tinh tuan thu? So sanh voi cac san lon?</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">信任基础</span><span class="vn-only">Nen tang tin tuong</span></div>
+              <div class="char-value"><span class="cn-only">牌照数据、技术对比、国际峰会背书</span><span class="vn-only">Du lieu giay phep, so sanh cong nghe, boi thu hoi nghi quoc te</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">决策风格</span><span class="vn-only">Phong cach quyet dinh</span></div>
+              <div class="char-value"><span class="cn-only">理性分析，需要逻辑完整的说服链</span><span class="vn-only">Phan tich ly tinh, can chuoi thuyet phuc logic day du</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C1 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-cn">C1</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"你们有牌照吗？合规吗？"</span>
+                <span class="vn-only">"Cac ban co giay phep khong? Co hop phap khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">中国监管严格，怕违法</span>
+                <span class="vn-only">Trung Quoc giam sat nghiem ngat, so vi pham phap luat</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">中国对加密行业监管严格，客户担心参与后有法律风险。问牌照的本质是想确认平台合法性。</div>
+            <div class="vn-only">Trung Quoc giam sat nganh crypto nghiem ngat, khach lo co rui ro phap ly khi tham gia. Hoi giay phep thuc chat la muon xac nhan tinh hop phap.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">全球合规布局 + 事实数据：</strong><br><br>
+              "这个问题问得好，说明你是认真做研究的投资者。<br><br>
+              <strong style="color: var(--green);">Nivex 的合规布局：</strong><br>
+              - 主体注册在新加坡和迪拜，两个全球金融中心<br>
+              - 美国、加拿大、尼日利亚均有合规牌照<br>
+              - 正在准备欧洲 MiCA 合规申请<br><br>
+              行业现状是——全球没有哪家交易所拥有所有国家的牌照。我们的策略是在主要金融中心优先拿照，确保核心市场合规。<br><br>
+              你可以在官网查到我们的牌照信息，也可以去新加坡 MAS 官网验证。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Bo cuc tuan thu toan cau + du lieu thuc te:</strong><br><br>
+              Nivex co tru so tai Singapore va Dubai, co giay phep tai My, Canada, Nigeria. Dang chuan bi MiCA tai chau Au. Thong tin giay phep co the kiem tra tren website chinh thuc.
+            </div>
+          </div>
+        </div>
+
+        <!-- C2 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-cn">C2</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"和币安、OKX比你们差太远了"</span>
+                <span class="vn-only">"So voi Binance, OKX cac ban kem qua xa"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">觉得选大平台更安全</span>
+                <span class="vn-only">Cam thay chon san lon an toan hon</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">中国客户对头部平台有品牌信任，觉得小平台风险高。本质是"为什么不选更大的"。</div>
+            <div class="vn-only">Khach Trung Quoc tin tuong thuong hieu san lon, cam thay san nho rui ro cao. Ban chat la "tai sao khong chon san lon hon".</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">差异化定位 + 早期红利：</strong><br><br>
+              "你说得对，论交易量我们现在确实不如币安。但我想问你一个问题：<br><br>
+              <strong style="color: var(--green);">2017年你听说币安的时候，它也是'小平台'。</strong>早期相信它的人获得了什么？<br><br>
+              Nivex 和币安的定位不同：<br>
+              - 币安是<strong style="color: var(--white);">零售交易所</strong>，服务散户<br>
+              - Nivex 是<strong style="color: var(--white);">机构级交易所</strong>，专注AI量化和机构服务<br><br>
+              不是比谁更大，而是谁更适合你。如果你想要的是专业的AI交易服务和一对一的客户支持，这恰恰是大平台给不了的。<br><br>
+              而且——现在进入，你是早期参与者。平台成长的红利，早期人拿得最多。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Dinh vi khac biet + co hoi som:</strong><br><br>
+              Nivex dinh vi la san cap to chuc, tap trung AI luong hoa va dich vu to chuc — khac voi Binance phuc vu ban le. Vao som co nhieu loi the hon.
+            </div>
+          </div>
+        </div>
+
+        <!-- C3 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-cn">C3</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"AI量化这么多，你们凭什么不一样？"</span>
+                <span class="vn-only">"AI luong hoa nhieu the, cac ban khac gi?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">市场上AI交易项目太多</span>
+                <span class="vn-only">Thi truong co qua nhieu du an AI giao dich</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">中国市场AI量化项目泛滥，客户已经见过太多"AI"噱头。需要用技术细节和透明度来区分。</div>
+            <div class="vn-only">Thi truong Trung Quoc tran ngap du an AI luong hoa, khach da thay qua nhieu chieu tro "AI". Can dung chi tiet ky thuat va minh bach de phan biet.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">技术架构 + 透明度：</strong><br><br>
+              "好问题。市场上90%的'AI量化'其实就是简单的网格交易机器人，套个AI的壳。怎么分辨？<br><br>
+              <strong style="color: var(--green);">看三点：</strong><br>
+              <strong style="color: var(--white);">1. 交易执行在哪？</strong>Nivex 的AI在你自己账户执行，每笔交易你都能看到。假AI只会给你看'收益曲线'。<br><br>
+              <strong style="color: var(--white);">2. 风控机制是什么？</strong>我们有止损线、仓位管理、极端行情自动暂停。不是'全自动赚钱机器'。<br><br>
+              <strong style="color: var(--white);">3. 敢不敢让你小资金验证？</strong>我们不需要你一上来就投大钱。100美金跑两周，数据说话。<br><br>
+              真正有技术实力的项目不怕你验证——怕你验证的，才有问题。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Kien truc ky thuat + minh bach:</strong><br><br>
+              90% "AI luong hoa" tren thi truong chi la robot giao dich luoi don gian. Nivex khac: giao dich trong tai khoan cua ban, co co che quan ly rui ro, va ban co the xac minh voi von nho.
+            </div>
+          </div>
+        </div>
+
+        <!-- C4 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-cn">C4</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"收益率多少？能保证吗？"</span>
+                <span class="vn-only">"Ty suat loi nhuan bao nhieu? Co dam bao khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">想要确定性</span>
+                <span class="vn-only">Muon co su chac chan</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">中国客户习惯了银行理财的"固定收益"思维，对波动性投资不安。本质是想要一个确定的预期。</div>
+            <div class="vn-only">Khach Trung Quoc quen voi tu duy "loi nhuan co dinh" cua ngan hang, khong an tam voi dau tu bien dong. Ban chat la muon co ky vong chac chan.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">诚实回答 + 逻辑说服：</strong><br><br>
+              "我先说实话：<strong style="color: var(--red-soft);">任何承诺固定收益的项目，100%是骗局。</strong><br><br>
+              我们不承诺固定收益，这恰恰是我们负责任的表现。<br><br>
+              <strong style="color: var(--green);">但我可以告诉你的是：</strong><br>
+              - AI策略的长期胜率<br>
+              - 历史回测数据<br>
+              - 最大回撤控制在什么范围<br><br>
+              投资不是赌博，是概率游戏。我们做的是提高胜率、控制风险。<br><br>
+              你可以小资金实跑验证——这比任何承诺都真实。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Tra loi that + thuyet phuc logic:</strong><br><br>
+              Bat ky du an nao hua loi nhuan co dinh deu la lua dao. Nivex khong hua co dinh — do la trach nhiem. Co the chia se ty le thang dai han, du lieu lich su va kiem soat rui ro.
+            </div>
+          </div>
+        </div>
+
+        <!-- C5 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-cn">C5</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"国内不能做吧？有法律风险吗？"</span>
+                <span class="vn-only">"Trong nuoc khong lam duoc dung khong? Co rui ro phap ly khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">政策合规顾虑</span>
+                <span class="vn-only">Lo ngai tuan thu chinh sach</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">中国禁止境内加密交易，客户怕参与后被追责。需要清楚说明海外主体和个人资产配置的合规路径。</div>
+            <div class="vn-only">Trung Quoc cam giao dich crypto trong nuoc, khach so tham gia bi truy cuu. Can giai thich ro chu the o nuoc ngoai va lo trinh tuan thu.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">合规路径 + 客观说明：</strong><br><br>
+              "你的担心完全合理。先说清楚几个事实：<br><br>
+              <strong style="color: var(--green);">1.</strong> Nivex 是海外注册主体，不在中国境内运营交易所业务；<br><br>
+              <strong style="color: var(--green);">2.</strong> 中国法律禁止的是境内交易所运营和ICO，个人持有和配置加密资产本身不违法；<br><br>
+              <strong style="color: var(--green);">3.</strong> 你的资金通过合规渠道进出，资产在自己账户，随时可以操作。<br><br>
+              当然，我不是律师，不能给法律建议。如果你有顾虑，建议咨询专业律师。但目前大量中国投资者都在使用海外平台进行资产配置，这是个人财务自由的一部分。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Lo trinh tuan thu + giai thich khach quan:</strong><br><br>
+              Nivex la chu the dang ky o nuoc ngoai, khong van hanh san giao dich tai Trung Quoc. Ca nhan nam giu va phan bo tai san crypto khong vi pham phap luat.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- SECTION 3: KOREA MARKET                      -->
+      <!-- ============================================ -->
+      <section id="market-kr" class="market-section">
+        <div class="market-header market-header--kr animate-in">
+          <h2>
+            <span class="cn-only">&#x1F1F0;&#x1F1F7; 韩国市场</span>
+            <span class="vn-only">&#x1F1F0;&#x1F1F7; Thi truong Han Quoc</span>
+          </h2>
+          <div class="market-char-grid">
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">核心关注</span><span class="vn-only">Quan tam chinh</span></div>
+              <div class="char-value"><span class="cn-only">技术实力？团队背景？</span><span class="vn-only">Nang luc cong nghe? Nen tang doi ngu?</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">信任基础</span><span class="vn-only">Nen tang tin tuong</span></div>
+              <div class="char-value"><span class="cn-only">技术白皮书、国际峰会、韩国本地合作方</span><span class="vn-only">Whitepaper ky thuat, hoi nghi quoc te, doi tac ban dia Han Quoc</span></div>
+            </div>
+            <div class="market-char-item">
+              <div class="char-label"><span class="cn-only">决策风格</span><span class="vn-only">Phong cach quyet dinh</span></div>
+              <div class="char-value"><span class="cn-only">重视品牌和技术，需要专业的技术说明</span><span class="vn-only">Coi trong thuong hieu va cong nghe, can giai thich ky thuat chuyen nghiep</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- K1 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-kr">K1</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"기술팀은 어디에 있나요?" / 技术团队在哪里？</span>
+                <span class="vn-only">"Doi ngu ky thuat o dau?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">韩国客户对技术实力极度重视</span>
+                <span class="vn-only">Khach Han Quoc cuc ky coi trong nang luc cong nghe</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">韩国是技术强国，客户对技术团队的实力、背景、代码质量有很高要求。没有技术说明等于没有信任基础。</div>
+            <div class="vn-only">Han Quoc la cuong quoc cong nghe, khach yeu cau cao ve nang luc doi ngu, nen tang va chat luong code. Khong co giai thich ky thuat thi khong co co so tin tuong.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">全球团队布局 + 核心指标：</strong><br><br>
+              "우리 기술팀에 대해 소개해 드리겠습니다 (让我介绍一下我们的技术团队)：<br><br>
+              <strong style="color: var(--green);">全球技术团队布局：</strong><br>
+              - 核心研发团队分布在新加坡、迪拜<br>
+              - AI策略团队拥有量化交易和机器学习背景<br>
+              - 基础设施团队保障99.9%系统可用性<br><br>
+              <strong style="color: var(--green);">核心技术指标：</strong><br>
+              - 毫秒级订单执行<br>
+              - 多层风控架构<br>
+              - 7x24小时系统监控<br><br>
+              我们可以提供技术白皮书供您参考。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Bo cuc doi ngu toan cau + chi so cot loi:</strong><br><br>
+              Doi ngu R&D tai Singapore va Dubai, doi ngu AI co kinh nghiem giao dich luong hoa va hoc may. He thong dam bao 99.9% thoi gian hoat dong.
+            </div>
+          </div>
+        </div>
+
+        <!-- K2 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-kr">K2</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"한국에서 합법인가요?" / 在韩国合法吗？</span>
+                <span class="vn-only">"O Han Quoc co hop phap khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">韩国加密监管趋严</span>
+                <span class="vn-only">Giam sat crypto Han Quoc ngay cang nghiem</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">韩国实施了严格的虚拟资产法规（VASP），客户担心使用海外平台是否合规。</div>
+            <div class="vn-only">Han Quoc ap dung quy dinh tai san ao nghiem ngat (VASP), khach lo su dung san nuoc ngoai co tuan thu khong.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">韩国合规布局 + VASP进展：</strong><br><br>
+              "한국 규제에 대해 말씀드리겠습니다 (关于韩国监管我来说明)：<br><br>
+              <strong style="color: var(--green);">Nivex 的韩国合规计划：</strong><br>
+              - 正在推进韩国 VASP 注册<br>
+              - 与韩国本地合规顾问合作<br>
+              - 遵循韩国虚拟资产用户保护法要求<br><br>
+              韩国是我们的重点市场之一。我们不是在规避监管，而是在积极拥抱合规。<br><br>
+              目前韩国用户可以通过海外主体合法使用服务，您的资产安全受到多重保障。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Bo cuc tuan thu Han Quoc + tien do VASP:</strong><br><br>
+              Nivex dang thuc day dang ky VASP tai Han Quoc, hop tac voi co van tuan thu ban dia, tuan theo yeu cau Luat Bao ve Nguoi dung Tai san Ao.
+            </div>
+          </div>
+        </div>
+
+        <!-- K3 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-kr">K3</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"다른 한국 거래소와 비교하면?" / 和韩国交易所比呢？</span>
+                <span class="vn-only">"So voi cac san giao dich Han Quoc thi sao?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">Upbit/Bithumb已深入人心</span>
+                <span class="vn-only">Upbit/Bithumb da an sau vao tam tri</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">韩国客户有强烈的本土品牌偏好，Upbit 和 Bithumb 占据了市场主导地位。需要明确差异化。</div>
+            <div class="vn-only">Khach Han Quoc ua chuong thuong hieu ban dia, Upbit va Bithumb chiem thi phan chu dao. Can lam ro su khac biet.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">差异化定位：AI量化 vs 传统交易：</strong><br><br>
+              "업비트와 비교해서 차별점을 말씀드리겠습니다 (让我说明和 Upbit 的差异)：<br><br>
+              <strong style="color: var(--green);">本质差异：</strong><br>
+              - Upbit/Bithumb 是<strong style="color: var(--white);">现货交易平台</strong>——你自己买卖<br>
+              - Nivex 提供<strong style="color: var(--white);">AI量化交易服务</strong>——AI帮你做策略执行<br><br>
+              这不是替代关系，而是互补。你可以在 Upbit 做现货，同时用 Nivex 的AI做量化——就像你有银行存款，也有基金投资一样。<br><br>
+              Nivex 给你的是韩国本地交易所没有的：<strong style="color: var(--green);">AI驱动的智能交易策略</strong>。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Dinh vi khac biet: AI luong hoa vs giao dich truyen thong:</strong><br><br>
+              Upbit/Bithumb la san giao dich giao ngay — ban tu mua ban. Nivex cung cap dich vu AI luong hoa — AI thuc hien chien luoc cho ban. Day la quan he bo sung, khong phai thay the.
+            </div>
+          </div>
+        </div>
+
+        <!-- K4 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-badge badge-kr">K4</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">"수익률 데이터를 볼 수 있나요?" / 能看收益数据吗？</span>
+                <span class="vn-only">"Co the xem du lieu loi nhuan khong?"</span>
+              </h3>
+              <div style="color: var(--gray); font-size: 0.9rem;">
+                <span class="cn-only">韩国客户重数据、重实证</span>
+                <span class="vn-only">Khach Han Quoc coi trong du lieu va chung cu thuc te</span>
+              </div>
+            </div>
+          </div>
+          <div class="real-concern">
+            <div class="label"><span class="cn-only">🎯 客户真正担心的</span><span class="vn-only">🎯 Khach thuc su lo</span></div>
+            <div class="cn-only">韩国客户有很强的数据分析习惯，不会只听故事，要看真实的历史数据和回测结果。</div>
+            <div class="vn-only">Khach Han Quoc co thoi quen phan tich du lieu manh, khong chi nghe chuyen ke, muon xem du lieu lich su va ket qua backtest that.</div>
+          </div>
+          <div class="response-box">
+            <div class="label"><span class="cn-only">✅ 回应策略</span><span class="vn-only">✅ Chien luoc phan hoi</span></div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">
+              <strong style="color: var(--white);">透明数据展示 + 历史回测：</strong><br><br>
+              "물론이죠, 데이터를 보여드리겠습니다 (当然可以，让我展示数据)：<br><br>
+              <strong style="color: var(--green);">我们可以提供：</strong><br>
+              - 历史回测数据报告<br>
+              - 不同市场周期的策略表现<br>
+              - 最大回撤数据<br>
+              - 风险调整后收益率<br><br>
+              <strong style="color: var(--green);">更直接的方式：</strong><br>
+              您可以开一个小资金测试账户，实时观察AI策略的运行表现。所有交易记录完全透明，每笔订单都可查。<br><br>
+              我们不需要您相信PPT上的数字——让您自己的账户数据说话。"
+            </div>
+            <div class="vn-only" style="line-height: 1.8;">
+              <strong style="color: var(--white);">Hien thi du lieu minh bach + backtest lich su:</strong><br><br>
+              Co the cung cap bao cao backtest lich su, hieu suat chien luoc qua cac chu ky thi truong khac nhau, du lieu drawdown toi da. Ban co the mo tai khoan thu nghiem von nho de tu xac minh.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- SECTION 4: UNIVERSAL PRINCIPLES              -->
+      <!-- ============================================ -->
+      <section style="margin-top: 70px;">
+        <h2 class="animate-in" style="text-align: center; margin-bottom: 40px; font-size: 1.5rem;">
+          <span class="cn-only">跨市场通用回应原则</span>
+          <span class="vn-only">Nguyen tac phan hoi chung cho moi thi truong</span>
+        </h2>
+
+        <div class="grid-4 animate-in delay-1">
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">&#x1F442;</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">先听后说</span>
+              <span class="vn-only">Nghe truoc noi sau</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">理解真正顾虑，不要急于反驳</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Hieu lo ngai that su, dung voi phan bac</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">&#x1F4CA;</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">事实说话</span>
+              <span class="vn-only">Noi bang su that</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">不辩解，用数据和证据</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Khong bien ho, dung du lieu va bang chung</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">&#x1F30D;</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">本地化证据</span>
+              <span class="vn-only">Bang chung ban dia</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">用当地市场的素材和案例</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Dung tai lieu va vi du cua thi truong dia phuong</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">&#x1F52C;</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">让客户验证</span>
+              <span class="vn-only">De khach xac minh</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">小资金试跑，数据说话</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Thu von nho, de du lieu len tieng</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Links -->
+      <section style="margin-top: 60px;">
+        <h3 class="animate-in delay-2" style="margin-bottom: 25px; text-align: center;">
+          <span class="cn-only">相关工具</span>
+          <span class="vn-only">Cong cu lien quan</span>
+        </h3>
+        <div class="quick-link-row animate-in delay-3">
+          <a href="objection-handling.html" class="quick-link-card">
+            <span class="ql-icon">&#x1F4AC;</span>
+            <div>
+              <div class="ql-text"><span class="cn-only">通用异议处理</span><span class="vn-only">Xu ly phan doi chung</span></div>
+              <div style="font-size: 0.8rem; color: var(--gray); margin-top: 4px;"><span class="cn-only">基础异议回应话术</span><span class="vn-only">Kich ban phan hoi co ban</span></div>
+            </div>
+          </a>
+          <a href="objection-collection.html" class="quick-link-card">
+            <span class="ql-icon">&#x1F4CB;</span>
+            <div>
+              <div class="ql-text"><span class="cn-only">异议收集机制</span><span class="vn-only">Co che thu thap phan doi</span></div>
+              <div style="font-size: 0.8rem; color: var(--gray); margin-top: 4px;"><span class="cn-only">持续迭代异议库</span><span class="vn-only">Cap nhat thu vien lien tuc</span></div>
+            </div>
+          </a>
+          <a href="faq.html" class="quick-link-card">
+            <span class="ql-icon">&#x2753;</span>
+            <div>
+              <div class="ql-text"><span class="cn-only">常见FAQ</span><span class="vn-only">FAQ thuong gap</span></div>
+              <div style="font-size: 0.8rem; color: var(--gray); margin-top: 4px;"><span class="cn-only">32个高频问题解答</span><span class="vn-only">32 cau tra loi thuong gap</span></div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Final Key Point -->
+      <div class="key-point animate-in delay-4" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="cn-only" style="font-size: 1.1rem; text-align: center;">了解市场差异，才能精准命中客户的真实顾虑。<br><strong style="color: var(--green);">同一个问题，不同市场需要不同的答案。</strong></div>
+        <div class="vn-only" style="font-size: 1.05rem; text-align: center;">Hieu su khac biet thi truong moi co the danh trung lo ngai that su cua khach hang.<br><strong style="color: var(--green);">Cung mot cau hoi, thi truong khac can cau tra loi khac.</strong></div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开户操作指南 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 步骤卡片 */
+    .step-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 20px;
+      position: relative;
+      border: 1px solid transparent;
+      transition: all var(--transition-normal);
+    }
+
+    .step-card:hover {
+      border-color: rgba(127, 255, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-circle);
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-weight: 900;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-title h3 {
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .step-title .subtitle {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .step-body {
+      padding-left: 76px;
+    }
+
+    .step-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .step-body ul li {
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .step-body ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .step-note {
+      background: rgba(127, 255, 0, 0.08);
+      border-left: 3px solid var(--green);
+      padding: 12px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 15px;
+      margin-left: 76px;
+    }
+
+    .step-note .note-label {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    .step-note .note-text {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 步骤连接线 */
+    .step-connector {
+      display: flex;
+      justify-content: center;
+      padding: 5px 0;
+    }
+
+    .step-connector .line {
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+    }
+
+    /* FAQ 折叠 */
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: all var(--transition-normal);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(127, 255, 0, 0.3);
+    }
+
+    .faq-question {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .faq-question h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 0;
+    }
+
+    .faq-question .toggle {
+      color: var(--green);
+      font-size: 1.5rem;
+      transition: transform var(--transition-normal);
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 25px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 18px;
+      color: var(--gray-light);
+      line-height: 1.8;
+    }
+
+    /* 准备卡片图标 */
+    .prep-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .prep-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .prep-desc {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 话术编号 */
+    .speech-number {
+      display: inline-block;
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
+    }
+
+    /* 相关链接 */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .link-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+    }
+
+    .link-card .link-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .link-card .link-title {
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .link-card .link-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* 页脚 */
+    .site-footer {
+      margin-top: 80px;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    .site-footer .footer-brand {
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    /* 章节标题 */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      margin-top: 50px;
+    }
+
+    .section-heading .icon {
+      font-size: 1.8rem;
+    }
+
+    .section-heading h2 {
+      color: var(--green);
+      font-size: 1.5rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 992px) {
+      .step-body {
+        padding-left: 0;
+      }
+
+      .step-note {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step-header {
+        gap: 15px;
+      }
+
+      .step-number {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">NIVEX 开户操作指南</span>
+          <span class="vn-only">Hướng dẫn Mở tài khoản NIVEX</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">手把手教你完成开户，5 分钟搞定</span>
+          <span class="vn-only">Hướng dẫn từng bước hoàn thành mở tài khoản, xong trong 5 phút</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：开户前准备 -->
+      <div class="section-heading animate-in delay-1">
+        <span class="icon">📋</span>
+        <h2>
+          <span class="cn-only">开户前准备</span>
+          <span class="vn-only">Chuẩn bị trước khi mở tài khoản</span>
+        </h2>
+      </div>
+
+      <div class="grid-3 animate-in delay-2">
+        <div class="card card-highlight">
+          <span class="prep-icon">📱</span>
+          <div class="prep-title">
+            <span class="cn-only">手机 / 电脑</span>
+            <span class="vn-only">Điện thoại / Máy tính</span>
+          </div>
+          <div class="prep-desc">
+            <span class="cn-only">确保有稳定的网络连接</span>
+            <span class="vn-only">Đảm bảo có kết nối mạng ổn định</span>
+          </div>
+        </div>
+
+        <div class="card card-highlight">
+          <span class="prep-icon">🪪</span>
+          <div class="prep-title">
+            <span class="cn-only">身份证件</span>
+            <span class="vn-only">Giấy tờ tùy thân</span>
+          </div>
+          <div class="prep-desc">
+            <span class="cn-only">护照或身份证（中文名 + 英文名）</span>
+            <span class="vn-only">Hộ chiếu hoặc CMND/CCCD (tên tiếng Trung + tiếng Anh)</span>
+          </div>
+        </div>
+
+        <div class="card card-highlight">
+          <span class="prep-icon">📧</span>
+          <div class="prep-title">
+            <span class="cn-only">邮箱账号</span>
+            <span class="vn-only">Tài khoản email</span>
+          </div>
+          <div class="prep-desc">
+            <span class="cn-only">有效的电子邮箱，用于接收验证码</span>
+            <span class="vn-only">Email hợp lệ để nhận mã xác minh</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二部分：开户步骤 -->
+      <div class="section-heading animate-in delay-3">
+        <span class="icon">🚀</span>
+        <h2>
+          <span class="cn-only">开户步骤（6 步完成）</span>
+          <span class="vn-only">Các bước mở tài khoản (6 bước hoàn thành)</span>
+        </h2>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">访问注册页面</span>
+              <span class="vn-only">Truy cập trang đăng ký</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Visit Registration Page</span>
+              <span class="vn-only">Visit Registration Page</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">打开 NIVEX 官网</span>
+              <span class="vn-only">Mở trang web NIVEX</span>
+            </li>
+            <li>
+              <span class="cn-only">点击右上角「注册」按钮</span>
+              <span class="vn-only">Nhấn nút "Đăng ký" góc trên bên phải</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">💡 注意</span>
+            <span class="vn-only">💡 Lưu ý</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">建议使用 Chrome 浏览器，兼容性最佳</span>
+            <span class="vn-only">Khuyến nghị dùng trình duyệt Chrome để có trải nghiệm tốt nhất</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-connector"><div class="line"></div></div>
+
+      <!-- Step 2 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">填写基本信息</span>
+              <span class="vn-only">Điền thông tin cơ bản</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Fill in Basic Information</span>
+              <span class="vn-only">Fill in Basic Information</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">输入邮箱地址</span>
+              <span class="vn-only">Nhập địa chỉ email</span>
+            </li>
+            <li>
+              <span class="cn-only">设置登录密码（8 位以上，含大小写 + 数字）</span>
+              <span class="vn-only">Đặt mật khẩu đăng nhập (trên 8 ký tự, gồm chữ hoa, chữ thường + số)</span>
+            </li>
+            <li>
+              <span class="cn-only">填写邀请码（BD 专属邀请码）</span>
+              <span class="vn-only">Nhập mã mời (mã mời riêng của BD)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">⚠️ 重要</span>
+            <span class="vn-only">⚠️ Quan trọng</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">邀请码必须填写正确，关系到业绩归属</span>
+            <span class="vn-only">Mã mời phải điền chính xác, liên quan đến quy thuộc hiệu suất</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-connector"><div class="line"></div></div>
+
+      <!-- Step 3 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">邮箱验证</span>
+              <span class="vn-only">Xác minh email</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Email Verification</span>
+              <span class="vn-only">Email Verification</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">检查邮箱收件箱（包括垃圾邮件）</span>
+              <span class="vn-only">Kiểm tra hộp thư (bao gồm thư rác)</span>
+            </li>
+            <li>
+              <span class="cn-only">点击验证链接</span>
+              <span class="vn-only">Nhấn liên kết xác minh</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">💡 注意</span>
+            <span class="vn-only">💡 Lưu ý</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">验证码有效期 10 分钟，请及时查收</span>
+            <span class="vn-only">Mã xác minh có hiệu lực 10 phút, vui lòng kiểm tra kịp thời</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-connector"><div class="line"></div></div>
+
+      <!-- Step 4 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">4</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">实名认证（KYC）</span>
+              <span class="vn-only">Xác minh danh tính (KYC)</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Know Your Customer</span>
+              <span class="vn-only">Know Your Customer</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">上传身份证件照片（正反面）</span>
+              <span class="vn-only">Tải lên ảnh giấy tờ tùy thân (mặt trước và sau)</span>
+            </li>
+            <li>
+              <span class="cn-only">拍摄手持证件自拍照</span>
+              <span class="vn-only">Chụp ảnh selfie cầm giấy tờ</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">💡 注意</span>
+            <span class="vn-only">💡 Lưu ý</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">照片要清晰，四角完整可见，不要有遮挡</span>
+            <span class="vn-only">Ảnh phải rõ ràng, bốn góc hiển thị đầy đủ, không bị che khuất</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-connector"><div class="line"></div></div>
+
+      <!-- Step 5 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">5</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">设置交易账户</span>
+              <span class="vn-only">Thiết lập tài khoản giao dịch</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Set Up Trading Account</span>
+              <span class="vn-only">Set Up Trading Account</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">选择账户类型</span>
+              <span class="vn-only">Chọn loại tài khoản</span>
+            </li>
+            <li>
+              <span class="cn-only">设置交易密码（与登录密码不同）</span>
+              <span class="vn-only">Đặt mật khẩu giao dịch (khác với mật khẩu đăng nhập)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">⚠️ 重要</span>
+            <span class="vn-only">⚠️ Quan trọng</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">交易密码请妥善保管，不要与登录密码相同</span>
+            <span class="vn-only">Mật khẩu giao dịch hãy bảo quản cẩn thận, không được giống mật khẩu đăng nhập</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-connector"><div class="line"></div></div>
+
+      <!-- Step 6 -->
+      <div class="step-card animate-in">
+        <div class="step-header">
+          <div class="step-number">6</div>
+          <div class="step-title">
+            <h3>
+              <span class="cn-only">入金操作</span>
+              <span class="vn-only">Nạp tiền</span>
+            </h3>
+            <div class="subtitle">
+              <span class="cn-only">Deposit Funds</span>
+              <span class="vn-only">Deposit Funds</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>
+              <span class="cn-only">选择入金方式（USDT 推荐）</span>
+              <span class="vn-only">Chọn phương thức nạp tiền (khuyến nghị USDT)</span>
+            </li>
+            <li>
+              <span class="cn-only">复制钱包地址转账</span>
+              <span class="vn-only">Sao chép địa chỉ ví và chuyển tiền</span>
+            </li>
+            <li>
+              <span class="cn-only">等待到账确认</span>
+              <span class="vn-only">Đợi xác nhận nhận tiền</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-note">
+          <div class="note-label">
+            <span class="cn-only">⚠️ 重要</span>
+            <span class="vn-only">⚠️ Quan trọng</span>
+          </div>
+          <div class="note-text">
+            <span class="cn-only">首次入金建议小额测试；确认网络选择正确（TRC-20 推荐）</span>
+            <span class="vn-only">Lần nạp đầu tiên nên thử với số tiền nhỏ; xác nhận chọn đúng mạng lưới (khuyến nghị TRC-20)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三部分：常见问题 -->
+      <div class="section-heading animate-in">
+        <span class="icon">❓</span>
+        <h2>
+          <span class="cn-only">常见问题</span>
+          <span class="vn-only">Câu hỏi thường gặp</span>
+        </h2>
+      </div>
+
+      <div class="animate-in">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <h4>
+              <span class="cn-only">注册收不到验证码怎么办？</span>
+              <span class="vn-only">Đăng ký nhưng không nhận được mã xác minh thì làm sao?</span>
+            </h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <span class="cn-only">1. 检查垃圾邮件文件夹<br>2. 尝试更换另一个邮箱注册<br>3. 联系您的 BD 协助处理</span>
+              <span class="vn-only">1. Kiểm tra thư mục thư rác<br>2. Thử đổi sang email khác để đăng ký<br>3. Liên hệ BD của bạn để được hỗ trợ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <h4>
+              <span class="cn-only">KYC 审核要多久？</span>
+              <span class="vn-only">KYC xét duyệt mất bao lâu?</span>
+            </h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <span class="cn-only">通常 1-24 小时内完成审核。如果超过 24 小时，请联系客服或 BD 协助跟进。</span>
+              <span class="vn-only">Thông thường xét duyệt hoàn tất trong 1-24 giờ. Nếu quá 24 giờ, vui lòng liên hệ bộ phận hỗ trợ hoặc BD để theo dõi.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <h4>
+              <span class="cn-only">入金最低金额是多少？</span>
+              <span class="vn-only">Số tiền nạp tối thiểu là bao nhiêu?</span>
+            </h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <span class="cn-only">最低入金金额为 100 USDT。建议首次入金先小额测试，确认流程无误后再增加金额。</span>
+              <span class="vn-only">Số tiền nạp tối thiểu là 100 USDT. Khuyến nghị lần nạp đầu tiên nên thử với số tiền nhỏ, sau khi xác nhận quy trình hoạt động tốt thì tăng số tiền.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <h4>
+              <span class="cn-only">可以用银行卡入金吗？</span>
+              <span class="vn-only">Có thể nạp tiền bằng thẻ ngân hàng không?</span>
+            </h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <span class="cn-only">目前推荐使用 USDT 入金，手续费最低、到账最快。部分地区支持银行卡入金，具体请咨询您的 BD。</span>
+              <span class="vn-only">Hiện tại khuyến nghị nạp tiền bằng USDT, phí thấp nhất và nhận tiền nhanh nhất. Một số khu vực hỗ trợ nạp bằng thẻ ngân hàng, chi tiết vui lòng hỏi BD của bạn.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <h4>
+              <span class="cn-only">邀请码填错了怎么办？</span>
+              <span class="vn-only">Nhập sai mã mời thì phải làm sao?</span>
+            </h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <span class="cn-only">请及时联系客服修改邀请码。邀请码关系到后续服务归属和业绩统计，务必确认正确。</span>
+              <span class="vn-only">Vui lòng liên hệ bộ phận hỗ trợ ngay để sửa mã mời. Mã mời liên quan đến quy thuộc dịch vụ và thống kê hiệu suất, cần phải xác nhận chính xác.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第四部分：BD 协助开户话术 -->
+      <div class="section-heading animate-in">
+        <span class="icon">💬</span>
+        <h2>
+          <span class="cn-only">BD 协助开户话术</span>
+          <span class="vn-only">Kịch bản BD hỗ trợ mở tài khoản</span>
+        </h2>
+      </div>
+
+      <div class="animate-in">
+        <!-- 话术 1 -->
+        <div class="speech-box" style="margin-bottom: 15px;">
+          <div class="speech-number">
+            <span class="cn-only">话术 1</span>
+            <span class="vn-only">Kịch bản 1</span>
+          </div>
+          <div class="label">
+            <span class="cn-only">🎯 引导开户</span>
+            <span class="vn-only">🎯 Hướng dẫn mở tài khoản</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「开户很简单，我一步一步教你。先用手机打开注册页面，我发你链接。」</span>
+            <span class="vn-only">「Mở tài khoản rất đơn giản, tôi sẽ hướng dẫn bạn từng bước. Trước tiên dùng điện thoại mở trang đăng ký, tôi gửi link cho bạn.」</span>
+          </div>
+        </div>
+
+        <!-- 话术 2 -->
+        <div class="speech-box" style="margin-bottom: 15px;">
+          <div class="speech-number">
+            <span class="cn-only">话术 2</span>
+            <span class="vn-only">Kịch bản 2</span>
+          </div>
+          <div class="label">
+            <span class="cn-only">🔗 邀请码引导</span>
+            <span class="vn-only">🔗 Hướng dẫn mã mời</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「注册的时候记得填上我的邀请码 [XXX]，这样后续服务由我来跟进，有什么问题可以随时找我。」</span>
+            <span class="vn-only">「Khi đăng ký nhớ điền mã mời của tôi [XXX], như vậy dịch vụ sau này do tôi theo dõi, có vấn đề gì bạn có thể liên hệ tôi bất cứ lúc nào.」</span>
+          </div>
+        </div>
+
+        <!-- 话术 3 -->
+        <div class="speech-box" style="margin-bottom: 15px;">
+          <div class="speech-number">
+            <span class="cn-only">话术 3</span>
+            <span class="vn-only">Kịch bản 3</span>
+          </div>
+          <div class="label">
+            <span class="cn-only">💰 入金引导</span>
+            <span class="vn-only">💰 Hướng dẫn nạp tiền</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「入金的话推荐用 USDT-TRC20，手续费最低，到账也快。第一次入金先小额测试一下，流程跑通了再加大金额。」</span>
+            <span class="vn-only">「Nạp tiền thì khuyến nghị dùng USDT-TRC20, phí thấp nhất, nhận tiền cũng nhanh. Lần đầu nạp thì thử với số tiền nhỏ trước, sau khi quy trình hoạt động tốt rồi thì tăng số tiền lên.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn" style="font-size: 1.15rem; font-weight: 700;">
+          <span class="cn-only">「开户只是第一步，后续的服务才是留住客户的关键」</span>
+          <span class="vn-only">「Mở tài khoản chỉ là bước đầu tiên, dịch vụ sau đó mới là chìa khóa giữ chân khách hàng」</span>
+        </div>
+        <div class="vn" style="margin-top: 8px;">
+          <span class="cn-only">Mở tài khoản chỉ là bước đầu tiên, dịch vụ sau đó mới là chìa khóa giữ chân khách hàng</span>
+          <span class="vn-only">开户只是第一步，后续的服务才是留住客户的关键</span>
+        </div>
+      </div>
+
+      <!-- 相关链接 -->
+      <div class="section-heading animate-in">
+        <span class="icon">🔗</span>
+        <h2>
+          <span class="cn-only">相关链接</span>
+          <span class="vn-only">Liên kết liên quan</span>
+        </h2>
+      </div>
+
+      <div class="link-grid animate-in">
+        <a href="../scripts/faq.html" class="link-card">
+          <span class="link-icon">❓</span>
+          <div>
+            <div class="link-title">
+              <span class="cn-only">客户常见问题 FAQ</span>
+              <span class="vn-only">Câu hỏi thường gặp</span>
+            </div>
+            <div class="link-desc">
+              <span class="cn-only">15 个高频问题及专业回答</span>
+              <span class="vn-only">15 câu hỏi thường gặp và câu trả lời chuyên nghiệp</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="glossary.html" class="link-card">
+          <span class="link-icon">📖</span>
+          <div>
+            <div class="link-title">
+              <span class="cn-only">专业术语表</span>
+              <span class="vn-only">Bảng thuật ngữ chuyên môn</span>
+            </div>
+            <div class="link-desc">
+              <span class="cn-only">加密货币、AI 量化常用术语中越双语对照</span>
+              <span class="vn-only">Thuật ngữ Crypto & AI thường dùng song ngữ</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 返回按钮 -->
+      <div style="margin-top: 50px; margin-bottom: 30px; text-align: center;">
+        <a href="index.html" style="color: var(--gray); text-decoration: none;">
+          <span class="cn-only">← 返回资源支持</span>
+          <span class="vn-only">← Quay lại Tài nguyên</span>
+        </a>
+      </div>
+
+      <!-- 页脚 -->
+      <footer class="site-footer">
+        <div class="footer-brand">NIVEX</div>
+        <p>
+          <span class="cn-only">BD 内部培训平台 · 仅限内部使用</span>
+          <span class="vn-only">Nền tảng đào tạo nội bộ BD · Chỉ dành cho nội bộ</span>
+        </p>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>异议收集与迭代机制 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 提交模板卡片 */
+    .template-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px 35px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .template-card .template-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .template-card .template-header h4 {
+      color: var(--white);
+      font-size: 1rem;
+    }
+    .template-field {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .template-field:last-child {
+      border-bottom: none;
+    }
+    .template-field .field-label {
+      flex: 0 0 120px;
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 600;
+    }
+    .template-field .field-value {
+      flex: 1;
+      font-size: 0.85rem;
+      color: var(--gray);
+      background: rgba(255,255,255,0.03);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed rgba(255,255,255,0.1);
+    }
+    .template-divider {
+      margin: 20px 0;
+      padding: 12px 0;
+      border-top: 2px solid rgba(127,255,0,0.15);
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* AI Prompt 模板框 */
+    .ai-prompt-box {
+      background: #0d1117;
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 30px 35px;
+      font-family: 'Courier New', 'SF Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      line-height: 1.9;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ai-prompt-box .prompt-label {
+      display: inline-block;
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-family: 'Noto Sans SC', 'Noto Sans', sans-serif;
+      letter-spacing: 1px;
+    }
+    .ai-prompt-box .placeholder {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* 评分卡片 */
+    .rating-display {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-align: center;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      border: 1px solid transparent;
+    }
+    .rating-display:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .rating-display.rate-5 { border-color: rgba(127,255,0,0.3); }
+    .rating-display.rate-4 { border-color: rgba(127,255,0,0.2); }
+    .rating-display.rate-3 { border-color: rgba(240,173,78,0.3); }
+    .rating-display.rate-2 { border-color: rgba(255,107,107,0.3); }
+    .rating-display.rate-1 { border-color: rgba(255,70,70,0.4); }
+    .rating-display .stars {
+      font-size: 1.3rem;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    .rating-display h4 {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .rating-display p {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .rating-display .rating-tag {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+    .rating-tag.tag-green {
+      background: rgba(127,255,0,0.12);
+      color: var(--green);
+    }
+    .rating-tag.tag-yellow {
+      background: rgba(240,173,78,0.12);
+      color: #f0ad4e;
+    }
+    .rating-tag.tag-red {
+      background: rgba(255,107,107,0.12);
+      color: var(--red-soft);
+    }
+
+    /* 审核清单 */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(127,255,0,0.12);
+      border: 1px solid rgba(127,255,0,0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .checklist-text {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+
+    /* 进度条 */
+    .progress-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-pill);
+      height: 14px;
+      width: 100%;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(90deg, var(--green), rgba(127,255,0,0.6));
+      transition: width 1.5s ease;
+    }
+    .milestone-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .milestone-row:last-child {
+      border-bottom: none;
+    }
+    .milestone-label {
+      flex: 0 0 110px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .milestone-label.current { color: var(--green); }
+    .milestone-label.future { color: var(--gray); }
+    .milestone-bar {
+      flex: 1;
+    }
+    .milestone-target {
+      flex: 0 0 180px;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      text-align: right;
+    }
+
+    /* 时间轴流程 */
+    .timeline-flow {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline-flow::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: rgba(127,255,0,0.2);
+    }
+    .timeline-step {
+      position: relative;
+      margin-bottom: 28px;
+      padding-left: 15px;
+    }
+    .timeline-step:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      border-radius: var(--radius-circle);
+      border: 3px solid var(--bg);
+    }
+    .timeline-step .step-time {
+      font-weight: 700;
+      color: var(--green);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .timeline-step .step-desc {
+      font-size: 0.88rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+
+    /* 横向工作流卡片 */
+    .flow-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .flow-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .flow-card .flow-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+    .flow-card h4 {
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .flow-card p {
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+    .flow-card .step-num {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 30px;
+      height: 30px;
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 900;
+      font-size: 0.85rem;
+      border-radius: var(--radius-circle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 周会卡片 */
+    .meeting-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .meeting-item:last-child {
+      border-bottom: none;
+    }
+    .meeting-time {
+      flex: 0 0 80px;
+      background: rgba(127,255,0,0.1);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .meeting-content {
+      flex: 1;
+    }
+    .meeting-content h4 {
+      color: var(--white);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .meeting-content p {
+      font-size: 0.82rem;
+      color: var(--gray);
+    }
+
+    @media (max-width: 768px) {
+      .template-field {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .template-field .field-label {
+        flex: none;
+      }
+      .milestone-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .milestone-target {
+        text-align: left;
+      }
+      .flow-card .step-num {
+        top: -8px;
+        left: -8px;
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">异议收集与迭代机制</span>
+          <span class="vn-only">Cơ chế Thu thập & Cải tiến Phản đối</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">从实战中来，到实战中去 · 让异议库越用越强</span>
+          <span class="vn-only">Từ thực chiến đến thực chiến · Thư viện phản đối ngày càng mạnh</span>
+        </p>
+      </div>
+
+      <!-- 顶部高亮卡 -->
+      <div class="card card-highlight animate-in" style="margin-top: 40px; padding: 35px 40px; background: linear-gradient(135deg, rgba(127,255,0,0.12), rgba(127,255,0,0.03)); border: 2px solid rgba(127,255,0,0.25);">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🔄</div>
+          <p style="font-size: 1.15rem; font-weight: 700; color: var(--white); line-height: 1.8;">
+            <span class="cn-only">每周收集 → AI 汇总 → AK 审核 → 全员更新 · 4步闭环</span>
+            <span class="vn-only">Thu thập hàng tuần → AI tổng hợp → AK duyệt → Cập nhật toàn đội · 4 bước khép kín</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 1: 异议收集工作流总览 -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">📋 异议收集工作流总览</span>
+          <span class="vn-only">📋 Tổng quan quy trình thu thập phản đối</span>
+        </h2>
+      </div>
+
+      <div class="grid-4 animate-in" style="margin-top: 25px;">
+        <div class="flow-card delay-1">
+          <div class="step-num">1</div>
+          <div class="flow-icon">📥</div>
+          <h4><span class="cn-only">BD 提交</span><span class="vn-only">BD gửi</span></h4>
+          <p><span class="cn-only">每个BD提交本周3个最难回答的客户问题</span><span class="vn-only">Mỗi BD gửi 3 câu hỏi khó nhất từ KH trong tuần</span></p>
+        </div>
+        <div class="flow-card delay-2">
+          <div class="step-num">2</div>
+          <div class="flow-icon">🤖</div>
+          <h4><span class="cn-only">AI 汇总</span><span class="vn-only">AI tổng hợp</span></h4>
+          <p><span class="cn-only">AI自动去重分类，生成新问题清单</span><span class="vn-only">AI tự động loại trùng, phân loại, tạo danh sách mới</span></p>
+        </div>
+        <div class="flow-card delay-3">
+          <div class="step-num">3</div>
+          <div class="flow-icon">✅</div>
+          <h4><span class="cn-only">AK 审核</span><span class="vn-only">AK duyệt</span></h4>
+          <p><span class="cn-only">AK审核后输出标准回复模板</span><span class="vn-only">AK duyệt và xuất mẫu trả lời chuẩn</span></p>
+        </div>
+        <div class="flow-card delay-4">
+          <div class="step-num">4</div>
+          <div class="flow-icon">📢</div>
+          <h4><span class="cn-only">全员更新</span><span class="vn-only">Cập nhật toàn đội</span></h4>
+          <p><span class="cn-only">更新到FAQ页面和话术库，周会通报</span><span class="vn-only">Cập nhật FAQ và thư viện kịch bản, thông báo họp tuần</span></p>
+        </div>
+      </div>
+
+      <!-- Section 2: BD 周异议提交模板 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">📝 BD 周异议提交模板</span>
+          <span class="vn-only">📝 Mẫu BD gửi phản đối tuần</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">每周五下班前提交，每人至少3个异议</span>
+        <span class="vn-only">Gửi trước khi tan làm thứ Sáu, mỗi người ít nhất 3 phản đối</span>
+      </p>
+
+      <div class="template-card animate-in" style="margin-top: 20px;">
+        <div class="template-header">
+          <span style="font-size: 1.3rem;">📋</span>
+          <h4><span class="cn-only">周异议提交表</span><span class="vn-only">Bảng gửi phản đối tuần</span></h4>
+        </div>
+
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">BD 姓名</span><span class="vn-only">Tên BD</span></div>
+          <div class="field-value">___</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">提交日期</span><span class="vn-only">Ngày gửi</span></div>
+          <div class="field-value"><span class="cn-only">第___周</span><span class="vn-only">Tuần ___</span></div>
+        </div>
+
+        <!-- 异议 1 -->
+        <div class="template-divider"><span class="cn-only">【异议 1】</span><span class="vn-only">【Phản đối 1】</span></div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户原话</span><span class="vn-only">Lời KH</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户背景</span><span class="vn-only">Bối cảnh KH</span></div>
+          <div class="field-value"><span class="cn-only">A/B/C 级，投资 $___</span><span class="vn-only">Hạng A/B/C, đầu tư $___</span></div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">你的回应</span><span class="vn-only">Câu trả lời</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">回应效果</span><span class="vn-only">Hiệu quả</span></div>
+          <div class="field-value">⭐ 1-5</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">改进建议</span><span class="vn-only">Đề xuất cải tiến</span></div>
+          <div class="field-value">___</div>
+        </div>
+
+        <!-- 异议 2 -->
+        <div class="template-divider"><span class="cn-only">【异议 2】</span><span class="vn-only">【Phản đối 2】</span></div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户原话</span><span class="vn-only">Lời KH</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户背景</span><span class="vn-only">Bối cảnh KH</span></div>
+          <div class="field-value"><span class="cn-only">A/B/C 级，投资 $___</span><span class="vn-only">Hạng A/B/C, đầu tư $___</span></div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">你的回应</span><span class="vn-only">Câu trả lời</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">回应效果</span><span class="vn-only">Hiệu quả</span></div>
+          <div class="field-value">⭐ 1-5</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">改进建议</span><span class="vn-only">Đề xuất cải tiến</span></div>
+          <div class="field-value">___</div>
+        </div>
+
+        <!-- 异议 3 -->
+        <div class="template-divider"><span class="cn-only">【异议 3】</span><span class="vn-only">【Phản đối 3】</span></div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户原话</span><span class="vn-only">Lời KH</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">客户背景</span><span class="vn-only">Bối cảnh KH</span></div>
+          <div class="field-value"><span class="cn-only">A/B/C 级，投资 $___</span><span class="vn-only">Hạng A/B/C, đầu tư $___</span></div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">你的回应</span><span class="vn-only">Câu trả lời</span></div>
+          <div class="field-value">"___"</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">回应效果</span><span class="vn-only">Hiệu quả</span></div>
+          <div class="field-value">⭐ 1-5</div>
+        </div>
+        <div class="template-field">
+          <div class="field-label"><span class="cn-only">改进建议</span><span class="vn-only">Đề xuất cải tiến</span></div>
+          <div class="field-value">___</div>
+        </div>
+      </div>
+
+      <!-- Section 3: AI 汇总分析模板 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🤖 AI 汇总分析模板</span>
+          <span class="vn-only">🤖 Mẫu tổng hợp phân tích AI</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">收齐所有BD提交后，将以下Prompt发给AI进行汇总分析</span>
+        <span class="vn-only">Sau khi nhận đủ từ BD, gửi Prompt dưới đây cho AI để tổng hợp</span>
+      </p>
+
+      <div class="ai-prompt-box animate-in" style="margin-top: 20px;">
+        <div class="prompt-label">AI PROMPT</div>
+<span class="cn-only">你是 Nivex 交易所的客户异议分析专家。请分析以下本周BD团队收集的客户异议：
+
+<span class="placeholder">[粘贴所有BD提交的异议]</span>
+
+请输出：
+1. 本周新增异议分类统计（按主题分组）
+2. 高频异议 TOP 5（出现次数最多的）
+3. 每个新异议的标准回复模板（中文+越南语）
+4. 现有回复中效果低于3星的优化建议
+5. 异议趋势分析（和上周对比有什么变化）
+6. 建议新增到FAQ的问题（如有）</span><span class="vn-only">Bạn là chuyên gia phân tích phản đối khách hàng của sàn Nivex. Hãy phân tích các phản đối mà đội BD thu thập trong tuần:
+
+<span class="placeholder">[Dán tất cả phản đối BD gửi]</span>
+
+Vui lòng xuất:
+1. Thống kê phân loại phản đối mới trong tuần (nhóm theo chủ đề)
+2. TOP 5 phản đối tần suất cao (xuất hiện nhiều nhất)
+3. Mẫu trả lời chuẩn cho mỗi phản đối mới (Tiếng Trung + Tiếng Việt)
+4. Đề xuất tối ưu cho câu trả lời hiệu quả dưới 3 sao
+5. Phân tích xu hướng phản đối (so với tuần trước có gì thay đổi)
+6. Câu hỏi đề xuất thêm vào FAQ (nếu có)</span></div>
+
+      <!-- Section 4: AK 审核清单 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">✅ AK 审核清单</span>
+          <span class="vn-only">✅ Checklist duyệt của AK</span>
+        </h2>
+      </div>
+
+      <div class="card animate-in" style="margin-top: 20px; padding: 30px 35px;">
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">确认新异议的分类是否准确</span>
+            <span class="vn-only">Xác nhận phân loại phản đối mới có chính xác không</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">检查AI生成的回复模板是否符合公司话术标准</span>
+            <span class="vn-only">Kiểm tra mẫu trả lời AI tạo có phù hợp tiêu chuẩn kịch bản công ty</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">验证回复是否包含：理解顾虑 + 事实回应 + 行动引导</span>
+            <span class="vn-only">Xác minh câu trả lời có bao gồm: Hiểu lo ngại + Trả lời bằng sự thật + Hướng dẫn hành động</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">确认没有过度承诺或不当承诺</span>
+            <span class="vn-only">Xác nhận không có cam kết quá mức hoặc cam kết không phù hợp</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">补充AI遗漏的实战经验和本地化细节</span>
+            <span class="vn-only">Bổ sung kinh nghiệm thực chiến và chi tiết bản địa hóa mà AI bỏ sót</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">标注需要更新到FAQ的内容</span>
+            <span class="vn-only">Đánh dấu nội dung cần cập nhật vào FAQ</span>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon">✅</div>
+          <div class="checklist-text">
+            <span class="cn-only">确定本周需要在周会重点讲解的异议</span>
+            <span class="vn-only">Xác định phản đối cần giảng giải trọng điểm trong họp tuần</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: 异议效果评分标准 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">⭐ 异议效果评分标准</span>
+          <span class="vn-only">⭐ Tiêu chuẩn đánh giá hiệu quả phản đối</span>
+        </h2>
+      </div>
+
+      <div class="grid-3" style="margin-top: 25px; gap: 15px;">
+        <div class="rating-display rate-5 animate-in delay-1">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <h4 style="color: var(--green);"><span class="cn-only">5星 · 完美回应</span><span class="vn-only">5 sao · Hoàn hảo</span></h4>
+          <p><span class="cn-only">客户完全接受，不再追问<br>直接推进到下一步（试投/加仓）</span><span class="vn-only">KH hoàn toàn chấp nhận, không hỏi thêm<br>Chuyển thẳng bước tiếp theo</span></p>
+          <span class="rating-tag tag-green"><span class="cn-only">🟢 标记为"高效话术"</span><span class="vn-only">🟢 Đánh dấu "kịch bản hiệu quả"</span></span>
+        </div>
+        <div class="rating-display rate-4 animate-in delay-2">
+          <div class="stars">⭐⭐⭐⭐</div>
+          <h4 style="color: var(--green);"><span class="cn-only">4星 · 优秀回应</span><span class="vn-only">4 sao · Xuất sắc</span></h4>
+          <p><span class="cn-only">客户基本接受，有小追问<br>追问后能顺利解决</span><span class="vn-only">KH cơ bản chấp nhận, hỏi thêm nhỏ<br>Giải quyết được sau khi hỏi</span></p>
+          <span class="rating-tag tag-green"><span class="cn-only">🟢 暂不优化</span><span class="vn-only">🟢 Chưa cần tối ưu</span></span>
+        </div>
+        <div class="rating-display rate-3 animate-in delay-3">
+          <div class="stars">⭐⭐⭐</div>
+          <h4 style="color: #f0ad4e;"><span class="cn-only">3星 · 及格回应</span><span class="vn-only">3 sao · Đạt</span></h4>
+          <p><span class="cn-only">客户半信半疑<br>需要多次沟通才能推进</span><span class="vn-only">KH nửa tin nửa ngờ<br>Cần nhiều lần giao tiếp mới tiến được</span></p>
+          <span class="rating-tag tag-yellow"><span class="cn-only">🟡 列入观察名单</span><span class="vn-only">🟡 Đưa vào danh sách theo dõi</span></span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 15px; gap: 15px; max-width: 680px; margin-left: auto; margin-right: auto;">
+        <div class="rating-display rate-2 animate-in delay-4">
+          <div class="stars">⭐⭐</div>
+          <h4 style="color: var(--red-soft);"><span class="cn-only">2星 · 不足回应</span><span class="vn-only">2 sao · Chưa đủ</span></h4>
+          <p><span class="cn-only">客户不太买账<br>无法推进到下一步</span><span class="vn-only">KH không mấy tin<br>Không thể tiến bước tiếp</span></p>
+          <span class="rating-tag tag-red"><span class="cn-only">🔴 列入月度优化清单</span><span class="vn-only">🔴 Đưa vào danh sách tối ưu tháng</span></span>
+        </div>
+        <div class="rating-display rate-1 animate-in delay-5">
+          <div class="stars">⭐</div>
+          <h4 style="color: var(--red-soft);"><span class="cn-only">1星 · 失败回应</span><span class="vn-only">1 sao · Thất bại</span></h4>
+          <p><span class="cn-only">客户更不信任了<br>可能导致客户流失</span><span class="vn-only">KH càng không tin<br>Có thể mất khách</span></p>
+          <span class="rating-tag tag-red"><span class="cn-only">🔴 立即优化</span><span class="vn-only">🔴 Tối ưu ngay</span></span>
+        </div>
+      </div>
+
+      <div class="key-point animate-in" style="margin-top: 25px;">
+        <span class="cn-only">低于3星的话术，每月集中优化一次</span>
+        <span class="vn-only">Kịch bản dưới 3 sao, tập trung tối ưu mỗi tháng 1 lần</span>
+      </div>
+
+      <!-- Section 6: 月度优化流程 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">📅 月度优化流程</span>
+          <span class="vn-only">📅 Quy trình tối ưu hàng tháng</span>
+        </h2>
+      </div>
+
+      <div class="card animate-in" style="margin-top: 25px; padding: 35px;">
+        <div class="timeline-flow">
+          <div class="timeline-step">
+            <div class="step-time"><span class="cn-only">月初</span><span class="vn-only">Đầu tháng</span></div>
+            <div class="step-desc"><span class="cn-only">汇总上月所有异议数据和效果评分</span><span class="vn-only">Tổng hợp toàn bộ dữ liệu phản đối và đánh giá hiệu quả tháng trước</span></div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-time"><span class="cn-only">第一周</span><span class="vn-only">Tuần 1</span></div>
+            <div class="step-desc"><span class="cn-only">AI分析低效话术的薄弱点</span><span class="vn-only">AI phân tích điểm yếu của kịch bản kém hiệu quả</span></div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-time"><span class="cn-only">第二周</span><span class="vn-only">Tuần 2</span></div>
+            <div class="step-desc"><span class="cn-only">AK输出优化版回复模板</span><span class="vn-only">AK xuất mẫu trả lời phiên bản tối ưu</span></div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-time"><span class="cn-only">第三周</span><span class="vn-only">Tuần 3</span></div>
+            <div class="step-desc"><span class="cn-only">BD实战测试新版模板</span><span class="vn-only">BD thực chiến thử nghiệm mẫu phiên bản mới</span></div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-time"><span class="cn-only">月末</span><span class="vn-only">Cuối tháng</span></div>
+            <div class="step-desc"><span class="cn-only">对比新旧版本数据，确认升级</span><span class="vn-only">So sánh dữ liệu phiên bản cũ-mới, xác nhận nâng cấp</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 7: 异议库增长目标 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">📈 异议库增长目标</span>
+          <span class="vn-only">📈 Mục tiêu tăng trưởng thư viện phản đối</span>
+        </h2>
+      </div>
+
+      <div class="card animate-in" style="margin-top: 25px; padding: 35px;">
+        <div class="milestone-row">
+          <div class="milestone-label current"><span class="cn-only">当前</span><span class="vn-only">Hiện tại</span></div>
+          <div class="milestone-bar">
+            <div style="font-size: 0.85rem; color: var(--white); margin-bottom: 6px; font-weight: 600;">
+              <span class="cn-only">32 FAQ + 3 核心异议 = 35 个标准回复</span>
+              <span class="vn-only">32 FAQ + 3 phản đối cốt lõi = 35 câu trả lời chuẩn</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 35%;"></div>
+            </div>
+          </div>
+          <div class="milestone-target" style="color: var(--green); font-weight: 700;">35 / 100</div>
+        </div>
+
+        <div class="milestone-row">
+          <div class="milestone-label future"><span class="cn-only">3月目标</span><span class="vn-only">Mục tiêu T3</span></div>
+          <div class="milestone-bar">
+            <div style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 6px;">
+              <span class="cn-only">50+ 个标准回复（覆盖主要场景）</span>
+              <span class="vn-only">50+ câu trả lời chuẩn (bao phủ tình huống chính)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 50%; opacity: 0.5;"></div>
+            </div>
+          </div>
+          <div class="milestone-target">50 / 100</div>
+        </div>
+
+        <div class="milestone-row">
+          <div class="milestone-label future"><span class="cn-only">6月目标</span><span class="vn-only">Mục tiêu T6</span></div>
+          <div class="milestone-bar">
+            <div style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 6px;">
+              <span class="cn-only">80+ 个标准回复（含3大市场差异化）</span>
+              <span class="vn-only">80+ câu trả lời chuẩn (gồm 3 thị trường khác biệt)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 80%; opacity: 0.35;"></div>
+            </div>
+          </div>
+          <div class="milestone-target">80 / 100</div>
+        </div>
+
+        <div class="milestone-row">
+          <div class="milestone-label future"><span class="cn-only">年度目标</span><span class="vn-only">Mục tiêu năm</span></div>
+          <div class="milestone-bar">
+            <div style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 6px;">
+              <span class="cn-only">100+ 个经过数据验证的最优回复方案</span>
+              <span class="vn-only">100+ phương án trả lời tối ưu đã được dữ liệu xác minh</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 100%; opacity: 0.2;"></div>
+            </div>
+          </div>
+          <div class="milestone-target">100 / 100</div>
+        </div>
+      </div>
+
+      <!-- Section 8: 周会异议讲解流程 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🎤 周会异议讲解流程</span>
+          <span class="vn-only">🎤 Quy trình giảng dạy phản đối họp tuần</span>
+        </h2>
+      </div>
+
+      <div class="card animate-in" style="margin-top: 25px; padding: 30px 35px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+          <span style="font-size: 1.2rem;">⏱️</span>
+          <div>
+            <div style="color: var(--white); font-weight: 700; font-size: 0.95rem;">
+              <span class="cn-only">时间：周会第15-25分钟（10分钟专项）</span>
+              <span class="vn-only">Thời gian: Phút 15-25 họp tuần (10 phút chuyên đề)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="meeting-item">
+          <div class="meeting-time">2 min</div>
+          <div class="meeting-content">
+            <h4><span class="cn-only">公布本周收集的新异议</span><span class="vn-only">Công bố phản đối mới thu thập trong tuần</span></h4>
+            <p><span class="cn-only">展示本周新增的异议数量、分类和高频TOP3</span><span class="vn-only">Trình bày số lượng, phân loại và TOP3 tần suất cao trong tuần</span></p>
+          </div>
+        </div>
+        <div class="meeting-item">
+          <div class="meeting-time">3 min</div>
+          <div class="meeting-content">
+            <h4><span class="cn-only">AK示范标准回复</span><span class="vn-only">AK trình bày mẫu trả lời chuẩn</span></h4>
+            <p><span class="cn-only">AK现场演示如何回应本周最难的异议，讲解思路</span><span class="vn-only">AK trực tiếp trình bày cách trả lời phản đối khó nhất, giải thích tư duy</span></p>
+          </div>
+        </div>
+        <div class="meeting-item">
+          <div class="meeting-time">3 min</div>
+          <div class="meeting-content">
+            <h4><span class="cn-only">BD角色扮演练习</span><span class="vn-only">BD luyện tập đóng vai</span></h4>
+            <p><span class="cn-only">抽2组BD现场模拟客户异议场景，实战演练</span><span class="vn-only">Chọn 2 nhóm BD mô phỏng tình huống phản đối KH, luyện tập thực chiến</span></p>
+          </div>
+        </div>
+        <div class="meeting-item">
+          <div class="meeting-time">2 min</div>
+          <div class="meeting-content">
+            <h4><span class="cn-only">答疑 + 布置本周重点练习话术</span><span class="vn-only">Giải đáp + Giao kịch bản trọng điểm luyện trong tuần</span></h4>
+            <p><span class="cn-only">回答BD疑问，明确本周每人必须练熟的1个异议回复</span><span class="vn-only">Trả lời thắc mắc BD, xác định 1 câu trả lời phản đối mỗi người phải luyện thuần trong tuần</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部快速链接 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🔗 相关工具</span>
+          <span class="vn-only">🔗 Công cụ liên quan</span>
+        </h2>
+      </div>
+
+      <div class="grid-3 animate-in" style="margin-top: 20px;">
+        <a href="objection-handling.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">💬</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">通用异议处理</span>
+            <span class="vn-only">Xử lý phản đối chung</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">安全/规模/AI真假</span>
+            <span class="vn-only">An toàn/Quy mô/AI</span>
+          </p>
+        </a>
+        <a href="market-objections.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🌍</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">市场异议库</span>
+            <span class="vn-only">Thư viện phản đối thị trường</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">按市场分类的异议</span>
+            <span class="vn-only">Phản đối theo thị trường</span>
+          </p>
+        </a>
+        <a href="script-tracking.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">📈</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">话术效果追踪</span>
+            <span class="vn-only">Theo dõi hiệu quả kịch bản</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">数据驱动优化</span>
+            <span class="vn-only">Tối ưu dựa trên dữ liệu</span>
+          </p>
+        </a>
+      </div>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 50px;">
+        <span class="cn-only">异议不是敌人，是成交前的最后一道门 · 推开它，订单就在门后</span>
+        <span class="vn-only">Phản đối không phải kẻ thù, mà là cánh cửa cuối trước khi chốt đơn · Đẩy cửa ra, đơn hàng ở ngay sau</span>
+      </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

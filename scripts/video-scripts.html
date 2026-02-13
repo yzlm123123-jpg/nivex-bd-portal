@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>视频/语音话术脚本 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    .scenario-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    .scenario-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .scenario-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .scenario-title {
+      flex: 1;
+    }
+    .scenario-title h3 {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .scenario-tag {
+      display: inline-block;
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .script-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 20px 25px;
+      margin-bottom: 15px;
+    }
+    .script-box .label {
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .script-box .script-text {
+      line-height: 1.8;
+      color: var(--gray-light);
+      font-size: 0.95rem;
+    }
+    .tips-box {
+      background: var(--red-bg);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 15px 20px;
+    }
+    .tips-box .label {
+      color: var(--red-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .tips-box ul {
+      padding-left: 18px;
+      line-height: 1.8;
+      color: var(--gray-light);
+    }
+    .video-template-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .video-template-card:hover {
+      border-color: rgba(127,255,0,0.3);
+    }
+    .template-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      color: #000;
+      font-weight: 900;
+      font-size: 1rem;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .template-meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .meta-tag {
+      padding: 4px 12px;
+      background: rgba(127,255,0,0.15);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: var(--green);
+      font-weight: 600;
+    }
+    .meta-tag.duration {
+      background: rgba(255,255,255,0.1);
+      color: var(--gray-light);
+    }
+    .notice-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .notice-card:hover {
+      border-color: rgba(127,255,0,0.2);
+    }
+    .notice-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .notice-card h4 {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .notice-card p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">视频/语音话术脚本库</span>
+          <span class="vn-only">Thư viện kịch bản Video/Voice</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">标准化话术脚本，让每个 BD 都能专业表达</span>
+          <span class="vn-only">Chuẩn hóa kịch bản, giúp mỗi BD thể hiện chuyên nghiệp</span>
+        </p>
+      </div>
+
+      <!-- ==================== 第一部分：Zalo 语音通话脚本 ==================== -->
+      <section class="content-section" style="margin-top: 50px;">
+        <h2 class="animate-in delay-1" style="margin-bottom: 30px;">
+          <span class="cn-only">Zalo 语音通话脚本</span>
+          <span class="vn-only">Kịch bản gọi thoại Zalo</span>
+        </h2>
+
+        <!-- 场景1：首次电话破冰 -->
+        <div class="scenario-card animate-in delay-2">
+          <div class="scenario-header">
+            <span class="scenario-icon">📞</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 1：首次电话破冰</span>
+                <span class="vn-only">Tình huống 1: Gọi điện lần đầu</span>
+              </h3>
+              <span class="scenario-tag">
+                <span class="cn-only">适用：线索初次联系</span>
+                <span class="vn-only">Áp dụng: Liên hệ lần đầu</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文脚本</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"你好，我是 NIVEX 的 [名字]，之前看到你对数字资产投资比较感兴趣。我这边有一些 AI 量化交易的资料想分享给你，方便聊几分钟吗？"</div>
+            <div class="vn-only script-text">"Xin chào, tôi là [Tên] từ NIVEX, trước đây thấy bạn quan tâm đến đầu tư tài sản số. Tôi có một số tài liệu về giao dịch định lượng AI muốn chia sẻ với bạn, tiện nói chuyện vài phút không?"</div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语脚本</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"Xin chào, tôi là [Tên] từ NIVEX, trước đây thấy bạn quan tâm đến đầu tư tài sản số. Tôi có một số tài liệu về giao dịch định lượng AI muốn chia sẻ với bạn, tiện nói chuyện vài phút không?"</div>
+          </div>
+
+          <div class="tips-box">
+            <div class="label"><span class="cn-only">💡 要点提示</span><span class="vn-only">💡 Lưu ý quan trọng</span></div>
+            <ul>
+              <li><span class="cn-only">语气自然友善，不要太正式</span><span class="vn-only">Giọng nói tự nhiên thân thiện, không quá trang trọng</span></li>
+              <li><span class="cn-only">提到 AI 量化引起兴趣</span><span class="vn-only">Nhắc đến AI định lượng để tạo sự quan tâm</span></li>
+              <li><span class="cn-only">控制在 30 秒内</span><span class="vn-only">Kiểm soát trong 30 giây</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 场景2：产品讲解语音 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">🎯</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 2：产品讲解语音</span>
+                <span class="vn-only">Tình huống 2: Giải thích sản phẩm</span>
+              </h3>
+              <span class="scenario-tag">
+                <span class="cn-only">适用：客户表示感兴趣后</span>
+                <span class="vn-only">Áp dụng: Sau khi khách quan tâm</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文脚本</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"我们 NIVEX 主要做 AI 量化交易，简单说就是用 AI 算法自动帮你做交易决策。你不需要盯盘，AI 24 小时运行。目前我们有 5 款策略产品，收益和风险各不同，你比较看重稳定收益还是高增长？"</div>
+            <div class="vn-only script-text">"NIVEX chúng tôi chủ yếu làm giao dịch định lượng AI, nói đơn giản là dùng thuật toán AI tự động giúp bạn ra quyết định giao dịch. Bạn không cần theo dõi biểu đồ, AI chạy 24 giờ. Hiện tại chúng tôi có 5 sản phẩm chiến lược, lợi nhuận và rủi ro khác nhau, bạn quan tâm lợi nhuận ổn định hay tăng trưởng cao?"</div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语脚本</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"NIVEX chúng tôi chủ yếu làm giao dịch định lượng AI, nói đơn giản là dùng thuật toán AI tự động giúp bạn ra quyết định giao dịch. Bạn không cần theo dõi biểu đồ, AI chạy 24 giờ. Hiện tại chúng tôi có 5 sản phẩm chiến lược, lợi nhuận và rủi ro khác nhau, bạn quan tâm lợi nhuận ổn định hay tăng trưởng cao?"</div>
+          </div>
+
+          <div class="tips-box">
+            <div class="label"><span class="cn-only">💡 要点提示</span><span class="vn-only">💡 Lưu ý quan trọng</span></div>
+            <ul>
+              <li><span class="cn-only">用简单语言解释复杂概念</span><span class="vn-only">Dùng ngôn ngữ đơn giản giải thích khái niệm phức tạp</span></li>
+              <li><span class="cn-only">引导客户表达需求</span><span class="vn-only">Dẫn dắt khách hàng bày tỏ nhu cầu</span></li>
+              <li><span class="cn-only">不要一次讲太多</span><span class="vn-only">Không nói quá nhiều một lúc</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 场景3：跟进催单语音 -->
+        <div class="scenario-card animate-in">
+          <div class="scenario-header">
+            <span class="scenario-icon">🔥</span>
+            <div class="scenario-title">
+              <h3>
+                <span class="cn-only">场景 3：跟进催单语音</span>
+                <span class="vn-only">Tình huống 3: Theo dõi thúc đẩy</span>
+              </h3>
+              <span class="scenario-tag">
+                <span class="cn-only">适用：客户了解产品但未开户</span>
+                <span class="vn-only">Áp dụng: Khách hiểu sản phẩm nhưng chưa mở tài khoản</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文脚本</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"上次聊的 NIVEX 产品你考虑得怎么样了？最近市场行情不错，这周有几个客户刚入金就看到不错的表现。你如果有什么顾虑可以跟我说，我帮你分析。"</div>
+            <div class="vn-only script-text">"Sản phẩm NIVEX lần trước nói chuyện bạn cân nhắc thế nào rồi? Gần đây thị trường khá tốt, tuần này có mấy khách hàng vừa nạp tiền đã thấy hiệu quả tốt. Nếu bạn có lo ngại gì cứ nói với tôi, tôi giúp bạn phân tích."</div>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语脚本</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"Sản phẩm NIVEX lần trước nói chuyện bạn cân nhắc thế nào rồi? Gần đây thị trường khá tốt, tuần này có mấy khách hàng vừa nạp tiền đã thấy hiệu quả tốt. Nếu bạn có lo ngại gì cứ nói với tôi, tôi giúp bạn phân tích."</div>
+          </div>
+
+          <div class="tips-box">
+            <div class="label"><span class="cn-only">💡 要点提示</span><span class="vn-only">💡 Lưu ý quan trọng</span></div>
+            <ul>
+              <li><span class="cn-only">制造紧迫感但不要太强硬</span><span class="vn-only">Tạo cảm giác cấp bách nhưng không quá cứng rắn</span></li>
+              <li><span class="cn-only">用案例增强信心</span><span class="vn-only">Dùng ví dụ thực tế tăng niềm tin</span></li>
+              <li><span class="cn-only">引导说出顾虑</span><span class="vn-only">Dẫn dắt khách nói ra lo ngại</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第二部分：短视频口播脚本 ==================== -->
+      <section class="content-section" style="margin-top: 60px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">短视频口播脚本</span>
+          <span class="vn-only">Kịch bản video ngắn</span>
+        </h2>
+
+        <!-- 模板1：知识科普类 -->
+        <div class="video-template-card animate-in">
+          <div class="template-number">1</div>
+          <h3 style="margin-bottom: 10px;">
+            <span class="cn-only">什么是 AI 量化交易？</span>
+            <span class="vn-only">AI giao dịch định lượng là gì?</span>
+          </h3>
+          <div class="template-meta">
+            <span class="meta-tag">
+              <span class="cn-only">知识科普</span>
+              <span class="vn-only">Kiến thức phổ biến</span>
+            </span>
+            <span class="meta-tag duration">30s</span>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文口播</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"你知道吗？传统交易者一天最多分析 10 个市场，但 AI 可以同时监控 100 个以上。这就是 AI 量化交易的威力。NIVEX 用全球领先的 AI 算法，帮你 24 小时不间断捕捉交易机会。关注我，带你了解更多。"</div>
+            <div class="vn-only script-text">"Bạn có biết không? Trader truyền thống mỗi ngày phân tích tối đa 10 thị trường, nhưng AI có thể giám sát hơn 100 thị trường cùng lúc. Đây chính là sức mạnh của giao dịch định lượng AI. NIVEX sử dụng thuật toán AI hàng đầu thế giới, giúp bạn nắm bắt cơ hội giao dịch 24 giờ không ngừng. Theo dõi tôi để tìm hiểu thêm."</div>
+          </div>
+
+          <div class="script-box">
+            <div class="label"><span class="cn-only">🇻🇳 越南语口播</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"Bạn có biết không? Trader truyền thống mỗi ngày phân tích tối đa 10 thị trường, nhưng AI có thể giám sát hơn 100 thị trường cùng lúc. Đây chính là sức mạnh của giao dịch định lượng AI. NIVEX sử dụng thuật toán AI hàng đầu thế giới, giúp bạn nắm bắt cơ hội giao dịch 24 giờ không ngừng. Theo dõi tôi để tìm hiểu thêm."</div>
+          </div>
+        </div>
+
+        <!-- 模板2：案例分享类 -->
+        <div class="video-template-card animate-in">
+          <div class="template-number">2</div>
+          <h3 style="margin-bottom: 10px;">
+            <span class="cn-only">客户真实反馈</span>
+            <span class="vn-only">Phản hồi thực tế từ khách hàng</span>
+          </h3>
+          <div class="template-meta">
+            <span class="meta-tag">
+              <span class="cn-only">案例分享</span>
+              <span class="vn-only">Chia sẻ case study</span>
+            </span>
+            <span class="meta-tag duration">45s</span>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文口播</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"有个客户之前一直自己手动炒币，赚赚亏亏的。后来他试了我们的 AI 策略，3 个月账户增长了 25%。他跟我说最大的感受就是——不用再半夜盯盘了。这就是 AI 量化的优势，专业的事交给专业的工具。"</div>
+            <div class="vn-only script-text">"Có một khách hàng trước đây tự giao dịch coin thủ công, lúc lãi lúc lỗ. Sau đó anh ấy thử chiến lược AI của chúng tôi, 3 tháng tài khoản tăng trưởng 25%. Anh ấy nói với tôi cảm nhận lớn nhất là — không cần thức khuya theo dõi biểu đồ nữa. Đây chính là ưu thế của giao dịch định lượng AI, việc chuyên nghiệp giao cho công cụ chuyên nghiệp."</div>
+          </div>
+
+          <div class="script-box">
+            <div class="label"><span class="cn-only">🇻🇳 越南语口播</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"Có một khách hàng trước đây tự giao dịch coin thủ công, lúc lãi lúc lỗ. Sau đó anh ấy thử chiến lược AI của chúng tôi, 3 tháng tài khoản tăng trưởng 25%. Anh ấy nói với tôi cảm nhận lớn nhất là — không cần thức khuya theo dõi biểu đồ nữa. Đây chính là ưu thế của giao dịch định lượng AI, việc chuyên nghiệp giao cho công cụ chuyên nghiệp."</div>
+          </div>
+        </div>
+
+        <!-- 模板3：互动引导类 -->
+        <div class="video-template-card animate-in">
+          <div class="template-number">3</div>
+          <h3 style="margin-bottom: 10px;">
+            <span class="cn-only">你适合 AI 量化吗？</span>
+            <span class="vn-only">Bạn có phù hợp với giao dịch AI không?</span>
+          </h3>
+          <div class="template-meta">
+            <span class="meta-tag">
+              <span class="cn-only">互动引导</span>
+              <span class="vn-only">Tương tác dẫn dắt</span>
+            </span>
+            <span class="meta-tag duration">20s</span>
+          </div>
+
+          <div class="script-box" style="margin-bottom: 15px;">
+            <div class="label"><span class="cn-only">📝 中文口播</span><span class="vn-only">📝 Kịch bản tiếng Trung</span></div>
+            <div class="cn-only script-text">"如果你满足这三个条件，AI 量化交易可能很适合你：第一，没时间盯盘；第二，想让钱为你工作；第三，相信科技的力量。符合的话，评论区扣 1，我发你详细资料。"</div>
+            <div class="vn-only script-text">"Nếu bạn đáp ứng ba điều kiện này, giao dịch định lượng AI có thể rất phù hợp với bạn: Thứ nhất, không có thời gian theo dõi biểu đồ; Thứ hai, muốn tiền làm việc cho bạn; Thứ ba, tin vào sức mạnh của công nghệ. Nếu phù hợp, bình luận số 1, tôi gửi bạn tài liệu chi tiết."</div>
+          </div>
+
+          <div class="script-box">
+            <div class="label"><span class="cn-only">🇻🇳 越南语口播</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div class="script-text">"Nếu bạn đáp ứng ba điều kiện này, giao dịch định lượng AI có thể rất phù hợp với bạn: Thứ nhất, không có thời gian theo dõi biểu đồ; Thứ hai, muốn tiền làm việc cho bạn; Thứ ba, tin vào sức mạnh của công nghệ. Nếu phù hợp, bình luận số 1, tôi gửi bạn tài liệu chi tiết."</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 第三部分：语音/视频制作注意事项 ==================== -->
+      <section class="content-section" style="margin-top: 60px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">语音/视频制作注意事项</span>
+          <span class="vn-only">Lưu ý khi sản xuất Voice/Video</span>
+        </h2>
+
+        <div class="grid-3 animate-in">
+          <div class="notice-card">
+            <div class="notice-icon">🎙️</div>
+            <h4>
+              <span class="cn-only">语速控制</span>
+              <span class="vn-only">Kiểm soát tốc độ nói</span>
+            </h4>
+            <p>
+              <span class="cn-only">正常语速偏慢，每分钟 200 字左右</span>
+              <span class="vn-only">Tốc độ bình thường hơi chậm, khoảng 200 từ/phút</span>
+            </p>
+          </div>
+
+          <div class="notice-card">
+            <div class="notice-icon">🏠</div>
+            <h4>
+              <span class="cn-only">背景环境</span>
+              <span class="vn-only">Môi trường nền</span>
+            </h4>
+            <p>
+              <span class="cn-only">安静、明亮、整洁的环境</span>
+              <span class="vn-only">Môi trường yên tĩnh, sáng sủa, gọn gàng</span>
+            </p>
+          </div>
+
+          <div class="notice-card">
+            <div class="notice-icon">👔</div>
+            <h4>
+              <span class="cn-only">形象要求</span>
+              <span class="vn-only">Yêu cầu hình ảnh</span>
+            </h4>
+            <p>
+              <span class="cn-only">职业正装或商务休闲</span>
+              <span class="vn-only">Trang phục công sở hoặc business casual</span>
+            </p>
+          </div>
+
+          <div class="notice-card">
+            <div class="notice-icon">📱</div>
+            <h4>
+              <span class="cn-only">设备要求</span>
+              <span class="vn-only">Yêu cầu thiết bị</span>
+            </h4>
+            <p>
+              <span class="cn-only">手机横拍或竖拍，确保画质清晰</span>
+              <span class="vn-only">Quay ngang hoặc dọc bằng điện thoại, đảm bảo chất lượng rõ nét</span>
+            </p>
+          </div>
+
+          <div class="notice-card">
+            <div class="notice-icon">🎬</div>
+            <h4>
+              <span class="cn-only">后期处理</span>
+              <span class="vn-only">Hậu kỳ xử lý</span>
+            </h4>
+            <p>
+              <span class="cn-only">加字幕（中越双语）、加 NIVEX logo 水印</span>
+              <span class="vn-only">Thêm phụ đề (song ngữ Trung-Việt), thêm watermark logo NIVEX</span>
+            </p>
+          </div>
+
+          <div class="notice-card">
+            <div class="notice-icon">📅</div>
+            <h4>
+              <span class="cn-only">发布节奏</span>
+              <span class="vn-only">Nhịp độ đăng bài</span>
+            </h4>
+            <p>
+              <span class="cn-only">每周至少 2 条短视频 + 3 条语音消息</span>
+              <span class="vn-only">Mỗi tuần ít nhất 2 video ngắn + 3 tin nhắn thoại</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn-only">好的话术不是背出来的，是用真诚和专业打动人心</div>
+        <div class="vn-only">Kịch bản tốt không phải học thuộc lòng, mà là dùng sự chân thành và chuyên nghiệp để chạm đến trái tim</div>
+      </div>
+
+      <!-- 相关链接 -->
+      <div class="key-point" style="margin-top: 30px; margin-bottom: 50px;">
+        <div class="cn-only">更多话术 → <a href="objection-handling.html" style="color: var(--green);">常见顾虑回应</a> | <a href="faq.html" style="color: var(--green);">客户常见问题 FAQ</a></div>
+        <div class="vn-only">Thêm kịch bản → <a href="objection-handling.html" style="color: var(--green);">Giải đáp lo ngại thường gặp</a> | <a href="faq.html" style="color: var(--green);">Câu hỏi thường gặp</a></div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

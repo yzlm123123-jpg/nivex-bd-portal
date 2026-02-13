@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BD AI 使用手册 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* Accordion styles */
+    .template-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .template-item:hover {
+      border-color: rgba(127,255,0,0.3);
+    }
+    .template-question {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+    .template-question h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 0;
+    }
+    .template-question .toggle {
+      color: var(--green);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .template-item.active .toggle {
+      transform: rotate(45deg);
+    }
+    .template-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .template-item.active .template-answer {
+      max-height: 1000px;
+    }
+    .template-answer-content {
+      padding: 0 25px 25px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+    }
+    .template-answer-content p {
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    .template-answer-content p:last-child {
+      margin-bottom: 0;
+    }
+    .number-tag {
+      background: var(--green);
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-right: 10px;
+    }
+    .prompt-box {
+      background: rgba(127,255,0,0.05);
+      border-left: 4px solid var(--green);
+      padding: 18px 22px;
+      border-radius: 0 10px 10px 0;
+      margin: 15px 0;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--gray-light);
+      font-family: 'Noto Sans SC', 'Noto Sans', monospace;
+    }
+    .prompt-box strong {
+      color: var(--green);
+    }
+    .example-output {
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      padding-left: 15px;
+      border-left: 2px solid rgba(255,255,255,0.1);
+    }
+
+    /* Section header */
+    .section-header {
+      background: linear-gradient(135deg, rgba(127,255,0,0.15), rgba(127,255,0,0.05));
+      padding: 25px 30px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .section-icon {
+      font-size: 2.5rem;
+    }
+    .section-header h2 {
+      color: var(--green);
+      font-size: 1.4rem;
+      margin-bottom: 5px;
+    }
+
+    /* Use case cards */
+    .use-case-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+    }
+    .use-case-card:hover {
+      border-color: rgba(127,255,0,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(127,255,0,0.08);
+    }
+    .use-case-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .use-case-card h4 {
+      color: var(--green);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .use-case-card p {
+      color: var(--gray-light);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* Do & Don't cards */
+    .do-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid rgba(127,255,0,0.3);
+    }
+    .do-card h3 {
+      color: var(--green);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    .do-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .do-card ul li {
+      padding: 10px 0;
+      line-height: 1.7;
+      font-size: 0.92rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .do-card ul li:last-child {
+      border-bottom: none;
+    }
+    .dont-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid rgba(255,107,107,0.3);
+    }
+    .dont-card h3 {
+      color: var(--red-soft);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    .dont-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .dont-card ul li {
+      padding: 10px 0;
+      line-height: 1.7;
+      font-size: 0.92rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .dont-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    /* Quick link cards */
+    .quick-link {
+      display: block;
+      text-decoration: none;
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+    }
+    .quick-link:hover {
+      border-color: rgba(127,255,0,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(127,255,0,0.08);
+    }
+    .quick-link .link-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .quick-link .link-title {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .section-block {
+      margin-bottom: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .template-question h3 {
+        font-size: 0.95rem;
+      }
+      .prompt-box {
+        font-size: 0.85rem;
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="active"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- Title -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">BD AI 使用手册</span>
+          <span class="vn-only">So tay su dung AI cho BD</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">不需要懂技术，只需要会提问</span>
+          <span class="vn-only">Khong can hieu cong nghe, chi can biet dat cau hoi</span>
+        </p>
+      </div>
+
+      <!-- Section 1: AI 能帮你做什么 -->
+      <section class="section-block">
+        <div class="section-header animate-in delay-1">
+          <div class="section-icon">🎯</div>
+          <div>
+            <h2><span class="cn-only">AI 能帮你做什么？</span><span class="vn-only">AI co the giup ban lam gi?</span></h2>
+            <p><span class="cn-only">六大场景，覆盖 BD 日常 80% 工作</span><span class="vn-only">6 tinh huong, bao phu 80% cong viec hang ngay cua BD</span></p>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 20px;">
+          <div class="use-case-card animate-in delay-1">
+            <div class="use-case-icon">📝</div>
+            <h4><span class="cn-only">写回复</span><span class="vn-only">Viet tra loi</span></h4>
+            <p><span class="cn-only">客户发来消息不知道怎么回？AI 5秒生成专业回复</span><span class="vn-only">Khach hang gui tin nhan khong biet tra loi? AI tao phan hoi chuyen nghiep trong 5 giay</span></p>
+          </div>
+
+          <div class="use-case-card animate-in delay-2">
+            <div class="use-case-icon">💬</div>
+            <h4><span class="cn-only">写文案</span><span class="vn-only">Viet noi dung</span></h4>
+            <p><span class="cn-only">Zalo 朋友圈/群发消息？AI 帮你写吸引人的内容</span><span class="vn-only">Dang Zalo/gui tin nhan nhom? AI giup ban viet noi dung thu hut</span></p>
+          </div>
+
+          <div class="use-case-card animate-in delay-3">
+            <div class="use-case-icon">🔍</div>
+            <h4><span class="cn-only">分析客户</span><span class="vn-only">Phan tich khach hang</span></h4>
+            <p><span class="cn-only">不确定客户在想什么？AI 帮你分析行为+制定策略</span><span class="vn-only">Khong chac khach hang dang nghi gi? AI giup phan tich hanh vi + lap chien luoc</span></p>
+          </div>
+
+          <div class="use-case-card animate-in delay-4">
+            <div class="use-case-icon">🛡️</div>
+            <h4><span class="cn-only">处理异议</span><span class="vn-only">Xu ly phan doi</span></h4>
+            <p><span class="cn-only">客户质疑安全性/真假？AI 给你最专业的回应</span><span class="vn-only">Khach hang nghi ngo ve an toan/that gia? AI cho ban phan hoi chuyen nghiep nhat</span></p>
+          </div>
+
+          <div class="use-case-card animate-in delay-5">
+            <div class="use-case-icon">📊</div>
+            <h4><span class="cn-only">写报告</span><span class="vn-only">Viet bao cao</span></h4>
+            <p><span class="cn-only">日报/周报花太多时间？AI 帮你自动格式化</span><span class="vn-only">Bao cao ngay/tuan ton qua nhieu thoi gian? AI giup ban tu dong dinh dang</span></p>
+          </div>
+
+          <div class="use-case-card animate-in delay-5">
+            <div class="use-case-icon">🎯</div>
+            <h4><span class="cn-only">制定计划</span><span class="vn-only">Lap ke hoach</span></h4>
+            <p><span class="cn-only">不知道今天该做什么？AI 帮你规划每日任务</span><span class="vn-only">Khong biet hom nay nen lam gi? AI giup ban lap ke hoach hang ngay</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: 10 个最常用的 AI 提问模板 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon">📖</div>
+          <div>
+            <h2><span class="cn-only">10 个最常用的 AI 提问模板</span><span class="vn-only">10 mau cau hoi AI pho bien nhat</span></h2>
+            <p><span class="cn-only">复制 → 修改 [ ] 中的内容 → 发给 AI → 拿到结果</span><span class="vn-only">Sao chep → Sua noi dung trong [ ] → Gui cho AI → Nhan ket qua</span></p>
+          </div>
+        </div>
+
+        <!-- Template 1 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">01</span><span class="cn-only">客户回复</span><span class="vn-only">Tra loi khach hang</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">当客户在 Zalo 上问你问题，不知道怎么回时使用</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Su dung khi khach hang hoi cau hoi tren Zalo ma ban khong biet tra loi</p>
+              <div class="prompt-box">
+                <span class="cn-only">客户通过 Zalo 问了这个问题：<strong>[粘贴问题]</strong>。帮我生成一个专业但容易理解的中文回复，语气要真诚友好。</span>
+                <span class="vn-only">Khach hang hoi cau hoi nay qua Zalo: <strong>[dan cau hoi]</strong>. Giup toi tao mot cau tra loi chuyen nghiep nhung de hieu, giong dieu chan thanh va than thien.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 会根据问题生成一段真诚、专业的回复，可直接发送或稍作调整后使用。</span>
+                <span class="vn-only">Ket qua: AI se tao mot phan hoi chan thanh, chuyen nghiep dua tren cau hoi, co the gui truc tiep hoac chinh sua nhe.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 2 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">02</span><span class="cn-only">Zalo 朋友圈文案</span><span class="vn-only">Noi dung dong thoi gian Zalo</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">发 Zalo 朋友圈时，不知道怎么写吸引人的文案</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khi dang dong thoi gian Zalo, khong biet viet noi dung thu hut</p>
+              <div class="prompt-box">
+                <span class="cn-only">帮我写一条 Zalo 朋友圈文案，主题是<strong>[AI交易/收益分享/市场分析]</strong>，要吸引越南投资者，简短有力，可以加上表情符号。</span>
+                <span class="vn-only">Giup toi viet mot bai dang dong thoi gian Zalo, chu de la <strong>[giao dich AI/chia se loi nhuan/phan tich thi truong]</strong>, thu hut nha dau tu Viet Nam, ngan gon va manh me, co the them emoji.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 生成一条有吸引力的朋友圈文案，配合表情符号，直接可用。</span>
+                <span class="vn-only">Ket qua: AI tao mot bai dang dong thoi gian hap dan voi emoji, co the dung ngay.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 3 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">03</span><span class="cn-only">客户行为分析</span><span class="vn-only">Phan tich hanh vi khach hang</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">搞不清客户处于什么阶段，不知道该怎么跟进</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khong ro khach hang dang o giai doan nao, khong biet nen theo doi the nao</p>
+              <div class="prompt-box">
+                <span class="cn-only">我有一个客户，他的情况是：<strong>[描述客户背景、行为]</strong>。帮我分析他的真实需求，判断他处于哪个阶段（观望/体验/深耕），并给出最佳跟进策略。</span>
+                <span class="vn-only">Toi co mot khach hang, tinh hinh cua ho la: <strong>[mo ta lai lich, hanh vi khach hang]</strong>. Giup toi phan tich nhu cau thuc su, xac dinh ho dang o giai doan nao (quan sat/trai nghiem/dau tu sau), va dua ra chien luoc theo doi tot nhat.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 会给出客户画像分析、阶段判断、以及具体的跟进话术建议。</span>
+                <span class="vn-only">Ket qua: AI se dua ra phan tich chan dung khach hang, xac dinh giai doan, va goi y kich ban theo doi cu the.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 4 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">04</span><span class="cn-only">异议回应</span><span class="vn-only">Tra loi phan doi</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">客户提出质疑或担忧，需要专业且真诚的回应</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khach hang dat cau hoi hoac lo ngai, can phan hoi chuyen nghiep va chan thanh</p>
+              <div class="prompt-box">
+                <span class="cn-only">客户说：'<strong>[粘贴客户原话]</strong>'。他真正担心的可能是什么？帮我生成一个真诚的回应，要先理解他的顾虑，再用事实回应。</span>
+                <span class="vn-only">Khach hang noi: '<strong>[dan loi goc cua khach hang]</strong>'. Dieu ho thuc su lo lang co the la gi? Giup toi tao mot phan hoi chan thanh, truoc tien hieu lo ngai cua ho, sau do tra loi bang su that.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 会先分析客户的深层顾虑，再生成"共情+事实"的专业回应。</span>
+                <span class="vn-only">Ket qua: AI se phan tich lo ngai sau xa cua khach hang, sau do tao phan hoi chuyen nghiep "dong cam + su that".</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 5 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">05</span><span class="cn-only">个性化开场白</span><span class="vn-only">Loi mo dau ca nhan hoa</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">联系新客户时，需要一个自然的开场白</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khi lien he khach hang moi, can mot loi mo dau tu nhien</p>
+              <div class="prompt-box">
+                <span class="cn-only">我要联系一个新客户，他的背景是：<strong>[年龄/职业/投资经验]</strong>。帮我生成一个适合在 Zalo 上发送的开场白，不要太推销感，要自然。</span>
+                <span class="vn-only">Toi muon lien he mot khach hang moi, lai lich cua ho la: <strong>[tuoi/nghe nghiep/kinh nghiem dau tu]</strong>. Giup toi tao mot loi mo dau phu hop gui tren Zalo, khong qua ban hang, phai tu nhien.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 生成一段自然、有温度的开场白，不会让客户感觉被推销。</span>
+                <span class="vn-only">Ket qua: AI tao mot loi mo dau tu nhien, am ap, khong khien khach hang cam thay bi ban hang.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 6 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">06</span><span class="cn-only">日报生成</span><span class="vn-only">Tao bao cao ngay</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">每天写日报太花时间，把数据给 AI 帮你搞定</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Viet bao cao ngay qua ton thoi gian, dua du lieu cho AI giup ban</p>
+              <div class="prompt-box">
+                <span class="cn-only">帮我生成今日工作日报。数据如下：联系客户<strong>[X]</strong>人，新增意向客户<strong>[X]</strong>人，入金客户<strong>[X]</strong>人，入金金额<strong>[X]</strong>万，遇到问题：<strong>[描述]</strong>。</span>
+                <span class="vn-only">Giup toi tao bao cao cong viec hom nay. Du lieu: Lien he <strong>[X]</strong> khach hang, khach hang tiem nang moi <strong>[X]</strong> nguoi, khach hang nap tien <strong>[X]</strong> nguoi, so tien nap <strong>[X]</strong> van, van de gap phai: <strong>[mo ta]</strong>.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 自动生成格式规范的日报，包含数据总结和问题分析。</span>
+                <span class="vn-only">Ket qua: AI tu dong tao bao cao ngay co dinh dang chuan, bao gom tom tat du lieu va phan tich van de.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 7 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">07</span><span class="cn-only">周报生成</span><span class="vn-only">Tao bao cao tuan</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">每周周报整理数据很麻烦，交给 AI 帮你格式化</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Sap xep du lieu bao cao tuan rat phien phuc, de AI giup ban dinh dang</p>
+              <div class="prompt-box">
+                <span class="cn-only">帮我生成本周工作周报。数据：新增客户<strong>[X]</strong>人，入金<strong>[X]</strong>万，提现<strong>[X]</strong>万，净增长<strong>[X]</strong>万，TOP客户：<strong>[名单]</strong>，遇到问题：<strong>[描述]</strong>，下周计划：<strong>[计划]</strong>。</span>
+                <span class="vn-only">Giup toi tao bao cao tuan nay. Du lieu: Khach hang moi <strong>[X]</strong> nguoi, nap <strong>[X]</strong> van, rut <strong>[X]</strong> van, tang truong rong <strong>[X]</strong> van, khach hang TOP: <strong>[danh sach]</strong>, van de gap: <strong>[mo ta]</strong>, ke hoach tuan sau: <strong>[ke hoach]</strong>.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 生成结构清晰的周报，包含数据对比、问题总结和下周规划。</span>
+                <span class="vn-only">Ket qua: AI tao bao cao tuan co cau truc ro rang, bao gom so sanh du lieu, tom tat van de va ke hoach tuan sau.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 8 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">08</span><span class="cn-only">加仓引导话术</span><span class="vn-only">Kich ban huong dan nap them</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">客户已经有投资，想引导他加仓但不知道怎么开口</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khach hang da dau tu, muon huong dan ho nap them nhung khong biet cach mo loi</p>
+              <div class="prompt-box">
+                <span class="cn-only">我有一个已经投了<strong>[X万]</strong>的客户，最近收益<strong>[描述]</strong>。帮我生成一个引导他加仓的话术，要自然不强迫，强调复利和长期价值。</span>
+                <span class="vn-only">Toi co mot khach hang da dau tu <strong>[X van]</strong>, loi nhuan gan day <strong>[mo ta]</strong>. Giup toi tao kich ban huong dan ho nap them, phai tu nhien khong ep buoc, nhan manh lai kep va gia tri dai han.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 生成一段自然的加仓引导话术，基于客户的实际收益数据。</span>
+                <span class="vn-only">Ket qua: AI tao kich ban huong dan nap them tu nhien, dua tren du lieu loi nhuan thuc te cua khach hang.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 9 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">09</span><span class="cn-only">流失客户挽回</span><span class="vn-only">Giu chan khach hang roi bo</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">客户很久没联系了，想重新建立联系</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khach hang da lau khong lien lac, muon ket noi lai</p>
+              <div class="prompt-box">
+                <span class="cn-only">一个客户<strong>[X天]</strong>没有联系了，之前投了<strong>[X万]</strong>。帮我分析可能的流失原因，并生成一条关心性质的 Zalo 消息，目的是重新建立联系。</span>
+                <span class="vn-only">Mot khach hang da <strong>[X ngay]</strong> khong lien lac, truoc do dau tu <strong>[X van]</strong>. Giup toi phan tich nguyen nhan co the roi bo, va tao mot tin nhan Zalo mang tinh quan tam, muc dich la ket noi lai.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 分析流失原因并生成一条温暖的关心消息，不带推销感。</span>
+                <span class="vn-only">Ket qua: AI phan tich nguyen nhan roi bo va tao mot tin nhan quan tam am ap, khong mang tinh ban hang.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 10 -->
+        <div class="template-item animate-in">
+          <div class="template-question">
+            <h3><span class="number-tag">10</span><span class="cn-only">市场行情解读</span><span class="vn-only">Giai doc thi truong</span></h3>
+            <span class="toggle">+</span>
+          </div>
+          <div class="template-answer">
+            <div class="template-answer-content">
+              <p class="cn-only" style="color: var(--gray-light); margin-bottom: 10px;">市场波动时，需要快速给客户发一段市场分析</p>
+              <p class="vn-only" style="color: var(--gray-light); margin-bottom: 10px;">Khi thi truong bien dong, can gui nhanh cho khach hang mot phan tich thi truong</p>
+              <div class="prompt-box">
+                <span class="cn-only">今天 BTC <strong>[涨了/跌了] [X]%</strong>，帮我用简单易懂的语言写一段市场分析，可以发给客户让他们了解情况，同时增强对 AI 交易的信心。</span>
+                <span class="vn-only">Hom nay BTC <strong>[tang/giam] [X]%</strong>, giup toi viet mot doan phan tich thi truong bang ngon ngu don gian de hieu, co the gui cho khach hang de ho nam tinh hinh, dong thoi tang cuong niem tin vao giao dich AI.</span>
+              </div>
+              <div class="example-output">
+                <span class="cn-only">效果：AI 生成简洁的市场解读，适合直接转发给客户，增强信心。</span>
+                <span class="vn-only">Ket qua: AI tao giai doc thi truong ngan gon, phu hop gui truc tiep cho khach hang, tang cuong niem tin.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: AI 使用注意事项 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon">⚠️</div>
+          <div>
+            <h2><span class="cn-only">AI 使用注意事项</span><span class="vn-only">Luu y khi su dung AI</span></h2>
+            <p><span class="cn-only">用对了是加分项，用错了是减分项</span><span class="vn-only">Dung dung la diem cong, dung sai la diem tru</span></p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 20px;">
+          <div class="do-card animate-in delay-1">
+            <h3><span class="cn-only">正确做法</span><span class="vn-only">Cach lam dung</span></h3>
+            <ul>
+              <li><span class="cn-only">✅ 提供具体的背景信息，AI回复越精准</span><span class="vn-only">✅ Cung cap thong tin cu the, AI tra loi chinh xac hon</span></li>
+              <li><span class="cn-only">✅ 先用 AI 生成初稿，再根据自己的风格调整</span><span class="vn-only">✅ Dung AI tao ban nhap truoc, sau do chinh sua theo phong cach cua ban</span></li>
+              <li><span class="cn-only">✅ 遇到不确定的回复，先找 AK 老师确认</span><span class="vn-only">✅ Gap phan hoi khong chac chan, hoi AK truoc</span></li>
+              <li><span class="cn-only">✅ 多练习提问技巧，越用越熟练</span><span class="vn-only">✅ Luyen tap ky nang dat cau hoi, cang dung cang thao</span></li>
+            </ul>
+          </div>
+
+          <div class="dont-card animate-in delay-2">
+            <h3><span class="cn-only">错误做法</span><span class="vn-only">Cach lam sai</span></h3>
+            <ul>
+              <li><span class="cn-only">❌ 不要直接复制粘贴AI回复，要调整语气和细节</span><span class="vn-only">❌ Khong sao chep truc tiep phan hoi AI, hay chinh giong dieu va chi tiet</span></li>
+              <li><span class="cn-only">❌ 不要过度承诺收益，AI也不会帮你承诺</span><span class="vn-only">❌ Khong hua hen qua muc ve loi nhuan, AI cung khong hua ho ban</span></li>
+              <li><span class="cn-only">❌ 不要在群聊里暴露你在用AI（用AI辅助，不是替代你）</span><span class="vn-only">❌ Khong de lo ban dang dung AI trong nhom chat (AI ho tro, khong thay the ban)</span></li>
+              <li><span class="cn-only">❌ 不要忽视客户的真实情感，AI只是工具</span><span class="vn-only">❌ Khong bo qua cam xuc thuc cua khach hang, AI chi la cong cu</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: 相关资源快速入口 -->
+      <section class="section-block">
+        <div class="section-header animate-in">
+          <div class="section-icon">🔗</div>
+          <div>
+            <h2><span class="cn-only">相关资源快速入口</span><span class="vn-only">Truy cap nhanh tai nguyen</span></h2>
+            <p><span class="cn-only">一键直达常用工具页面</span><span class="vn-only">Mot cham den cac trang cong cu thuong dung</span></p>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 20px;">
+          <a href="../daily/ai-daily-checklist.html" class="quick-link animate-in delay-1">
+            <div class="link-icon">📋</div>
+            <div class="link-title"><span class="cn-only">每日AI工作清单</span><span class="vn-only">Danh sach cong viec AI hang ngay</span></div>
+          </a>
+
+          <a href="../scripts/faq.html" class="quick-link animate-in delay-2">
+            <div class="link-icon">❓</div>
+            <div class="link-title"><span class="cn-only">FAQ 32题</span><span class="vn-only">FAQ 32 cau</span></div>
+          </a>
+
+          <a href="../scripts/zalo-guide.html" class="quick-link animate-in delay-3">
+            <div class="link-icon">💬</div>
+            <div class="link-title"><span class="cn-only">Zalo运营手册</span><span class="vn-only">So tay van hanh Zalo</span></div>
+          </a>
+
+          <a href="../scripts/video-scripts.html" class="quick-link animate-in delay-4">
+            <div class="link-icon">🎬</div>
+            <div class="link-title"><span class="cn-only">视频话术脚本</span><span class="vn-only">Kich ban video</span></div>
+          </a>
+
+          <a href="../scripts/objection-handling.html" class="quick-link animate-in delay-5">
+            <div class="link-icon">🛡️</div>
+            <div class="link-title"><span class="cn-only">异议处理</span><span class="vn-only">Xu ly phan doi</span></div>
+          </a>
+
+          <a href="../customer/index.html" class="quick-link animate-in delay-5">
+            <div class="link-icon">👥</div>
+            <div class="link-title"><span class="cn-only">客户维护中心</span><span class="vn-only">Trung tam cham soc khach hang</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bottom key-point -->
+      <div class="key-point animate-in" style="margin-bottom: 50px;">
+        <div class="cn-only">AI 是你的「最强大脑」，但你才是客户信任的「那个人」</div>
+        <div class="vn-only">AI la "bo nao sieu manh" cua ban, nhung ban moi la "nguoi" ma khach hang tin tuong</div>
+      </div>
+    </div>
+
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script>
+    // Accordion expand/collapse
+    document.querySelectorAll('.template-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // Close other open items
+        document.querySelectorAll('.template-item.active').forEach(activeItem => {
+          if (activeItem !== item) {
+            activeItem.classList.remove('active');
+          }
+        });
+
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

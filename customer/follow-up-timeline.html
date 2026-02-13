@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跟进节奏可视化 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 时间线样式 */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), var(--green-dark), var(--gray-dark));
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+      padding: 25px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border-left: 3px solid var(--green);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33px;
+      top: 30px;
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green-glow);
+    }
+    .timeline-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 5px 15px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+    .timeline-action {
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .timeline-speech {
+      background: var(--bg-code);
+      border-left: 3px solid rgba(127, 255, 0, 0.3);
+      padding: 15px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 12px;
+      color: var(--gray-light);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    .timeline-speech .speech-label {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 持续节点特殊样式 */
+    .timeline-item.ongoing {
+      border-left-color: var(--green-dark);
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.08) 0%, var(--bg-card) 100%);
+    }
+
+    @media (max-width: 768px) {
+      .timeline {
+        padding-left: 30px;
+      }
+      .timeline-item {
+        padding: 20px;
+      }
+      .timeline-item::before {
+        left: -23px;
+        width: 10px;
+        height: 10px;
+      }
+      .timeline::before {
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">客户跟进节奏表</span>
+          <span class="vn-only">Bảng Nhịp Theo dõi Khách hàng</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">在正确的时间，做正确的事</span>
+          <span class="vn-only">Đúng thời điểm, làm đúng việc</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：新客户入金后的跟进时间线 -->
+      <section style="margin-top: 40px;">
+        <h2 class="animate-in delay-1" style="margin-bottom: 30px;">
+          <span class="cn-only">新客户入金后的跟进时间线</span>
+          <span class="vn-only">Lộ trình theo dõi sau khi khách mới nạp tiền</span>
+        </h2>
+
+        <div class="timeline animate-in delay-2">
+
+          <!-- Day 0 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 0 · 入金当天</span>
+              <span class="vn-only">Day 0 · Ngày nạp tiền</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">确认策略启动 + 教客户查看收益</span>
+              <span class="vn-only">Xác nhận chiến lược khởi động + Hướng dẫn khách xem lợi nhuận</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"你的策略已经启动了，我帮你确认了一下，一切正常。教你一下怎么查看收益数据..."</div>
+              <div class="vn-only">"Chiến lược của bạn đã được kích hoạt, tôi đã xác nhận, mọi thứ bình thường. Để tôi hướng dẫn bạn cách xem dữ liệu lợi nhuận..."</div>
+            </div>
+          </div>
+
+          <!-- Day 1 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 1 · 第 1 天</span>
+              <span class="vn-only">Day 1 · Ngày thứ 1</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">主动问候 + 确认一切正常</span>
+              <span class="vn-only">Chủ động hỏi thăm + Xác nhận mọi thứ bình thường</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"昨天入金后运行了一天，目前策略在正常执行中。有什么不明白的地方随时问我。"</div>
+              <div class="vn-only">"Sau khi nạp tiền hôm qua đã chạy được một ngày, chiến lược đang thực hiện bình thường. Có gì không hiểu cứ hỏi tôi."</div>
+            </div>
+          </div>
+
+          <!-- Day 3 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 3 · 第 3 天</span>
+              <span class="vn-only">Day 3 · Ngày thứ 3</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">分享初步数据 + 了解客户感受</span>
+              <span class="vn-only">Chia sẻ dữ liệu ban đầu + Tìm hiểu cảm nhận khách hàng</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"跑了 3 天了，目前数据表现 [说明情况]。你感觉怎么样？有没有什么疑问？"</div>
+              <div class="vn-only">"Đã chạy 3 ngày, dữ liệu hiện tại [mô tả tình hình]. Bạn cảm thấy thế nào? Có thắc mắc gì không?"</div>
+            </div>
+          </div>
+
+          <!-- Day 7 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 7 · 第 1 周</span>
+              <span class="vn-only">Day 7 · Tuần thứ 1</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">一周总结 + 市场分析</span>
+              <span class="vn-only">Tổng kết tuần + Phân tích thị trường</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"一周了，给你做个小总结：[总结数据]。这周市场整体 [行情简述]，策略应对得不错。"</div>
+              <div class="vn-only">"Đã một tuần, tôi tổng kết cho bạn: [tóm tắt dữ liệu]. Tuần này thị trường [mô tả ngắn], chiến lược ứng phó khá tốt."</div>
+            </div>
+          </div>
+
+          <!-- Day 14 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 14 · 第 2 周</span>
+              <span class="vn-only">Day 14 · Tuần thứ 2</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">评估满意度 + 自然引导加仓可能性</span>
+              <span class="vn-only">Đánh giá mức hài lòng + Dẫn dắt tự nhiên khả năng tăng vốn</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"两周了，整体表现 [总结]。你对目前的体验满意吗？如果觉得不错，后续可以考虑优化一下资金配置。"</div>
+              <div class="vn-only">"Hai tuần rồi, hiệu quả tổng thể [tóm tắt]. Bạn có hài lòng với trải nghiệm không? Nếu thấy ổn, sau này có thể xem xét tối ưu phân bổ vốn."</div>
+            </div>
+          </div>
+
+          <!-- Day 30 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 30 · 第 1 个月</span>
+              <span class="vn-only">Day 30 · Tháng thứ 1</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">月度报告 + 建立长期合作预期</span>
+              <span class="vn-only">Báo cáo tháng + Xây dựng kỳ vọng hợp tác dài hạn</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"一个月了，给你出一份完整报告：[月度数据]。从数据来看，策略表现在合理范围内。接下来我们继续观察，有任何变化我第一时间通知你。"</div>
+              <div class="vn-only">"Đã một tháng, đây là báo cáo đầy đủ: [dữ liệu tháng]. Từ dữ liệu, hiệu quả chiến lược trong phạm vi hợp lý. Tiếp tục theo dõi, có thay đổi gì tôi thông báo ngay."</div>
+            </div>
+          </div>
+
+          <!-- Day 60 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 60 · 第 2 个月</span>
+              <span class="vn-only">Day 60 · Tháng thứ 2</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">深度复盘 + 策略调整建议</span>
+              <span class="vn-only">Phân tích chuyên sâu + Đề xuất điều chỉnh chiến lược</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"两个月了，我帮你做了一个详细的复盘分析。[分享分析] 如果你有兴趣，我们可以聊聊后续的策略优化方向。"</div>
+              <div class="vn-only">"Hai tháng rồi, tôi đã làm phân tích tổng kết chi tiết cho bạn. [chia sẻ phân tích] Nếu bạn quan tâm, chúng ta có thể thảo luận về hướng tối ưu chiến lược tiếp theo."</div>
+            </div>
+          </div>
+
+          <!-- Day 90 -->
+          <div class="timeline-item">
+            <div class="timeline-label">
+              <span class="cn-only">Day 90 · 第 3 个月</span>
+              <span class="vn-only">Day 90 · Tháng thứ 3</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">信任确认 + 转介绍引导</span>
+              <span class="vn-only">Xác nhận niềm tin + Hướng dẫn giới thiệu</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"三个月了，合作得怎么样？如果你觉得体验不错，身边有朋友也想了解的话，可以介绍给我，我提供同样的服务标准。"</div>
+              <div class="vn-only">"Ba tháng rồi, hợp tác thế nào? Nếu bạn thấy trải nghiệm tốt, bạn bè xung quanh muốn tìm hiểu có thể giới thiệu, tôi cung cấp cùng tiêu chuẩn dịch vụ."</div>
+            </div>
+          </div>
+
+          <!-- 每月（持续） -->
+          <div class="timeline-item ongoing">
+            <div class="timeline-label">
+              <span class="cn-only">每月 · 持续</span>
+              <span class="vn-only">Hàng tháng · Liên tục</span>
+            </div>
+            <div class="timeline-action">
+              <span class="cn-only">月度收益汇总 + 市场分析 + 关系维护</span>
+              <span class="vn-only">Tổng kết lợi nhuận tháng + Phân tích thị trường + Duy trì quan hệ</span>
+            </div>
+            <div class="timeline-speech">
+              <div class="speech-label">
+                <span class="cn-only">参考话术</span>
+                <span class="vn-only">Kịch bản tham khảo</span>
+              </div>
+              <div class="cn-only">"这是你本月的收益汇总报告。[数据] 下个月有几个值得关注的市场事件，我会提前和你沟通。"</div>
+              <div class="vn-only">"Đây là báo cáo tổng kết lợi nhuận tháng này. [dữ liệu] Tháng tới có vài sự kiện thị trường đáng chú ý, tôi sẽ trao đổi trước với bạn."</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 第二部分：按客户类型的跟进频率对比 -->
+      <section style="margin-top: 60px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">按客户类型的跟进频率对比</span>
+          <span class="vn-only">So sánh tần suất theo dõi theo loại khách hàng</span>
+        </h2>
+
+        <div class="animate-in delay-1" style="overflow-x: auto;">
+          <table class="info-table">
+            <thead>
+              <tr>
+                <th><span class="cn-only">客户类型</span><span class="vn-only">Loại khách hàng</span></th>
+                <th><span class="cn-only">前 2 周</span><span class="vn-only">2 tuần đầu</span></th>
+                <th><span class="cn-only">第 1 个月</span><span class="vn-only">Tháng thứ 1</span></th>
+                <th><span class="cn-only">第 2-3 个月</span><span class="vn-only">Tháng 2-3</span></th>
+                <th><span class="cn-only">长期</span><span class="vn-only">Dài hạn</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--green); font-weight: 700;">
+                  <span class="cn-only">A 类（高意向/大客户）</span>
+                  <span class="vn-only">Loại A (Ý định cao/Khách lớn)</span>
+                </td>
+                <td>
+                  <span class="cn-only">每天</span>
+                  <span class="vn-only">Mỗi ngày</span>
+                </td>
+                <td>
+                  <span class="cn-only">每 2-3 天</span>
+                  <span class="vn-only">Mỗi 2-3 ngày</span>
+                </td>
+                <td>
+                  <span class="cn-only">每周</span>
+                  <span class="vn-only">Mỗi tuần</span>
+                </td>
+                <td>
+                  <span class="cn-only">每周</span>
+                  <span class="vn-only">Mỗi tuần</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: var(--gray-light); font-weight: 700;">
+                  <span class="cn-only">B 类（观望型）</span>
+                  <span class="vn-only">Loại B (Chờ đợi)</span>
+                </td>
+                <td>
+                  <span class="cn-only">每 2 天</span>
+                  <span class="vn-only">Mỗi 2 ngày</span>
+                </td>
+                <td>
+                  <span class="cn-only">每周</span>
+                  <span class="vn-only">Mỗi tuần</span>
+                </td>
+                <td>
+                  <span class="cn-only">每 2 周</span>
+                  <span class="vn-only">Mỗi 2 tuần</span>
+                </td>
+                <td>
+                  <span class="cn-only">每月</span>
+                  <span class="vn-only">Mỗi tháng</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: var(--gray); font-weight: 700;">
+                  <span class="cn-only">C 类（低优先级）</span>
+                  <span class="vn-only">Loại C (Ưu tiên thấp)</span>
+                </td>
+                <td>
+                  <span class="cn-only">每 3 天</span>
+                  <span class="vn-only">Mỗi 3 ngày</span>
+                </td>
+                <td>
+                  <span class="cn-only">每 2 周</span>
+                  <span class="vn-only">Mỗi 2 tuần</span>
+                </td>
+                <td>
+                  <span class="cn-only">每月</span>
+                  <span class="vn-only">Mỗi tháng</span>
+                </td>
+                <td>
+                  <span class="cn-only">每月</span>
+                  <span class="vn-only">Mỗi tháng</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 第三部分：跟进的 3 个核心原则 -->
+      <section style="margin-top: 60px;">
+        <h2 class="animate-in" style="margin-bottom: 30px; text-align: center;">
+          <span class="cn-only">跟进的 3 个核心原则</span>
+          <span class="vn-only">3 Nguyên tắc cốt lõi khi theo dõi</span>
+        </h2>
+
+        <div class="grid-3 animate-in delay-1">
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">1</div>
+            <h3 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">有内容的联系</span>
+              <span class="vn-only">Liên lạc có nội dung</span>
+            </h3>
+            <p style="color: var(--gray-light); line-height: 1.6;">
+              <span class="cn-only">每次联系都要带有价值（数据/分析/建议），不要只问"在吗？"</span>
+              <span class="vn-only">Mỗi lần liên lạc đều phải mang giá trị (dữ liệu/phân tích/đề xuất), đừng chỉ hỏi "bạn ơi?"</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">2</div>
+            <h3 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">记录每次沟通</span>
+              <span class="vn-only">Ghi chép mỗi lần trao đổi</span>
+            </h3>
+            <p style="color: var(--gray-light); line-height: 1.6;">
+              <span class="cn-only">客户说的每句话都可能是信号，养成记录习惯</span>
+              <span class="vn-only">Mỗi câu khách hàng nói đều có thể là tín hiệu, tạo thói quen ghi chép</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">3</div>
+            <h3 style="margin-bottom: 10px; color: var(--green);">
+              <span class="cn-only">灵活调整节奏</span>
+              <span class="vn-only">Linh hoạt điều chỉnh nhịp độ</span>
+            </h3>
+            <p style="color: var(--gray-light); line-height: 1.6;">
+              <span class="cn-only">客户反馈积极就加密联系，客户不想被打扰就适当放松</span>
+              <span class="vn-only">Khách phản hồi tích cực thì tăng tần suất, khách không muốn bị làm phiền thì giảm nhẹ</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 60px; margin-bottom: 50px;">
+        <div class="cn-only" style="font-size: 1.3rem; font-weight: 700;">"跟进不是打扰，是让客户知道你一直在"</div>
+        <div class="vn-only" style="font-size: 1.3rem; font-weight: 700;">"Theo dõi không phải làm phiền, mà là để khách biết bạn luôn ở đây"</div>
+      </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

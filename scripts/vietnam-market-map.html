@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>越南市场获客地图 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* S级市场 - 红色/绿色渐变 */
+    .tier-s { border-left: 4px solid #ff4444; }
+    .tier-s .tier-badge {
+      background: linear-gradient(135deg, #ff4444, #cc0000);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .tier-s-card {
+      background: linear-gradient(135deg, rgba(255,68,68,0.12), rgba(127,255,0,0.08));
+      border: 1px solid rgba(255,68,68,0.25);
+    }
+    .tier-s-header {
+      background: linear-gradient(135deg, rgba(255,68,68,0.2), rgba(255,68,68,0.05));
+      border-bottom: 1px solid rgba(255,68,68,0.15);
+      padding: 20px 25px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* A级市场 - 黄色调 */
+    .tier-a { border-left: 4px solid #ffd700; }
+    .tier-a .tier-badge {
+      background: linear-gradient(135deg, #ffd700, #e6b800);
+      color: #000;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .tier-a-card {
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.03));
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    .tier-a-header {
+      background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.03));
+      border-bottom: 1px solid rgba(255,215,0,0.12);
+      padding: 18px 25px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* B级市场 - 标准绿色调 */
+    .tier-b { border-left: 4px solid var(--green); }
+    .tier-b .tier-badge {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #000;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .tier-b-card {
+      background: linear-gradient(135deg, rgba(127,255,0,0.06), rgba(127,255,0,0.02));
+      border: 1px solid rgba(127,255,0,0.15);
+    }
+    .tier-b-header {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1), rgba(127,255,0,0.02));
+      border-bottom: 1px solid rgba(127,255,0,0.1);
+      padding: 18px 25px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* 城市卡片 */
+    .city-card {
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .city-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .city-body { padding: 20px 25px; }
+    .city-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .city-tag {
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .city-tag-red { background: rgba(255,68,68,0.2); color: #ff6b6b; }
+    .city-tag-yellow { background: rgba(255,215,0,0.2); color: #ffd700; }
+    .city-tag-green { background: rgba(127,255,0,0.2); color: var(--green); }
+
+    /* 策略列表 */
+    .strategy-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0 0;
+    }
+    .strategy-list li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--gray-light);
+    }
+    .strategy-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+    }
+
+    /* 区域标签 */
+    .district-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .district-tag {
+      padding: 2px 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--gray-light);
+    }
+
+    /* BD部署数字 */
+    .bd-deploy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(127,255,0,0.15);
+      border: 1px solid rgba(127,255,0,0.3);
+      border-radius: 20px;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 0.95rem;
+    }
+
+    /* 获客渠道矩阵表格 */
+    .channel-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .channel-table th {
+      background: rgba(127,255,0,0.12);
+      color: var(--green);
+      padding: 14px 16px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(127,255,0,0.15);
+    }
+    .channel-table td {
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--gray-light);
+    }
+    .channel-table tr:nth-child(even) td {
+      background: rgba(255,255,255,0.02);
+    }
+    .channel-table tr:hover td {
+      background: rgba(127,255,0,0.05);
+    }
+    .channel-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* 饼图概念 */
+    .pie-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .pie-ring {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff4444 0deg 252deg,
+        #ffd700 252deg 324deg,
+        var(--green) 324deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .pie-ring-inner {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .pie-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pie-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+    .pie-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* 时间线节奏 */
+    .quarter-flow {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+    .quarter-item {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      border-radius: 12px;
+    }
+    .quarter-item::after {
+      content: '→';
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--green);
+      font-size: 1.2rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+    .quarter-item:last-child::after { display: none; }
+    .quarter-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    /* 话术要点卡片 */
+    .pitch-card {
+      border-radius: 12px;
+      padding: 25px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .pitch-card h4 {
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+    }
+    .pitch-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .pitch-keyword {
+      padding: 3px 10px;
+      background: rgba(127,255,0,0.15);
+      border-radius: 10px;
+      font-size: 0.78rem;
+      color: var(--green);
+    }
+
+    /* 统计概览卡片 */
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+    }
+
+    /* B级省份分组 */
+    .region-group {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .region-header {
+      padding: 15px 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .region-body {
+      padding: 15px 20px;
+    }
+    .province-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .province-tag {
+      padding: 5px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+    }
+
+    @media (max-width: 768px) {
+      .quarter-flow { flex-direction: column; gap: 15px; }
+      .quarter-item::after { display: none; }
+      .pie-visual { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- ==================== 1. 页面标题 ==================== -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">越南市场获客地图</span>
+          <span class="vn-only">Ban do khach hang Viet Nam</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">34省市客户发展优先级 · 差异化获客策略 · 资源分配指南</span>
+          <span class="vn-only">Uu tien phat trien 34 tinh thanh · Chien luoc khac biet · Phan bo nguon luc</span>
+        </p>
+      </div>
+
+      <!-- 核心理念 -->
+      <div class="key-point animate-in delay-1" style="margin-bottom: 50px;">
+        <div class="cn-only" style="font-size: 1.2rem;">先深后广，一个城市打透再扩张 · 集中火力，不分散资源</div>
+        <div class="vn-only" style="font-size: 1.1rem;">Sau truoc rong sau, danh thau mot thanh pho roi moi mo rong · Tap trung hoa luc, khong phan tan nguon luc</div>
+      </div>
+
+      <!-- ==================== 2. 市场概览总览 ==================== -->
+      <section class="content-section animate-in delay-2">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">越南市场概览</span>
+          <span class="vn-only">Tong quan thi truong Viet Nam</span>
+        </h2>
+
+        <div class="grid-4">
+          <div class="card card-highlight" style="text-align: center; padding: 30px 20px;">
+            <div class="stat-number">1.0<span style="font-size: 1rem;">亿+</span></div>
+            <div class="stat-label">
+              <span class="cn-only">总人口</span>
+              <span class="vn-only">Dan so</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 0.8rem; color: var(--gray);">
+              <span class="cn-only">东南亚第三大人口国</span>
+              <span class="vn-only">Dan so lon thu 3 Dong Nam A</span>
+            </div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 20px;">
+            <div class="stat-number">6.5<span style="font-size: 1rem;">%+</span></div>
+            <div class="stat-label">
+              <span class="cn-only">GDP 增速</span>
+              <span class="vn-only">Tang truong GDP</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 0.8rem; color: var(--gray);">
+              <span class="cn-only">亚洲增长最快经济体之一</span>
+              <span class="vn-only">Mot trong nhung nen kinh te tang nhanh nhat chau A</span>
+            </div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 20px;">
+            <div class="stat-number">78<span style="font-size: 1rem;">%</span></div>
+            <div class="stat-label">
+              <span class="cn-only">互联网渗透率</span>
+              <span class="vn-only">Ty le su dung Internet</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 0.8rem; color: var(--gray);">
+              <span class="cn-only">移动互联网高度普及</span>
+              <span class="vn-only">Internet di dong pho bien cao</span>
+            </div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 20px;">
+            <div class="stat-number">2000<span style="font-size: 1rem;">万+</span></div>
+            <div class="stat-label">
+              <span class="cn-only">加密用户</span>
+              <span class="vn-only">Nguoi dung crypto</span>
+            </div>
+            <div style="margin-top: 8px; font-size: 0.8rem; color: var(--gray);">
+              <span class="cn-only">全球加密接受度 Top 5</span>
+              <span class="vn-only">Top 5 toan cau ve chap nhan crypto</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 市场优势摘要 -->
+        <div class="card" style="margin-top: 30px; padding: 25px;">
+          <h3 style="color: var(--green); margin-bottom: 15px;">
+            <span class="cn-only">为什么越南是加密货币最佳市场？</span>
+            <span class="vn-only">Tai sao Viet Nam la thi truong crypto tot nhat?</span>
+          </h3>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div>
+                <div class="cn-only">年轻人口结构，中位年龄仅 32 岁，对新技术接受度极高</div>
+                <div class="vn-only">Co cau dan so tre, tuoi trung binh chi 32, san sang chap nhan cong nghe moi</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div>
+                <div class="cn-only">Zalo 月活用户 7500 万+，天然的社交获客池</div>
+                <div class="vn-only">Zalo 75 trieu nguoi dung hoat dong hang thang, kenh khai thac khach hang tu nhien</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div>
+                <div class="cn-only">P2P 交易文化浓厚，民间投资意愿强烈</div>
+                <div class="vn-only">Van hoa giao dich P2P manh, nhu cau dau tu cua nguoi dan lon</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div>
+                <div class="cn-only">经济高速发展带来的中产阶级快速崛起，可支配收入增长</div>
+                <div class="vn-only">Tang lop trung luu tang nhanh nho kinh te phat trien, thu nhap kha dung tang</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. 三级市场分类 ==================== -->
+
+      <!-- ===== S级市场 ===== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <div class="animate-in" style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <span class="tier-s"><span class="tier-badge" style="margin-left: 10px;">S 级</span></span>
+          <h2 style="margin: 0;">
+            <span class="cn-only">核心城市 · 优先投入</span>
+            <span class="vn-only">Thanh pho cot loi · Uu tien dau tu</span>
+          </h2>
+          <span style="padding: 4px 12px; background: rgba(255,68,68,0.2); border-radius: 12px; font-size: 0.8rem; color: #ff6b6b; font-weight: 600;">
+            <span class="cn-only">BD 占比 70%</span>
+            <span class="vn-only">BD chiem 70%</span>
+          </span>
+        </div>
+
+        <!-- 胡志明市 -->
+        <div class="city-card tier-s-card animate-in delay-1" style="margin-bottom: 25px;">
+          <div class="tier-s-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 1.3rem; margin-bottom: 4px;">
+                  <span class="cn-only">胡志明市 Ho Chi Minh City</span>
+                  <span class="vn-only">Thanh pho Ho Chi Minh</span>
+                </h3>
+                <div style="font-size: 0.9rem; color: var(--gray-light);">
+                  <span class="cn-only">人口 ~1000 万 · 越南经济中心 · 外资企业集中</span>
+                  <span class="vn-only">Dan so ~10 trieu · Trung tam kinh te VN · Tap trung doanh nghiep FDI</span>
+                </div>
+              </div>
+              <div class="bd-deploy">
+                <span class="cn-only">BD 部署: 40-50 人</span>
+                <span class="vn-only">BD: 40-50 nguoi</span>
+              </div>
+            </div>
+          </div>
+          <div class="city-body">
+            <div class="grid-2" style="gap: 25px;">
+              <div>
+                <h4 style="color: var(--green); margin-bottom: 10px;">
+                  <span class="cn-only">核心优势</span>
+                  <span class="vn-only">Uu the cot loi</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">金融中心，银行/证券/投资机构密集</span><span class="vn-only">Trung tam tai chinh, ngan hang/chung khoan/to chuc dau tu tap trung</span></li>
+                  <li><span class="cn-only">外企聚集，高收入白领群体庞大</span><span class="vn-only">Doanh nghiep nuoc ngoai tap trung, nhom nhan vien thu nhap cao lon</span></li>
+                  <li><span class="cn-only">加密社区最活跃，交易量占全国 60%+</span><span class="vn-only">Cong dong crypto soi noi nhat, khoi luong giao dich chiem 60%+ ca nuoc</span></li>
+                  <li><span class="cn-only">线下活动场地丰富，沙龙成本可控</span><span class="vn-only">Dia diem to chuc su kien phong phu, chi phi salon kiem soat duoc</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--green); margin-bottom: 10px;">
+                  <span class="cn-only">获客策略</span>
+                  <span class="vn-only">Chien luoc khai thac khach hang</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">线下沙龙为主 + 高端私享会（月 2-3 场）</span><span class="vn-only">Salon truc tiep la chinh + Hoi nghi rieng cao cap (2-3 lan/thang)</span></li>
+                  <li><span class="cn-only">Zalo 大群运营（500 人群 x 10+）</span><span class="vn-only">Van hanh nhom Zalo lon (nhom 500 nguoi x 10+)</span></li>
+                  <li><span class="cn-only">KOL/社区领袖合作，借力打力</span><span class="vn-only">Hop tac KOL/lanh dao cong dong, tan dung anh huong</span></li>
+                  <li><span class="cn-only">转介绍激励体系，老带新裂变</span><span class="vn-only">He thong thuong gioi thieu, khach cu dan khach moi</span></li>
+                </ul>
+              </div>
+            </div>
+            <div style="margin-top: 18px;">
+              <h4 style="color: var(--gray-light); margin-bottom: 8px; font-size: 0.9rem;">
+                <span class="cn-only">重点区域</span>
+                <span class="vn-only">Khu vuc trong diem</span>
+              </h4>
+              <div class="district-tags">
+                <span class="district-tag">Quan 1</span>
+                <span class="district-tag">Quan 7</span>
+                <span class="district-tag">Thu Duc</span>
+                <span class="district-tag">Binh Thanh</span>
+                <span class="district-tag">Quan 3</span>
+                <span class="district-tag">Phu Nhuan</span>
+                <span class="district-tag">Tan Binh</span>
+              </div>
+            </div>
+            <div class="city-meta" style="margin-top: 15px;">
+              <span class="city-tag city-tag-red"><span class="cn-only">最高优先级</span><span class="vn-only">Uu tien cao nhat</span></span>
+              <span class="city-tag city-tag-red"><span class="cn-only">客户质量最高</span><span class="vn-only">Chat luong KH cao nhat</span></span>
+              <span class="city-tag city-tag-green"><span class="cn-only">线下为主</span><span class="vn-only">Offline la chinh</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 河内 -->
+        <div class="city-card tier-s-card animate-in delay-2" style="margin-bottom: 25px;">
+          <div class="tier-s-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 1.3rem; margin-bottom: 4px;">
+                  <span class="cn-only">河内 Ha Noi</span>
+                  <span class="vn-only">Ha Noi</span>
+                </h3>
+                <div style="font-size: 0.9rem; color: var(--gray-light);">
+                  <span class="cn-only">人口 ~850 万 · 政治中心 · IT 人才密集</span>
+                  <span class="vn-only">Dan so ~8.5 trieu · Trung tam chinh tri · Tap trung nhan tai IT</span>
+                </div>
+              </div>
+              <div class="bd-deploy">
+                <span class="cn-only">BD 部署: 20-30 人</span>
+                <span class="vn-only">BD: 20-30 nguoi</span>
+              </div>
+            </div>
+          </div>
+          <div class="city-body">
+            <div class="grid-2" style="gap: 25px;">
+              <div>
+                <h4 style="color: var(--green); margin-bottom: 10px;">
+                  <span class="cn-only">核心优势</span>
+                  <span class="vn-only">Uu the cot loi</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">IT 产业发达，工程师群体对科技产品接受度高</span><span class="vn-only">Nganh IT phat trien, ky su co muc do chap nhan san pham cong nghe cao</span></li>
+                  <li><span class="cn-only">大学密集（河内国家大学等），年轻群体基数大</span><span class="vn-only">Nhieu truong dai hoc (DH Quoc gia HN), nhom tre co so luong lon</span></li>
+                  <li><span class="cn-only">政商关系网络丰富，高净值客户潜力大</span><span class="vn-only">Mang luoi chinh tri-thuong mai phong phu, tiem nang khach hang cao</span></li>
+                  <li><span class="cn-only">北方市场核心辐射点，影响周边 10+ 省</span><span class="vn-only">Diem buc xa cot loi thi truong phia Bac, anh huong 10+ tinh</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--green); margin-bottom: 10px;">
+                  <span class="cn-only">获客策略</span>
+                  <span class="vn-only">Chien luoc khai thac khach hang</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">科技圈渗透：技术论坛 + 开发者社区合作</span><span class="vn-only">Xam nhap gioi cong nghe: dien dan ky thuat + cong dong dev</span></li>
+                  <li><span class="cn-only">大学生群体：校园宣讲 + 低门槛体验活动</span><span class="vn-only">Sinh vien: thuyet trinh tai truong + hoat dong trai nghiem</span></li>
+                  <li><span class="cn-only">政商关系：高端晚宴 + 一对一顾问式服务</span><span class="vn-only">Chinh thuong: tiec cao cap + tu van 1-1</span></li>
+                  <li><span class="cn-only">线上会议优先（Zalo/Zoom），降低获客成本</span><span class="vn-only">Uu tien hop truc tuyen (Zalo/Zoom), giam chi phi</span></li>
+                </ul>
+              </div>
+            </div>
+            <div style="margin-top: 18px;">
+              <h4 style="color: var(--gray-light); margin-bottom: 8px; font-size: 0.9rem;">
+                <span class="cn-only">重点区域</span>
+                <span class="vn-only">Khu vuc trong diem</span>
+              </h4>
+              <div class="district-tags">
+                <span class="district-tag">Hoan Kiem</span>
+                <span class="district-tag">Cau Giay</span>
+                <span class="district-tag">Dong Da</span>
+                <span class="district-tag">Nam Tu Liem</span>
+                <span class="district-tag">Thanh Xuan</span>
+                <span class="district-tag">Ha Dong</span>
+              </div>
+            </div>
+            <div class="city-meta" style="margin-top: 15px;">
+              <span class="city-tag city-tag-red"><span class="cn-only">最高优先级</span><span class="vn-only">Uu tien cao nhat</span></span>
+              <span class="city-tag city-tag-green"><span class="cn-only">IT圈突破</span><span class="vn-only">Dot pha gioi IT</span></span>
+              <span class="city-tag city-tag-green"><span class="cn-only">线上+线下结合</span><span class="vn-only">Online + Offline</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A级市场 ===== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <div class="animate-in" style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <span class="tier-a"><span class="tier-badge" style="margin-left: 10px;">A 级</span></span>
+          <h2 style="margin: 0;">
+            <span class="cn-only">新兴城市 · 重点发展</span>
+            <span class="vn-only">Thanh pho moi noi · Phat trien trong diem</span>
+          </h2>
+          <span style="padding: 4px 12px; background: rgba(255,215,0,0.2); border-radius: 12px; font-size: 0.8rem; color: #ffd700; font-weight: 600;">
+            <span class="cn-only">BD 占比 20%</span>
+            <span class="vn-only">BD chiem 20%</span>
+          </span>
+        </div>
+
+        <div class="grid-2" style="gap: 20px;">
+          <!-- 岘港 -->
+          <div class="city-card tier-a-card animate-in delay-1">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">岘港 Da Nang</span>
+                <span class="vn-only">Da Nang</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~120 万 · 中部中心 · IT 新城</span>
+                <span class="vn-only">Dan so ~1.2 trieu · Trung tam mien Trung · Thanh pho IT moi</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">IT 产业园区渗透，年轻开发者多</span><span class="vn-only">Xam nhap khu cong nghe, nhieu dev tre</span></li>
+                <li><span class="cn-only">旅游业从业者有闲钱投资需求</span><span class="vn-only">Nguoi lam du lich co nhu cau dau tu</span></li>
+                <li><span class="cn-only">Zalo 群 + 线上会议为主</span><span class="vn-only">Nhom Zalo + hop truc tuyen la chinh</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 3-5 人</span><span class="vn-only">BD: 3-5 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">IT突破口</span><span class="vn-only">Dot pha IT</span></span>
+                <span class="city-tag city-tag-green"><span class="cn-only">线上为主</span><span class="vn-only">Online</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 芹苴 -->
+          <div class="city-card tier-a-card animate-in delay-2">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">芹苴 Can Tho</span>
+                <span class="vn-only">Can Tho</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~130 万 · 湄公河三角洲中心</span>
+                <span class="vn-only">Dan so ~1.3 trieu · Trung tam DBSCL</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">农产品交易活跃，商人群体有投资意识</span><span class="vn-only">Giao dich nong san soi noi, thuong nhan co y thuc dau tu</span></li>
+                <li><span class="cn-only">辐射周边九龙江三角洲 12 省</span><span class="vn-only">Anh huong 12 tinh dong bang song Cuu Long</span></li>
+                <li><span class="cn-only">转介绍 + 本地社群为核心</span><span class="vn-only">Gioi thieu + cong dong dia phuong la cot loi</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 2-3 人</span><span class="vn-only">BD: 2-3 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">辐射三角洲</span><span class="vn-only">Buc xa DBSCL</span></span>
+                <span class="city-tag city-tag-green"><span class="cn-only">转介绍优先</span><span class="vn-only">Uu tien gioi thieu</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 海防 -->
+          <div class="city-card tier-a-card animate-in delay-3">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">海防 Hai Phong</span>
+                <span class="vn-only">Hai Phong</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~210 万 · 北方第二大城市 · 港口经济</span>
+                <span class="vn-only">Dan so ~2.1 trieu · TP lon thu 2 mien Bac · Kinh te cang</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">港口贸易活跃，国际商人多</span><span class="vn-only">Thuong mai cang soi noi, nhieu thuong nhan quoc te</span></li>
+                <li><span class="cn-only">工业区工人有储蓄理财需求</span><span class="vn-only">Cong nhan KCN co nhu cau tiet kiem dau tu</span></li>
+                <li><span class="cn-only">与河内联动，共享资源和活动</span><span class="vn-only">Lien ket voi Ha Noi, chia se nguon luc va su kien</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 3-5 人</span><span class="vn-only">BD: 3-5 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">港口经济</span><span class="vn-only">Kinh te cang</span></span>
+                <span class="city-tag city-tag-green"><span class="cn-only">联动河内</span><span class="vn-only">Lien ket HN</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 平阳 -->
+          <div class="city-card tier-a-card animate-in delay-4">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">平阳 Binh Duong</span>
+                <span class="vn-only">Binh Duong</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~270 万 · 工业区密集 · 外资工厂集中</span>
+                <span class="vn-only">Dan so ~2.7 trieu · KCN day dac · Tap trung nha may FDI</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">外资工人有稳定收入和储蓄需求</span><span class="vn-only">Cong nhan FDI co thu nhap on dinh va nhu cau tiet kiem</span></li>
+                <li><span class="cn-only">与胡志明联动，交通便利共享 BD 资源</span><span class="vn-only">Lien ket HCM, giao thong thuan loi chia se nguon luc BD</span></li>
+                <li><span class="cn-only">工厂午休/下班时间做 Zalo 私聊</span><span class="vn-only">Chat Zalo rieng vao gio nghi trua/tan ca</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 2-3 人</span><span class="vn-only">BD: 2-3 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">工业区渗透</span><span class="vn-only">KCN</span></span>
+                <span class="city-tag city-tag-green"><span class="cn-only">联动胡志明</span><span class="vn-only">Lien ket HCM</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 同奈 -->
+          <div class="city-card tier-a-card animate-in delay-5">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">同奈 Dong Nai</span>
+                <span class="vn-only">Dong Nai</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~320 万 · 工业区 · 胡志明卫星城</span>
+                <span class="vn-only">Dan so ~3.2 trieu · KCN · Thanh pho ve tinh HCM</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">30+ 个工业区，蓝领工人基数大</span><span class="vn-only">30+ KCN, so luong cong nhan lon</span></li>
+                <li><span class="cn-only">收入稳定，对被动收入需求强</span><span class="vn-only">Thu nhap on dinh, nhu cau thu nhap thu dong manh</span></li>
+                <li><span class="cn-only">强调不影响工作、每月稳定收益</span><span class="vn-only">Nhan manh khong anh huong cong viec, loi nhuan on dinh hang thang</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 2-3 人</span><span class="vn-only">BD: 2-3 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">蓝领市场</span><span class="vn-only">Thi truong lao dong</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 庆和/芽庄 -->
+          <div class="city-card tier-a-card animate-in delay-5">
+            <div class="tier-a-header">
+              <h3 style="margin-bottom: 4px;">
+                <span class="cn-only">庆和/芽庄 Khanh Hoa / Nha Trang</span>
+                <span class="vn-only">Khanh Hoa / Nha Trang</span>
+              </h3>
+              <div style="font-size: 0.85rem; color: var(--gray-light);">
+                <span class="cn-only">人口 ~125 万 · 旅游城市 · 服务业发达</span>
+                <span class="vn-only">Dan so ~1.25 trieu · Thanh pho du lich · Dich vu phat trien</span>
+              </div>
+            </div>
+            <div class="city-body">
+              <ul class="strategy-list">
+                <li><span class="cn-only">旅游从业者收入不稳定，寻求第二收入</span><span class="vn-only">Nguoi lam du lich thu nhap khong on dinh, tim nguon thu nhap thu 2</span></li>
+                <li><span class="cn-only">外国人社区活跃（俄罗斯、韩国、中国）</span><span class="vn-only">Cong dong nuoc ngoai soi noi (Nga, Han, Trung)</span></li>
+                <li><span class="cn-only">线上沟通为主 + 旅游季节性沙龙</span><span class="vn-only">Giao tiep truc tuyen la chinh + salon theo mua du lich</span></li>
+              </ul>
+              <div style="margin-top: 12px;">
+                <span class="bd-deploy" style="font-size: 0.85rem;"><span class="cn-only">BD: 2-3 人</span><span class="vn-only">BD: 2-3 nguoi</span></span>
+              </div>
+              <div class="city-meta">
+                <span class="city-tag city-tag-yellow"><span class="cn-only">旅游人群</span><span class="vn-only">Du lich</span></span>
+                <span class="city-tag city-tag-green"><span class="cn-only">外国人社区</span><span class="vn-only">Cong dong nuoc ngoai</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== B级市场 ===== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <div class="animate-in" style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <span class="tier-b"><span class="tier-badge" style="margin-left: 10px;">B 级</span></span>
+          <h2 style="margin: 0;">
+            <span class="cn-only">待开发市场 · 长期布局</span>
+            <span class="vn-only">Thi truong chua khai thac · Bo tri dai han</span>
+          </h2>
+          <span style="padding: 4px 12px; background: rgba(127,255,0,0.2); border-radius: 12px; font-size: 0.8rem; color: var(--green); font-weight: 600;">
+            <span class="cn-only">BD 占比 10%</span>
+            <span class="vn-only">BD chiem 10%</span>
+          </span>
+        </div>
+
+        <!-- 北部省份 -->
+        <div class="region-group tier-b-card animate-in delay-1">
+          <div class="region-header tier-b-header">
+            <span style="font-size: 1.3rem;">🏔️</span>
+            <span class="cn-only">北部省份（10 省）</span>
+            <span class="vn-only">Cac tinh mien Bac (10 tinh)</span>
+          </div>
+          <div class="region-body" style="padding: 20px 25px;">
+            <div class="province-tags" style="margin-bottom: 15px;">
+              <span class="province-tag"><span class="cn-only">北宁 Bac Ninh</span><span class="vn-only">Bac Ninh</span></span>
+              <span class="province-tag"><span class="cn-only">太原 Thai Nguyen</span><span class="vn-only">Thai Nguyen</span></span>
+              <span class="province-tag"><span class="cn-only">广宁 Quang Ninh</span><span class="vn-only">Quang Ninh</span></span>
+              <span class="province-tag"><span class="cn-only">老街 Lao Cai</span><span class="vn-only">Lao Cai</span></span>
+              <span class="province-tag"><span class="cn-only">清化 Thanh Hoa</span><span class="vn-only">Thanh Hoa</span></span>
+              <span class="province-tag"><span class="cn-only">义安 Nghe An</span><span class="vn-only">Nghe An</span></span>
+              <span class="province-tag"><span class="cn-only">永福 Vinh Phuc</span><span class="vn-only">Vinh Phuc</span></span>
+              <span class="province-tag"><span class="cn-only">海阳 Hai Duong</span><span class="vn-only">Hai Duong</span></span>
+              <span class="province-tag"><span class="cn-only">兴安 Hung Yen</span><span class="vn-only">Hung Yen</span></span>
+              <span class="province-tag"><span class="cn-only">南定 Nam Dinh</span><span class="vn-only">Nam Dinh</span></span>
+            </div>
+            <div class="grid-2" style="gap: 15px;">
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">共性特征</span>
+                  <span class="vn-only">Dac diem chung</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">工业区发展中，工人群体为主</span><span class="vn-only">KCN dang phat trien, cong nhan la chinh</span></li>
+                  <li><span class="cn-only">互联网使用率增长快</span><span class="vn-only">Ty le su dung Internet tang nhanh</span></li>
+                  <li><span class="cn-only">投资意识正在觉醒</span><span class="vn-only">Nhan thuc dau tu dang thuc tinh</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">获客建议</span>
+                  <span class="vn-only">Goi y khai thac</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">以河内为核心辐射，线上 Zalo 运营</span><span class="vn-only">Lay Ha Noi lam trung tam buc xa, van hanh Zalo truc tuyen</span></li>
+                  <li><span class="cn-only">转介绍为主要获客方式</span><span class="vn-only">Gioi thieu la phuong thuc chinh</span></li>
+                  <li><span class="cn-only">BD 部署：由河内团队远程覆盖</span><span class="vn-only">BD: Doi Ha Noi bao phu tu xa</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 中部省份 -->
+        <div class="region-group tier-b-card animate-in delay-2">
+          <div class="region-header tier-b-header">
+            <span style="font-size: 1.3rem;">🏖️</span>
+            <span class="cn-only">中部省份（8 省）</span>
+            <span class="vn-only">Cac tinh mien Trung (8 tinh)</span>
+          </div>
+          <div class="region-body" style="padding: 20px 25px;">
+            <div class="province-tags" style="margin-bottom: 15px;">
+              <span class="province-tag"><span class="cn-only">顺化 Thua Thien Hue</span><span class="vn-only">Thua Thien Hue</span></span>
+              <span class="province-tag"><span class="cn-only">广南 Quang Nam</span><span class="vn-only">Quang Nam</span></span>
+              <span class="province-tag"><span class="cn-only">富安 Phu Yen</span><span class="vn-only">Phu Yen</span></span>
+              <span class="province-tag"><span class="cn-only">平定 Binh Dinh</span><span class="vn-only">Binh Dinh</span></span>
+              <span class="province-tag"><span class="cn-only">广平 Quang Binh</span><span class="vn-only">Quang Binh</span></span>
+              <span class="province-tag"><span class="cn-only">广治 Quang Tri</span><span class="vn-only">Quang Tri</span></span>
+              <span class="province-tag"><span class="cn-only">得乐 Dak Lak</span><span class="vn-only">Dak Lak</span></span>
+              <span class="province-tag"><span class="cn-only">林同 Lam Dong</span><span class="vn-only">Lam Dong</span></span>
+            </div>
+            <div class="grid-2" style="gap: 15px;">
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">共性特征</span>
+                  <span class="vn-only">Dac diem chung</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">旅游+农业为主导经济</span><span class="vn-only">Du lich + Nong nghiep la kinh te chu dao</span></li>
+                  <li><span class="cn-only">信息相对闭塞，信任建立周期长</span><span class="vn-only">Thong tin tuong doi han che, xay dung tin tuong mat thoi gian</span></li>
+                  <li><span class="cn-only">熟人社会，口碑传播效果好</span><span class="vn-only">Xa hoi quen biet, truyen mieng hieu qua</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">获客建议</span>
+                  <span class="vn-only">Goi y khai thac</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">以岘港为核心辐射，线上为主</span><span class="vn-only">Lay Da Nang lam trung tam, truc tuyen la chinh</span></li>
+                  <li><span class="cn-only">培养本地 KOL/意见领袖</span><span class="vn-only">Dao tao KOL/nguoi anh huong dia phuong</span></li>
+                  <li><span class="cn-only">BD 部署：由岘港团队远程覆盖</span><span class="vn-only">BD: Doi Da Nang bao phu tu xa</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 南部省份 -->
+        <div class="region-group tier-b-card animate-in delay-3">
+          <div class="region-header tier-b-header">
+            <span style="font-size: 1.3rem;">🌾</span>
+            <span class="cn-only">南部省份（10 省）</span>
+            <span class="vn-only">Cac tinh mien Nam (10 tinh)</span>
+          </div>
+          <div class="region-body" style="padding: 20px 25px;">
+            <div class="province-tags" style="margin-bottom: 15px;">
+              <span class="province-tag"><span class="cn-only">隆安 Long An</span><span class="vn-only">Long An</span></span>
+              <span class="province-tag"><span class="cn-only">前江 Tien Giang</span><span class="vn-only">Tien Giang</span></span>
+              <span class="province-tag"><span class="cn-only">槟椥 Ben Tre</span><span class="vn-only">Ben Tre</span></span>
+              <span class="province-tag"><span class="cn-only">安江 An Giang</span><span class="vn-only">An Giang</span></span>
+              <span class="province-tag"><span class="cn-only">巴地头顿 Ba Ria - Vung Tau</span><span class="vn-only">Ba Ria - Vung Tau</span></span>
+              <span class="province-tag"><span class="cn-only">西宁 Tay Ninh</span><span class="vn-only">Tay Ninh</span></span>
+              <span class="province-tag"><span class="cn-only">坚江 Kien Giang</span><span class="vn-only">Kien Giang</span></span>
+              <span class="province-tag"><span class="cn-only">朔庄 Soc Trang</span><span class="vn-only">Soc Trang</span></span>
+              <span class="province-tag"><span class="cn-only">永隆 Vinh Long</span><span class="vn-only">Vinh Long</span></span>
+              <span class="province-tag"><span class="cn-only">同塔 Dong Thap</span><span class="vn-only">Dong Thap</span></span>
+            </div>
+            <div class="grid-2" style="gap: 15px;">
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">共性特征</span>
+                  <span class="vn-only">Dac diem chung</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">农业为主，季节性收入波动大</span><span class="vn-only">Nong nghiep la chinh, thu nhap bien dong theo mua</span></li>
+                  <li><span class="cn-only">经济活跃度低于北部工业省</span><span class="vn-only">Muc do kinh te kem hon tinh cong nghiep phia Bac</span></li>
+                  <li><span class="cn-only">对被动收入需求强烈</span><span class="vn-only">Nhu cau thu nhap thu dong manh</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="color: var(--green); font-size: 0.95rem; margin-bottom: 8px;">
+                  <span class="cn-only">获客建议</span>
+                  <span class="vn-only">Goi y khai thac</span>
+                </h4>
+                <ul class="strategy-list">
+                  <li><span class="cn-only">以胡志明+芹苴为核心辐射</span><span class="vn-only">Lay HCM + Can Tho lam trung tam buc xa</span></li>
+                  <li><span class="cn-only">低门槛体验活动，强调小额起步</span><span class="vn-only">Hoat dong trai nghiem nguong thap, nhan manh bat dau nho</span></li>
+                  <li><span class="cn-only">BD 部署：由胡志明/芹苴团队远程覆盖</span><span class="vn-only">BD: Doi HCM/Can Tho bao phu tu xa</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. 获客渠道矩阵 ==================== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">获客渠道矩阵</span>
+          <span class="vn-only">Ma tran kenh khai thac khach hang</span>
+        </h2>
+
+        <div class="card animate-in delay-1" style="padding: 0; overflow: hidden;">
+          <table class="channel-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">
+                  <span class="cn-only">渠道</span>
+                  <span class="vn-only">Kenh</span>
+                </th>
+                <th style="color: #ff4444;">
+                  <span class="cn-only">S级市场</span>
+                  <span class="vn-only">Thi truong S</span>
+                </th>
+                <th style="color: #ffd700;">
+                  <span class="cn-only">A级市场</span>
+                  <span class="vn-only">Thi truong A</span>
+                </th>
+                <th style="color: var(--green);">
+                  <span class="cn-only">B级市场</span>
+                  <span class="vn-only">Thi truong B</span>
+                </th>
+                <th>
+                  <span class="cn-only">说明</span>
+                  <span class="vn-only">Ghi chu</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="cn-only">Zalo 群运营</span>
+                  <span class="vn-only">Van hanh nhom Zalo</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">S级多群矩阵，B级单群维护</span>
+                  <span class="vn-only">S: nhieu nhom, B: mot nhom</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">线下沙龙</span>
+                  <span class="vn-only">Salon offline</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;</td>
+                <td style="color: var(--gray);">&#10060;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">S级月2-3场，B级暂不开展</span>
+                  <span class="vn-only">S: 2-3 lan/thang, B: chua to chuc</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">转介绍</span>
+                  <span class="vn-only">Gioi thieu</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">所有市场通用，核心增长引擎</span>
+                  <span class="vn-only">Ap dung tat ca, dong luc tang truong</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">社交媒体</span>
+                  <span class="vn-only">Mang xa hoi</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">Facebook/TikTok/YouTube 全覆盖</span>
+                  <span class="vn-only">Facebook/TikTok/YouTube toan dien</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">线上会议</span>
+                  <span class="vn-only">Hop truc tuyen</span>
+                </td>
+                <td style="color: var(--green);">&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;&#9989;&#9989;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">A/B级远程市场的核心渠道</span>
+                  <span class="vn-only">Kenh cot loi cho A/B tu xa</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">KOL 合作</span>
+                  <span class="vn-only">Hop tac KOL</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;&#9989;</td>
+                <td style="color: var(--green);">&#9989;</td>
+                <td style="color: var(--gray);">&#10060;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">S级主攻头部KOL，A级培养本地达人</span>
+                  <span class="vn-only">S: KOL lon, A: dao tao nguoi anh huong</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cn-only">高端私享会</span>
+                  <span class="vn-only">Su kien VIP</span>
+                </td>
+                <td style="color: var(--green);">&#9989;&#9989;</td>
+                <td style="color: var(--gray);">&#10060;</td>
+                <td style="color: var(--gray);">&#10060;</td>
+                <td style="text-align: left; font-size: 0.85rem;">
+                  <span class="cn-only">仅胡志明/河内，大客户专属</span>
+                  <span class="vn-only">Chi HCM/HN, danh cho VIP</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 5. 按市场定制话术要点 ==================== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">按市场定制话术要点</span>
+          <span class="vn-only">Diem kich ban tuy chinh theo thi truong</span>
+        </h2>
+
+        <div class="grid-2" style="gap: 20px;">
+          <!-- 胡志明话术 -->
+          <div class="pitch-card animate-in delay-1" style="border-left: 4px solid #ff4444;">
+            <h4>
+              <span style="color: #ff4444;">&#127468;&#127475;</span>
+              <span class="cn-only">胡志明市</span>
+              <span class="vn-only">TP Ho Chi Minh</span>
+            </h4>
+            <ul class="strategy-list">
+              <li><span class="cn-only">强调国际化定位，对标全球顶级交易所</span><span class="vn-only">Nhan manh quoc te hoa, doi chieu san giao dich hang dau</span></li>
+              <li><span class="cn-only">突出 AI 技术优势，吸引科技精英</span><span class="vn-only">Noi bat cong nghe AI, thu hut gioi tinh hoa cong nghe</span></li>
+              <li><span class="cn-only">展示机构级服务，区别于散户平台</span><span class="vn-only">Trinh bay dich vu cap to chuc, khac biet voi nen tang le</span></li>
+              <li><span class="cn-only">成功案例以高净值客户为主</span><span class="vn-only">Vi du thanh cong tap trung khach hang gia tri cao</span></li>
+            </ul>
+            <div class="pitch-keywords">
+              <span class="pitch-keyword"><span class="cn-only">国际化</span><span class="vn-only">Quoc te hoa</span></span>
+              <span class="pitch-keyword">AI</span>
+              <span class="pitch-keyword"><span class="cn-only">机构级</span><span class="vn-only">Cap to chuc</span></span>
+              <span class="pitch-keyword">Binance</span>
+            </div>
+          </div>
+
+          <!-- 河内话术 -->
+          <div class="pitch-card animate-in delay-2" style="border-left: 4px solid #ff4444;">
+            <h4>
+              <span style="color: #ff4444;">&#127468;&#127475;</span>
+              <span class="cn-only">河内</span>
+              <span class="vn-only">Ha Noi</span>
+            </h4>
+            <ul class="strategy-list">
+              <li><span class="cn-only">强调安全合规，多国牌照背书</span><span class="vn-only">Nhan manh an toan hop phap, giay phep nhieu quoc gia</span></li>
+              <li><span class="cn-only">突出长期投资价值，复利思维</span><span class="vn-only">Noi bat gia tri dau tu dai han, tu duy lai kep</span></li>
+              <li><span class="cn-only">技术论证为主，用数据说话</span><span class="vn-only">Chung minh bang ky thuat, noi bang du lieu</span></li>
+              <li><span class="cn-only">政策友好方向引导，降低顾虑</span><span class="vn-only">Huong dan chinh sach thuan loi, giam lo ngai</span></li>
+            </ul>
+            <div class="pitch-keywords">
+              <span class="pitch-keyword"><span class="cn-only">安全合规</span><span class="vn-only">An toan</span></span>
+              <span class="pitch-keyword"><span class="cn-only">长期价值</span><span class="vn-only">Dai han</span></span>
+              <span class="pitch-keyword"><span class="cn-only">数据论证</span><span class="vn-only">Du lieu</span></span>
+              <span class="pitch-keyword"><span class="cn-only">牌照</span><span class="vn-only">Giay phep</span></span>
+            </div>
+          </div>
+
+          <!-- 中部城市话术 -->
+          <div class="pitch-card animate-in delay-3" style="border-left: 4px solid #ffd700;">
+            <h4>
+              <span style="color: #ffd700;">&#127468;&#127475;</span>
+              <span class="cn-only">中部城市（岘港、顺化等）</span>
+              <span class="vn-only">Thanh pho mien Trung (Da Nang, Hue...)</span>
+            </h4>
+            <ul class="strategy-list">
+              <li><span class="cn-only">强调低门槛，100 美金即可起步</span><span class="vn-only">Nhan manh nguong thap, chi tu 100 USD</span></li>
+              <li><span class="cn-only">灵活操作，随时可停、随时可提</span><span class="vn-only">Linh hoat, co the dung va rut bat cu luc nao</span></li>
+              <li><span class="cn-only">用身边人的成功案例说话</span><span class="vn-only">Dung cau chuyen thanh cong cua nguoi xung quanh</span></li>
+              <li><span class="cn-only">简单易懂的话术，避免技术术语</span><span class="vn-only">Kich ban de hieu, tranh thuat ngu ky thuat</span></li>
+            </ul>
+            <div class="pitch-keywords">
+              <span class="pitch-keyword"><span class="cn-only">低门槛</span><span class="vn-only">Nguong thap</span></span>
+              <span class="pitch-keyword"><span class="cn-only">灵活</span><span class="vn-only">Linh hoat</span></span>
+              <span class="pitch-keyword"><span class="cn-only">身边案例</span><span class="vn-only">Vi du thuc te</span></span>
+              <span class="pitch-keyword"><span class="cn-only">简单</span><span class="vn-only">Don gian</span></span>
+            </div>
+          </div>
+
+          <!-- 工业区话术 -->
+          <div class="pitch-card animate-in delay-4" style="border-left: 4px solid #ffd700;">
+            <h4>
+              <span style="color: #ffd700;">&#127468;&#127475;</span>
+              <span class="cn-only">工业区（平阳、同奈等）</span>
+              <span class="vn-only">KCN (Binh Duong, Dong Nai...)</span>
+            </h4>
+            <ul class="strategy-list">
+              <li><span class="cn-only">强调被动收入，不影响工作</span><span class="vn-only">Nhan manh thu nhap thu dong, khong anh huong cong viec</span></li>
+              <li><span class="cn-only">每月稳定收益，比银行利息高</span><span class="vn-only">Loi nhuan on dinh hang thang, cao hon lai ngan hang</span></li>
+              <li><span class="cn-only">用工人听得懂的语言沟通</span><span class="vn-only">Giao tiep bang ngon ngu cong nhan hieu duoc</span></li>
+              <li><span class="cn-only">重点时段：午休/下班后/周末</span><span class="vn-only">Thoi diem trong tam: nghi trua/tan ca/cuoi tuan</span></li>
+            </ul>
+            <div class="pitch-keywords">
+              <span class="pitch-keyword"><span class="cn-only">被动收入</span><span class="vn-only">Thu dong</span></span>
+              <span class="pitch-keyword"><span class="cn-only">不影响工作</span><span class="vn-only">Khong anh huong</span></span>
+              <span class="pitch-keyword"><span class="cn-only">每月稳定</span><span class="vn-only">On dinh hang thang</span></span>
+              <span class="pitch-keyword"><span class="cn-only">简单操作</span><span class="vn-only">Don gian</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 6. 资源分配建议 ==================== -->
+      <section class="content-section" style="margin-top: 20px;">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">资源分配建议</span>
+          <span class="vn-only">De xuat phan bo nguon luc</span>
+        </h2>
+
+        <!-- 饼图 + 图例 -->
+        <div class="card animate-in delay-1" style="padding: 40px;">
+          <div class="pie-visual">
+            <div class="pie-ring">
+              <div class="pie-ring-inner">
+                <span class="cn-only">100人<br>BD</span>
+                <span class="vn-only">100<br>BD</span>
+              </div>
+            </div>
+            <div class="pie-legend">
+              <div class="pie-legend-item">
+                <div class="pie-dot" style="background: #ff4444;"></div>
+                <div>
+                  <strong style="color: #ff4444;">S 级 70%</strong>
+                  <span style="color: var(--gray-light); font-size: 0.85rem;"> — 70 人</span>
+                  <div style="font-size: 0.85rem; color: var(--gray); margin-top: 2px;">
+                    <span class="cn-only">胡志明 40-50 人 + 河内 20-30 人</span>
+                    <span class="vn-only">HCM 40-50 + HN 20-30</span>
+                  </div>
+                </div>
+              </div>
+              <div class="pie-legend-item">
+                <div class="pie-dot" style="background: #ffd700;"></div>
+                <div>
+                  <strong style="color: #ffd700;">A 级 20%</strong>
+                  <span style="color: var(--gray-light); font-size: 0.85rem;"> — 20 人</span>
+                  <div style="font-size: 0.85rem; color: var(--gray); margin-top: 2px;">
+                    <span class="cn-only">岘港/海防/平阳/同奈/芹苴/芽庄各 2-5 人</span>
+                    <span class="vn-only">DN/HP/BD/DN/CT/NT moi noi 2-5 nguoi</span>
+                  </div>
+                </div>
+              </div>
+              <div class="pie-legend-item">
+                <div class="pie-dot" style="background: var(--green);"></div>
+                <div>
+                  <strong style="color: var(--green);">B 级 10%</strong>
+                  <span style="color: var(--gray-light); font-size: 0.85rem;"> — 10 人</span>
+                  <div style="font-size: 0.85rem; color: var(--gray); margin-top: 2px;">
+                    <span class="cn-only">由 S/A 级团队远程覆盖 28 省</span>
+                    <span class="vn-only">Doi S/A bao phu tu xa 28 tinh</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BD部署表 -->
+        <div class="card animate-in delay-2" style="padding: 0; overflow: hidden; margin-top: 25px;">
+          <table class="channel-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">
+                  <span class="cn-only">城市</span>
+                  <span class="vn-only">Thanh pho</span>
+                </th>
+                <th>
+                  <span class="cn-only">级别</span>
+                  <span class="vn-only">Cap</span>
+                </th>
+                <th>
+                  <span class="cn-only">BD 人数</span>
+                  <span class="vn-only">So BD</span>
+                </th>
+                <th>
+                  <span class="cn-only">主要渠道</span>
+                  <span class="vn-only">Kenh chinh</span>
+                </th>
+                <th>
+                  <span class="cn-only">月目标</span>
+                  <span class="vn-only">Muc tieu thang</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cn-only">胡志明</span><span class="vn-only">HCM</span></td>
+                <td><span style="color: #ff4444; font-weight: 700;">S</span></td>
+                <td>40-50</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">线下沙龙+Zalo+KOL</span><span class="vn-only">Salon+Zalo+KOL</span></td>
+                <td style="color: var(--green); font-weight: 700;">$150-180<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">河内</span><span class="vn-only">Ha Noi</span></td>
+                <td><span style="color: #ff4444; font-weight: 700;">S</span></td>
+                <td>20-30</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">科技圈+线上会议+沙龙</span><span class="vn-only">IT+Online+Salon</span></td>
+                <td style="color: var(--green); font-weight: 700;">$80-100<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">岘港</span><span class="vn-only">Da Nang</span></td>
+                <td><span style="color: #ffd700; font-weight: 700;">A</span></td>
+                <td>3-5</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">Zalo+线上会议</span><span class="vn-only">Zalo+Online</span></td>
+                <td style="color: var(--green); font-weight: 700;">$15-20<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">海防</span><span class="vn-only">Hai Phong</span></td>
+                <td><span style="color: #ffd700; font-weight: 700;">A</span></td>
+                <td>3-5</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">联动河内+转介绍</span><span class="vn-only">Ket noi HN+Gioi thieu</span></td>
+                <td style="color: var(--green); font-weight: 700;">$10-15<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">平阳/同奈</span><span class="vn-only">BD/DN</span></td>
+                <td><span style="color: #ffd700; font-weight: 700;">A</span></td>
+                <td>4-6</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">工业区+联动胡志明</span><span class="vn-only">KCN+Ket noi HCM</span></td>
+                <td style="color: var(--green); font-weight: 700;">$15-20<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">芹苴/芽庄</span><span class="vn-only">CT/NT</span></td>
+                <td><span style="color: #ffd700; font-weight: 700;">A</span></td>
+                <td>4-6</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">转介绍+Zalo+线上</span><span class="vn-only">Gioi thieu+Zalo+Online</span></td>
+                <td style="color: var(--green); font-weight: 700;">$10-15<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+              <tr>
+                <td><span class="cn-only">B级 28 省</span><span class="vn-only">28 tinh B</span></td>
+                <td><span style="color: var(--green); font-weight: 700;">B</span></td>
+                <td>~10</td>
+                <td style="text-align: left; font-size: 0.85rem;"><span class="cn-only">远程Zalo+转介绍</span><span class="vn-only">Zalo tu xa+Gioi thieu</span></td>
+                <td style="color: var(--green); font-weight: 700;">$20-30<span style="font-size: 0.75rem; color: var(--gray);">万</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 月度推进节奏 -->
+        <h3 class="animate-in delay-3" style="margin-top: 40px; margin-bottom: 20px;">
+          <span class="cn-only">年度推进节奏</span>
+          <span class="vn-only">Nhip do trien khai nam</span>
+        </h3>
+
+        <div class="quarter-flow animate-in delay-4">
+          <div class="quarter-item" style="background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.2);">
+            <div class="quarter-label" style="background: #ff4444; color: #fff;">Q1</div>
+            <h4 style="margin-bottom: 8px; font-size: 1rem;">
+              <span class="cn-only">扎根胡志明</span>
+              <span class="vn-only">Bat re o HCM</span>
+            </h4>
+            <div style="font-size: 0.85rem; color: var(--gray-light);">
+              <span class="cn-only">集中 70% 资源<br>建立核心团队<br>打磨获客模型</span>
+              <span class="vn-only">Tap trung 70%<br>Xay doi cot loi<br>Hoan thien mo hinh</span>
+            </div>
+          </div>
+          <div class="quarter-item" style="background: rgba(255,68,68,0.08); border: 1px solid rgba(255,68,68,0.15);">
+            <div class="quarter-label" style="background: rgba(255,68,68,0.8); color: #fff;">Q2</div>
+            <h4 style="margin-bottom: 8px; font-size: 1rem;">
+              <span class="cn-only">拓展河内+岘港</span>
+              <span class="vn-only">Mo rong HN+DN</span>
+            </h4>
+            <div style="font-size: 0.85rem; color: var(--gray-light);">
+              <span class="cn-only">河内团队组建<br>岘港试点启动<br>复制胡志明模式</span>
+              <span class="vn-only">Xay doi HN<br>Pilot DN<br>Nhan ban mo hinh HCM</span>
+            </div>
+          </div>
+          <div class="quarter-item" style="background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.15);">
+            <div class="quarter-label" style="background: #ffd700; color: #000;">Q3</div>
+            <h4 style="margin-bottom: 8px; font-size: 1rem;">
+              <span class="cn-only">覆盖 A 级市场</span>
+              <span class="vn-only">Bao phu cap A</span>
+            </h4>
+            <div style="font-size: 0.85rem; color: var(--gray-light);">
+              <span class="cn-only">A级城市全面铺开<br>工业区专项突破<br>建立区域代理</span>
+              <span class="vn-only">Mo rong A toan dien<br>Dot pha KCN<br>Xay dai ly khu vuc</span>
+            </div>
+          </div>
+          <div class="quarter-item" style="background: rgba(127,255,0,0.06); border: 1px solid rgba(127,255,0,0.12);">
+            <div class="quarter-label" style="background: var(--green); color: #000;">Q4</div>
+            <h4 style="margin-bottom: 8px; font-size: 1rem;">
+              <span class="cn-only">渗透 B 级市场</span>
+              <span class="vn-only">Xam nhap cap B</span>
+            </h4>
+            <div style="font-size: 0.85rem; color: var(--gray-light);">
+              <span class="cn-only">远程覆盖 28 省<br>转介绍裂变<br>冲刺全年目标</span>
+              <span class="vn-only">Bao phu 28 tinh tu xa<br>Lan truyen gioi thieu<br>Chay nuoc rut muc tieu nam</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 7. 底部金句 ==================== -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 30px;">
+        <div class="cn-only" style="font-size: 1.2rem;">先深后广，一个城市打透再扩张 · 集中火力，不分散资源</div>
+        <div class="vn-only" style="font-size: 1.1rem;">Sau truoc rong sau, danh thau mot thanh pho roi moi mo rong · Tap trung hoa luc, khong phan tan nguon luc</div>
+      </div>
+
+      <!-- 快速跳转 -->
+      <div class="card animate-in" style="padding: 25px; margin-bottom: 50px; text-align: center;">
+        <h4 style="margin-bottom: 15px;">
+          <span class="cn-only">相关工具</span>
+          <span class="vn-only">Cong cu lien quan</span>
+        </h4>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="zalo-guide.html" style="padding: 8px 18px; background: rgba(127,255,0,0.15); border: 1px solid rgba(127,255,0,0.3); border-radius: 20px; font-size: 0.9rem; text-decoration: none;">
+            <span class="cn-only">Zalo 运营手册</span>
+            <span class="vn-only">So tay Zalo</span>
+          </a>
+          <a href="faq.html" style="padding: 8px 18px; background: rgba(127,255,0,0.15); border: 1px solid rgba(127,255,0,0.3); border-radius: 20px; font-size: 0.9rem; text-decoration: none;">
+            <span class="cn-only">FAQ 常见问题</span>
+            <span class="vn-only">FAQ</span>
+          </a>
+          <a href="marketing-content.html" style="padding: 8px 18px; background: rgba(127,255,0,0.15); border: 1px solid rgba(127,255,0,0.3); border-radius: 20px; font-size: 0.9rem; text-decoration: none;">
+            <span class="cn-only">营销文案全集</span>
+            <span class="vn-only">Noi dung Marketing</span>
+          </a>
+          <a href="market-objections.html" style="padding: 8px 18px; background: rgba(127,255,0,0.15); border: 1px solid rgba(127,255,0,0.3); border-radius: 20px; font-size: 0.9rem; text-decoration: none;">
+            <span class="cn-only">市场异议库</span>
+            <span class="vn-only">Phan doi thi truong</span>
+          </a>
+          <a href="../customer/abc-classification.html" style="padding: 8px 18px; background: rgba(127,255,0,0.15); border: 1px solid rgba(127,255,0,0.3); border-radius: 20px; font-size: 0.9rem; text-decoration: none;">
+            <span class="cn-only">客户 ABC 分类</span>
+            <span class="vn-only">Phan loai KH ABC</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nen tang quy trinh BD · Toan cau</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

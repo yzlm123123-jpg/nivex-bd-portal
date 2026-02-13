@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大客户维护策略 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 页面特定样式 */
+    .vip-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .badge-silver {
+      background: rgba(192, 192, 192, 0.15);
+      color: #c0c0c0;
+      border: 1px solid rgba(192, 192, 192, 0.3);
+    }
+
+    .badge-gold {
+      background: rgba(255, 215, 0, 0.15);
+      color: #ffd700;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .badge-diamond {
+      background: rgba(185, 242, 255, 0.15);
+      color: #b9f2ff;
+      border: 1px solid rgba(185, 242, 255, 0.3);
+    }
+
+    .section-block {
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: var(--gray);
+    }
+
+    .golden-rule-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-circle);
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-weight: 900;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .speech-box + .speech-box {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .section-block {
+        padding: 30px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">大客户维护策略</span>
+          <span class="vn-only">Chiến lược Chăm sóc Khách hàng VIP</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">$20,000+ 高价值客户的专属服务方案</span>
+          <span class="vn-only">Phương án dịch vụ độc quyền cho khách VIP $20,000+</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：VIP 客户分级 -->
+      <section class="section-block animate-in delay-1">
+        <div class="section-title">
+          <h2>
+            <span class="cn-only">VIP 客户分级</span>
+            <span class="vn-only">Phân cấp Khách hàng VIP</span>
+          </h2>
+          <p>
+            <span class="cn-only">根据投资额度划分服务等级，精准匹配服务资源</span>
+            <span class="vn-only">Phân cấp dịch vụ theo mức đầu tư, phân bổ nguồn lực chính xác</span>
+          </p>
+        </div>
+
+        <table class="info-table">
+          <tr>
+            <th style="width: 130px;">
+              <span class="cn-only">等级</span>
+              <span class="vn-only">Cấp bậc</span>
+            </th>
+            <th style="width: 180px;">
+              <span class="cn-only">投资额</span>
+              <span class="vn-only">Mức đầu tư</span>
+            </th>
+            <th>
+              <span class="cn-only">服务标准</span>
+              <span class="vn-only">Tiêu chuẩn dịch vụ</span>
+            </th>
+            <th style="width: 220px;">
+              <span class="cn-only">跟进频率</span>
+              <span class="vn-only">Tần suất theo dõi</span>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <span class="vip-badge badge-silver">
+                <span class="cn-only">V1 银牌</span>
+                <span class="vn-only">V1 Bạc</span>
+              </span>
+            </td>
+            <td style="font-weight: 700;">$20,000 - $50,000</td>
+            <td>
+              <span class="cn-only">专属 BD 服务 + 月度报告</span>
+              <span class="vn-only">Dịch vụ BD chuyên biệt + Báo cáo hàng tháng</span>
+            </td>
+            <td>
+              <span class="cn-only">每周至少 1 次主动联系</span>
+              <span class="vn-only">Liên hệ chủ động ít nhất 1 lần/tuần</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="vip-badge badge-gold">
+                <span class="cn-only">V2 金牌</span>
+                <span class="vn-only">V2 Vàng</span>
+              </span>
+            </td>
+            <td style="font-weight: 700;">$50,000 - $100,000</td>
+            <td>
+              <span class="cn-only">专属 BD + 优先客服 + 定制报告</span>
+              <span class="vn-only">BD chuyên biệt + CSKH ưu tiên + Báo cáo tùy chỉnh</span>
+            </td>
+            <td>
+              <span class="cn-only">每周至少 2 次主动联系</span>
+              <span class="vn-only">Liên hệ chủ động ít nhất 2 lần/tuần</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="vip-badge badge-diamond">
+                <span class="cn-only">V3 钻石</span>
+                <span class="vn-only">V3 Kim Cương</span>
+              </span>
+            </td>
+            <td style="font-weight: 700;">$100,000+</td>
+            <td>
+              <span class="cn-only">专属团队 + VIP 通道 + 定制策略</span>
+              <span class="vn-only">Đội ngũ chuyên biệt + Kênh VIP + Chiến lược tùy chỉnh</span>
+            </td>
+            <td>
+              <span class="cn-only">每 2-3 天主动联系</span>
+              <span class="vn-only">Liên hệ chủ động mỗi 2-3 ngày</span>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 第二部分：VIP 服务 SOP -->
+      <section class="section-block animate-in delay-2">
+        <div class="section-title">
+          <h2>
+            <span class="cn-only">VIP 服务 SOP</span>
+            <span class="vn-only">Quy trình Dịch vụ VIP (SOP)</span>
+          </h2>
+          <p>
+            <span class="cn-only">4 步标准化服务流程，确保每位 VIP 客户体验一致</span>
+            <span class="vn-only">Quy trình 4 bước chuẩn hóa, đảm bảo trải nghiệm nhất quán cho mỗi khách VIP</span>
+          </p>
+        </div>
+
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-number">1</div>
+            <div class="flow-content">
+              <div style="font-weight: 700; color: var(--green); margin-bottom: 5px;">
+                <span class="cn-only">专属欢迎</span>
+                <span class="vn-only">Chào đón Chuyên biệt</span>
+              </div>
+              <div class="cn-only">入金后 24 小时内发送专属欢迎消息 + 服务承诺</div>
+              <div class="vn-only">Gửi tin nhắn chào đón chuyên biệt + cam kết dịch vụ trong vòng 24 giờ sau khi nạp tiền</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-item">
+            <div class="flow-number">2</div>
+            <div class="flow-content">
+              <div style="font-weight: 700; color: var(--green); margin-bottom: 5px;">
+                <span class="cn-only">定制报告</span>
+                <span class="vn-only">Báo cáo Tùy chỉnh</span>
+              </div>
+              <div class="cn-only">每周/每月发送个性化收益分析报告</div>
+              <div class="vn-only">Gửi báo cáo phân tích lợi nhuận cá nhân hóa hàng tuần/hàng tháng</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-item">
+            <div class="flow-number">3</div>
+            <div class="flow-content">
+              <div style="font-weight: 700; color: var(--green); margin-bottom: 5px;">
+                <span class="cn-only">专享信息</span>
+                <span class="vn-only">Thông tin Độc quyền</span>
+              </div>
+              <div class="cn-only">优先分享市场洞察、新策略、新产品信息</div>
+              <div class="vn-only">Ưu tiên chia sẻ phân tích thị trường, chiến lược mới, thông tin sản phẩm mới</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-item">
+            <div class="flow-number">4</div>
+            <div class="flow-content">
+              <div style="font-weight: 700; color: var(--green); margin-bottom: 5px;">
+                <span class="cn-only">情感连接</span>
+                <span class="vn-only">Kết nối Cảm xúc</span>
+              </div>
+              <div class="cn-only">节日问候、生日祝福、重要日子关怀</div>
+              <div class="vn-only">Lời chúc lễ, sinh nhật, quan tâm vào những ngày quan trọng</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三部分：VIP 专属话术 -->
+      <section class="section-block animate-in delay-3">
+        <div class="section-title">
+          <h2>
+            <span class="cn-only">VIP 专属话术</span>
+            <span class="vn-only">Kịch bản Chuyên biệt cho VIP</span>
+          </h2>
+          <p>
+            <span class="cn-only">大客户沟通的标准话术模板，直接复制使用</span>
+            <span class="vn-only">Mẫu kịch bản giao tiếp khách lớn, sao chép sử dụng trực tiếp</span>
+          </p>
+        </div>
+
+        <!-- 话术 1 -->
+        <div class="speech-box">
+          <div class="label">
+            <span class="cn-only">话术 1：欢迎话术</span>
+            <span class="vn-only">Kịch bản 1: Chào đón</span>
+          </div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "感谢你的信任。作为我们的 VIP 客户，你将享受专属的服务标准：我会每周给你发送账户分析报告，有任何市场变化我第一时间通知你。我的目标是让你的投资体验轻松而透明。"
+          </div>
+          <div class="vn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "Cảm ơn sự tin tưởng của bạn. Là khách VIP của chúng tôi, bạn sẽ được hưởng tiêu chuẩn dịch vụ chuyên biệt: tôi sẽ gửi báo cáo phân tích tài khoản hàng tuần, có bất kỳ thay đổi thị trường nào tôi thông báo ngay. Mục tiêu của tôi là trải nghiệm đầu tư của bạn nhẹ nhàng và minh bạch."
+          </div>
+        </div>
+
+        <!-- 话术 2 -->
+        <div class="speech-box">
+          <div class="label">
+            <span class="cn-only">话术 2：月度报告附言</span>
+            <span class="vn-only">Kịch bản 2: Ghi chú báo cáo tháng</span>
+          </div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "这是你本月的账户表现报告。整体来看，策略运行正常，月度收益率为 X%。下个月我会关注几个关键市场事件，提前做好策略调整建议。有任何问题随时找我。"
+          </div>
+          <div class="vn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "Đây là báo cáo hiệu quả tài khoản tháng này. Nhìn chung, chiến lược hoạt động bình thường, tỷ suất lợi nhuận tháng là X%. Tháng tới tôi sẽ theo dõi một số sự kiện thị trường quan trọng, chuẩn bị sẵn đề xuất điều chỉnh chiến lược. Có vấn đề gì liên hệ tôi bất cứ lúc nào."
+          </div>
+        </div>
+
+        <!-- 话术 3 -->
+        <div class="speech-box">
+          <div class="label">
+            <span class="cn-only">话术 3：大客户加仓引导</span>
+            <span class="vn-only">Kịch bản 3: Hướng dẫn khách lớn tăng vốn</span>
+          </div>
+          <div class="cn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "你现在的资金配置在单一策略上，收益不错。如果你有考虑进一步优化，我可以帮你设计一个多策略组合方案，在保持稳定性的同时提高资金利用率。当然这完全取决于你的意愿。"
+          </div>
+          <div class="vn-only" style="color: var(--gray-light); line-height: 1.8;">
+            "Hiện tại vốn của bạn đang phân bổ trong một chiến lược duy nhất, lợi nhuận khá tốt. Nếu bạn muốn tối ưu hơn, tôi có thể giúp thiết kế phương án tổ hợp đa chiến lược, vừa giữ ổn định vừa nâng cao hiệu quả sử dụng vốn. Tất nhiên hoàn toàn phụ thuộc vào ý muốn của bạn."
+          </div>
+        </div>
+      </section>
+
+      <!-- 第四部分：5 个黄金法则 -->
+      <section class="section-block animate-in delay-4">
+        <div class="section-title">
+          <h2>
+            <span class="cn-only">大客户维护的 5 个黄金法则</span>
+            <span class="vn-only">5 Quy tắc Vàng Chăm sóc Khách hàng Lớn</span>
+          </h2>
+          <p>
+            <span class="cn-only">每一条都是实战经验总结，BD 必须牢记</span>
+            <span class="vn-only">Mỗi điều đều là kinh nghiệm thực chiến, BD phải ghi nhớ</span>
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-highlight" style="padding: 30px;">
+            <div class="golden-rule-icon">1</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">永远第一个知道</span>
+              <span class="vn-only">Luôn là người biết đầu tiên</span>
+            </h4>
+            <p style="color: var(--gray-light); font-size: 0.95rem;">
+              <span class="cn-only">任何影响客户的消息，BD 必须比客户先知道</span>
+              <span class="vn-only">Bất kỳ tin nào ảnh hưởng đến khách, BD phải biết trước khách hàng</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="padding: 30px;">
+            <div class="golden-rule-icon">2</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">超出预期的服务</span>
+              <span class="vn-only">Dịch vụ vượt mong đợi</span>
+            </h4>
+            <p style="color: var(--gray-light); font-size: 0.95rem;">
+              <span class="cn-only">不只做承诺的事，偶尔给客户惊喜</span>
+              <span class="vn-only">Không chỉ làm những gì đã hứa, thỉnh thoảng tạo bất ngờ cho khách</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="padding: 30px;">
+            <div class="golden-rule-icon">3</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">绝对的私密性</span>
+              <span class="vn-only">Bảo mật tuyệt đối</span>
+            </h4>
+            <p style="color: var(--gray-light); font-size: 0.95rem;">
+              <span class="cn-only">大客户的信息严格保密，不在群里提及</span>
+              <span class="vn-only">Thông tin khách lớn bảo mật nghiêm ngặt, không đề cập trong nhóm</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="padding: 30px;">
+            <div class="golden-rule-icon">4</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">专业度是基础</span>
+              <span class="vn-only">Chuyên nghiệp là nền tảng</span>
+            </h4>
+            <p style="color: var(--gray-light); font-size: 0.95rem;">
+              <span class="cn-only">大客户看重你的市场判断力和专业素养</span>
+              <span class="vn-only">Khách lớn đánh giá cao khả năng phán đoán thị trường và sự chuyên nghiệp của bạn</span>
+            </p>
+          </div>
+
+          <div class="card card-highlight" style="padding: 30px;">
+            <div class="golden-rule-icon">5</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">情感是纽带</span>
+              <span class="vn-only">Cảm xúc là sợi dây kết nối</span>
+            </h4>
+            <p style="color: var(--gray-light); font-size: 0.95rem;">
+              <span class="cn-only">记住客户的个人信息，在关键时刻体现关怀</span>
+              <span class="vn-only">Ghi nhớ thông tin cá nhân khách hàng, thể hiện sự quan tâm vào những thời điểm quan trọng</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第五部分：注意事项 -->
+      <section class="section-block animate-in delay-5">
+        <div class="section-title">
+          <h2>
+            <span class="cn-only">注意事项：3 条红线</span>
+            <span class="vn-only">Lưu ý: 3 Ranh giới Đỏ</span>
+          </h2>
+          <p>
+            <span class="cn-only">以下行为是绝对禁区，违反将直接影响客户信任</span>
+            <span class="vn-only">Các hành vi sau là vùng cấm tuyệt đối, vi phạm sẽ ảnh hưởng trực tiếp đến niềm tin khách hàng</span>
+          </p>
+        </div>
+
+        <div class="myth-grid">
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">&#10060;</div>
+              <div>
+                <div style="font-weight: 700; margin-bottom: 5px;">
+                  <span class="cn-only">不要过度打扰</span>
+                  <span class="vn-only">Không làm phiền quá mức</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">大客户通常很忙，联系要有内容有价值</span>
+                  <span class="vn-only">Khách lớn thường rất bận, liên hệ phải có nội dung và giá trị</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">&#10060;</div>
+              <div>
+                <div style="font-weight: 700; margin-bottom: 5px;">
+                  <span class="cn-only">不要泄露信息</span>
+                  <span class="vn-only">Không lộ thông tin</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">绝不能把大客户的投资额透露给其他人</span>
+                  <span class="vn-only">Tuyệt đối không được tiết lộ mức đầu tư của khách lớn cho người khác</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">&#10060;</div>
+              <div>
+                <div style="font-weight: 700; margin-bottom: 5px;">
+                  <span class="cn-only">不要区别对待</span>
+                  <span class="vn-only">Không đối xử khác biệt</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">服务态度对所有客户一致，大客户只是服务密度更高</span>
+                  <span class="vn-only">Thái độ phục vụ nhất quán với tất cả khách hàng, khách lớn chỉ là mật độ phục vụ cao hơn</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <section class="section-block" style="text-align: center; border-bottom: none;">
+        <div class="key-point" style="margin-top: 0;">
+          <div class="cn-only" style="font-size: 1.3rem; font-weight: 700;">大客户不是靠一次成交维系的，是靠每一天的专业服务赢来的</div>
+          <div class="vn-only" style="font-size: 1.1rem; color: var(--gray-light); margin-top: 8px;">Khách VIP không được giữ chân bằng một lần chốt đơn, mà bằng dịch vụ chuyên nghiệp mỗi ngày</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; margin-top: 40px;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 &middot; 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD &middot; Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

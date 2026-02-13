@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zalo 运营手册 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 话术卡片 */
+    .speech-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 25px;
+      border-left: 5px solid var(--green);
+      position: relative;
+    }
+    .speech-card h4 {
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .speech-vn-text {
+      background: var(--bg-code);
+      border-left: 4px solid var(--green);
+      padding: 18px 25px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.8;
+      color: var(--gray-light);
+      font-size: 1.05rem;
+    }
+    .speech-cn-translate {
+      background: rgba(255,255,255,0.03);
+      padding: 15px 25px;
+      border-radius: var(--radius-sm);
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+    /* 红线卡片 */
+    .redline-card {
+      background: var(--red-bg);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: var(--radius-md);
+      padding: 20px 25px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    .redline-card .icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .redline-card .reason {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    /* 清单项 */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      background: var(--bg-card);
+      padding: 18px 25px;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--green);
+      margin-bottom: 12px;
+      gap: 15px;
+    }
+    .checklist-item .day-label {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .checklist-item .checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checklist-item .checkbox.checked {
+      background: var(--green);
+    }
+    .checklist-item .checkbox.checked::after {
+      content: '\2713';
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- ========== 标题区 ========== -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">Zalo 运营手册</span>
+          <span class="vn-only">Sổ tay Vận hành Zalo</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">越南市场主力获客渠道的标准化运营流程</span>
+          <span class="vn-only">Quy trình vận hành chuẩn hóa kênh khách hàng chính tại Việt Nam</span>
+        </p>
+      </div>
+
+      <!-- ========== 第一部分：Zalo 个人号打造 ========== -->
+      <section class="content-section animate-in delay-1">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">一、Zalo 个人号打造</span>
+          <span class="vn-only">I. Xây dựng tài khoản Zalo cá nhân</span>
+        </h2>
+
+        <!-- 头像与资料设置 -->
+        <h3 style="margin-bottom: 20px; color: var(--green);">
+          <span class="cn-only">头像与资料设置</span>
+          <span class="vn-only">Cài đặt avatar và thông tin cá nhân</span>
+        </h3>
+
+        <div class="grid-2">
+          <div class="card card-highlight" style="text-align: center; padding: 30px 25px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">📸</div>
+            <h4 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">头像</span>
+              <span class="vn-only">Avatar</span>
+            </h4>
+            <div class="cn-only" style="color: var(--gray-light);">专业形象照或 NIVEX 品牌头像</div>
+            <div class="vn-only" style="color: var(--gray-light);">Ảnh chuyên nghiệp hoặc avatar thương hiệu NIVEX</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 25px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">✏️</div>
+            <h4 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">昵称</span>
+              <span class="vn-only">Tên hiển thị</span>
+            </h4>
+            <div class="cn-only" style="color: var(--gray-light);">真名 + NIVEX（如：Minh | NIVEX）</div>
+            <div class="vn-only" style="color: var(--gray-light);">Tên thật + NIVEX (VD: Minh | NIVEX)</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 25px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">💬</div>
+            <h4 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">个人签名</span>
+              <span class="vn-only">Chữ ký cá nhân</span>
+            </h4>
+            <div class="cn-only" style="color: var(--gray-light);">简洁的价值定位<br>如：AI 智能交易顾问</div>
+            <div class="vn-only" style="color: var(--gray-light);">Định vị giá trị ngắn gọn<br>VD: Chuyên gia giao dịch AI</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px 25px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">🖼️</div>
+            <h4 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">封面图</span>
+              <span class="vn-only">Ảnh bìa</span>
+            </h4>
+            <div class="cn-only" style="color: var(--gray-light);">NIVEX 品牌图或投资相关素材</div>
+            <div class="vn-only" style="color: var(--gray-light);">Hình thương hiệu NIVEX hoặc tài liệu liên quan đến đầu tư</div>
+          </div>
+        </div>
+
+        <!-- 朋友圈内容规划 -->
+        <h3 style="margin-top: 40px; margin-bottom: 20px; color: var(--green);">
+          <span class="cn-only">朋友圈（Timeline）内容规划</span>
+          <span class="vn-only">Kế hoạch nội dung Timeline</span>
+        </h3>
+
+        <div class="card" style="padding: 0; overflow-x: auto;">
+          <table class="info-table">
+            <thead>
+              <tr>
+                <th style="width: 130px;">
+                  <span class="cn-only">时间</span>
+                  <span class="vn-only">Thời gian</span>
+                </th>
+                <th style="width: 180px;">
+                  <span class="cn-only">内容类型</span>
+                  <span class="vn-only">Loại nội dung</span>
+                </th>
+                <th>
+                  <span class="cn-only">示例</span>
+                  <span class="vn-only">Ví dụ</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--green); font-weight: 600;">
+                  <span class="cn-only">早上 8:00</span>
+                  <span class="vn-only">Sáng 8:00</span>
+                </td>
+                <td>
+                  <span class="cn-only">市场资讯 / 行情简报</span>
+                  <span class="vn-only">Tin thị trường / Báo cáo thị trường</span>
+                </td>
+                <td style="color: var(--gray-light);">
+                  <span class="cn-only">"早安！BTC 今日开盘 $XX,XXX，关注..."</span>
+                  <span class="vn-only">"Chào buổi sáng! BTC hôm nay mở cửa $XX,XXX, theo dõi..."</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: var(--green); font-weight: 600;">
+                  <span class="cn-only">中午 12:00</span>
+                  <span class="vn-only">Trưa 12:00</span>
+                </td>
+                <td>
+                  <span class="cn-only">客户案例 / 使用心得</span>
+                  <span class="vn-only">Case khách hàng / Trải nghiệm</span>
+                </td>
+                <td style="color: var(--gray-light);">
+                  <span class="cn-only">"恭喜客户本周收益 X%，AI 策略稳定运行中"</span>
+                  <span class="vn-only">"Chúc mừng khách hàng lợi nhuận tuần này X%, chiến lược AI vận hành ổn định"</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: var(--green); font-weight: 600;">
+                  <span class="cn-only">下午 17:00</span>
+                  <span class="vn-only">Chiều 17:00</span>
+                </td>
+                <td>
+                  <span class="cn-only">教育内容 / 认知分享</span>
+                  <span class="vn-only">Giáo dục / Chia sẻ nhận thức</span>
+                </td>
+                <td style="color: var(--gray-light);">
+                  <span class="cn-only">"为什么 90% 的人交易亏钱？AI 如何解决这个问题"</span>
+                  <span class="vn-only">"Tại sao 90% người giao dịch thua lỗ? AI giải quyết vấn đề này như thế nào"</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="color: var(--green); font-weight: 600;">
+                  <span class="cn-only">晚上 20:00</span>
+                  <span class="vn-only">Tối 20:00</span>
+                </td>
+                <td>
+                  <span class="cn-only">互动 / 生活 / 品牌</span>
+                  <span class="vn-only">Tương tác / Cuộc sống / Thương hiệu</span>
+                </td>
+                <td style="color: var(--gray-light);">
+                  <span class="cn-only">活动照片、团队故事、轻松话题</span>
+                  <span class="vn-only">Ảnh hoạt động, câu chuyện đội, chủ đề nhẹ nhàng</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========== 第二部分：Zalo 群运营 SOP ========== -->
+      <section class="content-section animate-in">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">二、Zalo 群运营 SOP</span>
+          <span class="vn-only">II. SOP Vận hành nhóm Zalo</span>
+        </h2>
+
+        <div class="flow">
+          <!-- 步骤 1 -->
+          <div class="flow-item">
+            <div class="flow-number">1</div>
+            <div class="flow-content">
+              <div class="cn" style="font-weight: 700; font-size: 1.1rem;">
+                <span class="cn-only">建群规范</span>
+                <span class="vn-only">Quy chuẩn lập nhóm</span>
+              </div>
+              <div style="margin-top: 8px; color: var(--gray-light);">
+                <span class="cn-only">群名格式：NIVEX 投资交流群 [编号] | 群规则置顶 | 管理员 2-3 人</span>
+                <span class="vn-only">Tên nhóm: NIVEX Nhóm Trao đổi Đầu tư [số] | Ghim quy tắc nhóm | 2-3 quản trị viên</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+
+          <!-- 步骤 2 -->
+          <div class="flow-item">
+            <div class="flow-number">2</div>
+            <div class="flow-content">
+              <div class="cn" style="font-weight: 700; font-size: 1.1rem;">
+                <span class="cn-only">内容节奏</span>
+                <span class="vn-only">Nhịp độ nội dung</span>
+              </div>
+              <div style="margin-top: 8px; color: var(--gray-light);">
+                <span class="cn-only">每天 3 条：早间行情 + 午间干货 + 晚间互动</span>
+                <span class="vn-only">3 bài mỗi ngày: Thị trường buổi sáng + Kiến thức buổi trưa + Tương tác buổi tối</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+
+          <!-- 步骤 3 -->
+          <div class="flow-item">
+            <div class="flow-number">3</div>
+            <div class="flow-content">
+              <div class="cn" style="font-weight: 700; font-size: 1.1rem;">
+                <span class="cn-only">互动管理</span>
+                <span class="vn-only">Quản lý tương tác</span>
+              </div>
+              <div style="margin-top: 8px; color: var(--gray-light);">
+                <span class="cn-only">新人进群欢迎话术 | 每周互动话题 | 定期红包活跃</span>
+                <span class="vn-only">Kịch bản chào đón thành viên mới | Chủ đề tương tác hàng tuần | Lì xì định kỳ</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+
+          <!-- 步骤 4 -->
+          <div class="flow-item">
+            <div class="flow-number">4</div>
+            <div class="flow-content">
+              <div class="cn" style="font-weight: 700; font-size: 1.1rem;">
+                <span class="cn-only">转化引导</span>
+                <span class="vn-only">Hướng dẫn chuyển đổi</span>
+              </div>
+              <div style="margin-top: 8px; color: var(--gray-light);">
+                <span class="cn-only">群内分享案例 → 私聊深入了解 → 引导体验产品</span>
+                <span class="vn-only">Chia sẻ case trong nhóm → Chat riêng tìm hiểu sâu → Hướng dẫn trải nghiệm sản phẩm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 第三部分：Zalo 私聊获客话术 ========== -->
+      <section class="content-section animate-in">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">三、Zalo 私聊获客话术</span>
+          <span class="vn-only">III. Kịch bản chat riêng Zalo để tiếp cận khách hàng</span>
+        </h2>
+
+        <!-- 话术 1 -->
+        <div class="speech-card">
+          <h4>
+            <span class="cn-only">话术 1：冷启动开场白</span>
+            <span class="vn-only">Kịch bản 1: Mở đầu tiếp cận lạnh</span>
+          </h4>
+          <div class="speech-box" style="margin-top: 0;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语话术</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div style="color: var(--gray-light); line-height: 1.8; font-size: 1.05rem;">
+              "Chào anh/chị, em là [名字] từ NIVEX. Em thấy anh/chị cũng quan tâm đến đầu tư crypto. NIVEX có giải pháp AI giao dịch tự động, anh/chị có muốn tìm hiểu không ạ?"
+            </div>
+          </div>
+          <div class="speech-cn-translate">
+            <span class="cn-only">🇨🇳 中文翻译："你好，我是 NIVEX 的 [名字]。看到你也关注加密货币投资。NIVEX 有 AI 自动交易解决方案，你有兴趣了解一下吗？"</span>
+            <span class="vn-only">🇨🇳 Dịch tiếng Trung: "Xin chào, tôi là [tên] từ NIVEX. Tôi thấy bạn cũng quan tâm đến đầu tư crypto. NIVEX có giải pháp giao dịch AI tự động, bạn có muốn tìm hiểu không?"</span>
+          </div>
+        </div>
+
+        <!-- 话术 2 -->
+        <div class="speech-card">
+          <h4>
+            <span class="cn-only">话术 2：朋友介绍型</span>
+            <span class="vn-only">Kịch bản 2: Giới thiệu qua bạn bè</span>
+          </h4>
+          <div class="speech-box" style="margin-top: 0;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语话术</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div style="color: var(--gray-light); line-height: 1.8; font-size: 1.05rem;">
+              "Chào anh/chị, em được anh/chị [介绍人] giới thiệu. Anh/chị ấy đang sử dụng dịch vụ AI trading của NIVEX và thấy khá tốt. Nếu anh/chị quan tâm, em có thể chia sẻ thêm thông tin ạ."
+            </div>
+          </div>
+          <div class="speech-cn-translate">
+            <span class="cn-only">🇨🇳 中文翻译："你好，是 [介绍人] 介绍我认识的。他/她正在使用 NIVEX 的 AI 交易服务，觉得效果不错。如果你感兴趣，我可以分享更多信息。"</span>
+            <span class="vn-only">🇨🇳 Dịch tiếng Trung: "Xin chào, [người giới thiệu] giới thiệu tôi làm quen. Anh/chị ấy đang sử dụng dịch vụ giao dịch AI của NIVEX, thấy hiệu quả khá tốt. Nếu bạn quan tâm, tôi có thể chia sẻ thêm thông tin."</span>
+          </div>
+        </div>
+
+        <!-- 话术 3 -->
+        <div class="speech-card">
+          <h4>
+            <span class="cn-only">话术 3：群内私聊转化</span>
+            <span class="vn-only">Kịch bản 3: Chuyển đổi từ nhóm sang chat riêng</span>
+          </h4>
+          <div class="speech-box" style="margin-top: 0;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语话术</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div style="color: var(--gray-light); line-height: 1.8; font-size: 1.05rem;">
+              "Chào anh/chị, em thấy anh/chị hỏi về AI trading trong nhóm. Em có thể giải thích chi tiết hơn qua chat riêng được không ạ? Nhiều thông tin không tiện chia sẻ trong nhóm."
+            </div>
+          </div>
+          <div class="speech-cn-translate">
+            <span class="cn-only">🇨🇳 中文翻译："你好，看到你在群里问了 AI 交易的问题。我可以私聊给你详细解释一下吗？有些信息不方便在群里分享。"</span>
+            <span class="vn-only">🇨🇳 Dịch tiếng Trung: "Xin chào, tôi thấy bạn hỏi về giao dịch AI trong nhóm. Tôi có thể chat riêng giải thích chi tiết hơn không? Có những thông tin không tiện chia sẻ trong nhóm."</span>
+          </div>
+        </div>
+
+        <!-- 话术 4 -->
+        <div class="speech-card">
+          <h4>
+            <span class="cn-only">话术 4：行情热点切入</span>
+            <span class="vn-only">Kịch bản 4: Tiếp cận qua tin nóng thị trường</span>
+          </h4>
+          <div class="speech-box" style="margin-top: 0;">
+            <div class="label"><span class="cn-only">🇻🇳 越南语话术</span><span class="vn-only">🇻🇳 Kịch bản tiếng Việt</span></div>
+            <div style="color: var(--gray-light); line-height: 1.8; font-size: 1.05rem;">
+              "Anh/chị có theo dõi BTC hôm nay không? Biến động khá lớn. AI trading của NIVEX tự động quản lý rủi ro trong những lúc như này. Anh/chị muốn xem cách nó hoạt động không?"
+            </div>
+          </div>
+          <div class="speech-cn-translate">
+            <span class="cn-only">🇨🇳 中文翻译："你有关注今天的 BTC 行情吗？波动挺大的。NIVEX 的 AI 交易在这种时候会自动管理风险。你想看看它怎么运作的吗？"</span>
+            <span class="vn-only">🇨🇳 Dịch tiếng Trung: "Bạn có theo dõi BTC hôm nay không? Biến động khá lớn. Giao dịch AI của NIVEX tự động quản lý rủi ro trong những lúc như này. Bạn muốn xem cách nó hoạt động không?"</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 第四部分：Zalo 运营红线 ========== -->
+      <section class="content-section animate-in">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">四、Zalo 运营红线</span>
+          <span class="vn-only">IV. Giới hạn đỏ của vận hành Zalo</span>
+        </h2>
+
+        <div class="redline-card">
+          <div class="icon">❌</div>
+          <div>
+            <div style="font-weight: 700;">
+              <span class="cn-only">不要群发广告</span>
+              <span class="vn-only">Không gửi quảng cáo hàng loạt</span>
+            </div>
+            <div class="reason">
+              <span class="cn-only">Zalo 会封号，而且客户反感</span>
+              <span class="vn-only">Zalo sẽ khóa tài khoản, và khách hàng sẽ khó chịu</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="redline-card">
+          <div class="icon">❌</div>
+          <div>
+            <div style="font-weight: 700;">
+              <span class="cn-only">不要在群里承诺收益</span>
+              <span class="vn-only">Không hứa hẹn lợi nhuận trong nhóm</span>
+            </div>
+            <div class="reason">
+              <span class="cn-only">截图保留是永久的</span>
+              <span class="vn-only">Chụp màn hình lưu lại là vĩnh viễn</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="redline-card">
+          <div class="icon">❌</div>
+          <div>
+            <div style="font-weight: 700;">
+              <span class="cn-only">不要跟客户起冲突</span>
+              <span class="vn-only">Không xung đột với khách hàng</span>
+            </div>
+            <div class="reason">
+              <span class="cn-only">群内一对一私聊处理</span>
+              <span class="vn-only">Xử lý qua chat riêng một-một</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="redline-card">
+          <div class="icon">❌</div>
+          <div>
+            <div style="font-weight: 700;">
+              <span class="cn-only">不要过度刷屏</span>
+              <span class="vn-only">Không đăng quá nhiều</span>
+            </div>
+            <div class="reason">
+              <span class="cn-only">每天不超过 4 条朋友圈</span>
+              <span class="vn-only">Không quá 4 bài mỗi ngày trên Timeline</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="redline-card">
+          <div class="icon">❌</div>
+          <div>
+            <div style="font-weight: 700;">
+              <span class="cn-only">不要发未经审核的素材</span>
+              <span class="vn-only">Không đăng tài liệu chưa được phê duyệt</span>
+            </div>
+            <div class="reason">
+              <span class="cn-only">所有宣传内容需经 AK / 总监审批</span>
+              <span class="vn-only">Tất cả nội dung quảng cáo phải được AK / Giám đốc phê duyệt</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 第五部分：每周 Zalo 运营清单 ========== -->
+      <section class="content-section animate-in">
+        <h2 style="margin-bottom: 30px;">
+          <span class="cn-only">五、每周 Zalo 运营清单</span>
+          <span class="vn-only">V. Checklist vận hành Zalo hàng tuần</span>
+        </h2>
+
+        <div class="feature-list">
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周一</span>
+              <span class="vn-only">Thứ 2</span>
+            </div>
+            <div>
+              <div class="cn-only">发布本周市场展望 + 回复上周未回消息</div>
+              <div class="vn-only">Đăng dự báo thị trường tuần này + Trả lời tin nhắn chưa phản hồi tuần trước</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周二</span>
+              <span class="vn-only">Thứ 3</span>
+            </div>
+            <div>
+              <div class="cn-only">分享一条教育内容 + 在 2-3 个群互动</div>
+              <div class="vn-only">Chia sẻ 1 bài giáo dục + Tương tác trong 2-3 nhóm</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周三</span>
+              <span class="vn-only">Thứ 4</span>
+            </div>
+            <div>
+              <div class="cn-only">发布客户案例 / 成功故事</div>
+              <div class="vn-only">Đăng case khách hàng / Câu chuyện thành công</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周四</span>
+              <span class="vn-only">Thứ 5</span>
+            </div>
+            <div>
+              <div class="cn-only">Zalo 群发互动话题 / 问答</div>
+              <div class="vn-only">Gửi chủ đề tương tác / Hỏi đáp trong nhóm Zalo</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周五</span>
+              <span class="vn-only">Thứ 6</span>
+            </div>
+            <div>
+              <div class="cn-only">发布周末市场总结 + 邀约潜在客户下周了解</div>
+              <div class="vn-only">Đăng tổng kết thị trường cuối tuần + Mời khách hàng tiềm năng tìm hiểu tuần sau</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周六</span>
+              <span class="vn-only">Thứ 7</span>
+            </div>
+            <div>
+              <div class="cn-only">轻松生活内容 + 品牌互动</div>
+              <div class="vn-only">Nội dung cuộc sống nhẹ nhàng + Tương tác thương hiệu</div>
+            </div>
+          </div>
+
+          <div class="checklist-item">
+            <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+            <div class="day-label">
+              <span class="cn-only">周日</span>
+              <span class="vn-only">CN</span>
+            </div>
+            <div>
+              <div class="cn-only">下周内容计划准备</div>
+              <div class="vn-only">Chuẩn bị kế hoạch nội dung tuần sau</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 底部金句 ========== -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="cn-only" style="font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">"Zalo 是越南市场的命脉，用心经营就是用心做业绩"</div>
+        <div class="vn-only" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;">"Zalo là huyết mạch thị trường Việt Nam, vận hành tận tâm là làm doanh thu tận tâm"</div>
+        <div style="margin-top: 10px;">
+          <div class="cn-only" style="color: var(--gray-light); font-size: 0.95rem;">Zalo là huyết mạch thị trường Việt Nam, vận hành tận tâm là làm doanh thu tận tâm</div>
+          <div class="vn-only" style="color: var(--gray-light); font-size: 0.95rem;">Zalo 是越南市场的命脉，用心经营就是用心做业绩</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

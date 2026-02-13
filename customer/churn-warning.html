@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户流失预警手册 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 页面特定样式 */
+    .signal-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--red-soft), #cc3333);
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 900;
+      border-radius: var(--radius-circle);
+      flex-shrink: 0;
+    }
+
+    .signal-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px 30px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      border-left: 4px solid var(--red-soft);
+      transition: all var(--transition-normal);
+    }
+
+    .signal-card:hover {
+      transform: translateX(5px);
+    }
+
+    .signal-card h4 {
+      color: var(--white);
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+
+    .signal-card p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+    }
+
+    .risk-red { color: #ff6b6b; font-weight: 700; }
+    .risk-orange { color: #ffa500; font-weight: 700; }
+    .risk-yellow { color: #ffd700; font-weight: 700; }
+
+    .objection-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .objection-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .objection-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .objection-question h3 {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .real-concern {
+      background: var(--red-bg);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 15px 20px;
+      margin-bottom: 20px;
+    }
+
+    .real-concern .label {
+      color: var(--red-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .response-box {
+      background: linear-gradient(135deg, rgba(127,255,0,0.1) 0%, rgba(127,255,0,0.05) 100%);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 20px 25px;
+    }
+
+    .response-box .label {
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-divider {
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-divider:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+      .signal-card {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">客户流失预警手册</span>
+          <span class="vn-only">Sổ tay Cảnh báo Mất khách hàng</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">识别信号、提前干预、挽回客户</span>
+          <span class="vn-only">Nhận diện tín hiệu, can thiệp sớm, giữ chân khách hàng</span>
+        </p>
+      </div>
+
+      <!-- 第一部分：流失信号识别 -->
+      <section class="section-divider">
+        <h2 class="animate-in delay-1" style="margin-bottom: 30px;">
+          <span class="cn-only">5 大危险信号</span>
+          <span class="vn-only">5 tín hiệu nguy hiểm</span>
+        </h2>
+
+        <div class="animate-in delay-2">
+          <div class="signal-card">
+            <span class="signal-number">1</span>
+            <div>
+              <h4>
+                <span class="cn-only">登录频率下降</span>
+                <span class="vn-only">Tần suất đăng nhập giảm</span>
+              </h4>
+              <p>
+                <span class="cn-only">连续 7 天不登录账户</span>
+                <span class="vn-only">Không đăng nhập tài khoản liên tục 7 ngày</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <span class="signal-number">2</span>
+            <div>
+              <h4>
+                <span class="cn-only">收益持续下滑</span>
+                <span class="vn-only">Lợi nhuận liên tục giảm</span>
+              </h4>
+              <p>
+                <span class="cn-only">账户连续 2 周亏损</span>
+                <span class="vn-only">Tài khoản thua lỗ liên tục 2 tuần</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <span class="signal-number">3</span>
+            <div>
+              <h4>
+                <span class="cn-only">沟通频率降低</span>
+                <span class="vn-only">Tần suất giao tiếp giảm</span>
+              </h4>
+              <p>
+                <span class="cn-only">客户不再主动询问或回复消息</span>
+                <span class="vn-only">Khách hàng không còn chủ động hỏi hoặc trả lời tin nhắn</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <span class="signal-number">4</span>
+            <div>
+              <h4>
+                <span class="cn-only">开始提现</span>
+                <span class="vn-only">Bắt đầu rút tiền</span>
+              </h4>
+              <p>
+                <span class="cn-only">客户开始部分提现</span>
+                <span class="vn-only">Khách hàng bắt đầu rút một phần</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <span class="signal-number">5</span>
+            <div>
+              <h4>
+                <span class="cn-only">负面反馈</span>
+                <span class="vn-only">Phản hồi tiêu cực</span>
+              </h4>
+              <p>
+                <span class="cn-only">客户开始表达不满或质疑</span>
+                <span class="vn-only">Khách hàng bắt đầu biểu lộ bất mãn hoặc nghi ngờ</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二部分：流失风险等级 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">流失风险等级</span>
+          <span class="vn-only">Cấp độ rủi ro mất khách</span>
+        </h2>
+
+        <table class="info-table animate-in">
+          <tr>
+            <th style="width: 25%;">
+              <span class="cn-only">风险等级</span>
+              <span class="vn-only">Cấp độ rủi ro</span>
+            </th>
+            <th style="width: 40%;">
+              <span class="cn-only">信号组合</span>
+              <span class="vn-only">Tổ hợp tín hiệu</span>
+            </th>
+            <th>
+              <span class="cn-only">处理优先级</span>
+              <span class="vn-only">Ưu tiên xử lý</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="risk-red">
+              <span class="cn-only">红色预警</span>
+              <span class="vn-only">Cảnh báo đỏ</span>
+            </td>
+            <td>
+              <span class="cn-only">出现 3 个以上信号</span>
+              <span class="vn-only">Xuất hiện trên 3 tín hiệu</span>
+            </td>
+            <td>
+              <span class="cn-only" style="color: #ff6b6b; font-weight: 600;">24 小时内联系</span>
+              <span class="vn-only" style="color: #ff6b6b; font-weight: 600;">Liên hệ trong 24 giờ</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="risk-orange">
+              <span class="cn-only">橙色预警</span>
+              <span class="vn-only">Cảnh báo cam</span>
+            </td>
+            <td>
+              <span class="cn-only">出现 2 个信号</span>
+              <span class="vn-only">Xuất hiện 2 tín hiệu</span>
+            </td>
+            <td>
+              <span class="cn-only" style="color: #ffa500; font-weight: 600;">48 小时内联系</span>
+              <span class="vn-only" style="color: #ffa500; font-weight: 600;">Liên hệ trong 48 giờ</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="risk-yellow">
+              <span class="cn-only">黄色预警</span>
+              <span class="vn-only">Cảnh báo vàng</span>
+            </td>
+            <td>
+              <span class="cn-only">出现 1 个信号</span>
+              <span class="vn-only">Xuất hiện 1 tín hiệu</span>
+            </td>
+            <td>
+              <span class="cn-only" style="color: #ffd700; font-weight: 600;">本周内关注</span>
+              <span class="vn-only" style="color: #ffd700; font-weight: 600;">Theo dõi trong tuần này</span>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 第三部分：挽回行动方案 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">挽回行动方案</span>
+          <span class="vn-only">Phương án hành động giữ chân</span>
+        </h2>
+
+        <!-- 场景 1：客户不活跃 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-icon">😴</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">场景 1：客户不活跃</span>
+                <span class="vn-only">Tình huống 1: Khách hàng không hoạt động</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">连续多天不登录，不关注账户</span>
+                <span class="vn-only">Nhiều ngày liên tục không đăng nhập, không quan tâm tài khoản</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-concern">
+            <div class="label">
+              <span class="cn-only">信号描述</span>
+              <span class="vn-only">Mô tả tín hiệu</span>
+            </div>
+            <div class="cn-only">客户已经不再关注账户，可能失去兴趣或被其他平台吸引</div>
+            <div class="vn-only">Khách hàng không còn quan tâm tài khoản, có thể mất hứng thú hoặc bị nền tảng khác thu hút</div>
+          </div>
+
+          <div class="response-box">
+            <div class="label">
+              <span class="cn-only">挽回话术</span>
+              <span class="vn-only">Kịch bản giữ chân</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"最近看到你好像没怎么关注账户，是不是最近比较忙？我帮你看了一下近期数据，策略整体还是稳的。有空的时候一起看看？"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Gần đây thấy bạn hình như không theo dõi tài khoản lắm, có phải gần đây bạn bận không? Tôi đã xem qua dữ liệu gần đây giúp bạn, chiến lược nhìn chung vẫn ổn định. Khi nào rảnh mình cùng xem nhé?"</div>
+          </div>
+        </div>
+
+        <!-- 场景 2：持续亏损 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-icon">📉</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">场景 2：持续亏损</span>
+                <span class="vn-only">Tình huống 2: Thua lỗ liên tục</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">账户连续亏损，客户开始焦虑</span>
+                <span class="vn-only">Tài khoản thua lỗ liên tục, khách hàng bắt đầu lo lắng</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-concern">
+            <div class="label">
+              <span class="cn-only">信号描述</span>
+              <span class="vn-only">Mô tả tín hiệu</span>
+            </div>
+            <div class="cn-only">市场波动导致账户回撤，客户信心动摇，可能考虑撤资</div>
+            <div class="vn-only">Biến động thị trường dẫn đến tài khoản giảm, niềm tin khách hàng lung lay, có thể cân nhắc rút vốn</div>
+          </div>
+
+          <div class="response-box">
+            <div class="label">
+              <span class="cn-only">挽回话术</span>
+              <span class="vn-only">Kịch bản giữ chân</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"最近这段时间市场确实波动比较大，策略也经历了一些回撤。但从历史数据看，每次回撤后都有恢复。我建议先不要急着做决定，我们一起看看后续表现。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Thời gian gần đây thị trường thực sự biến động khá lớn, chiến lược cũng trải qua một số đợt giảm. Nhưng từ dữ liệu lịch sử cho thấy, sau mỗi lần giảm đều có sự phục hồi. Tôi khuyên bạn đừng vội quyết định, chúng ta cùng theo dõi hiệu quả tiếp theo."</div>
+          </div>
+        </div>
+
+        <!-- 场景 3：沟通减少 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-icon">💬</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">场景 3：沟通减少</span>
+                <span class="vn-only">Tình huống 3: Giao tiếp giảm</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">客户不再主动联系，回复也变少</span>
+                <span class="vn-only">Khách hàng không còn chủ động liên hệ, trả lời cũng ít đi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-concern">
+            <div class="label">
+              <span class="cn-only">信号描述</span>
+              <span class="vn-only">Mô tả tín hiệu</span>
+            </div>
+            <div class="cn-only">客户与 BD 的互动明显减少，关系正在冷却</div>
+            <div class="vn-only">Tương tác giữa khách hàng và BD giảm rõ rệt, mối quan hệ đang nguội lạnh</div>
+          </div>
+
+          <div class="response-box">
+            <div class="label">
+              <span class="cn-only">挽回话术</span>
+              <span class="vn-only">Kịch bản giữ chân</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"好久没聊了，最近怎么样？有什么问题或想法随时告诉我。不管是账户的事还是市场的事，我都在。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Lâu rồi mình không nói chuyện, gần đây bạn thế nào? Có vấn đề hay suy nghĩ gì cứ nói với tôi bất cứ lúc nào. Dù là chuyện tài khoản hay chuyện thị trường, tôi luôn ở đây."</div>
+          </div>
+        </div>
+
+        <!-- 场景 4：开始提现 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-icon">💸</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">场景 4：开始提现</span>
+                <span class="vn-only">Tình huống 4: Bắt đầu rút tiền</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">客户主动提取部分资金</span>
+                <span class="vn-only">Khách hàng chủ động rút một phần vốn</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-concern">
+            <div class="label">
+              <span class="cn-only">信号描述</span>
+              <span class="vn-only">Mô tả tín hiệu</span>
+            </div>
+            <div class="cn-only">客户正在减少在平台的资金，可能是流失的前兆</div>
+            <div class="vn-only">Khách hàng đang giảm vốn trên nền tảng, có thể là dấu hiệu mất khách</div>
+          </div>
+
+          <div class="response-box">
+            <div class="label">
+              <span class="cn-only">挽回话术</span>
+              <span class="vn-only">Kịch bản giữ chân</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"看到你提现了一部分，理解你的考虑。如果是资金需要完全没问题。如果是对产品有顾虑，可以聊聊，我帮你分析一下当前的策略表现。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Thấy bạn đã rút một phần, tôi hiểu suy nghĩ của bạn. Nếu là nhu cầu vốn thì hoàn toàn không vấn đề. Nếu là lo ngại về sản phẩm, mình có thể trao đổi, tôi sẽ giúp bạn phân tích hiệu quả chiến lược hiện tại."</div>
+          </div>
+        </div>
+
+        <!-- 场景 5：负面反馈 -->
+        <div class="objection-card animate-in">
+          <div class="objection-header">
+            <span class="objection-icon">😤</span>
+            <div class="objection-question">
+              <h3>
+                <span class="cn-only">场景 5：负面反馈</span>
+                <span class="vn-only">Tình huống 5: Phản hồi tiêu cực</span>
+              </h3>
+              <div style="color: var(--gray);">
+                <span class="cn-only">客户直接表达不满或质疑</span>
+                <span class="vn-only">Khách hàng trực tiếp bày tỏ bất mãn hoặc nghi ngờ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-concern">
+            <div class="label">
+              <span class="cn-only">信号描述</span>
+              <span class="vn-only">Mô tả tín hiệu</span>
+            </div>
+            <div class="cn-only">客户对产品或服务产生明确不满，情绪已经外化</div>
+            <div class="vn-only">Khách hàng bất mãn rõ ràng với sản phẩm hoặc dịch vụ, cảm xúc đã biểu hiện ra ngoài</div>
+          </div>
+
+          <div class="response-box">
+            <div class="label">
+              <span class="cn-only">挽回话术</span>
+              <span class="vn-only">Kịch bản giữ chân</span>
+            </div>
+            <div class="cn-only" style="line-height: 1.8; color: var(--gray-light);">"你的反馈我非常重视。能不能具体说说哪里让你不满意？我会第一时间帮你解决。不管什么问题，回避不如面对。"</div>
+            <div class="vn-only" style="line-height: 1.8;">"Tôi rất coi trọng phản hồi của bạn. Bạn có thể nói cụ thể cho tôi biết điều gì khiến bạn không hài lòng không? Tôi sẽ giúp bạn giải quyết ngay lập tức. Dù là vấn đề gì, đối mặt tốt hơn là né tránh."</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第四部分：预防流失的日常习惯 -->
+      <section class="section-divider">
+        <h2 class="animate-in" style="margin-bottom: 30px;">
+          <span class="cn-only">预防流失的 3 个黄金习惯</span>
+          <span class="vn-only">3 thói quen vàng phòng ngừa mất khách</span>
+        </h2>
+
+        <div class="grid-3 animate-in">
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div class="card-accent"></div>
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">📞</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">主动沟通</span>
+              <span class="vn-only">Chủ động giao tiếp</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">不等客户来问，按跟进节奏表主动联系</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Không đợi khách hỏi, chủ động liên hệ theo lịch theo dõi</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div class="card-accent"></div>
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">🔔</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">提前预警</span>
+              <span class="vn-only">Cảnh báo trước</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">行情波动前/中/后都要发消息</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Trước/trong/sau biến động thị trường đều phải gửi tin nhắn</div>
+          </div>
+
+          <div class="card card-highlight" style="text-align: center; padding: 30px;">
+            <div class="card-accent"></div>
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">📚</div>
+            <h4 style="margin-bottom: 10px;">
+              <span class="cn-only">持续教育</span>
+              <span class="vn-only">Giáo dục liên tục</span>
+            </h4>
+            <div class="cn-only" style="font-size: 0.9rem; color: var(--gray-light);">定期分享市场分析和投资认知内容</div>
+            <div class="vn-only" style="font-size: 0.85rem;">Định kỳ chia sẻ phân tích thị trường và nội dung nhận thức đầu tư</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn-only" style="font-size: 1.2rem;">流失不是一瞬间发生的，是一系列信号被忽视的结果</div>
+        <div class="vn-only" style="font-size: 1.1rem;">Mất khách không xảy ra trong một khoảnh khắc, mà là kết quả của hàng loạt tín hiệu bị bỏ qua</div>
+      </div>
+
+      <!-- 相关链接 -->
+      <div class="key-point animate-in" style="margin-top: 30px; margin-bottom: 50px;">
+        <div class="cn-only">
+          相关阅读 →
+          <a href="lifecycle-sop.html" style="color: var(--green);">客户生命周期 SOP</a> |
+          <a href="abc-classification.html" style="color: var(--green);">A/B/C 客户分类</a>
+        </div>
+        <div class="vn-only">
+          Đọc thêm →
+          <a href="lifecycle-sop.html" style="color: var(--green);">SOP vòng đời khách hàng</a> |
+          <a href="abc-classification.html" style="color: var(--green);">Phân loại khách hàng A/B/C</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

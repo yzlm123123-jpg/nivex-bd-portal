@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 产品对比 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 产品对比表专用样式 */
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 20px;
+      border-radius: var(--radius-lg);
+    }
+
+    .table-scroll .info-table {
+      min-width: 800px;
+    }
+
+    .info-table th.product-header {
+      text-align: center;
+      font-size: 1rem;
+      padding: 18px 15px;
+      white-space: nowrap;
+    }
+
+    .info-table td {
+      text-align: center;
+      font-size: 0.95rem;
+      padding: 14px 15px;
+    }
+
+    .info-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--gray-light);
+      white-space: nowrap;
+    }
+
+    .info-table th:first-child {
+      text-align: left;
+    }
+
+    /* 产品详情卡片 */
+    .product-card {
+      margin-top: 25px;
+      padding: 35px;
+    }
+
+    .product-card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .product-card-header h3 {
+      font-size: 1.4rem;
+    }
+
+    .product-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .product-tag-green {
+      background: rgba(127, 255, 0, 0.2);
+      color: var(--green);
+      border: 1px solid rgba(127, 255, 0, 0.3);
+    }
+
+    .product-tag-red {
+      background: var(--red-bg);
+      color: var(--red-soft);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+
+    .product-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .product-feature-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .product-feature-label {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.9rem;
+      min-width: 80px;
+      flex-shrink: 0;
+    }
+
+    .product-feature-value {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 匹配指南 */
+    .match-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--bg-card);
+      padding: 18px 25px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      border-left: 4px solid var(--green);
+      flex-wrap: wrap;
+    }
+
+    .match-trigger {
+      background: rgba(127, 255, 0, 0.1);
+      color: var(--green);
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .match-arrow {
+      color: var(--green);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .match-result {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+    }
+
+    /* 组合卡片 */
+    .combo-card {
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+
+    .combo-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--white);
+    }
+
+    .combo-bar {
+      display: flex;
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .combo-bar-segment {
+      transition: width 0.5s ease;
+    }
+
+    .combo-items {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .combo-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--gray-light);
+    }
+
+    .combo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .combo-return {
+      font-size: 0.95rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .product-card { padding: 25px; }
+      .product-feature-row { flex-direction: column; gap: 5px; }
+      .product-feature-label { min-width: auto; }
+      .match-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .match-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">NIVEX AI 产品策略对比</span>
+          <span class="vn-only">So sánh Chiến lược Sản phẩm AI NIVEX</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">5 款 AI 策略产品，精准匹配不同投资需求</span>
+          <span class="vn-only">5 sản phẩm chiến lược AI, phù hợp chính xác với nhu cầu đầu tư khác nhau</span>
+        </p>
+      </div>
+
+      <!-- ========== 第一部分：产品总览对比表 ========== -->
+      <div class="section-title animate-in" style="margin-top: 40px;">
+        <h2>
+          <span class="cn-only">📊 产品总览对比</span>
+          <span class="vn-only">📊 Tổng quan So sánh Sản phẩm</span>
+        </h2>
+      </div>
+
+      <div class="table-scroll card animate-in delay-1" style="margin-top: 20px; padding: 0;">
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>
+                <span class="cn-only">对比维度</span>
+                <span class="vn-only">Tiêu chí</span>
+              </th>
+              <th class="product-header">AITrade</th>
+              <th class="product-header">Astrabit</th>
+              <th class="product-header">Alpha10</th>
+              <th class="product-header">Fidelity Stable</th>
+              <th class="product-header">X-Hunter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="cn-only">策略类型</span>
+                <span class="vn-only">Loại chiến lược</span>
+              </td>
+              <td>
+                <span class="cn-only">多策略组合</span>
+                <span class="vn-only">Tổ hợp đa chiến lược</span>
+              </td>
+              <td>
+                <span class="cn-only">趋势跟踪</span>
+                <span class="vn-only">Theo dõi xu hướng</span>
+              </td>
+              <td>
+                <span class="cn-only">高频量化</span>
+                <span class="vn-only">Giao dịch tần suất cao</span>
+              </td>
+              <td>
+                <span class="cn-only">稳健套利</span>
+                <span class="vn-only">Chênh lệch giá ổn định</span>
+              </td>
+              <td>
+                <span class="cn-only">激进突破</span>
+                <span class="vn-only">Đột phá tích cực</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">风险等级</span>
+                <span class="vn-only">Mức rủi ro</span>
+              </td>
+              <td style="color: var(--green);">
+                <span class="cn-only">中等 ⭐⭐⭐</span>
+                <span class="vn-only">Trung bình ⭐⭐⭐</span>
+              </td>
+              <td style="color: #ffa500;">
+                <span class="cn-only">中高 ⭐⭐⭐⭐</span>
+                <span class="vn-only">Trung cao ⭐⭐⭐⭐</span>
+              </td>
+              <td style="color: var(--red-soft);">
+                <span class="cn-only">高 ⭐⭐⭐⭐⭐</span>
+                <span class="vn-only">Cao ⭐⭐⭐⭐⭐</span>
+              </td>
+              <td style="color: var(--green);">
+                <span class="cn-only">低 ⭐⭐</span>
+                <span class="vn-only">Thấp ⭐⭐</span>
+              </td>
+              <td style="color: var(--red-soft);">
+                <span class="cn-only">极高 ⭐⭐⭐⭐⭐</span>
+                <span class="vn-only">Cực cao ⭐⭐⭐⭐⭐</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">预期月收益</span>
+                <span class="vn-only">Lợi nhuận kỳ vọng/tháng</span>
+              </td>
+              <td>5-12%</td>
+              <td>8-18%</td>
+              <td>15-30%</td>
+              <td>3-6%</td>
+              <td>20-50%</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">最大回撤</span>
+                <span class="vn-only">Mức giảm tối đa</span>
+              </td>
+              <td>15%</td>
+              <td>25%</td>
+              <td>35%</td>
+              <td>8%</td>
+              <td>50%</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">最低入金</span>
+                <span class="vn-only">Nạp tối thiểu</span>
+              </td>
+              <td>500 USDT</td>
+              <td>1,000 USDT</td>
+              <td>2,000 USDT</td>
+              <td>300 USDT</td>
+              <td>5,000 USDT</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">适合人群</span>
+                <span class="vn-only">Đối tượng phù hợp</span>
+              </td>
+              <td>
+                <span class="cn-only">新手/稳健型</span>
+                <span class="vn-only">Người mới/Ổn định</span>
+              </td>
+              <td>
+                <span class="cn-only">有经验投资者</span>
+                <span class="vn-only">NĐT có kinh nghiệm</span>
+              </td>
+              <td>
+                <span class="cn-only">高风险偏好</span>
+                <span class="vn-only">Ưa thích rủi ro cao</span>
+              </td>
+              <td>
+                <span class="cn-only">保守型</span>
+                <span class="vn-only">Bảo thủ</span>
+              </td>
+              <td>
+                <span class="cn-only">专业投资者</span>
+                <span class="vn-only">NĐT chuyên nghiệp</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cn-only">推荐指数</span>
+                <span class="vn-only">Mức đề xuất</span>
+              </td>
+              <td style="color: var(--green);">⭐⭐⭐⭐⭐</td>
+              <td style="color: var(--green);">⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td style="color: var(--green);">⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ========== 第二部分：产品详情卡片 ========== -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">📋 产品详情</span>
+          <span class="vn-only">📋 Chi tiết Sản phẩm</span>
+        </h2>
+      </div>
+
+      <!-- AITrade -->
+      <div class="card product-card animate-in delay-1">
+        <div class="product-card-header">
+          <h3>AITrade</h3>
+          <span class="product-tag product-tag-green">
+            <span class="cn-only">⭐ 推荐首选</span>
+            <span class="vn-only">⭐ Lựa chọn hàng đầu</span>
+          </span>
+        </div>
+
+        <div class="product-features">
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">核心特点</span>
+              <span class="vn-only">Đặc điểm</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">多策略组合，AI 自动切换最优策略；风险控制严格，适合新手</span>
+              <span class="vn-only">Tổ hợp đa chiến lược, AI tự động chuyển đổi chiến lược tối ưu; kiểm soát rủi ro nghiêm ngặt, phù hợp người mới</span>
+            </div>
+          </div>
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">适合对象</span>
+              <span class="vn-only">Phù hợp</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">首次接触 AI 量化的客户、追求稳定收益的投资者</span>
+              <span class="vn-only">Khách hàng lần đầu tiếp xúc giao dịch định lượng AI, nhà đầu tư theo đuổi lợi nhuận ổn định</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speech-box" style="margin-top: 20px;">
+          <div class="label">
+            <span class="cn-only">💬 销售话术</span>
+            <span class="vn-only">💬 Kịch bản bán hàng</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「如果你是第一次接触 AI 量化交易，我推荐 AITrade。它风险可控，收益稳定，很多新客户都是从这个开始的。」</span>
+            <span class="vn-only">「Nếu bạn lần đầu tiếp xúc giao dịch định lượng AI, tôi đề xuất AITrade. Rủi ro có thể kiểm soát, lợi nhuận ổn định, nhiều khách hàng mới đều bắt đầu từ sản phẩm này.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Astrabit -->
+      <div class="card product-card animate-in delay-2">
+        <div class="product-card-header">
+          <h3>Astrabit</h3>
+        </div>
+
+        <div class="product-features">
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">核心特点</span>
+              <span class="vn-only">Đặc điểm</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">趋势跟踪策略，把握大行情；中高风险中高回报</span>
+              <span class="vn-only">Chiến lược theo dõi xu hướng, nắm bắt xu hướng lớn; rủi ro trung cao, lợi nhuận trung cao</span>
+            </div>
+          </div>
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">适合对象</span>
+              <span class="vn-only">Phù hợp</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">有一定投资经验、愿意承担适度风险的客户</span>
+              <span class="vn-only">Khách hàng có kinh nghiệm đầu tư nhất định, sẵn sàng chấp nhận rủi ro vừa phải</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speech-box" style="margin-top: 20px;">
+          <div class="label">
+            <span class="cn-only">💬 销售话术</span>
+            <span class="vn-only">💬 Kịch bản bán hàng</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「你如果有一定投资经验，想要更高收益，Astrabit 的趋势跟踪策略很适合。大行情来的时候收益很可观。」</span>
+            <span class="vn-only">「Nếu bạn có kinh nghiệm đầu tư nhất định và muốn lợi nhuận cao hơn, chiến lược theo dõi xu hướng của Astrabit rất phù hợp. Khi xu hướng lớn đến, lợi nhuận rất đáng kể.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alpha10 -->
+      <div class="card product-card animate-in delay-3">
+        <div class="product-card-header">
+          <h3>Alpha10</h3>
+        </div>
+
+        <div class="product-features">
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">核心特点</span>
+              <span class="vn-only">Đặc điểm</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">高频量化交易，每天大量交易捕捉小利润；需要较大资金量</span>
+              <span class="vn-only">Giao dịch định lượng tần suất cao, thực hiện nhiều giao dịch mỗi ngày để nắm bắt lợi nhuận nhỏ; cần vốn lớn</span>
+            </div>
+          </div>
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">适合对象</span>
+              <span class="vn-only">Phù hợp</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">高风险偏好、追求高回报的专业投资者</span>
+              <span class="vn-only">Nhà đầu tư chuyên nghiệp ưa thích rủi ro cao, theo đuổi lợi nhuận cao</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speech-box" style="margin-top: 20px;">
+          <div class="label">
+            <span class="cn-only">💬 销售话术</span>
+            <span class="vn-only">💬 Kịch bản bán hàng</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「Alpha10 是专业级策略，适合对收益有更高期望的投资者。当然风险也相应更高，建议用闲置资金参与。」</span>
+            <span class="vn-only">「Alpha10 là chiến lược cấp chuyên nghiệp, phù hợp với nhà đầu tư có kỳ vọng lợi nhuận cao hơn. Tất nhiên rủi ro cũng cao hơn tương ứng, khuyến nghị sử dụng vốn nhàn rỗi để tham gia.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fidelity Stable -->
+      <div class="card product-card animate-in delay-4">
+        <div class="product-card-header">
+          <h3>Fidelity Stable</h3>
+          <span class="product-tag product-tag-green">
+            <span class="cn-only">稳健之选</span>
+            <span class="vn-only">Lựa chọn ổn định</span>
+          </span>
+        </div>
+
+        <div class="product-features">
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">核心特点</span>
+              <span class="vn-only">Đặc điểm</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">低风险套利策略；最大回撤仅 8%；适合长期持有</span>
+              <span class="vn-only">Chiến lược chênh lệch giá rủi ro thấp; mức giảm tối đa chỉ 8%; phù hợp nắm giữ dài hạn</span>
+            </div>
+          </div>
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">适合对象</span>
+              <span class="vn-only">Phù hợp</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">风险厌恶型客户、大额资金追求稳健增值</span>
+              <span class="vn-only">Khách hàng ngại rủi ro, vốn lớn theo đuổi tăng trưởng ổn định</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speech-box" style="margin-top: 20px;">
+          <div class="label">
+            <span class="cn-only">💬 销售话术</span>
+            <span class="vn-only">💬 Kịch bản bán hàng</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「如果你追求稳定，不想冒太大风险，Fidelity Stable 最适合。最大回撤才 8%，比放银行收益高多了。」</span>
+            <span class="vn-only">「Nếu bạn theo đuổi sự ổn định, không muốn chịu rủi ro lớn, Fidelity Stable là phù hợp nhất. Mức giảm tối đa chỉ 8%, lợi nhuận cao hơn nhiều so với gửi ngân hàng.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- X-Hunter -->
+      <div class="card product-card animate-in delay-5">
+        <div class="product-card-header">
+          <h3>X-Hunter</h3>
+          <span class="product-tag product-tag-red">
+            <span class="cn-only">高风险高回报</span>
+            <span class="vn-only">Rủi ro cao - Lợi nhuận cao</span>
+          </span>
+        </div>
+
+        <div class="product-features">
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">核心特点</span>
+              <span class="vn-only">Đặc điểm</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">激进突破策略；收益波动极大；适合专业操盘手</span>
+              <span class="vn-only">Chiến lược đột phá tích cực; biến động lợi nhuận cực lớn; phù hợp nhà giao dịch chuyên nghiệp</span>
+            </div>
+          </div>
+          <div class="product-feature-row">
+            <div class="product-feature-label">
+              <span class="cn-only">适合对象</span>
+              <span class="vn-only">Phù hợp</span>
+            </div>
+            <div class="product-feature-value">
+              <span class="cn-only">专业投资者、有丰富交易经验</span>
+              <span class="vn-only">Nhà đầu tư chuyên nghiệp, có kinh nghiệm giao dịch phong phú</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speech-box" style="margin-top: 20px;">
+          <div class="label">
+            <span class="cn-only">💬 销售话术</span>
+            <span class="vn-only">💬 Kịch bản bán hàng</span>
+          </div>
+          <div class="cn">
+            <span class="cn-only">「X-Hunter 是我们最激进的策略，收益天花板最高但波动也最大。如果你是专业投资者且能承受高波动，可以配置一部分。」</span>
+            <span class="vn-only">「X-Hunter là chiến lược tích cực nhất của chúng tôi, trần lợi nhuận cao nhất nhưng biến động cũng lớn nhất. Nếu bạn là nhà đầu tư chuyên nghiệp và chịu được biến động cao, có thể phân bổ một phần.」</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 第三部分：客户需求匹配指南 ========== -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">🎯 客户需求匹配指南</span>
+          <span class="vn-only">🎯 Hướng dẫn Phù hợp Nhu cầu Khách hàng</span>
+        </h2>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <div class="match-item animate-in delay-1">
+          <div class="match-trigger">
+            <span class="cn-only">客户说「我想稳一点」</span>
+            <span class="vn-only">KH nói「Tôi muốn ổn định hơn」</span>
+          </div>
+          <div class="match-arrow">→</div>
+          <div class="match-result">
+            <span class="cn-only">推荐 <strong style="color: var(--green);">Fidelity Stable</strong> 或 <strong style="color: var(--green);">AITrade</strong></span>
+            <span class="vn-only">Đề xuất <strong style="color: var(--green);">Fidelity Stable</strong> hoặc <strong style="color: var(--green);">AITrade</strong></span>
+          </div>
+        </div>
+
+        <div class="match-item animate-in delay-2">
+          <div class="match-trigger">
+            <span class="cn-only">客户说「我想收益高一点」</span>
+            <span class="vn-only">KH nói「Tôi muốn lợi nhuận cao hơn」</span>
+          </div>
+          <div class="match-arrow">→</div>
+          <div class="match-result">
+            <span class="cn-only">推荐 <strong style="color: var(--green);">Astrabit</strong> 或 <strong style="color: var(--green);">Alpha10</strong></span>
+            <span class="vn-only">Đề xuất <strong style="color: var(--green);">Astrabit</strong> hoặc <strong style="color: var(--green);">Alpha10</strong></span>
+          </div>
+        </div>
+
+        <div class="match-item animate-in delay-3">
+          <div class="match-trigger">
+            <span class="cn-only">客户说「我有很多经验」</span>
+            <span class="vn-only">KH nói「Tôi có nhiều kinh nghiệm」</span>
+          </div>
+          <div class="match-arrow">→</div>
+          <div class="match-result">
+            <span class="cn-only">推荐 <strong style="color: var(--green);">Alpha10</strong> 或 <strong style="color: var(--green);">X-Hunter</strong></span>
+            <span class="vn-only">Đề xuất <strong style="color: var(--green);">Alpha10</strong> hoặc <strong style="color: var(--green);">X-Hunter</strong></span>
+          </div>
+        </div>
+
+        <div class="match-item animate-in delay-4">
+          <div class="match-trigger">
+            <span class="cn-only">客户说「我第一次投资」</span>
+            <span class="vn-only">KH nói「Đây là lần đầu tôi đầu tư」</span>
+          </div>
+          <div class="match-arrow">→</div>
+          <div class="match-result">
+            <span class="cn-only">推荐 <strong style="color: var(--green);">AITrade</strong>（首选）</span>
+            <span class="vn-only">Đề xuất <strong style="color: var(--green);">AITrade</strong> (lựa chọn hàng đầu)</span>
+          </div>
+        </div>
+
+        <div class="match-item animate-in delay-5">
+          <div class="match-trigger">
+            <span class="cn-only">客户说「我想分散风险」</span>
+            <span class="vn-only">KH nói「Tôi muốn phân tán rủi ro」</span>
+          </div>
+          <div class="match-arrow">→</div>
+          <div class="match-result">
+            <span class="cn-only">推荐组合：<strong style="color: var(--green);">60% AITrade + 30% Fidelity Stable + 10% Astrabit</strong></span>
+            <span class="vn-only">Đề xuất tổ hợp: <strong style="color: var(--green);">60% AITrade + 30% Fidelity Stable + 10% Astrabit</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 第四部分：组合配置建议 ========== -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">💡 组合配置建议</span>
+          <span class="vn-only">💡 Gợi ý Phân bổ Danh mục</span>
+        </h2>
+      </div>
+
+      <!-- 保守型组合 -->
+      <div class="card combo-card animate-in delay-1" style="margin-top: 20px;">
+        <div class="combo-title">
+          <span class="cn-only">🛡️ 保守型组合</span>
+          <span class="vn-only">🛡️ Danh mục Bảo thủ</span>
+        </div>
+        <div class="combo-bar">
+          <div class="combo-bar-segment" style="width: 70%; background: var(--green);"></div>
+          <div class="combo-bar-segment" style="width: 30%; background: var(--blue-accent);"></div>
+        </div>
+        <div class="combo-items">
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--green);"></div>
+            <span>Fidelity Stable 70%</span>
+          </div>
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--blue-accent);"></div>
+            <span>AITrade 30%</span>
+          </div>
+        </div>
+        <div class="combo-return">
+          <span class="cn-only">预期月收益：3.5-8%</span>
+          <span class="vn-only">Lợi nhuận kỳ vọng/tháng: 3,5-8%</span>
+        </div>
+      </div>
+
+      <!-- 平衡型组合 -->
+      <div class="card combo-card animate-in delay-2">
+        <div class="combo-title">
+          <span class="cn-only">⚖️ 平衡型组合</span>
+          <span class="vn-only">⚖️ Danh mục Cân bằng</span>
+        </div>
+        <div class="combo-bar">
+          <div class="combo-bar-segment" style="width: 50%; background: var(--blue-accent);"></div>
+          <div class="combo-bar-segment" style="width: 30%; background: #ffa500;"></div>
+          <div class="combo-bar-segment" style="width: 20%; background: var(--green);"></div>
+        </div>
+        <div class="combo-items">
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--blue-accent);"></div>
+            <span>AITrade 50%</span>
+          </div>
+          <div class="combo-item">
+            <div class="combo-dot" style="background: #ffa500;"></div>
+            <span>Astrabit 30%</span>
+          </div>
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--green);"></div>
+            <span>Fidelity Stable 20%</span>
+          </div>
+        </div>
+        <div class="combo-return">
+          <span class="cn-only">预期月收益：6-13%</span>
+          <span class="vn-only">Lợi nhuận kỳ vọng/tháng: 6-13%</span>
+        </div>
+      </div>
+
+      <!-- 进取型组合 -->
+      <div class="card combo-card animate-in delay-3">
+        <div class="combo-title">
+          <span class="cn-only">🚀 进取型组合</span>
+          <span class="vn-only">🚀 Danh mục Tích cực</span>
+        </div>
+        <div class="combo-bar">
+          <div class="combo-bar-segment" style="width: 40%; background: #ffa500;"></div>
+          <div class="combo-bar-segment" style="width: 30%; background: var(--red-soft);"></div>
+          <div class="combo-bar-segment" style="width: 30%; background: var(--blue-accent);"></div>
+        </div>
+        <div class="combo-items">
+          <div class="combo-item">
+            <div class="combo-dot" style="background: #ffa500;"></div>
+            <span>Astrabit 40%</span>
+          </div>
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--red-soft);"></div>
+            <span>Alpha10 30%</span>
+          </div>
+          <div class="combo-item">
+            <div class="combo-dot" style="background: var(--blue-accent);"></div>
+            <span>AITrade 30%</span>
+          </div>
+        </div>
+        <div class="combo-return">
+          <span class="cn-only">预期月收益：10-20%</span>
+          <span class="vn-only">Lợi nhuận kỳ vọng/tháng: 10-20%</span>
+        </div>
+      </div>
+
+      <!-- ========== 底部金句 ========== -->
+      <div class="key-point animate-in" style="margin-top: 50px;">
+        <div class="cn" style="font-size: 1.15rem; font-weight: 700;">
+          <span class="cn-only">「没有最好的产品，只有最适合客户的产品」</span>
+          <span class="vn-only">「Không có sản phẩm tốt nhất, chỉ có sản phẩm phù hợp nhất với khách hàng」</span>
+        </div>
+      </div>
+
+      <!-- ========== 相关链接 ========== -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">🔗 相关链接</span>
+          <span class="vn-only">🔗 Liên kết liên quan</span>
+        </h2>
+      </div>
+
+      <div class="grid-2" style="margin-top: 20px; margin-bottom: 50px;">
+        <a href="../training/ai-trading-logic.html" class="card card-highlight animate-in delay-1" style="text-decoration: none; padding: 30px;">
+          <div style="font-size: 2rem; margin-bottom: 12px;">📚</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">AI 量化交易逻辑</span>
+            <span class="vn-only">Logic giao dịch định lượng AI</span>
+          </h4>
+          <div style="font-size: 0.9rem; color: var(--gray);">
+            <span class="cn-only">深入了解 AI 量化交易的底层逻辑</span>
+            <span class="vn-only">Tìm hiểu sâu logic cơ bản của giao dịch định lượng AI</span>
+          </div>
+        </a>
+
+        <a href="../scripts/faq.html" class="card card-highlight animate-in delay-2" style="text-decoration: none; padding: 30px;">
+          <div style="font-size: 2rem; margin-bottom: 12px;">❓</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">常见问题 FAQ</span>
+            <span class="vn-only">Câu hỏi thường gặp FAQ</span>
+          </h4>
+          <div style="font-size: 0.9rem; color: var(--gray);">
+            <span class="cn-only">客户常见问题及专业解答</span>
+            <span class="vn-only">Câu hỏi thường gặp và giải đáp chuyên nghiệp</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

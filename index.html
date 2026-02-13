@@ -221,6 +221,13 @@
       .module-grid { grid-template-columns: 1fr; }
       .quick-grid { grid-template-columns: 1fr; }
     }
+
+    @media (max-width: 992px) {
+      .scenario-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 768px) {
+      .scenario-grid-4 { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -401,6 +408,102 @@
       </div>
     </section>
 
+    <!-- 客户问了什么？快速入口 -->
+    <section style="padding: 50px 0; background: linear-gradient(180deg, rgba(127,255,0,0.03) 0%, transparent 100%);">
+      <div class="container">
+        <div class="section-header animate-in" style="text-align: center; margin-bottom: 40px;">
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px;">
+            <span class="cn-only">客户问了什么？一键找到答案</span>
+            <span class="vn-only">Khách hàng hỏi gì? Tìm câu trả lời ngay</span>
+            <span class="en-only">What did the customer ask? Find answers instantly</span>
+            <span class="ko-only">고객이 무엇을 물었나요? 즉시 답변 찾기</span>
+            <span class="ja-only">顧客は何を聞きましたか？即座に回答を見つける</span>
+          </h2>
+          <p style="color: var(--gray);">
+            <span class="cn-only">按场景快速定位话术，3秒找到标准回复</span>
+            <span class="vn-only">Nhanh chóng tìm kịch bản theo tình huống</span>
+            <span class="en-only">Quickly locate scripts by scenario</span>
+            <span class="ko-only">시나리오별 스크립트 빠르게 찾기</span>
+            <span class="ja-only">シナリオ別スクリプトを素早く検索</span>
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+          <a href="scripts/faq.html#security" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">安全顾虑</span><span class="vn-only">Lo ngại an toàn</span><span class="en-only">Safety Concerns</span><span class="ko-only">안전 우려</span><span class="ja-only">安全性の懸念</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"钱安全吗？会不会跑路？"</span><span class="vn-only">"Tiền có an toàn không?"</span><span class="en-only">"Is my money safe?"</span><span class="ko-only">"돈이 안전한가요?"</span><span class="ja-only">"お金は安全ですか？"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#fees" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">💰</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">收费问题</span><span class="vn-only">Vấn đề phí</span><span class="en-only">Fee Questions</span><span class="ko-only">수수료 질문</span><span class="ja-only">料金の質問</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"怎么收费？有隐藏费吗？"</span><span class="vn-only">"Phí thế nào? Có phí ẩn không?"</span><span class="en-only">"What are the fees?"</span><span class="ko-only">"수수료가 어떻게 되나요?"</span><span class="ja-only">"料金はどうなっていますか？"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#deposit" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">💳</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">提现入金</span><span class="vn-only">Nạp & Rút</span><span class="en-only">Deposit & Withdraw</span><span class="ko-only">입출금</span><span class="ja-only">入出金</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"能随时提现吗？最低多少？"</span><span class="vn-only">"Rút tiền tự do? Tối thiểu?"</span><span class="en-only">"Can I withdraw anytime?"</span><span class="ko-only">"언제든 출금 가능한가요?"</span><span class="ja-only">"いつでも出金できますか？"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#verification" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🤖</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">AI 真假</span><span class="vn-only">AI thật giả</span><span class="en-only">AI Authenticity</span><span class="ko-only">AI 진위</span><span class="ja-only">AI真偽</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"AI交易是真的吗？"</span><span class="vn-only">"Giao dịch AI có thật không?"</span><span class="en-only">"Is AI trading real?"</span><span class="ko-only">"AI 거래가 진짜인가요?"</span><span class="ja-only">"AI取引は本物ですか？"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#compliance" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">📜</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">合规牌照</span><span class="vn-only">Giấy phép</span><span class="en-only">Compliance</span><span class="ko-only">라이센스</span><span class="ja-only">ライセンス</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"有牌照吗？合法吗？"</span><span class="vn-only">"Có giấy phép? Hợp pháp?"</span><span class="en-only">"Is it licensed?"</span><span class="ko-only">"라이센스가 있나요?"</span><span class="ja-only">"ライセンスはありますか？"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#strategy" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🎯</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">策略收益</span><span class="vn-only">Chiến lược</span><span class="en-only">Strategy & Returns</span><span class="ko-only">전략 & 수익</span><span class="ja-only">戦略 & 収益</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"能赚多少？策略靠谱吗？"</span><span class="vn-only">"Kiếm được bao nhiêu?"</span><span class="en-only">"How much can I earn?"</span><span class="ko-only">"얼마나 벌 수 있나요?"</span><span class="ja-only">"いくら稼げますか？"</span>
+            </div>
+          </a>
+          <a href="scripts/objection-handling.html" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">💬</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">常见异议</span><span class="vn-only">Phản đối</span><span class="en-only">Objections</span><span class="ko-only">이의제기</span><span class="ja-only">異議</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"规模小/不靠谱/再考虑"</span><span class="vn-only">"Quy mô nhỏ/Xem lại"</span><span class="en-only">"Too small/Not reliable"</span><span class="ko-only">"규모 작다/신뢰 부족"</span><span class="ja-only">"規模が小さい/信頼性が低い"</span>
+            </div>
+          </a>
+          <a href="scripts/faq.html#partnership" style="text-decoration: none; background: var(--bg-card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; display: block;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='transparent'">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🤝</div>
+            <div style="color: var(--white); font-weight: 600; margin-bottom: 5px;">
+              <span class="cn-only">合作加入</span><span class="vn-only">Hợp tác</span><span class="en-only">Partnership</span><span class="ko-only">파트너십</span><span class="ja-only">パートナーシップ</span>
+            </div>
+            <div style="color: var(--gray); font-size: 0.8rem;">
+              <span class="cn-only">"怎么合作？推荐奖励？"</span><span class="vn-only">"Hợp tác thế nào?"</span><span class="en-only">"How to partner?"</span><span class="ko-only">"어떻게 파트너가 되나요?"</span><span class="ja-only">"パートナーになるには？"</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- 快速入口 -->
     <section class="quick-section">
       <div class="container">
@@ -473,11 +576,11 @@
                 <span class="ja-only">顧客FAQ</span>
               </h4>
               <p>
-                <span class="cn-only">15个高频问题专业回答模板</span>
-                <span class="vn-only">15 câu hỏi thường gặp & trả lời</span>
-                <span class="en-only">15 high-frequency questions & answers</span>
-                <span class="ko-only">15개의 빈번한 질문 및 답변</span>
-                <span class="ja-only">15の頻出質問と回答</span>
+                <span class="cn-only">32个高频问题专业回答模板（10大分类）</span>
+                <span class="vn-only">32 câu hỏi thường gặp & trả lời (10 phân loại)</span>
+                <span class="en-only">32 high-frequency questions & answers (10 categories)</span>
+                <span class="ko-only">32개의 빈번한 질문 및 답변 (10개 카테고리)</span>
+                <span class="ja-only">32の頻出質問と回答（10カテゴリ）</span>
               </p>
             </div>
           </a>

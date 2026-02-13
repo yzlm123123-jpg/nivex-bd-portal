@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户成功案例库 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 案例卡片内部布局 */
+    .case-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .case-meta-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .case-meta-label {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .case-meta-value {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+
+    .case-turning-point {
+      background: var(--green-subtle);
+      border-left: 4px solid var(--green);
+      padding: 15px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 20px 0;
+    }
+
+    .case-turning-point .label {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    .case-success-factor {
+      background: rgba(127, 255, 0, 0.05);
+      border-radius: var(--radius-sm);
+      padding: 15px 20px;
+      margin: 15px 0;
+    }
+
+    .case-success-factor .label {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    .case-bd-quote {
+      font-style: italic;
+      color: var(--white);
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid var(--gray);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 15px;
+    }
+
+    .case-bd-quote .label {
+      color: var(--gray-light);
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      font-style: normal;
+    }
+
+    .section-divider {
+      padding: 50px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-divider:last-child {
+      border-bottom: none;
+    }
+
+    .case-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--green-subtle);
+      color: var(--green);
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">客户成功案例库</span>
+          <span class="vn-only">Thư viện Câu chuyện Thành công</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">真实案例，真实数据，真实信任</span>
+          <span class="vn-only">Câu chuyện thật, dữ liệu thật, niềm tin thật</span>
+        </p>
+      </div>
+
+      <!-- 核心提示框 -->
+      <div class="key-point animate-in delay-1" style="margin-bottom: 50px;">
+        <div class="cn-only">以下案例基于真实客户经历整理，已隐去个人信息。仅供 BD 内部学习参考，不可直接发给客户</div>
+        <div class="vn-only">Các trường hợp dưới đây được tổng hợp từ trải nghiệm khách hàng thực tế, đã ẩn thông tin cá nhân. Chỉ để BD nội bộ tham khảo, không gửi trực tiếp cho khách</div>
+      </div>
+
+      <!-- 第一部分：按投资规模分类的案例 -->
+      <section class="section-divider">
+        <h2 style="margin-bottom: 35px;" class="animate-in delay-2">
+          <span class="cn-only">按投资规模分类的案例</span>
+          <span class="vn-only">Trường hợp phân loại theo quy mô đầu tư</span>
+        </h2>
+
+        <!-- 案例 A：小资金启动型 -->
+        <div class="card card-highlight animate-in" style="margin-bottom: 30px;">
+          <div class="card-accent"></div>
+          <div style="margin-left: 15px; width: 100%;">
+            <span class="case-tag">
+              <span class="cn-only">$1,000 - $5,000</span>
+              <span class="vn-only">$1,000 - $5,000</span>
+            </span>
+            <h3 style="margin-bottom: 5px;">
+              <span class="cn-only">案例 A：小资金启动型</span>
+              <span class="vn-only">Trường hợp A: Khởi động vốn nhỏ</span>
+            </h3>
+
+            <div class="case-meta">
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">客户画像</span><span class="vn-only">Chân dung</span></span>
+                <span class="case-meta-value">
+                  <span class="cn-only">越南胡志明市，30 岁，IT 行业，首次接触加密货币</span>
+                  <span class="vn-only">TP.HCM, 30 tuổi, ngành IT, lần đầu tiếp xúc tiền điện tử</span>
+                </span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">初始投资</span><span class="vn-only">Vốn ban đầu</span></span>
+                <span class="case-meta-value">$2,000</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">使用策略</span><span class="vn-only">Chiến lược</span></span>
+                <span class="case-meta-value">AITrade <span class="cn-only">基础版</span><span class="vn-only">phiên bản cơ bản</span></span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">体验周期</span><span class="vn-only">Thời gian</span></span>
+                <span class="case-meta-value"><span class="cn-only">3 个月</span><span class="vn-only">3 tháng</span></span>
+              </div>
+            </div>
+
+            <div class="case-turning-point">
+              <div class="label"><span class="cn-only">关键转折</span><span class="vn-only">Bước ngoặt quan trọng</span></div>
+              <div class="cn-only">第一个月小幅盈利后开始信任，第二个月主动加仓到 $5,000</div>
+              <div class="vn-only">Sau khi có lãi nhỏ tháng đầu tiên bắt đầu tin tưởng, tháng thứ hai chủ động tăng vốn lên $5,000</div>
+            </div>
+
+            <div class="case-success-factor">
+              <div class="label"><span class="cn-only">成功要素</span><span class="vn-only">Yếu tố thành công</span></div>
+              <div class="cn-only">BD 在第 1 天、第 3 天、第 7 天准时跟进，客户感受到专业陪伴</div>
+              <div class="vn-only">BD theo dõi đúng hẹn vào ngày 1, ngày 3, ngày 7, khách hàng cảm nhận được sự đồng hành chuyên nghiệp</div>
+            </div>
+
+            <div class="case-bd-quote">
+              <div class="label">BD <span class="cn-only">经验总结</span><span class="vn-only">tổng kết kinh nghiệm</span></div>
+              <div class="cn-only">"小资金客户最需要的是安全感，不是催他加钱"</div>
+              <div class="vn-only">"Khách hàng vốn nhỏ cần nhất là cảm giác an toàn, không phải thúc giục họ thêm tiền"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 案例 B：中等资金验证型 -->
+        <div class="card card-highlight animate-in" style="margin-bottom: 30px;">
+          <div class="card-accent"></div>
+          <div style="margin-left: 15px; width: 100%;">
+            <span class="case-tag">
+              <span class="cn-only">$5,000 - $20,000</span>
+              <span class="vn-only">$5,000 - $20,000</span>
+            </span>
+            <h3 style="margin-bottom: 5px;">
+              <span class="cn-only">案例 B：中等资金验证型</span>
+              <span class="vn-only">Trường hợp B: Xác minh vốn trung bình</span>
+            </h3>
+
+            <div class="case-meta">
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">客户画像</span><span class="vn-only">Chân dung</span></span>
+                <span class="case-meta-value">
+                  <span class="cn-only">越南河内，45 岁，企业主，有股票投资经验</span>
+                  <span class="vn-only">Hà Nội, 45 tuổi, chủ doanh nghiệp, có kinh nghiệm đầu tư cổ phiếu</span>
+                </span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">初始投资</span><span class="vn-only">Vốn ban đầu</span></span>
+                <span class="case-meta-value">$10,000</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">使用策略</span><span class="vn-only">Chiến lược</span></span>
+                <span class="case-meta-value">AITrade + Alpha10 <span class="cn-only">组合</span><span class="vn-only">kết hợp</span></span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">体验周期</span><span class="vn-only">Thời gian</span></span>
+                <span class="case-meta-value"><span class="cn-only">6 个月</span><span class="vn-only">6 tháng</span></span>
+              </div>
+            </div>
+
+            <div class="case-turning-point">
+              <div class="label"><span class="cn-only">关键转折</span><span class="vn-only">Bước ngoặt quan trọng</span></div>
+              <div class="cn-only">前两个月有回撤，BD 及时沟通市场情况，客户选择坚持</div>
+              <div class="vn-only">Hai tháng đầu bị thoái lui, BD kịp thời giao tiếp về tình hình thị trường, khách hàng chọn kiên trì</div>
+            </div>
+
+            <div class="case-success-factor">
+              <div class="label"><span class="cn-only">成功要素</span><span class="vn-only">Yếu tố thành công</span></div>
+              <div class="cn-only">BD 在行情波动时第一时间发消息，而不是等客户来问</div>
+              <div class="vn-only">BD nhắn tin ngay khi thị trường biến động, không đợi khách hàng hỏi</div>
+            </div>
+
+            <div class="case-bd-quote">
+              <div class="label">BD <span class="cn-only">经验总结</span><span class="vn-only">tổng kết kinh nghiệm</span></div>
+              <div class="cn-only">"有经验的投资者不怕亏，怕的是没人管他"</div>
+              <div class="vn-only">"Nhà đầu tư có kinh nghiệm không sợ lỗ, sợ là không ai quan tâm"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 案例 C：大资金长期型 -->
+        <div class="card card-highlight animate-in" style="margin-bottom: 30px;">
+          <div class="card-accent"></div>
+          <div style="margin-left: 15px; width: 100%;">
+            <span class="case-tag">
+              <span class="cn-only">$20,000+</span>
+              <span class="vn-only">$20,000+</span>
+            </span>
+            <h3 style="margin-bottom: 5px;">
+              <span class="cn-only">案例 C：大资金长期型</span>
+              <span class="vn-only">Trường hợp C: Vốn lớn dài hạn</span>
+            </h3>
+
+            <div class="case-meta">
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">客户画像</span><span class="vn-only">Chân dung</span></span>
+                <span class="case-meta-value">
+                  <span class="cn-only">中国深圳，50 岁，投资人，5 年加密经验</span>
+                  <span class="vn-only">Thâm Quyến - Trung Quốc, 50 tuổi, nhà đầu tư, 5 năm kinh nghiệm crypto</span>
+                </span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">初始投资</span><span class="vn-only">Vốn ban đầu</span></span>
+                <span class="case-meta-value">$50,000</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">使用策略</span><span class="vn-only">Chiến lược</span></span>
+                <span class="case-meta-value">
+                  <span class="cn-only">多策略组合 + VIP 定制</span>
+                  <span class="vn-only">Kết hợp đa chiến lược + VIP tùy chỉnh</span>
+                </span>
+              </div>
+              <div class="case-meta-item">
+                <span class="case-meta-label"><span class="cn-only">体验周期</span><span class="vn-only">Thời gian</span></span>
+                <span class="case-meta-value"><span class="cn-only">12 个月</span><span class="vn-only">12 tháng</span></span>
+              </div>
+            </div>
+
+            <div class="case-turning-point">
+              <div class="label"><span class="cn-only">关键转折</span><span class="vn-only">Bước ngoặt quan trọng</span></div>
+              <div class="cn-only">通过老客户转介绍加入，6 个月后追加到 $100,000</div>
+              <div class="vn-only">Tham gia qua giới thiệu từ khách hàng cũ, sau 6 tháng tăng vốn lên $100,000</div>
+            </div>
+
+            <div class="case-success-factor">
+              <div class="label"><span class="cn-only">成功要素</span><span class="vn-only">Yếu tố thành công</span></div>
+              <div class="cn-only">每月定期发送收益报告 + 市场分析，建立专业形象</div>
+              <div class="vn-only">Hàng tháng gửi báo cáo lợi nhuận + phân tích thị trường, xây dựng hình ảnh chuyên nghiệp</div>
+            </div>
+
+            <div class="case-bd-quote">
+              <div class="label">BD <span class="cn-only">经验总结</span><span class="vn-only">tổng kết kinh nghiệm</span></div>
+              <div class="cn-only">"大客户看重的是专业度和稳定性，不是甜言蜜语"</div>
+              <div class="vn-only">"Khách hàng lớn coi trọng sự chuyên nghiệp và ổn định, không phải lời nói ngọt ngào"</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二部分：共同成功要素 -->
+      <section class="section-divider">
+        <h2 style="margin-bottom: 35px;">
+          <span class="cn-only">案例中的共同成功要素</span>
+          <span class="vn-only">Yếu tố thành công chung trong các trường hợp</span>
+        </h2>
+
+        <div class="grid-3">
+          <div class="card" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">1</div>
+            <h3 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">专业陪伴</span>
+              <span class="vn-only">Đồng hành chuyên nghiệp</span>
+            </h3>
+            <p style="color: var(--gray-light);">
+              <span class="cn-only">从入金第一天就开始主动跟进</span>
+              <span class="vn-only">Chủ động theo dõi từ ngày đầu tiên nạp tiền</span>
+            </p>
+          </div>
+          <div class="card" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">2</div>
+            <h3 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">坦诚沟通</span>
+              <span class="vn-only">Giao tiếp chân thành</span>
+            </h3>
+            <p style="color: var(--gray-light);">
+              <span class="cn-only">亏损时不逃避，主动说明情况</span>
+              <span class="vn-only">Khi thua lỗ không né tránh, chủ động giải thích tình hình</span>
+            </p>
+          </div>
+          <div class="card" style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 15px;">3</div>
+            <h3 style="color: var(--green); margin-bottom: 10px;">
+              <span class="cn-only">长期视角</span>
+              <span class="vn-only">Tầm nhìn dài hạn</span>
+            </h3>
+            <p style="color: var(--gray-light);">
+              <span class="cn-only">引导客户看 3 个月以上的数据，不纠结每日波动</span>
+              <span class="vn-only">Hướng dẫn khách hàng xem dữ liệu trên 3 tháng, không bận tâm biến động hàng ngày</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三部分：失败案例教训 -->
+      <section class="section-divider">
+        <h2 style="margin-bottom: 35px;">
+          <span class="cn-only">失败案例教训</span>
+          <span class="vn-only">Bài học từ trường hợp thất bại</span>
+        </h2>
+
+        <div class="myth-grid">
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">❌</div>
+              <div style="width: 100%;">
+                <div style="font-weight: 700; margin-bottom: 8px;">
+                  <span class="cn-only">过度承诺收益</span>
+                  <span class="vn-only">Hứa lợi nhuận quá mức</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">客户预期过高 → 稍有回撤就要全部提现</span>
+                  <span class="vn-only">Kỳ vọng khách hàng quá cao → Hơi thoái lui là muốn rút hết</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">❌</div>
+              <div style="width: 100%;">
+                <div style="font-weight: 700; margin-bottom: 8px;">
+                  <span class="cn-only">不主动跟进</span>
+                  <span class="vn-only">Không chủ động theo dõi</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">客户感觉被抛弃 → 默默流失</span>
+                  <span class="vn-only">Khách hàng cảm thấy bị bỏ rơi → Âm thầm rời đi</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="myth-row">
+            <div class="myth-card wrong" style="flex: 1;">
+              <div class="icon">❌</div>
+              <div style="width: 100%;">
+                <div style="font-weight: 700; margin-bottom: 8px;">
+                  <span class="cn-only">催促加仓</span>
+                  <span class="vn-only">Thúc giục tăng vốn</span>
+                </div>
+                <div style="color: var(--gray-light);">
+                  <span class="cn-only">客户感到压力 → 信任崩塌</span>
+                  <span class="vn-only">Khách hàng cảm thấy áp lực → Niềm tin sụp đổ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第四部分：如何使用案例 -->
+      <section class="section-divider">
+        <h2 style="margin-bottom: 35px;">
+          <span class="cn-only">如何使用案例</span>
+          <span class="vn-only">Cách sử dụng trường hợp</span>
+        </h2>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <div>
+              <div class="cn-only">和客户聊天时自然提到：「我之前有个客户，情况和你很像...」</div>
+              <div class="vn-only">Khi trò chuyện với khách hàng, tự nhiên đề cập: "Tôi có một khách hàng trước đây, tình huống giống bạn lắm..."</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div>
+              <div class="cn-only">不要照搬案例，要根据客户实际情况调整表述</div>
+              <div class="vn-only">Không sao chép nguyên văn, phải điều chỉnh cách diễn đạt theo tình hình thực tế của khách hàng</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div>
+              <div class="cn-only">重点讲客户的顾虑和转变过程，而不是收益数字</div>
+              <div class="vn-only">Tập trung vào lo ngại và quá trình chuyển đổi của khách hàng, không phải con số lợi nhuận</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div>
+              <div class="cn-only">永远不要编造案例</div>
+              <div class="vn-only">Không bao giờ bịa đặt trường hợp</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部金句 -->
+      <section class="section-divider" style="text-align: center;">
+        <div class="key-point" style="margin-top: 20px;">
+          <div class="cn-only" style="font-size: 1.3rem;">每一个成功案例，都是 BD 专业服务的证明</div>
+          <div class="vn-only" style="font-size: 1.3rem;">Mỗi câu chuyện thành công đều là minh chứng cho dịch vụ chuyên nghiệp của BD</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; margin-top: 40px;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);">
+          <span class="cn-only">BD 业务流程平台 · 全球市场</span>
+          <span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>

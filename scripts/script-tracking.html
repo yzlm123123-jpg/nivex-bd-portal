@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>话术效果追踪 | NIVEX BD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <style>
+    /* 追踪卡片 */
+    .tracking-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 20px 25px;
+      margin-bottom: 15px;
+      border-left: 4px solid transparent;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .tracking-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .tracking-card.status-green {
+      border-left-color: var(--green);
+    }
+    .tracking-card.status-yellow {
+      border-left-color: #f0ad4e;
+    }
+    .tracking-card.status-red {
+      border-left-color: var(--red-soft);
+    }
+    .tracking-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .tracking-scene {
+      flex: 2;
+      min-width: 180px;
+    }
+    .tracking-scene h4 {
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .tracking-scene .sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    .tracking-meta {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+    }
+    .tracking-meta .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tracking-meta .value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .tracking-meta .value.green { color: var(--green); }
+    .tracking-meta .value.yellow { color: #f0ad4e; }
+    .tracking-meta .value.red { color: var(--red-soft); }
+    .tracking-stars {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+    .tracking-status {
+      flex: 0 0 auto;
+      min-width: 100px;
+      text-align: center;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .status-badge.badge-green {
+      background: rgba(127,255,0,0.15);
+      color: var(--green);
+      border: 1px solid rgba(127,255,0,0.3);
+    }
+    .status-badge.badge-yellow {
+      background: rgba(240,173,78,0.15);
+      color: #f0ad4e;
+      border: 1px solid rgba(240,173,78,0.3);
+    }
+    .status-badge.badge-red {
+      background: rgba(255,107,107,0.15);
+      color: var(--red-soft);
+      border: 1px solid rgba(255,107,107,0.3);
+    }
+
+    /* 评分标准卡 */
+    .rating-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-align: center;
+    }
+    .rating-card .stars {
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    .rating-card h4 {
+      margin-bottom: 8px;
+      color: var(--white);
+    }
+    .rating-card p {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+    }
+
+    /* 流程步骤 */
+    .flow-steps {
+      position: relative;
+    }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .flow-step:last-child {
+      margin-bottom: 0;
+    }
+    .flow-step-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-card);
+      border: 2px solid rgba(127,255,0,0.3);
+      border-radius: var(--radius-circle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+    .flow-step-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+    .flow-step-content h4 {
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .flow-step-content p {
+      color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+    .flow-step::before {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 56px;
+      width: 2px;
+      height: calc(100% - 26px);
+      background: rgba(127,255,0,0.15);
+      z-index: 1;
+    }
+    .flow-step:last-child::before {
+      display: none;
+    }
+
+    /* 优化卡片 */
+    .optimize-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      border: 1px solid transparent;
+    }
+    .optimize-card.border-red {
+      border-color: rgba(255,107,107,0.4);
+    }
+    .optimize-card.border-yellow {
+      border-color: rgba(240,173,78,0.4);
+    }
+    .optimize-card .opt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .optimize-card .opt-header h4 {
+      color: var(--white);
+    }
+    .optimize-card .opt-item {
+      margin-bottom: 15px;
+    }
+    .optimize-card .opt-item:last-child {
+      margin-bottom: 0;
+    }
+    .optimize-card .opt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .optimize-card .opt-label.label-red { color: var(--red-soft); }
+    .optimize-card .opt-label.label-blue { color: var(--blue-accent); }
+    .optimize-card .opt-label.label-green { color: var(--green); }
+    .optimize-card .opt-text {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+
+    /* AI 提示模板框 */
+    .prompt-template {
+      background: var(--bg-code);
+      border: 1px solid rgba(127,255,0,0.2);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .prompt-template .placeholder {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* 反馈表模板 */
+    .feedback-form {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+    }
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .form-row:last-child {
+      border-bottom: none;
+    }
+    .form-label {
+      flex: 0 0 160px;
+      font-size: 0.9rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+    .form-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      padding: 10px 15px;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* 版本时间线 */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: rgba(127,255,0,0.2);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding-left: 15px;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      border-radius: var(--radius-circle);
+      border: 3px solid var(--bg);
+    }
+    .timeline-item.future::before {
+      background: var(--gray-dark);
+      border-color: var(--bg);
+    }
+    .timeline-version {
+      font-weight: 700;
+      color: var(--green);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .timeline-item.future .timeline-version {
+      color: var(--gray);
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+    }
+
+    /* 表头标签栏 */
+    .tracking-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 25px;
+      margin-bottom: 5px;
+      flex-wrap: wrap;
+    }
+    .tracking-header span {
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .tracking-header .col-scene { flex: 2; min-width: 180px; }
+    .tracking-header .col-meta { flex: 1; min-width: 80px; text-align: center; }
+    .tracking-header .col-stars { flex: 1; min-width: 80px; text-align: center; }
+    .tracking-header .col-status { flex: 0 0 auto; min-width: 100px; text-align: center; }
+
+    /* 统计汇总 */
+    .stats-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      flex: 1;
+      min-width: 120px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      text-align: center;
+    }
+    .stat-box .stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+    .stat-box .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    @media (max-width: 768px) {
+      .tracking-header { display: none; }
+      .tracking-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .tracking-meta, .tracking-stars, .tracking-status { text-align: left; }
+      .tracking-meta .label { display: inline; margin-right: 5px; }
+      .form-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .form-label { flex: none; }
+      .stats-row { gap: 10px; }
+      .stat-box { min-width: 100px; padding: 15px; }
+      .stat-box .stat-num { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="../resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- 页面标题 -->
+      <div class="page-title animate-in" style="padding-top: 40px;">
+        <h1 class="title-cn">
+          <span class="cn-only">话术效果追踪</span>
+          <span class="vn-only">Theo dõi Hiệu quả Kịch bản</span>
+        </h1>
+        <p class="title-vn">
+          <span class="cn-only">用数据验证话术 · 持续迭代优化</span>
+          <span class="vn-only">Dùng dữ liệu xác minh kịch bản · Tối ưu liên tục</span>
+        </p>
+      </div>
+
+      <!-- 顶部高亮卡 -->
+      <div class="card card-highlight animate-in" style="margin-top: 40px; padding: 35px 40px; background: linear-gradient(135deg, rgba(127,255,0,0.12), rgba(127,255,0,0.03)); border: 2px solid rgba(127,255,0,0.25);">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">📊</div>
+          <p style="font-size: 1.15rem; font-weight: 700; color: var(--white); line-height: 1.8;">
+            <span class="cn-only">"不是凭感觉判断话术好坏，而是让数据说话"</span>
+            <span class="vn-only">"Không đánh giá bằng cảm giác, hãy để dữ liệu nói"</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 数据汇总 -->
+      <div class="stats-row animate-in" style="margin-top: 30px;">
+        <div class="stat-box">
+          <div class="stat-num" style="color: var(--white);">8</div>
+          <div class="stat-label"><span class="cn-only">追踪话术</span><span class="vn-only">Kịch bản theo dõi</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" style="color: var(--green);">345</div>
+          <div class="stat-label"><span class="cn-only">总使用次数</span><span class="vn-only">Tổng lượt sử dụng</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" style="color: var(--green);">44%</div>
+          <div class="stat-label"><span class="cn-only">平均转化率</span><span class="vn-only">Tỷ lệ chuyển đổi TB</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" style="color: #f0ad4e;">3</div>
+          <div class="stat-label"><span class="cn-only">待优化话术</span><span class="vn-only">Cần tối ưu</span></div>
+        </div>
+      </div>
+
+      <!-- Section 1: 追踪看板 -->
+      <div class="section-title animate-in" style="margin-top: 50px;">
+        <h2>
+          <span class="cn-only">📋 追踪看板</span>
+          <span class="vn-only">📋 Bảng theo dõi</span>
+        </h2>
+      </div>
+
+      <!-- 表头 -->
+      <div class="tracking-header animate-in" style="margin-top: 20px;">
+        <span class="col-scene"><span class="cn-only">话术场景</span><span class="vn-only">Tình huống</span></span>
+        <span class="col-meta"><span class="cn-only">版本</span><span class="vn-only">Phiên bản</span></span>
+        <span class="col-meta"><span class="cn-only">使用次数</span><span class="vn-only">Lượt dùng</span></span>
+        <span class="col-meta"><span class="cn-only">转化率</span><span class="vn-only">Tỷ lệ</span></span>
+        <span class="col-stars"><span class="cn-only">评级</span><span class="vn-only">Đánh giá</span></span>
+        <span class="col-status"><span class="cn-only">状态</span><span class="vn-only">Trạng thái</span></span>
+      </div>
+
+      <!-- 卡片 1: 痛点共情开场 -->
+      <div class="tracking-card status-yellow animate-in delay-1">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">痛点共情开场</span><span class="vn-only">Mở đầu đồng cảm</span></h4>
+            <div class="sub"><span class="cn-only">客户初次沟通</span><span class="vn-only">Giao tiếp lần đầu</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">50</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value yellow">35%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-yellow"><span class="cn-only">待优化</span><span class="vn-only">Cần tối ưu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 2: 安全顾虑回应 -->
+      <div class="tracking-card status-green animate-in delay-2">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">安全顾虑回应</span><span class="vn-only">Phản hồi lo ngại an toàn</span></h4>
+            <div class="sub"><span class="cn-only">异议处理</span><span class="vn-only">Xử lý phản đối</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">80</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value green">60%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-green"><span class="cn-only">高效</span><span class="vn-only">Hiệu quả cao</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 3: AI 真假质疑 -->
+      <div class="tracking-card status-yellow animate-in delay-3">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">AI 真假质疑</span><span class="vn-only">Nghi ngờ AI thật giả</span></h4>
+            <div class="sub"><span class="cn-only">异议处理</span><span class="vn-only">Xử lý phản đối</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">30</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value yellow">40%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-yellow"><span class="cn-only">待优化</span><span class="vn-only">Cần tối ưu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 4: 加仓引导话术 -->
+      <div class="tracking-card status-red animate-in delay-4">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">加仓引导话术</span><span class="vn-only">Kịch bản tăng vốn</span></h4>
+            <div class="sub"><span class="cn-only">客户加仓</span><span class="vn-only">KH tăng vốn</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">20</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value red">25%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-red"><span class="cn-only">需优化</span><span class="vn-only">Cần cải thiện</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 5: 收益预期管理 -->
+      <div class="tracking-card status-green animate-in delay-5">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">收益预期管理</span><span class="vn-only">Quản lý kỳ vọng lợi nhuận</span></h4>
+            <div class="sub"><span class="cn-only">收益沟通</span><span class="vn-only">Trao đổi lợi nhuận</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">45</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value green">55%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-green"><span class="cn-only">有效</span><span class="vn-only">Hiệu quả</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 6: 首次接触破冰 -->
+      <div class="tracking-card status-yellow animate-in">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">首次接触破冰</span><span class="vn-only">Phá băng lần đầu</span></h4>
+            <div class="sub"><span class="cn-only">新客户开场</span><span class="vn-only">Mở đầu KH mới</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">60</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value yellow">30%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-yellow"><span class="cn-only">待优化</span><span class="vn-only">Cần tối ưu</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 7: 提现顾虑化解 -->
+      <div class="tracking-card status-green animate-in">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">提现顾虑化解</span><span class="vn-only">Giải tỏa lo ngại rút tiền</span></h4>
+            <div class="sub"><span class="cn-only">资金安全</span><span class="vn-only">An toàn vốn</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">35</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value green">65%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-green"><span class="cn-only">高效</span><span class="vn-only">Hiệu quả cao</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片 8: 竞品对比应对 -->
+      <div class="tracking-card status-green animate-in">
+        <div class="tracking-row">
+          <div class="tracking-scene">
+            <h4><span class="cn-only">竞品对比应对</span><span class="vn-only">Ứng phó so sánh đối thủ</span></h4>
+            <div class="sub"><span class="cn-only">竞争分析</span><span class="vn-only">Phân tích cạnh tranh</span></div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label">Version</div>
+            <div class="value">v1.0</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">使用</span><span class="vn-only">Dùng</span></div>
+            <div class="value">25</div>
+          </div>
+          <div class="tracking-meta">
+            <div class="label"><span class="cn-only">转化</span><span class="vn-only">Chuyển đổi</span></div>
+            <div class="value green">45%</div>
+          </div>
+          <div class="tracking-stars">⭐⭐⭐⭐</div>
+          <div class="tracking-status">
+            <span class="status-badge badge-green"><span class="cn-only">有效</span><span class="vn-only">Hiệu quả</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: 效果评分标准 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">⭐ 效果评分标准</span>
+          <span class="vn-only">⭐ Tiêu chuẩn đánh giá</span>
+        </h2>
+      </div>
+
+      <div class="grid-2" style="margin-top: 25px; gap: 15px;">
+        <div class="rating-card animate-in delay-1">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <h4 style="color: var(--green);"><span class="cn-only">5星 - 完美</span><span class="vn-only">5 sao - Hoàn hảo</span></h4>
+          <p><span class="cn-only">客户完全接受，不再追问，直接进入下一步</span><span class="vn-only">KH hoàn toàn chấp nhận, không hỏi thêm, chuyển bước tiếp</span></p>
+        </div>
+        <div class="rating-card animate-in delay-2">
+          <div class="stars">⭐⭐⭐⭐</div>
+          <h4 style="color: var(--green);"><span class="cn-only">4星 - 良好</span><span class="vn-only">4 sao - Tốt</span></h4>
+          <p><span class="cn-only">客户基本接受，有小追问但不影响推进</span><span class="vn-only">KH cơ bản chấp nhận, hỏi thêm nhưng không ảnh hưởng</span></p>
+        </div>
+        <div class="rating-card animate-in delay-3">
+          <div class="stars">⭐⭐⭐</div>
+          <h4 style="color: #f0ad4e;"><span class="cn-only">3星 - 一般</span><span class="vn-only">3 sao - Trung bình</span></h4>
+          <p><span class="cn-only">客户半信半疑，需要更多证据才能推进</span><span class="vn-only">KH nửa tin nửa ngờ, cần thêm bằng chứng</span></p>
+        </div>
+        <div class="rating-card animate-in delay-4">
+          <div class="stars">⭐⭐</div>
+          <h4 style="color: var(--red-soft);"><span class="cn-only">2星 - 较差</span><span class="vn-only">2 sao - Kém</span></h4>
+          <p><span class="cn-only">客户不太买账，产生更多疑虑</span><span class="vn-only">KH không mấy tin, thêm nghi ngờ</span></p>
+        </div>
+      </div>
+
+      <div class="rating-card animate-in delay-5" style="margin-top: 15px; max-width: 50%; margin-left: auto; margin-right: auto;">
+        <div class="stars">⭐</div>
+        <h4 style="color: var(--red-soft);"><span class="cn-only">1星 - 失败</span><span class="vn-only">1 sao - Thất bại</span></h4>
+        <p><span class="cn-only">客户更不信任了，关系受损</span><span class="vn-only">KH càng không tin, quan hệ bị tổn hại</span></p>
+      </div>
+
+      <div class="key-point animate-in" style="margin-top: 25px;">
+        <span class="cn-only">低于3星的话术，每月集中优化一次，确保团队不重复使用低效话术</span>
+        <span class="vn-only">Kịch bản dưới 3 sao, tối ưu tập trung mỗi tháng, đảm bảo đội không dùng lại kịch bản kém hiệu quả</span>
+      </div>
+
+      <!-- Section 3: 话术迭代流程 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🔄 话术迭代流程</span>
+          <span class="vn-only">🔄 Quy trình cải tiến kịch bản</span>
+        </h2>
+      </div>
+
+      <div class="card animate-in" style="margin-top: 25px; padding: 35px;">
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-icon">📊</div>
+            <div class="flow-step-content">
+              <h4><span class="cn-only">Step 1: 收集数据</span><span class="vn-only">Bước 1: Thu thập dữ liệu</span></h4>
+              <p><span class="cn-only">BD 每次使用话术后记录效果（1-5星），填写反馈表</span><span class="vn-only">BD ghi nhận hiệu quả (1-5 sao) sau mỗi lần sử dụng, điền bảng phản hồi</span></p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-icon">📈</div>
+            <div class="flow-step-content">
+              <h4><span class="cn-only">Step 2: 月度分析</span><span class="vn-only">Bước 2: Phân tích hàng tháng</span></h4>
+              <p><span class="cn-only">AI 汇总分析各话术转化率和评分，生成月度报告</span><span class="vn-only">AI tổng hợp phân tích tỷ lệ chuyển đổi và đánh giá, tạo báo cáo tháng</span></p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🔍</div>
+            <div class="flow-step-content">
+              <h4><span class="cn-only">Step 3: 问题定位</span><span class="vn-only">Bước 3: Xác định vấn đề</span></h4>
+              <p><span class="cn-only">找出低效话术的具体薄弱环节，分析客户卡点在哪</span><span class="vn-only">Tìm ra điểm yếu cụ thể của kịch bản kém, phân tích KH bị kẹt ở đâu</span></p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-icon">✏️</div>
+            <div class="flow-step-content">
+              <h4><span class="cn-only">Step 4: 优化升级</span><span class="vn-only">Bước 4: Tối ưu nâng cấp</span></h4>
+              <p><span class="cn-only">AK 审核后更新话术版本（v1.0 → v1.1），全团队同步</span><span class="vn-only">AK duyệt rồi cập nhật phiên bản (v1.0 → v1.1), đồng bộ toàn đội</span></p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🔄</div>
+            <div class="flow-step-content">
+              <h4><span class="cn-only">Step 5: 重新验证</span><span class="vn-only">Bước 5: Xác minh lại</span></h4>
+              <p><span class="cn-only">新版本上线后重新追踪 30 天数据，验证优化效果</span><span class="vn-only">Theo dõi lại dữ liệu 30 ngày sau khi phiên bản mới ra, xác minh hiệu quả</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: BD 话术反馈表 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">📝 BD 话术反馈表</span>
+          <span class="vn-only">📝 Bảng phản hồi kịch bản BD</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">每次使用话术后，BD 填写以下反馈模板，用于数据追踪和迭代优化</span>
+        <span class="vn-only">Sau mỗi lần sử dụng kịch bản, BD điền mẫu phản hồi sau để theo dõi dữ liệu</span>
+      </p>
+
+      <div class="feedback-form animate-in" style="margin-top: 20px;">
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">使用日期</span><span class="vn-only">Ngày sử dụng</span></div>
+          <div class="form-input">YYYY-MM-DD</div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">话术场景</span><span class="vn-only">Tình huống kịch bản</span></div>
+          <div class="form-input"><span class="cn-only">[选择: 痛点共情 / 安全顾虑 / AI质疑 / 加仓引导 / 收益预期 / 破冰 / 提现 / 竞品]</span><span class="vn-only">[Chọn: Đồng cảm / An toàn / AI / Tăng vốn / Lợi nhuận / Phá băng / Rút tiền / Đối thủ]</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">客户类型</span><span class="vn-only">Loại khách hàng</span></div>
+          <div class="form-input"><span class="cn-only">[A级-大客户 / B级-中等 / C级-小客户]</span><span class="vn-only">[A - KH lớn / B - Trung bình / C - KH nhỏ]</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">效果评分</span><span class="vn-only">Đánh giá hiệu quả</span></div>
+          <div class="form-input">⭐ 1 / ⭐⭐ 2 / ⭐⭐⭐ 3 / ⭐⭐⭐⭐ 4 / ⭐⭐⭐⭐⭐ 5</div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">客户反应描述</span><span class="vn-only">Mô tả phản ứng KH</span></div>
+          <div class="form-input"><span class="cn-only">[描述客户听完话术后的具体反应...]</span><span class="vn-only">[Mô tả phản ứng cụ thể của KH sau khi nghe...]</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">是否成交</span><span class="vn-only">Có chốt không</span></div>
+          <div class="form-input"><span class="cn-only">[是 / 否 / 待跟进]</span><span class="vn-only">[Có / Không / Đang theo dõi]</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-label"><span class="cn-only">改进建议</span><span class="vn-only">Đề xuất cải tiến</span></div>
+          <div class="form-input"><span class="cn-only">[你觉得哪里可以改进？客户卡在哪一步？]</span><span class="vn-only">[Bạn thấy cần cải thiện gì? KH bị kẹt ở bước nào?]</span></div>
+        </div>
+      </div>
+
+      <!-- Section 5: 本月优化重点 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🎯 本月优化重点</span>
+          <span class="vn-only">🎯 Trọng tâm tối ưu tháng này</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">以下 3 个话术转化率偏低，本月集中优化</span>
+        <span class="vn-only">3 kịch bản dưới đây có tỷ lệ chuyển đổi thấp, tập trung tối ưu tháng này</span>
+      </p>
+
+      <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 20px;">
+        <!-- 优化卡 1: 加仓引导 -->
+        <div class="optimize-card border-red animate-in delay-1">
+          <div class="opt-header">
+            <h4>
+              <span class="cn-only">🔴 加仓引导话术 v1.0 → v1.1 计划</span>
+              <span class="vn-only">🔴 Kịch bản tăng vốn v1.0 → v1.1</span>
+            </h4>
+            <span class="status-badge badge-red"><span class="cn-only">转化率 25%</span><span class="vn-only">Tỷ lệ 25%</span></span>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-red"><span class="cn-only">问题</span><span class="vn-only">Vấn đề</span></div>
+            <div class="opt-text"><span class="cn-only">转化率仅 25%，客户觉得被强推，产生抗拒心理</span><span class="vn-only">Tỷ lệ chỉ 25%, KH cảm thấy bị ép, sinh tâm lý chống đối</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-blue"><span class="cn-only">分析</span><span class="vn-only">Phân tích</span></div>
+            <div class="opt-text"><span class="cn-only">缺少"为什么现在是好时机"的逻辑铺垫，直接催促加仓显得功利</span><span class="vn-only">Thiếu lý luận "tại sao bây giờ là thời điểm tốt", thúc giục trực tiếp gây cảm giác vụ lợi</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-green"><span class="cn-only">优化方向</span><span class="vn-only">Hướng tối ưu</span></div>
+            <div class="opt-text"><span class="cn-only">增加市场分析数据支撑 + 成功案例故事引入，让客户自己得出"应该加仓"的结论</span><span class="vn-only">Thêm dữ liệu phân tích thị trường + câu chuyện thành công, để KH tự kết luận "nên tăng vốn"</span></div>
+          </div>
+        </div>
+
+        <!-- 优化卡 2: 首次破冰 -->
+        <div class="optimize-card border-yellow animate-in delay-2">
+          <div class="opt-header">
+            <h4>
+              <span class="cn-only">🟡 首次接触破冰 v1.0 → v1.1 计划</span>
+              <span class="vn-only">🟡 Phá băng lần đầu v1.0 → v1.1</span>
+            </h4>
+            <span class="status-badge badge-yellow"><span class="cn-only">转化率 30%</span><span class="vn-only">Tỷ lệ 30%</span></span>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-red"><span class="cn-only">问题</span><span class="vn-only">Vấn đề</span></div>
+            <div class="opt-text"><span class="cn-only">转化率 30%，客户防备心强，初次接触不愿深入交流</span><span class="vn-only">Tỷ lệ 30%, KH phòng bị mạnh, lần đầu không muốn trao đổi sâu</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-blue"><span class="cn-only">分析</span><span class="vn-only">Phân tích</span></div>
+            <div class="opt-text"><span class="cn-only">开场太直接，缺少信任建立环节，客户感觉被推销</span><span class="vn-only">Mở đầu quá trực tiếp, thiếu bước xây dựng niềm tin, KH cảm thấy bị bán hàng</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-green"><span class="cn-only">优化方向</span><span class="vn-only">Hướng tối ưu</span></div>
+            <div class="opt-text"><span class="cn-only">先提供价值（市场资讯/行业分析）再自然引入产品，建立"顾问"而非"销售"的定位</span><span class="vn-only">Cung cấp giá trị trước (tin thị trường/phân tích ngành) rồi giới thiệu sản phẩm, định vị "tư vấn" thay vì "bán hàng"</span></div>
+          </div>
+        </div>
+
+        <!-- 优化卡 3: 痛点共情 -->
+        <div class="optimize-card border-yellow animate-in delay-3">
+          <div class="opt-header">
+            <h4>
+              <span class="cn-only">🟡 痛点共情开场 v1.0 → v1.1 计划</span>
+              <span class="vn-only">🟡 Mở đầu đồng cảm v1.0 → v1.1</span>
+            </h4>
+            <span class="status-badge badge-yellow"><span class="cn-only">转化率 35%</span><span class="vn-only">Tỷ lệ 35%</span></span>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-red"><span class="cn-only">问题</span><span class="vn-only">Vấn đề</span></div>
+            <div class="opt-text"><span class="cn-only">转化率 35%，共情有余但引导不足，客户感动但不行动</span><span class="vn-only">Tỷ lệ 35%, đồng cảm nhiều nhưng dẫn dắt chưa đủ, KH xúc động nhưng không hành động</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-blue"><span class="cn-only">分析</span><span class="vn-only">Phân tích</span></div>
+            <div class="opt-text"><span class="cn-only">情感连接强但缺少理性论证，共情后没有给出明确的解决路径</span><span class="vn-only">Kết nối cảm xúc mạnh nhưng thiếu lập luận lý tính, sau đồng cảm không đưa ra con đường giải quyết rõ ràng</span></div>
+          </div>
+          <div class="opt-item">
+            <div class="opt-label label-green"><span class="cn-only">优化方向</span><span class="vn-only">Hướng tối ưu</span></div>
+            <div class="opt-text"><span class="cn-only">共情后增加数据佐证和成功案例，从"我理解你"过渡到"这是解决方案"</span><span class="vn-only">Sau đồng cảm thêm dữ liệu và case thành công, chuyển từ "tôi hiểu bạn" sang "đây là giải pháp"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: AI 辅助话术优化 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🤖 AI 辅助话术优化</span>
+          <span class="vn-only">🤖 AI hỗ trợ tối ưu kịch bản</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">将以下模板发给 AI，快速生成优化版话术</span>
+        <span class="vn-only">Gửi mẫu sau cho AI để nhanh chóng tạo kịch bản tối ưu</span>
+      </p>
+
+      <div class="card animate-in" style="margin-top: 20px; padding: 0;">
+        <div style="padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 10px;">
+          <span style="color: var(--green); font-weight: 700;">AI PROMPT</span>
+          <span style="font-size: 0.8rem; color: var(--gray);"><span class="cn-only">复制以下模板使用</span><span class="vn-only">Sao chép mẫu dưới để dùng</span></span>
+        </div>
+        <div class="prompt-template" style="border: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
+<span class="cn-only">请帮我优化以下话术：
+
+话术场景：<span class="placeholder">[场景名称]</span>
+当前版本：<span class="placeholder">[粘贴当前话术]</span>
+当前转化率：<span class="placeholder">[数字]</span>%
+当前评分：<span class="placeholder">[1-5]</span>星
+
+客户常见反应：
+- 正面反应：<span class="placeholder">[描述]</span>
+- 负面反应：<span class="placeholder">[描述]</span>
+
+请输出：
+1. 当前话术的 3 个薄弱点分析
+2. 优化后的完整话术（中文 + 越南语）
+3. 使用场景和注意事项
+4. 预期改进效果</span><span class="vn-only">Hãy giúp tôi tối ưu kịch bản sau:
+
+Tình huống: <span class="placeholder">[Tên tình huống]</span>
+Phiên bản hiện tại: <span class="placeholder">[Dán kịch bản hiện tại]</span>
+Tỷ lệ chuyển đổi: <span class="placeholder">[Số]</span>%
+Đánh giá: <span class="placeholder">[1-5]</span> sao
+
+Phản ứng thường gặp của KH:
+- Tích cực: <span class="placeholder">[Mô tả]</span>
+- Tiêu cực: <span class="placeholder">[Mô tả]</span>
+
+Vui lòng xuất:
+1. Phân tích 3 điểm yếu của kịch bản hiện tại
+2. Kịch bản hoàn chỉnh sau tối ưu (Tiếng Trung + Tiếng Việt)
+3. Tình huống sử dụng và lưu ý
+4. Hiệu quả cải thiện dự kiến</span></div>
+      </div>
+
+      <!-- Section 7: 话术版本记录 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">📁 话术版本记录</span>
+          <span class="vn-only">📁 Lịch sử phiên bản kịch bản</span>
+        </h2>
+      </div>
+
+      <p style="color: var(--gray); margin-top: 10px; font-size: 0.9rem;">
+        <span class="cn-only">所有话术的版本迭代历史，确保团队使用最新版本</span>
+        <span class="vn-only">Lịch sử cập nhật tất cả kịch bản, đảm bảo đội dùng phiên bản mới nhất</span>
+      </p>
+
+      <div class="card animate-in" style="margin-top: 20px; padding: 35px;">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-version">v1.0 <span style="color: var(--gray); font-weight: 400;">(2026-01)</span></div>
+            <div class="timeline-desc">
+              <span class="cn-only">初始版本 — 基于 AK 老师 10 年实战经验整理，8 大话术场景全覆盖</span>
+              <span class="vn-only">Phiên bản đầu — Dựa trên 10 năm kinh nghiệm thực chiến của AK, 8 tình huống kịch bản</span>
+            </div>
+          </div>
+          <div class="timeline-item future">
+            <div class="timeline-version">v1.1 <span style="color: var(--gray); font-weight: 400;">(2026-02 <span class="cn-only">计划</span><span class="vn-only">kế hoạch</span>)</span></div>
+            <div class="timeline-desc">
+              <span class="cn-only">根据第一个月使用数据优化 — 重点优化加仓引导、破冰、痛点共情 3 个低效话术</span>
+              <span class="vn-only">Tối ưu dựa trên dữ liệu tháng đầu — Trọng tâm: tăng vốn, phá băng, đồng cảm</span>
+            </div>
+          </div>
+          <div class="timeline-item future">
+            <div class="timeline-version">v1.2 <span style="color: var(--gray); font-weight: 400;">(2026-03 <span class="cn-only">计划</span><span class="vn-only">kế hoạch</span>)</span></div>
+            <div class="timeline-desc">
+              <span class="cn-only">根据新增异议扩展内容 — 补充新出现的客户问题场景和应对策略</span>
+              <span class="vn-only">Mở rộng nội dung theo phản đối mới — Bổ sung tình huống và chiến lược mới</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部快速链接 -->
+      <div class="section-title animate-in" style="margin-top: 60px;">
+        <h2>
+          <span class="cn-only">🔗 相关工具</span>
+          <span class="vn-only">🔗 Công cụ liên quan</span>
+        </h2>
+      </div>
+
+      <div class="grid-3 animate-in" style="margin-top: 20px;">
+        <a href="objection-handling.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">💬</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">异议处理</span>
+            <span class="vn-only">Xử lý phản đối</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">安全/规模/AI真假</span>
+            <span class="vn-only">An toàn/Quy mô/AI</span>
+          </p>
+        </a>
+        <a href="faq.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">❓</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">常见 FAQ</span>
+            <span class="vn-only">FAQ thường gặp</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">32 个高频问题</span>
+            <span class="vn-only">32 câu hỏi phổ biến</span>
+          </p>
+        </a>
+        <a href="../training/ai-usage-guide.html" class="card card-highlight" style="text-decoration: none; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🤖</div>
+          <h4 style="margin-bottom: 8px;">
+            <span class="cn-only">AI 使用手册</span>
+            <span class="vn-only">Hướng dẫn dùng AI</span>
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--gray);">
+            <span class="cn-only">10 个提问模板</span>
+            <span class="vn-only">10 mẫu hỏi AI</span>
+          </p>
+        </a>
+      </div>
+
+      <!-- 底部金句 -->
+      <div class="key-point animate-in" style="margin-top: 50px; margin-bottom: 50px;">
+        <span class="cn-only">好话术不是写出来的，是数据验证出来的</span>
+        <span class="vn-only">Kịch bản tốt không phải viết ra, mà được dữ liệu xác minh</span>
+      </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+      <div class="container">
+        <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+        <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/language.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+</body>
+</html>
