@@ -323,18 +323,24 @@
   </style>
 </head>
 <body>
-  <nav class="navbar">
+  <nav class="top-nav">
     <div class="nav-container">
-      <a href="../index.html" class="logo">NIVEX <span>BD Portal</span></a>
-      <div class="nav-links">
-        <a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span></a>
-        <a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span></a>
-        <a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span></a>
-        <a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span></a>
-        <a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span></a>
+      <a href="../index.html" class="nav-logo">NIVEX</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Đào tạo</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="../scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kịch bản</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="../customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khách hàng</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="../daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hàng ngày</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="index.html" class="active"><span class="cn-only">资源支持</span><span class="vn-only">Tài nguyên</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
       </div>
-      <button class="lang-toggle" onclick="toggleLanguage()">VN/中</button>
-      <button class="mobile-menu-btn">☰</button>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
@@ -1798,8 +1804,11 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <p><span class="cn-only">© 2025 NIVEX BD Portal. 仅供内部使用。</span><span class="vn-only">© 2025 NIVEX BD Portal. Chỉ sử dụng nội bộ.</span></p>
+  <footer class="footer" style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+    <div class="container">
+      <div style="font-family: 'Arial Black', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 3px; margin-bottom: 15px;">NIVEX</div>
+      <p style="color: var(--gray);"><span class="cn-only">BD 业务流程平台 · 全球市场</span><span class="vn-only">Nền tảng quy trình BD · Toàn cầu</span></p>
+    </div>
   </footer>
 
   <script src="../assets/js/language.js"></script>
