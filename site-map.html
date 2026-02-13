@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIVEX BD Portal - 全站索引与搜索</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    /* ========== 搜索栏 ========== */
+    .search-hero {
+      padding: 50px 0 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .search-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .search-hero .subtitle {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .search-wrapper {
+      position: sticky;
+      top: 70px;
+      z-index: 100;
+      background: linear-gradient(180deg, var(--bg) 60%, transparent 100%);
+      padding: 20px 0 30px;
+    }
+
+    .search-bar {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 18px 24px 18px 56px;
+      background: var(--bg-card);
+      border: 2px solid var(--gray-dark);
+      border-radius: var(--radius-lg);
+      color: var(--white);
+      font-size: 1.1rem;
+      font-family: inherit;
+      transition: all var(--transition-normal);
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px var(--green-glow), 0 0 30px var(--green-glow);
+    }
+
+    .search-bar input::placeholder {
+      color: var(--gray);
+    }
+
+    .search-bar .icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+      color: var(--gray);
+      pointer-events: none;
+    }
+
+    .search-bar .clear-btn {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition-fast);
+    }
+
+    .search-bar .clear-btn:hover {
+      color: var(--white);
+    }
+
+    .search-bar .clear-btn.visible {
+      display: block;
+    }
+
+    .result-count {
+      text-align: center;
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      min-height: 24px;
+    }
+
+    .result-count strong {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ========== 统计概览 ========== */
+    .stats-section {
+      padding: 20px 0 40px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px 16px;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-card .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .stat-card .count {
+      color: var(--green);
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    .stat-card .count-label {
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    .total-stat {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .total-stat .number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .total-stat .label {
+      color: var(--gray);
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    /* ========== 模块目录 ========== */
+    .module-section {
+      margin-bottom: 40px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .module-header:hover {
+      border-color: rgba(127, 255, 0, 0.2);
+    }
+
+    .module-header.active {
+      border-color: var(--green);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .module-header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .module-header .icon {
+      font-size: 1.6rem;
+    }
+
+    .module-header .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .module-header .badge {
+      background: var(--green-subtle);
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .module-header .toggle-icon {
+      color: var(--gray);
+      font-size: 1.2rem;
+      transition: transform var(--transition-normal);
+    }
+
+    .module-header.active .toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .module-body {
+      background: rgba(21, 21, 21, 0.5);
+      border: 1px solid rgba(127, 255, 0, 0.1);
+      border-top: none;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    .module-body.open {
+      max-height: 3000px;
+      padding: 20px;
+    }
+
+    /* ========== 页面卡片 ========== */
+    .page-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      border-left: 4px solid transparent;
+    }
+
+    .page-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .page-card:hover {
+      border-left-color: var(--green);
+      background: linear-gradient(135deg, rgba(127, 255, 0, 0.08) 0%, rgba(127, 255, 0, 0.02) 100%);
+      transform: translateX(4px);
+    }
+
+    .page-card .page-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .page-card .page-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .page-card .page-desc {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      margin-bottom: 8px;
+    }
+
+    .page-card .page-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .page-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* 模块配色 */
+    .tag-training { background: rgba(74, 158, 255, 0.15); color: #4a9eff; }
+    .tag-scripts { background: rgba(127, 255, 0, 0.1); color: var(--green); }
+    .tag-customer { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .tag-daily { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+    .tag-resources { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; }
+    .tag-presentations { background: rgba(250, 204, 21, 0.15); color: #facc15; }
+
+    .module-color-training { border-left-color: #4a9eff; }
+    .module-color-scripts { border-left-color: var(--green); }
+    .module-color-customer { border-left-color: #a855f7; }
+    .module-color-daily { border-left-color: #fb923c; }
+    .module-color-resources { border-left-color: #2dd4bf; }
+    .module-color-presentations { border-left-color: #facc15; }
+
+    .page-card .page-arrow {
+      color: var(--gray-dark);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 4px;
+      transition: color var(--transition-fast);
+    }
+
+    .page-card:hover .page-arrow {
+      color: var(--green);
+    }
+
+    /* ========== 按角色/场景查看 ========== */
+    .role-section {
+      padding: 50px 0;
+    }
+
+    .role-section h2 {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .role-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      border-top: 3px solid var(--green);
+    }
+
+    .role-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-card .role-icon {
+      font-size: 1.4rem;
+    }
+
+    .role-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .role-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--gray-light);
+      font-size: 0.9rem;
+      transition: all var(--transition-fast);
+    }
+
+    .role-link:hover {
+      background: var(--green-subtle);
+      color: var(--white);
+    }
+
+    .role-link .step {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.8rem;
+      min-width: 20px;
+    }
+
+    /* ========== 无结果 ========== */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+
+    .no-results .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .no-results .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .no-results .desc {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* ========== 高亮匹配 ========== */
+    .highlight {
+      background: rgba(127, 255, 0, 0.25);
+      color: var(--white);
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* ========== 页脚 ========== */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 1.5rem;
+      color: var(--green);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* ========== 响应式 ========== */
+    @media (max-width: 1200px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 992px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .role-grid { grid-template-columns: 1fr; }
+      .search-hero h1 { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .search-bar input { font-size: 1rem; padding: 16px 20px 16px 48px; }
+      .page-card { flex-direction: column; gap: 8px; }
+      .page-card .page-arrow { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">NIVEX</a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="training/index.html"><span class="cn-only">培训体系</span><span class="vn-only">Dao tao</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span></a></li>
+        <li><a href="scripts/index.html"><span class="cn-only">话术中心</span><span class="vn-only">Kich ban</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span></a></li>
+        <li><a href="customer/index.html"><span class="cn-only">客户维护</span><span class="vn-only">Khach hang</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span></a></li>
+        <li><a href="daily/index.html"><span class="cn-only">日常工作</span><span class="vn-only">Hang ngay</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span></a></li>
+        <li><a href="resources/index.html"><span class="cn-only">资源支持</span><span class="vn-only">Tai nguyen</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span></a></li>
+      </ul>
+
+      <div class="nav-lang">
+        <button class="lang-btn active" data-lang="cn">中文</button>
+        <button class="lang-btn" data-lang="vn">VN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="page-wrapper">
+
+    <!-- 搜索Hero -->
+    <section class="search-hero">
+      <div class="container">
+        <h1 class="animate-in">
+          <span class="cn-only">全站索引与搜索</span>
+          <span class="vn-only">Tim kiem & Danh muc toan bo</span>
+          <span class="en-only">Site Map & Search</span>
+          <span class="ko-only">사이트맵 & 검색</span>
+          <span class="ja-only">サイトマップ & 検索</span>
+        </h1>
+        <p class="subtitle animate-in delay-1">
+          <span class="cn-only">NIVEX BD Portal 全部 61 个页面，一搜即达</span>
+          <span class="vn-only">Tat ca 61 trang NIVEX BD Portal</span>
+          <span class="en-only">All 61 pages of NIVEX BD Portal, instant search</span>
+          <span class="ko-only">NIVEX BD Portal 61개 페이지 전체 검색</span>
+          <span class="ja-only">NIVEX BD Portal 全61ページ、即座に検索</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 搜索栏 (sticky) -->
+    <div class="search-wrapper">
+      <div class="container">
+        <div class="search-bar">
+          <span class="icon">&#x1F50D;</span>
+          <input type="text" id="searchInput" placeholder="搜索页面名称、描述、标签..." autocomplete="off" />
+          <button class="clear-btn" id="clearBtn" title="清除搜索">&times;</button>
+        </div>
+        <div class="result-count" id="resultCount"></div>
+      </div>
+    </div>
+
+    <!-- 统计概览 -->
+    <section class="stats-section" id="statsSection">
+      <div class="container">
+        <div class="total-stat animate-in">
+          <div class="number">61</div>
+          <div class="label">
+            <span class="cn-only">个页面 / 6 大模块</span>
+            <span class="vn-only">trang / 6 module</span>
+            <span class="en-only">pages / 6 modules</span>
+            <span class="ko-only">페이지 / 6 모듈</span>
+            <span class="ja-only">ページ / 6 モジュール</span>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card animate-in delay-1" data-module="training" onclick="scrollToModule('training')">
+            <span class="icon">&#x1F393;</span>
+            <div class="name">
+              <span class="cn-only">培训体系</span><span class="vn-only">Dao tao</span><span class="en-only">Training</span><span class="ko-only">교육</span><span class="ja-only">研修</span>
+            </div>
+            <div class="count">7</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+          <div class="stat-card animate-in delay-2" data-module="scripts" onclick="scrollToModule('scripts')">
+            <span class="icon">&#x1F4AC;</span>
+            <div class="name">
+              <span class="cn-only">话术中心</span><span class="vn-only">Kich ban</span><span class="en-only">Scripts</span><span class="ko-only">스크립트</span><span class="ja-only">スクリプト</span>
+            </div>
+            <div class="count">15</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+          <div class="stat-card animate-in delay-3" data-module="customer" onclick="scrollToModule('customer')">
+            <span class="icon">&#x1F465;</span>
+            <div class="name">
+              <span class="cn-only">客户维护</span><span class="vn-only">Khach hang</span><span class="en-only">Customer</span><span class="ko-only">고객관리</span><span class="ja-only">顧客管理</span>
+            </div>
+            <div class="count">8</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+          <div class="stat-card animate-in delay-4" data-module="daily" onclick="scrollToModule('daily')">
+            <span class="icon">&#x1F4C5;</span>
+            <div class="name">
+              <span class="cn-only">日常工作</span><span class="vn-only">Hang ngay</span><span class="en-only">Daily</span><span class="ko-only">일상업무</span><span class="ja-only">日常業務</span>
+            </div>
+            <div class="count">7</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+          <div class="stat-card animate-in delay-5" data-module="resources" onclick="scrollToModule('resources')">
+            <span class="icon">&#x1F4E6;</span>
+            <div class="name">
+              <span class="cn-only">资源支持</span><span class="vn-only">Tai nguyen</span><span class="en-only">Resources</span><span class="ko-only">리소스</span><span class="ja-only">リソース</span>
+            </div>
+            <div class="count">8</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+          <div class="stat-card animate-in delay-5" data-module="presentations" onclick="scrollToModule('presentations')">
+            <span class="icon">&#x1F3AF;</span>
+            <div class="name">
+              <span class="cn-only">演示文件</span><span class="vn-only">Trinh bay</span><span class="en-only">Presentations</span><span class="ko-only">프레젠테이션</span><span class="ja-only">プレゼン</span>
+            </div>
+            <div class="count">12</div>
+            <div class="count-label">
+              <span class="cn-only">个页面</span><span class="vn-only">trang</span><span class="en-only">pages</span><span class="ko-only">페이지</span><span class="ja-only">ページ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模块目录 -->
+    <section class="content-section" id="directorySection">
+      <div class="container">
+
+        <!-- 培训体系 -->
+        <div class="module-section" id="module-training" data-module="training">
+          <div class="module-header active" onclick="toggleModule('training')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F393;</span>
+              <span class="title">
+                <span class="cn-only">培训体系 Training</span><span class="vn-only">He thong Dao tao</span><span class="en-only">Training System</span><span class="ko-only">교육 시스템</span><span class="ja-only">研修システム</span>
+              </span>
+              <span class="badge">7</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-training"></div>
+        </div>
+
+        <!-- 话术中心 -->
+        <div class="module-section" id="module-scripts" data-module="scripts">
+          <div class="module-header active" onclick="toggleModule('scripts')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F4AC;</span>
+              <span class="title">
+                <span class="cn-only">话术中心 Scripts</span><span class="vn-only">Trung tam Kich ban</span><span class="en-only">Scripts Center</span><span class="ko-only">스크립트 센터</span><span class="ja-only">スクリプトセンター</span>
+              </span>
+              <span class="badge">15</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-scripts"></div>
+        </div>
+
+        <!-- 客户维护 -->
+        <div class="module-section" id="module-customer" data-module="customer">
+          <div class="module-header active" onclick="toggleModule('customer')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F465;</span>
+              <span class="title">
+                <span class="cn-only">客户维护 Customer</span><span class="vn-only">Cham soc Khach hang</span><span class="en-only">Customer Care</span><span class="ko-only">고객 관리</span><span class="ja-only">顧客管理</span>
+              </span>
+              <span class="badge">8</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-customer"></div>
+        </div>
+
+        <!-- 日常工作 -->
+        <div class="module-section" id="module-daily" data-module="daily">
+          <div class="module-header active" onclick="toggleModule('daily')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F4C5;</span>
+              <span class="title">
+                <span class="cn-only">日常工作 Daily</span><span class="vn-only">Cong viec Hang ngay</span><span class="en-only">Daily Work</span><span class="ko-only">일상 업무</span><span class="ja-only">日常業務</span>
+              </span>
+              <span class="badge">7</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-daily"></div>
+        </div>
+
+        <!-- 资源支持 -->
+        <div class="module-section" id="module-resources" data-module="resources">
+          <div class="module-header active" onclick="toggleModule('resources')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F4E6;</span>
+              <span class="title">
+                <span class="cn-only">资源支持 Resources</span><span class="vn-only">Tai nguyen Ho tro</span><span class="en-only">Resources</span><span class="ko-only">리소스 지원</span><span class="ja-only">リソースサポート</span>
+              </span>
+              <span class="badge">8</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-resources"></div>
+        </div>
+
+        <!-- 演示文件 -->
+        <div class="module-section" id="module-presentations" data-module="presentations">
+          <div class="module-header active" onclick="toggleModule('presentations')">
+            <div class="module-header-left">
+              <span class="icon">&#x1F3AF;</span>
+              <span class="title">
+                <span class="cn-only">演示文件 Presentations</span><span class="vn-only">Trinh bay</span><span class="en-only">Presentations</span><span class="ko-only">프레젠테이션</span><span class="ja-only">プレゼンテーション</span>
+              </span>
+              <span class="badge">12</span>
+            </div>
+            <span class="toggle-icon">&#x25BC;</span>
+          </div>
+          <div class="module-body open" id="body-presentations"></div>
+        </div>
+
+        <!-- 无结果提示 -->
+        <div class="no-results" id="noResults">
+          <span class="icon">&#x1F50D;</span>
+          <div class="title">
+            <span class="cn-only">未找到匹配页面</span><span class="vn-only">Khong tim thay trang nao</span><span class="en-only">No pages found</span><span class="ko-only">결과 없음</span><span class="ja-only">ページが見つかりません</span>
+          </div>
+          <div class="desc">
+            <span class="cn-only">请尝试其他关键词，如：培训、FAQ、客户、SOP</span>
+            <span class="vn-only">Hay thu tu khoa khac</span>
+            <span class="en-only">Try different keywords like: training, FAQ, customer, SOP</span>
+            <span class="ko-only">다른 키워드를 시도해 보세요</span>
+            <span class="ja-only">別のキーワードをお試しください</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 按角色查看 -->
+    <section class="role-section" id="roleSection">
+      <div class="container">
+        <h2 class="animate-in">
+          <span class="cn-only">按角色查看</span>
+          <span class="vn-only">Xem theo vai tro</span>
+          <span class="en-only">Browse by Role</span>
+          <span class="ko-only">역할별 보기</span>
+          <span class="ja-only">役割別に表示</span>
+        </h2>
+        <div class="role-grid">
+          <div class="role-card animate-in delay-1">
+            <h3>
+              <span class="role-icon">&#x1F476;</span>
+              <span class="cn-only">新人 BD</span><span class="vn-only">BD Moi</span><span class="en-only">New BD</span><span class="ko-only">신입 BD</span><span class="ja-only">新人BD</span>
+            </h3>
+            <div class="role-links">
+              <a href="training/elite-team-orientation.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">新人第一课</span><span class="vn-only">Bai hoc dau tien</span><span class="en-only">First Lesson</span><span class="ko-only">첫 번째 수업</span><span class="ja-only">初日研修</span>
+              </a>
+              <a href="training/bd-assessment.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">BD 招募评估</span><span class="vn-only">Danh gia BD</span><span class="en-only">BD Assessment</span><span class="ko-only">BD 평가</span><span class="ja-only">BD評価</span>
+              </a>
+              <a href="daily/goal-action-guide.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">目标达成行动指南</span><span class="vn-only">Huong dan hanh dong</span><span class="en-only">Goal Action Guide</span><span class="ko-only">목표 달성 가이드</span><span class="ja-only">目標達成ガイド</span>
+              </a>
+              <a href="daily/action-plan.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">48 小时行动方案</span><span class="vn-only">Ke hoach 48 gio</span><span class="en-only">48-Hour Action Plan</span><span class="ko-only">48시간 행동 계획</span><span class="ja-only">48時間アクションプラン</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-2">
+            <h3>
+              <span class="role-icon">&#x1F4AA;</span>
+              <span class="cn-only">资深 BD</span><span class="vn-only">BD Co kinh nghiem</span><span class="en-only">Senior BD</span><span class="ko-only">시니어 BD</span><span class="ja-only">シニアBD</span>
+            </h3>
+            <div class="role-links">
+              <a href="customer/vip-strategy.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">大客户维护策略</span><span class="vn-only">Chien luoc VIP</span><span class="en-only">VIP Strategy</span><span class="ko-only">VIP 전략</span><span class="ja-only">VIP戦略</span>
+              </a>
+              <a href="customer/upsell-guide.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">加仓引导手册</span><span class="vn-only">Huong dan tang von</span><span class="en-only">Upsell Guide</span><span class="ko-only">추가 투자 가이드</span><span class="ja-only">増資ガイド</span>
+              </a>
+              <a href="scripts/referral-system.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">转介绍裂变机制</span><span class="vn-only">He thong gioi thieu</span><span class="en-only">Referral System</span><span class="ko-only">추천 시스템</span><span class="ja-only">紹介システム</span>
+              </a>
+              <a href="scripts/market-objections.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">市场异议库</span><span class="vn-only">Thu vien phan doi</span><span class="en-only">Market Objections</span><span class="ko-only">시장 이의 라이브러리</span><span class="ja-only">市場異議ライブラリ</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-3">
+            <h3>
+              <span class="role-icon">&#x1F451;</span>
+              <span class="cn-only">团队 Leader</span><span class="vn-only">Truong nhom</span><span class="en-only">Team Leader</span><span class="ko-only">팀 리더</span><span class="ja-only">チームリーダー</span>
+            </h3>
+            <div class="role-links">
+              <a href="daily/meeting-agenda.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">周会议程模板</span><span class="vn-only">Mau chuong trinh hop</span><span class="en-only">Meeting Agenda</span><span class="ko-only">주간 회의 의제</span><span class="ja-only">週次ミーティング議題</span>
+              </a>
+              <a href="daily/weekly-report-example.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">标杆周报示例</span><span class="vn-only">Mau bao cao tuan</span><span class="en-only">Weekly Report</span><span class="ko-only">주간 리포트 예시</span><span class="ja-only">週次レポート例</span>
+              </a>
+              <a href="daily/ai-weekly-analysis.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">AI 周报分析工作流</span><span class="vn-only">Quy trinh phan tich AI</span><span class="en-only">AI Weekly Analysis</span><span class="ko-only">AI 주간 분석</span><span class="ja-only">AI週次分析</span>
+              </a>
+              <a href="scripts/script-tracking.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">话术效果追踪</span><span class="vn-only">Theo doi hieu qua</span><span class="en-only">Script Tracking</span><span class="ko-only">스크립트 추적</span><span class="ja-only">スクリプト追跡</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-4">
+            <h3>
+              <span class="role-icon">&#x1F4CA;</span>
+              <span class="cn-only">总监</span><span class="vn-only">Giam doc</span><span class="en-only">Director</span><span class="ko-only">총감</span><span class="ja-only">ディレクター</span>
+            </h3>
+            <div class="role-links">
+              <a href="daily/weekly-data-card.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">BD 周数据卡</span><span class="vn-only">The du lieu tuan</span><span class="en-only">Weekly Data Card</span><span class="ko-only">주간 데이터 카드</span><span class="ja-only">週次データカード</span>
+              </a>
+              <a href="scripts/vietnam-market-map.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">越南市场获客地图</span><span class="vn-only">Ban do thi truong VN</span><span class="en-only">Vietnam Market Map</span><span class="ko-only">베트남 시장 지도</span><span class="ja-only">ベトナム市場マップ</span>
+              </a>
+              <a href="resources/multilingual-status.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">多语言版本管理</span><span class="vn-only">Quan ly da ngon ngu</span><span class="en-only">Multilingual Status</span><span class="ko-only">다국어 관리</span><span class="ja-only">多言語管理</span>
+              </a>
+              <a href="training/training-system-8-modules.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">培训体系 8 大模块</span><span class="vn-only">8 module dao tao</span><span class="en-only">8 Training Modules</span><span class="ko-only">8대 교육 모듈</span><span class="ja-only">8大研修モジュール</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 按场景查看 -->
+    <section class="role-section" style="padding-top: 0;">
+      <div class="container">
+        <h2 class="animate-in">
+          <span class="cn-only">按场景查看</span>
+          <span class="vn-only">Xem theo tinh huong</span>
+          <span class="en-only">Browse by Scenario</span>
+          <span class="ko-only">시나리오별 보기</span>
+          <span class="ja-only">シナリオ別に表示</span>
+        </h2>
+        <div class="role-grid">
+          <div class="role-card animate-in delay-1" style="border-top-color: #4a9eff;">
+            <h3>
+              <span class="role-icon">&#x1F4A1;</span>
+              <span class="cn-only">新客户开发</span><span class="vn-only">Phat trien KH moi</span><span class="en-only">New Customer Dev</span><span class="ko-only">신규 고객 개발</span><span class="ja-only">新規顧客開拓</span>
+            </h3>
+            <div class="role-links">
+              <a href="scripts/pain-points.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">痛点挖掘框架</span><span class="vn-only">Khung khai thac nhu cau</span><span class="en-only">Pain Points</span><span class="ko-only">니즈 발굴</span><span class="ja-only">ニーズ発掘</span>
+              </a>
+              <a href="scripts/negotiation-sop.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">五步价值谈判法</span><span class="vn-only">SOP Dam phan</span><span class="en-only">Negotiation SOP</span><span class="ko-only">협상 SOP</span><span class="ja-only">交渉SOP</span>
+              </a>
+              <a href="scripts/closing-flow.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">5 步成交话术链</span><span class="vn-only">5 buoc chot don</span><span class="en-only">Closing Flow</span><span class="ko-only">클로징 플로우</span><span class="ja-only">クロージングフロー</span>
+              </a>
+              <a href="resources/account-guide.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">开户操作指南</span><span class="vn-only">Huong dan mo tai khoan</span><span class="en-only">Account Guide</span><span class="ko-only">계좌 개설 가이드</span><span class="ja-only">口座開設ガイド</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-2" style="border-top-color: #a855f7;">
+            <h3>
+              <span class="role-icon">&#x1F91D;</span>
+              <span class="cn-only">客户维护</span><span class="vn-only">Cham soc KH</span><span class="en-only">Customer Care</span><span class="ko-only">고객 관리</span><span class="ja-only">顧客管理</span>
+            </h3>
+            <div class="role-links">
+              <a href="customer/lifecycle-sop.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">生命周期 SOP</span><span class="vn-only">SOP Vong doi</span><span class="en-only">Lifecycle SOP</span><span class="ko-only">라이프사이클 SOP</span><span class="ja-only">ライフサイクルSOP</span>
+              </a>
+              <a href="customer/follow-up-timeline.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">跟进节奏可视化</span><span class="vn-only">Nhip theo doi</span><span class="en-only">Follow-up Timeline</span><span class="ko-only">팔로우업 타임라인</span><span class="ja-only">フォローアップタイムライン</span>
+              </a>
+              <a href="customer/churn-warning.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">客户流失预警</span><span class="vn-only">Canh bao mat KH</span><span class="en-only">Churn Warning</span><span class="ko-only">이탈 경고</span><span class="ja-only">離脱警告</span>
+              </a>
+              <a href="customer/market-volatility.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">行情波动应对</span><span class="vn-only">Ung pho bien dong</span><span class="en-only">Market Volatility</span><span class="ko-only">시장 변동 대응</span><span class="ja-only">市場変動対応</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-3" style="border-top-color: #fb923c;">
+            <h3>
+              <span class="role-icon">&#x1F3E2;</span>
+              <span class="cn-only">团队管理</span><span class="vn-only">Quan ly nhom</span><span class="en-only">Team Mgmt</span><span class="ko-only">팀 관리</span><span class="ja-only">チーム管理</span>
+            </h3>
+            <div class="role-links">
+              <a href="training/bd-assessment.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">BD 招募评估</span><span class="vn-only">Danh gia BD</span><span class="en-only">BD Assessment</span><span class="ko-only">BD 평가</span><span class="ja-only">BD評価</span>
+              </a>
+              <a href="training/training-system-8-modules.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">培训体系 8 大模块</span><span class="vn-only">8 module dao tao</span><span class="en-only">8 Training Modules</span><span class="ko-only">8대 교육 모듈</span><span class="ja-only">8大研修モジュール</span>
+              </a>
+              <a href="daily/meeting-agenda.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">周会议程模板</span><span class="vn-only">Mau chuong trinh hop</span><span class="en-only">Meeting Agenda</span><span class="ko-only">주간 회의 의제</span><span class="ja-only">週次ミーティング議題</span>
+              </a>
+              <a href="daily/weekly-data-card.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">数据闭环</span><span class="vn-only">Vong khep du lieu</span><span class="en-only">Data Loop</span><span class="ko-only">데이터 루프</span><span class="ja-only">データループ</span>
+              </a>
+            </div>
+          </div>
+          <div class="role-card animate-in delay-4" style="border-top-color: #2dd4bf;">
+            <h3>
+              <span class="role-icon">&#x1F4E3;</span>
+              <span class="cn-only">市场推广</span><span class="vn-only">Marketing</span><span class="en-only">Marketing</span><span class="ko-only">마케팅</span><span class="ja-only">マーケティング</span>
+            </h3>
+            <div class="role-links">
+              <a href="scripts/marketing-content.html" class="role-link"><span class="step">1</span>
+                <span class="cn-only">社交媒体营销文案</span><span class="vn-only">Noi dung marketing</span><span class="en-only">Marketing Content</span><span class="ko-only">마케팅 콘텐츠</span><span class="ja-only">マーケティングコンテンツ</span>
+              </a>
+              <a href="scripts/video-scripts.html" class="role-link"><span class="step">2</span>
+                <span class="cn-only">视频 / 语音脚本</span><span class="vn-only">Kich ban video</span><span class="en-only">Video Scripts</span><span class="ko-only">비디오 스크립트</span><span class="ja-only">ビデオスクリプト</span>
+              </a>
+              <a href="scripts/zalo-operation-sop.html" class="role-link"><span class="step">3</span>
+                <span class="cn-only">Zalo 运营 SOP</span><span class="vn-only">SOP Zalo</span><span class="en-only">Zalo SOP</span><span class="ko-only">Zalo SOP</span><span class="ja-only">Zalo SOP</span>
+              </a>
+              <a href="scripts/offline-salon-guide.html" class="role-link"><span class="step">4</span>
+                <span class="cn-only">线下沙龙执行手册</span><span class="vn-only">Huong dan salon</span><span class="en-only">Salon Guide</span><span class="ko-only">살롱 가이드</span><span class="ja-only">サロンガイド</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-logo">NIVEX</div>
+        <p>
+          <span class="cn-only">BD 业务流程平台 - 全站索引与搜索</span>
+          <span class="vn-only">Nen tang quy trinh BD - Tim kiem & Danh muc</span>
+          <span class="en-only">BD Business Platform - Site Map & Search</span>
+          <span class="ko-only">BD 비즈니스 플랫폼 - 사이트맵 & 검색</span>
+          <span class="ja-only">BD ビジネスプラットフォーム - サイトマップ & 検索</span>
+        </p>
+        <p style="margin-top: 10px; color: var(--gray-dark);">2026</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/language.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script>
+    // ========== 全站页面数据 ==========
+    const pages = [
+      // 培训体系 Training (7)
+      { title: 'AI交易逻辑解析', url: 'training/ai-trading-logic.html', desc: '产品核心知识，AI量化交易原理', tags: '产品,AI,量化,交易', module: 'training', moduleName: '培训体系' },
+      { title: 'BD精英团队 - 新人第一课', url: 'training/elite-team-orientation.html', desc: '新人入职培训完整课程', tags: '新人,入职,培训', module: 'training', moduleName: '培训体系' },
+      { title: 'BD培训体系 - 8大实战模块', url: 'training/training-system-8-modules.html', desc: '系统化培训完整体系', tags: '培训,模块,体系', module: 'training', moduleName: '培训体系' },
+      { title: '合作方五年路线图', url: 'training/partner-vision.html', desc: '公司战略规划与愿景', tags: '战略,规划,五年', module: 'training', moduleName: '培训体系' },
+      { title: 'BD招募评估', url: 'training/bd-assessment.html', desc: 'BD面试与能力评估标准', tags: '招募,评估,面试', module: 'training', moduleName: '培训体系' },
+      { title: '客户成长体系200条', url: 'training/growth-200.html', desc: '200条认知金句话术', tags: '认知,金句,话术', module: 'training', moduleName: '培训体系' },
+      { title: 'BD AI使用手册', url: 'training/ai-usage-guide.html', desc: 'AI工具使用指南与提问模板', tags: 'AI,工具,模板', module: 'training', moduleName: '培训体系' },
+
+      // 话术中心 Scripts (15)
+      { title: '五步价值谈判法', url: 'scripts/negotiation-sop.html', desc: '核心谈判流程与话术', tags: '谈判,话术,成交', module: 'scripts', moduleName: '话术中心' },
+      { title: '社交媒体营销文案', url: 'scripts/marketing-content.html', desc: '朋友圈/Zalo营销文案全集', tags: '营销,文案,社交', module: 'scripts', moduleName: '话术中心' },
+      { title: 'FAQ客户常见问题', url: 'scripts/faq.html', desc: '32题常见问题速查', tags: 'FAQ,问题,速查', module: 'scripts', moduleName: '话术中心' },
+      { title: 'Zalo运营手册', url: 'scripts/zalo-guide.html', desc: 'Zalo基础运营指南', tags: 'Zalo,运营,社交', module: 'scripts', moduleName: '话术中心' },
+      { title: '视频/语音话术脚本', url: 'scripts/video-scripts.html', desc: '视频和语音内容脚本', tags: '视频,语音,脚本', module: 'scripts', moduleName: '话术中心' },
+      { title: '话术效果追踪', url: 'scripts/script-tracking.html', desc: '话术效果评分与迭代', tags: '追踪,评分,迭代', module: 'scripts', moduleName: '话术中心' },
+      { title: '痛点挖掘框架', url: 'scripts/pain-points.html', desc: '客户痛点识别与回应', tags: '痛点,挖掘,需求', module: 'scripts', moduleName: '话术中心' },
+      { title: '5步成交话术链', url: 'scripts/closing-flow.html', desc: '完整成交流程话术', tags: '成交,话术,流程', module: 'scripts', moduleName: '话术中心' },
+      { title: '常见顾虑回应(10大异议)', url: 'scripts/objection-handling.html', desc: '10大核心异议处理', tags: '异议,顾虑,回应', module: 'scripts', moduleName: '话术中心' },
+      { title: '市场异议库', url: 'scripts/market-objections.html', desc: '越南/中国/韩国市场异议', tags: '市场,异议,本地化', module: 'scripts', moduleName: '话术中心' },
+      { title: '异议收集与迭代机制', url: 'scripts/objection-collection.html', desc: '异议收集4步工作流', tags: '收集,迭代,机制', module: 'scripts', moduleName: '话术中心' },
+      { title: '越南市场获客地图', url: 'scripts/vietnam-market-map.html', desc: '34省市场分级+渠道矩阵', tags: '越南,获客,市场', module: 'scripts', moduleName: '话术中心' },
+      { title: 'Zalo运营SOP', url: 'scripts/zalo-operation-sop.html', desc: 'Zalo深度运营标准流程', tags: 'Zalo,SOP,运营', module: 'scripts', moduleName: '话术中心' },
+      { title: '线下沙龙执行手册', url: 'scripts/offline-salon-guide.html', desc: '3种规格线下活动SOP', tags: '沙龙,线下,活动', module: 'scripts', moduleName: '话术中心' },
+      { title: '转介绍裂变机制', url: 'scripts/referral-system.html', desc: '转介绍5场景+3套激励', tags: '转介绍,裂变,增长', module: 'scripts', moduleName: '话术中心' },
+
+      // 客户维护 Customer (8)
+      { title: '6步客户生命周期SOP', url: 'customer/lifecycle-sop.html', desc: '完整客户服务流程', tags: '生命周期,SOP,流程', module: 'customer', moduleName: '客户维护' },
+      { title: 'A/B/C客户分类', url: 'customer/abc-classification.html', desc: '客户分级管理标准', tags: '分类,分级,管理', module: 'customer', moduleName: '客户维护' },
+      { title: '跟进节奏可视化', url: 'customer/follow-up-timeline.html', desc: 'Day0-Day90跟进节奏表', tags: '跟进,节奏,时间', module: 'customer', moduleName: '客户维护' },
+      { title: '大客户维护策略', url: 'customer/vip-strategy.html', desc: 'VIP $20,000+服务方案', tags: 'VIP,大客户,策略', module: 'customer', moduleName: '客户维护' },
+      { title: '客户流失预警手册', url: 'customer/churn-warning.html', desc: '5大流失信号+3级预警', tags: '流失,预警,挽回', module: 'customer', moduleName: '客户维护' },
+      { title: '行情波动应对手册', url: 'customer/market-volatility.html', desc: '4级波动应对+5场景话术', tags: '行情,波动,应对', module: 'customer', moduleName: '客户维护' },
+      { title: '加仓引导手册', url: 'customer/upsell-guide.html', desc: '4个黄金时机+4套话术', tags: '加仓,引导,增长', module: 'customer', moduleName: '客户维护' },
+      { title: '客户成功案例库', url: 'customer/success-cases.html', desc: '成功案例+失败教训', tags: '案例,成功,参考', module: 'customer', moduleName: '客户维护' },
+
+      // 日常工作 Daily (7)
+      { title: '目标达成行动指南', url: 'daily/goal-action-guide.html', desc: '第一性原理目标分解', tags: '目标,行动,计划', module: 'daily', moduleName: '日常工作' },
+      { title: '48小时行动方案', url: 'daily/action-plan.html', desc: '快速成交5步法', tags: '行动,48小时,成交', module: 'daily', moduleName: '日常工作' },
+      { title: 'BD每日AI工作清单', url: 'daily/ai-daily-checklist.html', desc: '5时段AI提问模板', tags: 'AI,每日,清单', module: 'daily', moduleName: '日常工作' },
+      { title: 'BD标杆周报示例', url: 'daily/weekly-report-example.html', desc: '标杆周报模板参考', tags: '周报,模板,参考', module: 'daily', moduleName: '日常工作' },
+      { title: 'BD周会议程模板', url: 'daily/meeting-agenda.html', desc: '45分钟标准议程', tags: '周会,议程,模板', module: 'daily', moduleName: '日常工作' },
+      { title: 'BD周数据卡', url: 'daily/weekly-data-card.html', desc: '6板块数据收集标准', tags: '数据,周报,收集', module: 'daily', moduleName: '日常工作' },
+      { title: 'AI周报分析工作流', url: 'daily/ai-weekly-analysis.html', desc: '4步AI分析+3大模板', tags: 'AI,分析,周报', module: 'daily', moduleName: '日常工作' },
+
+      // 资源支持 Resources (8)
+      { title: '用户成长白皮书', url: 'resources/whitepaper.html', desc: '8章完整知识体系', tags: '白皮书,知识,体系', module: 'resources', moduleName: '资源支持' },
+      { title: '素材资料库', url: 'resources/media-library.html', desc: 'PPT/图片/海报/视频素材', tags: '素材,资料,下载', module: 'resources', moduleName: '资源支持' },
+      { title: '开户操作指南', url: 'resources/account-guide.html', desc: '6步开户+BD辅助话术', tags: '开户,指南,操作', module: 'resources', moduleName: '资源支持' },
+      { title: 'AI产品对比表', url: 'resources/product-comparison.html', desc: '5款AI产品横评', tags: '产品,对比,选择', module: 'resources', moduleName: '资源支持' },
+      { title: '资源下载中心', url: 'resources/downloads.html', desc: '模板与工具下载', tags: '下载,模板,工具', module: 'resources', moduleName: '资源支持' },
+      { title: '专业术语表', url: 'resources/glossary.html', desc: '120+术语中越双语', tags: '术语,词汇,翻译', module: 'resources', moduleName: '资源支持' },
+      { title: '多语言版本管理', url: 'resources/multilingual-status.html', desc: '67+页面翻译进度', tags: '多语言,翻译,进度', module: 'resources', moduleName: '资源支持' },
+      { title: '翻译工作流SOP', url: 'resources/translation-workflow.html', desc: '母版翻译5步流程', tags: '翻译,SOP,工作流', module: 'resources', moduleName: '资源支持' },
+
+      // 演示文件 Presentations (12)
+      { title: 'NIVEX 交易所介绍 (0204版)', url: 'presentations/NIVEX_交易所介绍_20260204.html', desc: '交易所核心介绍演示', tags: '介绍,交易所,演示', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 交易所介绍 (0129版)', url: 'presentations/NIVEX_交易所介绍_20260129.html', desc: '交易所介绍早期版本', tags: '介绍,交易所,演示', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 韩国客户 - 新风格', url: 'presentations/NIVEX_韩国客户_新风格.html', desc: '韩国市场新设计风格', tags: '韩国,客户,新风格', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 韩国客户 - 浅色风格', url: 'presentations/NIVEX_韩国客户_浅色风格.html', desc: '韩国市场浅色主题', tags: '韩国,客户,浅色', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 新客户全生命周期服务流程', url: 'presentations/NIVEX_新客户全生命周期服务流程_20260128.html', desc: '客户服务流程演示', tags: '客户,生命周期,服务', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 韩国客户分享会', url: 'presentations/NIVEX_韩国客户分享会_20260129.html', desc: '韩国市场分享演示', tags: '韩国,分享会,市场', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX NXT积分空投', url: 'presentations/NIVEX_NXT积分空投_20260128.html', desc: 'NXT积分空投活动介绍', tags: 'NXT,积分,空投', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 韩国客户分享会 (AK版)', url: 'presentations/NIVEX_韩国客户分享会_AK版_20260129.html', desc: 'AK定制韩国分享演示', tags: '韩国,AK版,分享', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 交易所介绍 PDF版', url: 'presentations/NIVEX_交易所介绍_PDF版_20260129.html', desc: '可导出PDF的介绍版本', tags: '介绍,PDF,导出', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 交易所介绍 完整版', url: 'presentations/NIVEX_交易所介绍_完整版_20260206.html', desc: '最完整的交易所介绍', tags: '介绍,完整版,推荐', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 2025-2026年度总结与展望', url: 'presentations/NIVEX_2025-2026年度总结与展望_20260206.html', desc: '年度总结与未来展望', tags: '年度,总结,展望', module: 'presentations', moduleName: '演示文件' },
+      { title: 'NIVEX 五年发展规划', url: 'presentations/NIVEX_五年发展规划_2026.02.07.html', desc: '2026-2030五年战略规划', tags: '五年,规划,战略', module: 'presentations', moduleName: '演示文件' },
+    ];
+
+    // ========== 模块配色映射 ==========
+    const moduleColors = {
+      training: 'tag-training',
+      scripts: 'tag-scripts',
+      customer: 'tag-customer',
+      daily: 'tag-daily',
+      resources: 'tag-resources',
+      presentations: 'tag-presentations'
+    };
+
+    // ========== 初始化渲染 ==========
+    function renderAllModules() {
+      const modules = ['training', 'scripts', 'customer', 'daily', 'resources', 'presentations'];
+      modules.forEach(function(mod) {
+        var container = document.getElementById('body-' + mod);
+        var modulePages = pages.filter(function(p) { return p.module === mod; });
+        container.innerHTML = modulePages.map(function(p) {
+          return buildPageCard(p, '');
+        }).join('');
+      });
+    }
+
+    function buildPageCard(page, query) {
+      var title = query ? highlightText(page.title, query) : page.title;
+      var desc = query ? highlightText(page.desc, query) : page.desc;
+      var tagList = page.tags.split(',').map(function(t) {
+        var tagText = query ? highlightText(t.trim(), query) : t.trim();
+        return '<span class="page-tag ' + moduleColors[page.module] + '">' + tagText + '</span>';
+      }).join('');
+
+      return '<a href="' + page.url + '" class="page-card" data-module="' + page.module + '">' +
+        '<div class="page-info">' +
+          '<div class="page-title">' + title + '</div>' +
+          '<div class="page-desc">' + desc + '</div>' +
+          '<div class="page-tags">' + tagList + '</div>' +
+        '</div>' +
+        '<span class="page-arrow">&#x2192;</span>' +
+      '</a>';
+    }
+
+    function highlightText(text, query) {
+      if (!query) return text;
+      var regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function escapeRegExp(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // ========== 搜索功能 ==========
+    var searchInput = document.getElementById('searchInput');
+    var clearBtn = document.getElementById('clearBtn');
+    var resultCount = document.getElementById('resultCount');
+    var noResults = document.getElementById('noResults');
+    var statsSection = document.getElementById('statsSection');
+    var roleSection = document.getElementById('roleSection');
+
+    searchInput.addEventListener('input', function() {
+      var query = this.value.trim();
+      clearBtn.className = query ? 'clear-btn visible' : 'clear-btn';
+      performSearch(query);
+    });
+
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      clearBtn.className = 'clear-btn';
+      performSearch('');
+      searchInput.focus();
+    });
+
+    function performSearch(query) {
+      if (!query) {
+        // 恢复默认
+        renderAllModules();
+        resultCount.innerHTML = '';
+        noResults.style.display = 'none';
+        statsSection.style.display = '';
+        document.querySelectorAll('.role-section').forEach(function(el) { el.style.display = ''; });
+        document.querySelectorAll('.module-section').forEach(function(el) { el.style.display = ''; });
+        return;
+      }
+
+      var q = query.toLowerCase();
+      var matched = pages.filter(function(p) {
+        return p.title.toLowerCase().indexOf(q) !== -1 ||
+               p.desc.toLowerCase().indexOf(q) !== -1 ||
+               p.tags.toLowerCase().indexOf(q) !== -1 ||
+               p.module.toLowerCase().indexOf(q) !== -1 ||
+               p.moduleName.toLowerCase().indexOf(q) !== -1;
+      });
+
+      // 隐藏统计和角色区域
+      statsSection.style.display = 'none';
+      document.querySelectorAll('.role-section').forEach(function(el) { el.style.display = 'none'; });
+
+      // 更新计数
+      resultCount.innerHTML = '<span class="cn-only">找到 <strong>' + matched.length + '</strong> 个页面</span>' +
+        '<span class="vn-only">Tim thay <strong>' + matched.length + '</strong> trang</span>' +
+        '<span class="en-only">Found <strong>' + matched.length + '</strong> pages</span>' +
+        '<span class="ko-only"><strong>' + matched.length + '</strong>개 페이지 발견</span>' +
+        '<span class="ja-only"><strong>' + matched.length + '</strong> ページが見つかりました</span>';
+
+      // 按模块分组渲染
+      var modules = ['training', 'scripts', 'customer', 'daily', 'resources', 'presentations'];
+      var hasAnyResult = false;
+
+      modules.forEach(function(mod) {
+        var container = document.getElementById('body-' + mod);
+        var section = document.getElementById('module-' + mod);
+        var moduleMatches = matched.filter(function(p) { return p.module === mod; });
+
+        if (moduleMatches.length === 0) {
+          section.style.display = 'none';
+          container.innerHTML = '';
+        } else {
+          hasAnyResult = true;
+          section.style.display = '';
+          // 确保展开
+          var header = section.querySelector('.module-header');
+          var body = section.querySelector('.module-body');
+          header.classList.add('active');
+          body.classList.add('open');
+          // 更新badge
+          var badge = header.querySelector('.badge');
+          badge.textContent = moduleMatches.length;
+
+          container.innerHTML = moduleMatches.map(function(p) {
+            return buildPageCard(p, query);
+          }).join('');
+        }
+      });
+
+      noResults.style.display = hasAnyResult ? 'none' : 'block';
+    }
+
+    // ========== 模块折叠 ==========
+    function toggleModule(mod) {
+      var header = document.querySelector('#module-' + mod + ' .module-header');
+      var body = document.getElementById('body-' + mod);
+      header.classList.toggle('active');
+      body.classList.toggle('open');
+    }
+
+    function scrollToModule(mod) {
+      var el = document.getElementById('module-' + mod);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // 确保展开
+        var header = el.querySelector('.module-header');
+        var body = el.querySelector('.module-body');
+        if (!header.classList.contains('active')) {
+          header.classList.add('active');
+          body.classList.add('open');
+        }
+      }
+    }
+
+    // ========== 键盘快捷键 ==========
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + K 聚焦搜索
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      }
+      // Escape 清除搜索
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        clearBtn.className = 'clear-btn';
+        performSearch('');
+        searchInput.blur();
+      }
+    });
+
+    // ========== 初始化 ==========
+    renderAllModules();
+  </script>
+</body>
+</html>

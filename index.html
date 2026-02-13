@@ -228,6 +228,11 @@
     @media (max-width: 768px) {
       .scenario-grid-4 { grid-template-columns: 1fr !important; }
     }
+
+    /* 新人引导+全站索引响应式 */
+    @media (max-width: 768px) {
+      .onboarding-sitemap-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -498,6 +503,86 @@
             </div>
             <div style="color: var(--gray); font-size: 0.8rem;">
               <span class="cn-only">"怎么合作？推荐奖励？"</span><span class="vn-only">"Hợp tác thế nào?"</span><span class="en-only">"How to partner?"</span><span class="ko-only">"어떻게 파트너가 되나요?"</span><span class="ja-only">"パートナーになるには？"</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🚀 新人必看 + 全站索引 -->
+    <section style="padding: 50px 0; background: linear-gradient(180deg, transparent 0%, rgba(127,255,0,0.04) 50%, transparent 100%);">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+          <!-- 新人入职引导 -->
+          <a href="onboarding-path.html" style="text-decoration: none; display: block; background: linear-gradient(135deg, rgba(127,255,0,0.12) 0%, rgba(127,255,0,0.04) 100%); border: 2px solid rgba(127,255,0,0.3); border-radius: 16px; padding: 35px 30px; transition: all 0.3s ease; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='var(--green)';this.style.boxShadow='0 15px 40px rgba(127,255,0,0.15)'" onmouseout="this.style.transform='none';this.style.borderColor='rgba(127,255,0,0.3)';this.style.boxShadow='none'">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 12px;">
+              <span style="font-size: 2.5rem;">🚀</span>
+              <div>
+                <h3 style="color: var(--green); font-size: 1.3rem; margin-bottom: 3px;">
+                  <span class="cn-only">新人入职引导</span>
+                  <span class="vn-only">Hướng dẫn nhập môn</span>
+                  <span class="en-only">Onboarding Guide</span>
+                  <span class="ko-only">신입 온보딩 가이드</span>
+                  <span class="ja-only">新人オンボーディング</span>
+                </h3>
+                <span style="background: var(--green); color: var(--bg); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 10px;">
+                  <span class="cn-only">7天速成</span>
+                  <span class="vn-only">7 ngày</span>
+                  <span class="en-only">7 Days</span>
+                  <span class="ko-only">7일 코스</span>
+                  <span class="ja-only">7日間</span>
+                </span>
+              </div>
+            </div>
+            <p style="color: var(--gray-light); font-size: 0.95rem; line-height: 1.6;">
+              <span class="cn-only">从零开始，7天成为合格BD。每天一个主题，从产品知识→话术技能→客户管理→AI工具，全覆盖。</span>
+              <span class="vn-only">Từ zero đến BD chuyên nghiệp trong 7 ngày. Mỗi ngày một chủ đề, từ kiến thức → kỹ năng → quản lý → công cụ AI.</span>
+              <span class="en-only">From zero to qualified BD in 7 days. One topic per day: product knowledge → scripts → customer management → AI tools.</span>
+              <span class="ko-only">7일 만에 제로에서 전문 BD로. 매일 하나의 주제: 제품 지식 → 스크립트 → 고객 관리 → AI 도구.</span>
+              <span class="ja-only">7日間でゼロから一人前のBDへ。毎日1テーマ：製品知識→スクリプト→顧客管理→AIツール。</span>
+            </p>
+            <div style="margin-top: 12px; color: var(--green); font-size: 0.85rem; font-weight: 600;">
+              <span class="cn-only">点击开始你的第一天 →</span>
+              <span class="vn-only">Bắt đầu ngày đầu tiên →</span>
+              <span class="en-only">Start your Day 1 →</span>
+              <span class="ko-only">첫째 날 시작 →</span>
+              <span class="ja-only">初日を始めよう →</span>
+            </div>
+          </a>
+          <!-- 全站索引 -->
+          <a href="site-map.html" style="text-decoration: none; display: block; background: linear-gradient(135deg, rgba(74,158,255,0.12) 0%, rgba(74,158,255,0.04) 100%); border: 2px solid rgba(74,158,255,0.3); border-radius: 16px; padding: 35px 30px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)';this.style.borderColor='#4a9eff';this.style.boxShadow='0 15px 40px rgba(74,158,255,0.15)'" onmouseout="this.style.transform='none';this.style.borderColor='rgba(74,158,255,0.3)';this.style.boxShadow='none'">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 12px;">
+              <span style="font-size: 2.5rem;">🗺️</span>
+              <div>
+                <h3 style="color: #4a9eff; font-size: 1.3rem; margin-bottom: 3px;">
+                  <span class="cn-only">全站索引与搜索</span>
+                  <span class="vn-only">Chỉ mục & Tìm kiếm</span>
+                  <span class="en-only">Site Map & Search</span>
+                  <span class="ko-only">사이트맵 & 검색</span>
+                  <span class="ja-only">サイトマップ & 検索</span>
+                </h3>
+                <span style="background: #4a9eff; color: var(--bg); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 10px;">
+                  <span class="cn-only">61个页面</span>
+                  <span class="vn-only">61 trang</span>
+                  <span class="en-only">61 Pages</span>
+                  <span class="ko-only">61 페이지</span>
+                  <span class="ja-only">61ページ</span>
+                </span>
+              </div>
+            </div>
+            <p style="color: var(--gray-light); font-size: 0.95rem; line-height: 1.6;">
+              <span class="cn-only">找不到页面？输入关键词即可搜索。按模块、角色、场景三种方式浏览全部内容。</span>
+              <span class="vn-only">Không tìm thấy trang? Nhập từ khóa để tìm. Duyệt theo module, vai trò hoặc tình huống.</span>
+              <span class="en-only">Can't find a page? Search by keyword. Browse by module, role, or scenario.</span>
+              <span class="ko-only">페이지를 찾을 수 없나요? 키워드로 검색하세요. 모듈, 역할, 시나리오별로 탐색.</span>
+              <span class="ja-only">ページが見つからない？キーワードで検索。モジュール、役割、シナリオ別に閲覧。</span>
+            </p>
+            <div style="margin-top: 12px; color: #4a9eff; font-size: 0.85rem; font-weight: 600;">
+              <span class="cn-only">搜索全部内容 →</span>
+              <span class="vn-only">Tìm kiếm tất cả →</span>
+              <span class="en-only">Search all content →</span>
+              <span class="ko-only">전체 콘텐츠 검색 →</span>
+              <span class="ja-only">すべてのコンテンツを検索 →</span>
             </div>
           </a>
         </div>
